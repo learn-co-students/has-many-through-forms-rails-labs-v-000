@@ -1,0 +1,15 @@
+
+
+<%= form_for @comment do |f| %>
+  <%= f.label "content" %><br>
+  <%= f.text_area :content %><br><br>
+  <%#= f.label "Content" %><br>
+  <%#= f.text_area :content %><br><br>
+  <%#= f.label "Category Tags" %><br>
+  <%#= f.collection_check_boxes :category_ids, Category.all, :id, :name %><br><br>
+  <%#= f.label "Create New Category Tag" %><br>
+  <%#= f.fields_for :categories, post.categories.build do |categories_fields| %>
+    <%#= categories_fields.text_field :name %><br>
+  <%# end %><br>
+  <%= f.submit %>
+<% end %>

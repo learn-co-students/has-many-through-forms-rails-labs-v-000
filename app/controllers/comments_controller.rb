@@ -5,8 +5,13 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.create(comment_params)
-    redirect_to post_path(@comment.post)
+    comment = Comment.create(comment_params)
+    redirect_to post_path(comment.post)
+  end
+
+  def create
+    post = Post.create(post_params)
+    redirect_to post_path(post)
   end
 
   private

@@ -5,4 +5,8 @@ class Post < ActiveRecord::Base
   has_many :users, through: :comments
 
   accepts_nested_attributes_for :categories
+
+  def users_who_commented
+    self.users.uniq
+  end
 end

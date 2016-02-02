@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    
   end
 
   def index
@@ -19,6 +20,8 @@ class PostsController < ApplicationController
   private
 
   def post_params
+    #require 'pry'
+    #binding.pry
     params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
   end
 end

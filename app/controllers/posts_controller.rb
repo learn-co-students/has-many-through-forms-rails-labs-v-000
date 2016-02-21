@@ -3,6 +3,8 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @comment = Comment.new
     @comment.post = @post
+    @user = User.new
+    @comment.user = @user
   end
 
   def index

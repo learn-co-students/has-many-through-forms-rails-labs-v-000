@@ -1,1 +1,4 @@
-
+<h2>Posts with comments</h2>
+<% @user.comments.each do |comment| %>
+  <p><%= link_to comment.post.title, comment.post %></p>
+<% end %>

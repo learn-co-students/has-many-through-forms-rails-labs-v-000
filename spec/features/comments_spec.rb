@@ -13,6 +13,8 @@ describe 'comments', type: 'feature' do
     fill_in('comment_content', with: 'great post!')
     select(@user.username, from: 'comment_user_id')
     click_button('Create Comment')
+      save_and_open_page
+    
     expect(page).to have_content("#{@user.username} says: great post!")
   end
 

@@ -1,8 +1,12 @@
 class CommentsController < ApplicationController
 
   def create
+    @post = Post.find(params[:post_id])
     comment = Comment.create(comment_params)
-    redirect_to comment.post
+    comment.post = @post
+    comment.save
+
+    redirect_to post_path(@post)
   end
 
   private

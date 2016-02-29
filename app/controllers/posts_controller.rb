@@ -1,9 +1,9 @@
 require 'pry'
 class PostsController < ApplicationController
 
-  def show
-    @post = Post.find(params[:id])
-  end
+  #def show
+  #  @post = Post.find(params[:id])
+  #end
 
   def index
     @posts = Post.all
@@ -14,8 +14,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.create(post_params)
-    redirect_to @post
+    post = Post.create(post_params)
+    redirect_to post
   end
 
   def update
@@ -27,7 +27,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-  
-    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name], comments_attributes: [:user_id, :content, user_attributes: [:username]])
+    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
+    #params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name], comments_attributes: [:user_id, :content, user_attributes: [:username]])
   end
 end

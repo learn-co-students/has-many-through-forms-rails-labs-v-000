@@ -1,6 +1,7 @@
-<h1>Listing posts for category <%= @category.name %></h1>
+<h1><%= @category.name %></h1>
+
 <ul>
   <% @category.posts.each do |post| %>
-       <li><%= link_to post.title, post_path(post) %></li>
+    <li><%= link_to post.title, post_path(post) %></li>
   <% end %>
 </ul>

@@ -1,12 +1,11 @@
 <h1><%= @post.title%></h1>
 <p><%= @post.content %></p>
-<h3>Create a new comment:</h3>
 
 <% if @post.comments.any? %>
   <h3>Listing Comments</h3>
   <ul>
     <% @post.comments.each do |comment| %>
-      <li><%= comment.content %></li>
+      <li><%= comment.user.username %> says: <%= comment.content %></li>
     <% end %>
   </ul>
   <p>The following users commented on this post:</p>
@@ -19,13 +18,18 @@
   <p> No comments yet for this post</p>
 <% end %>
 
+<h3>Create a new comment:</h3>
 <%= form_for @post do |f| %>
-  <%= f.fields_for :comments, @post.comments.build do |comment| %>
+  <%= f.fields_for :comments, @comment = @post.comments.build do |comment| %>
     <%= comment.label :user_id %><br>
-    <%= comment.collection_select :user_id, User.all, :id, :username %><br>
+    <%= comment.collection_select :user_id, User.all, :id, :username, {:include_blank => 'Select a user or create'}, {:id => "comment_user_id"} %><br>
+    <%= comment.label :new_user %><br>
+    <%= comment.fields_for :user_attributes, @comment.build_user do |user| %>
+      <%= user.text_field :username %><br>
+    <% end %>
     <%= comment.label :content %><br>
     <%= comment.text_field :content, id: 'comment_content' %><br>
   <% end %>
-  <%= f.submit %>
+  <%= f.submit "Create Comment"%>
 <% end %>
 

@@ -1,1 +1,28 @@
+<h1><%= @post.title %></h1>
+<div><%= @post.content %></div>
 
+<h3>Categories</h3>
+<ul>
+<%= @post.categories.each do |category| %>
+  <li><%= link_to category.name, category_path(category) %></li>
+<% end %>
+</ul>
+
+<h3>Users</h3>
+<ul>
+<%= @post.unique_users.each do |user| %>
+  <li><%= link_to user.username, user_path(user) %></li>
+<% end %>
+</ul>
+
+<h3>Comments</h3>
+<!-- Comments display -->
+<ul>
+<%= @post.comments.each do |comment| %>
+  <li><%= comment.commenter %> says: <%= comment.content %></li>
+<% end %>
+</ul>
+
+<!-- Comment form -->
+<%= render partial: "new_comment_form", locals: {comment: @post.comments.build} %>
+<br>

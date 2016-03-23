@@ -1,14 +1,20 @@
-<%= @post.title %>
+<h1>Post: <%= @post.title %></h1>
 
-<% @post.categories.each do |c| %>
-  <%= c.name %>
-<% end %>
+<h2>Categories:</h2>
+  <% @post.categories.each do |c| %>
+    <%= c.name %><br />
+  <% end %>
 
-<%= @post.content %>
+<%= @post.content %><br />
 
-<% if @post.comments %>
+
+<%= render "comments/new", post: @post %>
+
+
+<% if !@post.comments.empty? %>
   <% @post.comments.each do |c| %>
-  <%= c.content %>
-  <%= link_to c.user.username, user_path(c.user) %>
+    <% if c.user %>
+      <%= c.user.username %> says: <%= c.content %><br />
+    <% end %>
   <% end %>
 <% end %>

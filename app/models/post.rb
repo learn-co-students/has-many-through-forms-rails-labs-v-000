@@ -13,4 +13,8 @@ class Post < ActiveRecord::Base
     end
   end
 
+  def unique_commenters
+    self.users.distinct
+  end
+
   end

@@ -1,1 +1,10 @@
 <h1>Categories, bitches</h1>
+
+<h1><%= @category.name %></h1>
+
+<p>Posts:</p>
+<% @category.posts.each do |p| %>
+  <%= link_to p.title, post_path(p) %>
+
+<% end %>
+

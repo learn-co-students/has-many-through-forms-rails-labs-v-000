@@ -9,11 +9,13 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @post.categories.build(name:"")
   end
 
   def create
+# byebug
     post = Post.create(post_params)
-    redirect_to post
+    redirect_to post_path(post)
   end
 
   private

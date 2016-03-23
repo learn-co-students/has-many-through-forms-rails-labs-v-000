@@ -1,1 +1,14 @@
+<%= @post.title %>
 
+<% @post.categories.each do |c| %>
+  <%= c.name %>
+<% end %>
+
+<%= @post.content %>
+
+<% if @post.comments %>
+  <% @post.comments.each do |c| %>
+  <%= c.content %>
+  <%= link_to c.user.username, user_path(c.user) %>
+  <% end %>
+<% end %>

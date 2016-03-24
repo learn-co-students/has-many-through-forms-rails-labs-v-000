@@ -13,6 +13,7 @@
   <%= f.fields_for :user_attributes do |user_fields| %> 
     <%= user_fields.text_field :username %>
   <% end %>
+  <p>Comment:</p>
   <p><%= f.text_area :content %></p>
   <p><%= f.submit %></p>
 <% end %>
@@ -27,12 +28,7 @@
 <ul class="comments">
   <% @post.comments.each do |comment| %>
     <li>
-      <div class="comment-content">
-        <%= comment.content %>
-      </div>
-      <div class="comment-username">
-        <%= comment.user_name %>
-      </div>
+      <%= comment.user_name %> says: <%= comment.content %>
     </li>
   <% end %>  
 </ul>

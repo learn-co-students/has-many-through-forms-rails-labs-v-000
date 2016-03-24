@@ -1,1 +1,24 @@
+<h1><%= @post.title %></h1>
+<h4><% @post.categories.collect do |category| %>
+    <%= link_to category.name, category_path(category) %>
+<% end %></h4>
+<p><%= @post.content %></p>
 
+<p><%= pluralize(@post.comment_count, "comment") %></p>
+<ul class="comma-list">
+  <% @post.commented_users.each do |user| %> 
+    <li><%= link_to user.username, user_path(user) %></li>
+  <% end %>
+</ul>
+<ul class="comments">
+  <% @post.comments.each do |comment| %>
+    <li>
+      <div class="comment-content">
+        <%= comment.content %>
+      </div>
+      <div class="comment-username">
+        <%= comment.user_name %>
+      </div>
+    </li>
+  <% end %>  
+</ul>

@@ -1,0 +1,47 @@
+<div class=post-content>
+  <h2><%= @post.title %></h2>
+  <ul>
+  <% @post.categories.each do |category| %>
+    <li><%= link_to category.name, category_path(category) %></li>
+  <% end %>
+  </ul>
+
+  <p><%= @post.content %></p>
+  <hr>
+
+  <ul>
+    <% if @post.comments.size==1 && @post.comments.first.user_id.nil? %>
+      <li>--no comments yet--</li>
+    <% else %>
+      <% @post.comments.each do |comment| %>
+        <li><%= comment.username %> says:<br>
+          <p><%= comment.content %></p></li>
+      <% end %>
+    <% end %>
+  </ul>
+
+  <hr>
+
+  <h5>Current commenters:</h5>
+  <ul>
+    <% @post.users.uniq.each do |user| %>
+      <li><%= link_to user.username, user_path(user) %></li>
+    <% end %>
+  </ul>
+
+  <h4>Add a Comment</h4>
+  <%= form_for @post.comments.build do |f| %>
+    <%= f.hidden_field :post_id %>
+    <%= f.label :user %><br>
+    <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "...select" %><br>
+    <%= f.label "Content" %><br>
+    <%= f.text_area :content %><br>
+    <%= f.label "New Username" %>
+    <%= f.fields_for :user, @comment.user do |comment_f| %>
+      <%= comment_f.text_field :username %>
+    <% end %>
+
+    <%= f.submit "Create Comment" %>
+  <% end %>
+
+</div>

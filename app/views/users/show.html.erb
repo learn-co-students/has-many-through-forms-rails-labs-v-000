@@ -1,1 +1,7 @@
-
+<h3><%= @user.username%>'s page!</h3>
+<h5>All the posts they've commented on:</h5>
+<ul>
+  <% @user.comments.each do |comment| %>
+    <li><%= link_to comment.post.title, post_path(comment.post) %></li>
+  <% end %>
+</ul>

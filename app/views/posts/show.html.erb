@@ -1,6 +1,13 @@
 
 <%= @post.title %>
 <%= @post.content %>
+
+<h3>Categories</h3>
+<ul>
+  <% @post.categories.each do |category| %>
+  <li><%= category.name %></li>
+  <%end%>
+</ul>
 <ul>
 
 <h3>Comments</h3>
@@ -22,11 +29,15 @@
   <%= f.label :content %>
   <%= f.text_area :content %>
 
+  Select existing user:
   <%= f.collection_select :user_id, User.all, :id, :username %>
   <%= f.hidden_field :post_id %>
 
-  <%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
-  <%= user_fields.text_field :username %>
+  Create a new User:
+  <%= f.fields_for :user, @post.users.build do |u| %>
+  <%= u.label :username %>
+  <%= u.text_field :username %>
   <% end %>
+
   <%= f.submit %>
 <% end %>

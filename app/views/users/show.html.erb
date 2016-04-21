@@ -1,1 +1,5 @@
+<h3>Posts Commented On:</h3>
 
+<%@user.posts.each do |post|%>	
+	<%=link_to post.title, post_path(post)%>
+<%end%>

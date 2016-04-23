@@ -45,4 +45,5 @@ group :development, :test do
   gem 'capybara'
   gem 'pry'
   gem 'database_cleaner'
+  gem 'launchy', '~> 2.4', '>= 2.4.3'
 end

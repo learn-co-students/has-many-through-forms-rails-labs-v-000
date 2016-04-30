@@ -1,1 +1,41 @@
 
+<h2><%=@post.title%></h2> by
+
+<p>
+  <%=@post.content%><br>
+
+</p>
+<%@post.categories.all.each do |category|%>
+  <%=category.name%>
+  <%end%>
+<p>
+  <h2>POST COMMENTS!</h2>
+
+
+
+  <%@post.comments.each do |c|%>
+    <%if c.user%>
+  <p><%=c.user.username%> says: <%=c.content%> </p>
+    <%end%>
+  <%end%>
+
+  Users in discussion:
+  <%User.all.each do |user|%>
+  <%if user.comments.any?{|comment| comment.post_id = @post.id}%>
+    <%= link_to user.username, user_path(user)  %>
+    <%end%>
+  <%end%>
+</p>
+<h3>Add a comment below</h3>
+
+  <%=form_for @comment do |f|%>
+    <%=f.label :content%>
+    <%=f.text_field :content%><br/>
+    <%=f.hidden_field :post_id, value:@post.id%>
+    <%=f.collection_select :user_id, User.all,:id,:username%><br>
+    <%=f.fields_for :user, @comment.build_user do |user_fields|%><br>
+      <%=user_fields.label :username%>
+      <%=user_fields.text_field :username%><br>
+    <%end%>
+      <%=f.submit%>
+    <%end%>

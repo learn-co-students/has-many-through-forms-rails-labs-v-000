@@ -1,1 +1,5 @@
-
+<%=@user.posts.each do |post|%>
+  <%if post.comments.any? {|comment| comment.user_id = @user.id} %>
+    <%=link_to post.title, post_path(post)%>
+  <%end%>
+<%end%>

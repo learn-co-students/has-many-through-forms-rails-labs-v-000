@@ -1,1 +1,21 @@
-
+<h1><%= @post.title %></h1>
+<p>
+  <%= @post.content %>
+</p>
+<h3>Categories</h3>
+<% @post.categories.each do |category| %>
+  <%= link_to category.name, category %>
+<% end %>
+<p>
+  Add a Comment:
+</p>
+<%= form_for Comment.new do |f| %>
+  <%= f.text_area :content %>
+  <%= f.collection_select :user_id, User.all, :id, :username %>
+  <%= f.submit %>
+<% end %>
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li><%= comment.user.username %> said: <%= comment.content %></li>
+  <% end %>
+</ul>

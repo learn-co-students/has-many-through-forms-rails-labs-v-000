@@ -1,0 +1,13 @@
+<%= form_for  @comment do |f| %>
+  <%= f.label :comment_content %>
+  <input name="content" value="contnet">
+  <%= f.text_field :content %><br><br>
+
+  <%= f.label :"choose an existing user" %>
+  <%= f.collection_select :id, User.all, :id, :username %><br><br>
+
+  <%= f.label :category_attributes %>
+  <input name="comment[user_attributes][0][username]" id="user_categories_attributes_0_username"><br>
+
+  <%= f.submit :'comment_content' %>
+<%end%>

@@ -1,1 +1,9 @@
+<h1><%= @user.username%></h1>
 
+<h4>User's Comments</h4>
+
+<p>
+  <% @user.comments.each do |c| %>
+    <%= c.content %> on <%= link_to c.post.title, post_path(c.post_id)  %><br>
+  <% end %>
+</p>

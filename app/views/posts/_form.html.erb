@@ -7,7 +7,8 @@
   <%= f.label "Categories" %><br>
   <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %><br><br>
   <%= f.label "Create a New Category" %>
-  <%= f.fields_for :catgories, post.categories.build do |category_fields| %>
+  
+  <%= f.fields_for :categories, post.categories.build do |category_fields| %>
     <%= category_fields.text_field :name %>
   <% end %>
   <br><br>  

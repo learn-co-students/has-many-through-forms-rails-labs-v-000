@@ -1,5 +1,5 @@
 
-<%= form_for @post do |f| %>
+<%= form_for post do |f| %>
   <%= f.label "Title" %>
   <%= f.text_field :title %><br><br>
   <%= f.label "Content" %>
@@ -7,7 +7,7 @@
   <%= f.label "Categories" %><br>
   <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %><br><br>
   <%= f.label "Create a New Category" %>
-  <%= f.fields_for :catgories, @post.categories.build do |category_fields| %>
+  <%= f.fields_for :catgories, post.categories.build do |category_fields| %>
     <%= category_fields.text_field :name %>
   <% end %>
   <br><br>  

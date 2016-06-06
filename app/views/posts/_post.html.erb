@@ -1,0 +1,52 @@
+
+	Post Title: <br><%= post.title %><br><br>
+	Post Content: <br><%= post.content %><br><br>
+	Post Categories:<br>
+	<% post.categories.each do |category| %>
+	  <%= category.name %><br>
+	<% end %>
+	<br>
+	<br>
+
+	Commenters Thus Far:<br>
+	<% post.users.uniq.each do |user| %>
+	  <%= link_to user.username, user %><br>
+	<% end %>
+	<br>
+	<br>
+
+	Post Comments:
+	<% post.comments.each do |comment| %>
+		
+		<%= comment.user.username %> says: <%= comment.content %><br>
+	<% end %>
+    <br>
+    <br>
+
+    Add A Comment: <br>
+	<%= form_for comment do |f| %>
+	  <%= f.label "Existing User: " %><br>
+	  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Select' %>
+	  <br>
+	  <br>
+	  <%= f.label "New User: " %><br>
+	  <%= f.fields_for :user, post.users.build do |user_attribute| %>
+	  	<%= user_attribute.text_field :username %>
+	  <% end %>
+	  <br>
+	  <%= f.label "Comment" %><br>
+	  <%= f.text_area :content %><br>
+	  <%= f.hidden_field :post_id %>
+
+	  <br>
+	  <br>
+	  <%= f.submit %>
+	<% end %>  
+
+    
+
+
+
+
+
+

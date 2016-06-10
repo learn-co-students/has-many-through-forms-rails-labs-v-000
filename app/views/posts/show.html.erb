@@ -1,41 +1,32 @@
+<h2><%= @post.title %></h2>
+<%= @post.content %>
+<h3>Categories</h3>
+<% @post.categories.each do |category| %>
+  <%= link_to category.name, category %>
+<% end %>
 
-
-<h1><%= @post.title %></h1>
-
-<h3>
-  <% @post.categories.each do |categ| %>
-    <%= categ.name %>
-  <% end %>
-</h3>
-
-<p><%= @post.content %></p>
-
-<ul> Comments:
-  <% if @post.comments.count > 0 %>
-    <% @post.comments.each do |com| %>
-
-      <li><%= com.user.username %> says: <%= com.content %></li><br>
-    <% end %>
+<h3>Comments</h3>
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li><%= comment.user.username %> says: <%= comment.content %></li>
   <% end %>
 </ul>
 
-<ul> Users:
-  <% if @post.user_list.count > 0 %>
-    <% @post.user_list.each do |user| %>
-      <li><%= link_to user.username, user_path(user) %></li><br>
-    <% end %>
-  <% end %>
+<h3>All Commenters</h3>
+<ul>
+<% @post.users.uniq.each do |user| %>
+  <li><%= link_to user.username, user %></li>
+<% end %>
 </ul>
 
-<%= form_for @comment do |f| %>
-  <%= f.collection_select :user_id, User.all, :id, :username %>
-  <%= f.fields_for :user, User.new do |user_fields| %>
-    <%= f.label "Username" %>
-    <%= user_fields.text_field :username  %>
-    <%= f.label "Email" %>
-    <%= user_fields.text_field :email %>
-  <% end %><br>
-  <%= f.text_area :content %>
-  <%= f.hidden_field :post_id, :value => @post.id %>
+<h3>Add a Comment</h3>
+<%= form_for @post.comments.build do |f| %>
+  <%= f.label "Content" %>
+  <%= f.text_field :content %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Choose a User' %>
+  <%= f.hidden_field :post_id %>
+  <%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
+    <%= user_fields.text_field :username %>
+  <% end %>
   <%= f.submit %>
 <% end %>

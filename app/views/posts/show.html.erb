@@ -17,7 +17,7 @@
 
 <%= form_for @comment do |f| %>
 
-<%= f.hidden_field :post, value: @post.id %>
+<%= f.hidden_field :post_id, value: @post.id %>
 
 New Comment: <%= f.text_field :content %>
 

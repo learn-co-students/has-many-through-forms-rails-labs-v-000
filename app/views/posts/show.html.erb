@@ -23,7 +23,7 @@ New Comment: <%= f.text_field :content %>
 
 Current Username: <%= f.collection_select :user_id, User.all ,:id, :username, {:include_blank => ""} %>
 
-<%= f.fields_for :user do |builder| %>
+New Username: <%= f.fields_for :user_attributes do |builder| %>
   <%= builder.text_field :username %>
   <% end %>
 

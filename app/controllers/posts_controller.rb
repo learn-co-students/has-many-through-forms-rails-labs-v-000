@@ -16,6 +16,10 @@ class PostsController < ApplicationController
     redirect_to post
   end
 
+  def categories_attributes=(name)
+    self.categories << Post.find_or_create_by(name)
+  end
+
   private
 
   def post_params

@@ -1,0 +1,14 @@
+
+<div class=post-content>
+  <strong><%= @post.title %>:</strong>
+  <%= @post.content %>
+  <% @post.comments.each do |com| %>
+      <strong><%= link_to com.user.username, user_path(com.user_id) %>:</strong>
+      <p><%= com.content%><br /></p>
+  <%end%>
+  <% if !@post.categories.nil? %>
+    <% @post.categories.each do |category| %>
+      <%= category.name %>
+    <% end %>
+  <%end%>
+</div>

@@ -1,0 +1,10 @@
+Leave a comment:
+<%= form_for @comment do |f| %>
+  <%= f.collection_select :user_id, User.all, :id, :username, {:include_blank => 'Create new user'} %><br />
+  <%= f.fields_for :user_attributes do |user_fields| %>
+    Username: <%= user_fields.text_field :username %><br />
+  <% end %>
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+  <%= f.submit %>
+<% end %>

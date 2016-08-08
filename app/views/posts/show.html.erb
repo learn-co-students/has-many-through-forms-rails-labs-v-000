@@ -20,15 +20,4 @@ Users:
   <% end %>
 </ul><br />
 
-
-Leave a comment:
-<%= form_for @comment do |f| %>
-  <%= f.collection_select :user_id, User.all, :id, :username, {:include_blank => 'Create new user'} %><br />
-  <%= f.fields_for :users, @comment.build_user do |user_fields| %>
-    Username: <%= user_fields.text_field :username %><br />
-    Email: <%= user_fields.text_field :email %><br />
-  <% end %>
-  <%= f.label :content %>
-  <%= f.text_area :content %>
-  <%= f.submit %>
-<% end %>
+<%= render "comments/form" %>

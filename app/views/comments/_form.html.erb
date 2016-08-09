@@ -1,6 +1,6 @@
 Leave a comment:
 <%= form_for @comment do |f| %>
-  <%= f.collection_select :user_id, User.all.uniq, :id, :username, {:include_blank => 'Create new user'} %><br />
+  <%= f.collection_select :user_id, User.all, :id, :username, {:include_blank => 'Create new user'} %><br />
   <%= f.fields_for :user_attributes, @comment.build_user do |user_fields| %>
     Username: <%= user_fields.text_field :username %><br />
   <% end %>

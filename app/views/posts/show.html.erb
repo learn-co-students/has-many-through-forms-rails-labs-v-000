@@ -1,4 +1,4 @@
-<%= @post.title %><br />
+<h2><%= @post.title %><br /></h2>
 
 <%= @post.content %><br />
 
@@ -6,18 +6,35 @@
   <%= link_to category.name, category %>
 <% end %><br />
 
-Comments:
+<h3>Comments</h3>
 <ul>
   <% @post.comments.each do |comment| %>
     <li><%= comment.user.username %> says: <%= comment.content %></li>
   <% end %>
 </ul><br />
 
-Users:
+<h3>All Commenters</h3>
 <ul>
   <% @post.users.uniq.each do |user| %>
     <li><%= link_to user.username, user_path(user) %></li>
   <% end %>
 </ul><br />
 
-<%= render "comments/form" %>
+<!--
+I was rendering the 'comments/form' partial here prior
+to revising the solution. This is the reason the
+PostsController has a `@comment` instance variable as
+part of the `show` action.
+-->
+
+<h3>Add a Comment</h3>
+<%= form_for @post.comments.build do |f| %>
+  <%= f.label "Content" %>
+  <%= f.text_field :content %><br />
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Choose a User' %><br />
+  <%= f.hidden_field :post_id %>
+  <%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
+    Username: <%= user_fields.text_field :username %>
+  <% end %><br />
+  <%= f.submit %>
+<% end %>

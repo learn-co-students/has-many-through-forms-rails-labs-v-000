@@ -1,3 +1,5 @@
+require 'pry'
+
 class CommentsController < ApplicationController
 
   def create
@@ -8,6 +10,7 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
+    params[:comment][:user_attributes].reject! { |k,v| v == "" }
     params.require(:comment).permit(:content, :post_id, :user_id, user_attributes:[:username])
   end
 end

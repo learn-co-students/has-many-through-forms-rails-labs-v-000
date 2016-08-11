@@ -1,0 +1,17 @@
+<h1>All My Posts</h1>
+
+<% @posts.each do |post| %>
+  <h2>Title: <%= post.title %><BR> </h2>
+  <h3> Post: <%= post.content %> </h3>
+  <h4> Comments: <% post.comments.each do |comment| %> </h4>
+  <li>   <%= comment.content %>
+        <% end %></li>
+
+
+<h4> Categories:</h4>
+
+  <% post.categories.each do |category| %>
+      <li><%= category.name%>
+  <% end %></li>
+
+  <% end %>

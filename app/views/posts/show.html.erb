@@ -21,12 +21,13 @@
   <%end%>
 </ul>
 
-<%=form_for @comment do |f|%>
+<%=form_for @post.comments.build do |f|%>
 
   <%=f.label :content%>
   <%=f.text_field :content%>
-  <%=f.collection_select :user_id, User.all, :id, :username, options = {include_blank: true}%>
-  <%= f.fields_for :user, @post.users.build do |user_attributes| %>
+  <%=f.hidden_field :post_id, value: @post.id%>
+  <%=f.collection_select :user_id, User.all, :id, :username, options = {include_blank: 'Choose a User'}%>
+  <%= f.fields_for :user, @post.comments.last.build_user do |user_attributes| %>
     <%= user_attributes.text_field :username %>
   <% end %>
 

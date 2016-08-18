@@ -1,1 +1,10 @@
+<%= form_for(@post) do |p| %>
+  Title: <%= p.text_field :title %>
+  Content: <%= p.text_field :content %>
+  Category: <%= p.collection_check_boxes :category_ids, Category.all, :id, :name %>
+  <%= p.fields_for :categories, post.categories.build do |new_category| %>
+    <%= new_category.text_field :name %>
+  <% end %>
+  <%= p.submit %>
+<% end %>
 

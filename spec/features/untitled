@@ -1,0 +1,10 @@
+<%= form_for(@comment) do |com| %>
+  <%= com.label :content %>
+  <%= com.text_field :content %>
+  <%= com.collection_select :username, User.all, :id, :name %>
+  <%= com.field_for :user, @comment.user.build do |use| %>
+    <%= use.text_field :username %>
+  <% end %>
+  <%= com.submit %>
+<% end %>
+ now work on params and model creating user

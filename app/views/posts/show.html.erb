@@ -1,1 +1,36 @@
+<%= @post.title %><br>
+<%= @post.content %><br>
+<% @post.categories.each do |x| %>
+  <%= "#{x.name}  " %>
+<% end %>
+
+<% @post.comments.each do |c| %>
+  <% if c.user == nil || c.content == nil %>
+  <% else %>
+    <%= c.user.username %> says: <%= c.content %><br>
+  <% end %>
+<% end %>
+
+<% @post.unique_users_that_commented.each do |user| %>
+  <% if user == "no comments" %>
+    <%= user %>
+  <% elsif user == nil || user.username == nil %>
+  <% else %>
+    <%= link_to user.username, user_path(user) %><br>
+  <% end %>
+<% end %><br>
+
+<%= form_for(@comment) do |com| %>
+  <%= com.label :content, "comment content" %>
+  <%= com.text_field :content %>
+  <%= com.collection_select :user_id, User.all, :id, :username %>
+  <%= com.fields_for :user_attributes, @comment.build_user do |use| %>
+    <%= use.label :username, "new user" %>
+    <%= use.text_field :username %>
+  <% end %>
+  <%= com.hidden_field :post_id, :value => @post.id %>
+  <%= com.submit %>
+<% end %>
+
+
 

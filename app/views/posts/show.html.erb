@@ -1,1 +1,25 @@
+<h2><%= @post.title %></h2>
+<h2><%= @post.content %></h2>
 
+<ul>
+	<% @post.comments.each do |comment| %>
+		<li><%= comment.content %></li>
+	<% end %>
+</ul>
+
+<ul>
+	<% @post.users.uniq.each do |user| %>
+		<li><%= user.username %></li>
+	<% end %>
+</ul>
+<!-- 
+A form to add a new comment. The form should have a drop down menu to select a user (we'll change this in future lessons to automatically associate the comment with a logged-in user). We should also be able to create a new user here and automatically associate it with the post. -->
+
+<%= form_for @comment do |f| %>
+	<%= f.text_area :content %><br />
+	<%= f.collection_select(:user_id, User.all, :id, :username) %><br />
+
+<!-- 	<%= f.hidden_field :post_id %> -->
+
+	<%= f.submit %>
+<% end %>

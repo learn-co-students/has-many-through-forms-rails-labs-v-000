@@ -4,10 +4,10 @@ New Post:
   <%= f.text_field :title %>
   <%= f.text_field :content %>
 
-  <%= f.collection_check_boxes :categories, Category.all, :id, :name %>
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
 
-  <%= f.fields_for @category do |category_fields| %>
-    <%= f.text_field :name %>
+  <%= f.fields_for :categories_attributes, @post.categories.build do |category_fields| %>
+    <%= category_fields.text_field :name %>
   <% end %>
 
   <%= f.submit "Create Post" %>

@@ -12,8 +12,8 @@ class Post < ActiveRecord::Base
   end
 
   def categories_attributes=(categories_attributes)
-    categories_attributes.each do |attribute, value|
-      self.categories << Category.find_or_create_by(attribute.to_sym => value) if !value.empty?
+    categories_attributes.values.each do |categories_attribute|
+      self.categories << Category.find_or_create_by(categories_attribute) if !categories_attribute.values.first.empty?
     end
   end
 end

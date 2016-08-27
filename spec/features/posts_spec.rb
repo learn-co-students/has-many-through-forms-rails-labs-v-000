@@ -23,14 +23,14 @@ describe 'Posts', type: 'feature' do
     end
 
     it 'can create a post with a brand new category' do
-      fill_in('post_categories_attributes_name', :with => 'Funny')
+      fill_in('post_categories_attributes_0_name', :with => 'Funny')
       click_button('Create Post')
       expect(page).to have_content('Funny')
     end
 
     it 'can create a post with a brand new category and an existing category' do
       check('Cool')
-      fill_in('post_categories_attributes_name', :with => 'Funny')
+      fill_in('post_categories_attributes_0_name', :with => 'Funny')
       click_button('Create Post')
       expect(page).to have_content('Cool')
       expect(page).to have_content('Funny')

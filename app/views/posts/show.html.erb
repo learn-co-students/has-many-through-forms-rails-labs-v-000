@@ -1,25 +1,50 @@
-<h2><%= @post.title %></h2>
-<h2><%= @post.content %></h2>
-
-<ul>
-	<% @post.comments.each do |comment| %>
-		<li><%= comment.content %></li>
+<fieldset>
+	<legend>Post Details</legend>
+	<h2><%= @post.title %></h2>
+	<p><%= @post.content %></p>
+	<br>
+	<b>Categories: </b>
+	<% @post.categories.each do |category| %>
+		<%= category.name %>
 	<% end %>
-</ul>
 
-<ul>
-	<% @post.users.uniq.each do |user| %>
-		<li><%= user.username %></li>
-	<% end %>
-</ul>
-<!-- 
-A form to add a new comment. The form should have a drop down menu to select a user (we'll change this in future lessons to automatically associate the comment with a logged-in user). We should also be able to create a new user here and automatically associate it with the post. -->
+</fieldset>
 
-<%= form_for @comment do |f| %>
-	<%= f.text_area :content %><br />
-	<%= f.collection_select(:user_id, User.all, :id, :username) %><br />
+<br>
 
-<!-- 	<%= f.hidden_field :post_id %> -->
+<fieldset>
+	<legend>Comments</legend>
+	<ul>
+		<% @post.comments.each do |comment| %>
+			<li><%= "#{comment.user.username} says: #{comment.content}" if comment.user %></li>
+		<% end %>
+	</ul>
 
-	<%= f.submit %>
-<% end %>
+	<p>
+		Users who have commented:
+		<% @post.users.uniq.each do |user| %>
+			<%= link_to user.username, user_path(user) %>
+		<% end %>
+	</p>
+
+	<hr>
+
+	<p>
+		<%= form_for @post.comments.build do |f| %>
+			<h4>Add a comment</h4>
+			<%= f.text_area :content, :cols => 50, :rows => 10 %><br />
+
+			<%= f.label "Select existing user" %>
+			<%= f.collection_select(:user_id, User.all, :id, :username) %>
+
+			<%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
+				<%= user_fields.label "or Create New User" %>
+				<%= user_fields.text_field :username %><br /><br />
+			<% end %>
+
+			<%= f.hidden_field :post_id %>
+			
+			<%= f.submit %>
+		<% end %>
+	</p>
+</fieldset>

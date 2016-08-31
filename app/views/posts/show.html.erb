@@ -16,13 +16,18 @@ Post Comments:
 <br>
 
 Create a New Comment:
-<%= form_for @post do |f| %>
-  <%= f.fields_for :comments do |comment| %>
-    <%= comment.text_field :content %>
-  <% end %>
+<%= form_for @post.comments.build do |f| %>
+  <p> Comment Content:
+    <%= f.text_field :content %>
+  </p>
+  <p> Comment by:
+    <%= f.collection_select :user_id, User.all, :id, :username %>
+  </p>
   <%= f.submit %>
 <% end %>
-<br>
+
+
+<p> <%= @post.comments.last.user.username %> says: great post!" <p>
 
 Post Comment Users:
 <% @post.users.uniq.each do |user| %>

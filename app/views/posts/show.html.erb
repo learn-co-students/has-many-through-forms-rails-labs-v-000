@@ -10,7 +10,7 @@ Post Category Name:
 <% end %>
 Post Comments:
 <% @post.comments.each do |comment| %>
-  <p><%= comment.user.username %> says: <%= comment.content %></p>
+  <p><%= comment.try(:user).try(:username) %> says: <%= comment.content %></p>
 <% end %>
 <br>
 
@@ -20,13 +20,16 @@ Create a New Comment:
     <%= f.text_field :content %>
   </p>
   <p> Comment by:
-    <%= f.collection_select :user_id, User.all, :id, :username %>
+    <%= f.collection_select :user_id, User.all, :id, :username, options = {include_blank: true} %>
   </p>
+  <p>
+    <% binding.pry %>
+    <%= f.text_field :user_attributes.username %>
+    <%= f.hidden_field :post_id %>
   <%= f.submit %>
 <% end %>
 
 
-<p> <%= @post.comments.last.user.username %> says: great post!" <p>
 
 Post Comment Users:
 <% @post.users.uniq.each do |user| %>

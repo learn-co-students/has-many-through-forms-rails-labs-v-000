@@ -8,10 +8,9 @@ Post Category Name:
 <% @post.categories.each do |category| %>
   <%=   category.name %>
 <% end %>
-<br>
 Post Comments:
 <% @post.comments.each do |comment| %>
-  <%= comment.content %>
+  <p><%= comment.user.username %> says: <%= comment.content %></p>
 <% end %>
 <br>
 

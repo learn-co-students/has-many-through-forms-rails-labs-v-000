@@ -23,8 +23,10 @@ Create a New Comment:
     <%= f.collection_select :user_id, User.all, :id, :username, options = {include_blank: true} %>
   </p>
   <p>
-    <% binding.pry %>
-    <%= f.text_field :user_attributes.username %>
+    <% @post.comments.last.build_user %>
+    <%= f.fields_for :user do |u| %>
+      <%=  u.text_field :username %>
+    <% end %>
     <%= f.hidden_field :post_id %>
   <%= f.submit %>
 <% end %>

@@ -16,7 +16,7 @@
 <% @post.comments.each do |comment| %>
   <% @user_array << comment.user %>
 <% end %>
-
+<% #could set this up differently, @post has_many :users already %>
 <% @user_array.uniq.each do |user| %>
   <%= link_to user.username, user_path(user) %>
 <% end %>

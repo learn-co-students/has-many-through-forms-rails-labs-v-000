@@ -1,5 +1,9 @@
 <h2><%= @post.title %></h2>
 <%= @post.content %>
+
+<% @post.categories.each do |category| %>
+  <%= category.name %>
+<% end %>
 <hr>
 Related Posts:
 <ul>

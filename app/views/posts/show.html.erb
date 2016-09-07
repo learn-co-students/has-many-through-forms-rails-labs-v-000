@@ -1,1 +1,46 @@
+<h2><%= @post.title %></h2>
+<%= @post.content %>
 
+<% @post.categories.each do |category| %>
+  <%= category.name %>
+<% end %>
+<hr>
+Related Posts:
+<ul>
+
+<% @post.categories.each do |category| %>
+  <% category.posts.each do |post| %>
+
+    <li><%= link_to post.title, post_path(post.id) %></li>
+  <% end %>
+<% end %>
+
+</ul>
+
+<hr>
+<ul>
+<% @post.comments.each do |comment| %>
+  <%= comment.user_name %> says: <%= comment.content %>
+<% end %>
+</ul>
+<hr>
+<ul>
+<% track = {}; %>
+<% @post.comments.each do |comment| %>
+  <% unless track[comment.user.username] %>
+    <li><%= link_to comment.user.username, user_path(comment.user) %></li>
+  <% end %>
+  <% track[comment.user.username] = true %>
+<% end %>
+<ul>
+<%= form_for @comment do |f| %>
+  <%= f.label "Comment" %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.text_field :content %>
+  <%= f.collection_select :user_id, User.all, :id, :username %>
+  <%= f.label "New User" %>
+  <%= f.fields_for :user, @comment.build_user do |user_fields| %>
+    <%= user_fields.text_field :username %>
+  <% end %>
+  <%= f.submit "Create Comment" %>
+<% end %>

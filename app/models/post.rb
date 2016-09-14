@@ -13,6 +13,7 @@ class Post < ActiveRecord::Base
   end
 
   def comments_attributes=(comment_attributes)
+    binding.pry
     comment = Comment.create(comment_attributes["0"]) # Would like to do this differently
     self.comments << comment
   end

@@ -2,3 +2,30 @@
 <p>
   <%= @post.content %>
 </p>
+
+<h4>Comments:</h4>
+<p>
+  <% @post.comments.each do |comment| %>
+    <div class="">
+      <%= comment.content %>
+    </div>
+  <% end %>
+</p>
+
+<h4>Users who've commented:</h4>
+<ul>
+  <% @post.unique_commented_user_list do |user| %>
+    <li>user.name</li>
+  <% end %>
+</ul>
+
+
+
+<!-- not quite right: -->
+<h4>New Comment:</h4>
+<%= form_for @post do |f| %>
+  <%= f.label "content" %>
+  <%= f.text_field :content %>
+
+  <%= f.submit %>
+<% end %>

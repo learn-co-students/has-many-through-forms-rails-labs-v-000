@@ -12,6 +12,11 @@ class Post < ActiveRecord::Base
     end
   end
 
+  def comments_attributes=(comment_attributes)
+    comment = Comment.create(comment_attributes["0"]) # Would like to do this differently
+    self.comments << comment
+  end
+
   def unique_commented_user_list
     self.users.uniq
   end

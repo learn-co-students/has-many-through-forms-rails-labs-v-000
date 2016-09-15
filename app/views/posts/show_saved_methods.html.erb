@@ -1,0 +1,18 @@
+<%= c.label :user %><br />
+<%= c.collection_select(:comment, :user_id, User.all, :id, :username, {:include_blank => true}) %>
+
+
+
+<%= f.label :user %><br />
+<%= f.collection_select(:comment, :user_id, User.all, :id, :username, {:include_blank => true}) %>
+
+
+
+
+<%= form_for @post do |f| %>
+  <%= f.fields_for :comments, @post.comments.build do |c| %>
+    <%= c.label "comment" %><br />
+    <%= c.text_field :content %><br />
+  <% end %>
+  <%= f.submit "Create Comment"%>
+<% end %>

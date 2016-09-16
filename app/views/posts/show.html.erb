@@ -1,13 +1,16 @@
 <h1><%= @post.title %></h1>
+
 <p>
   <%= @post.content %>
 </p>
+
 <p>
-  Categories: <br />
+  <h4>Categories: </h4>
   <% @post.categories.each do |category| %>
     <%= category.name %><br />
   <% end %>
 </p>
+
 <h4>Comments:</h4>
 <p>
   <% @post.comments.each do |comment| %>
@@ -21,8 +24,8 @@
 
 <h4>Users who've commented:</h4>
 <ul>
-  <% @post.unique_commented_user_list do |user| %>
-    <li>user.name</li>
+  <% @post.unique_commented_user_list.each do |user| %>
+    <li><%= link_to user.username, user_path(user) %></li>
   <% end %>
 </ul>
 

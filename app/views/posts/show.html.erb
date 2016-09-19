@@ -37,17 +37,12 @@
   <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %><br />
 
   Or Create New User:
-
-  <%= f.fields_for :user do |user_fields| %>
+  <%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
     <%= user_fields.text_field :username %>
   <% end %>
 
+  <%= f.hidden_field :post_id %>
   <br>
-  remove the next field:
-  <%= f.label "Or Create new User" %><br />
-  <%= f.text_field :user %>
-
-  <%= hidden_field_tag 'post_id', @post.id %><br />
 
   <%= f.submit "Create Comment" %>
 <% end %>

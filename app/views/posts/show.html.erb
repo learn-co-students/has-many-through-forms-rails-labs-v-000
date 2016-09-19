@@ -29,17 +29,25 @@
   <% end %>
 </ul>
 
-<%= form_for @comment do |f| %>
+<%= form_for @post.comments.build do |f| %>
   <%= f.label "Add comment" %><br />
   <%= f.text_field :content %><br />
 
   <%= f.label "User" %><br />
-  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %><br />
 
+  Or Create New User:
+
+  <%= f.fields_for :user do |user_fields| %>
+    <%= user_fields.text_field :username %>
+  <% end %>
+
+  <br>
+  remove the next field:
   <%= f.label "Or Create new User" %><br />
   <%= f.text_field :user %>
 
-  <%= hidden_field_tag 'post_id', @post.id %>
+  <%= hidden_field_tag 'post_id', @post.id %><br />
 
   <%= f.submit "Create Comment" %>
 <% end %>

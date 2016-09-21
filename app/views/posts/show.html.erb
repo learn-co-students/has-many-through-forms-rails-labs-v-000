@@ -4,10 +4,22 @@ Categories:
 <% @post.categories.each do |category| %>
   <%= category.name %><br><br>
 <% end %>
-Comments:
+<h3>Comments:</h3>
 <% @post.comments.each do |comment| %>
-  <%= comment.content %><br><br>
+  <%= comment.user.username %> says: <%= comment.content %><br><br>
 <% end %>
 <% @post.users.uniq.each do |user| %>
   <%= link_to user.username, user_path(user) %><br><br>
+<% end %>
+<%= form_for(@post.comments.build) do |f| %>
+  <p>
+    <%= f.label :content %>
+    <%= f.text_field :content %>
+    <%= f.hidden_field :post_id %>
+    <%= f.collection_select :user_id, User.all, :id, :username, options = {include_blank: true} %>
+    <%= f.fields_for :users, @post.comments.last.build_user do |users_fields| %>
+      <%= users_fields.text_field :username %>
+    <% end %>
+    <%= f.submit %>
+  </p>
 <% end %>

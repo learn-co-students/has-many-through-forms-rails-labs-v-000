@@ -1,1 +1,16 @@
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>
 
+<h4>Categories</h4>
+<p>
+  <% @post.categories.each do |c| %>
+    <li><%= c.name %></li>
+  <% end %>
+</p><br>
+
+<h4>Add Comment</h4>
+
+<%= form_for :comment, @post.comments.build do |c| %>
+  <%= c.label "Comment Content" %>
+  <%= c.text_area :comment_content %>
+<% end %>

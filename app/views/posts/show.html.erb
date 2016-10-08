@@ -1,1 +1,7 @@
+<h3><%= @post.title %></h3>
+<h3><%= @post.content %></h3>
+<% @post.comments.each do |comment| %>
+  <h3><%= comment.username %> says: <%= comment.content %></h3>
+<% end %>
 
+<%= render 'comment_form' %>

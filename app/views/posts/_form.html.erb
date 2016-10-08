@@ -3,6 +3,10 @@
   <%= f.text_field :title %>
   <%= f.label :content %>
   <%= f.text_field :content %>
+  <h2>Categories:</h2>
   <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+  <%= f.fields_for :categories, @post.categories.build do |category_fields| %>
+    <%= category_fields.text_field :name %>
+  <% end %>
 <%= f.submit %>
 <% end %>

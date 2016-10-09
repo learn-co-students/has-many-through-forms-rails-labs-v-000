@@ -4,5 +4,14 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :users, through: :comments
 
+  accepts_nested_attributes_for :categories
+
+  # create your own setter method to avoid duplication of categories if a user decides to create one
+  def categories_attributes=(categories_attributes)
+    categories_attributes.values.each do |category_attribute|
+      category = Category.find_or_create_by(category_attribute)
+      self.categories.build(category: category)
+    end
+  end
 
 end

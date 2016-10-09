@@ -1,6 +1,9 @@
 class PostsController < ApplicationController
+  require "pry"
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new
+
   end
 
   def index
@@ -14,6 +17,8 @@ class PostsController < ApplicationController
   def create
     post = Post.create(post_params)
     redirect_to post
+    binding.pry
+
   end
 
   private

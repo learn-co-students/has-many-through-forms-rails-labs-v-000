@@ -1,11 +1,13 @@
-<%= form_for @comment do |f| %>
-  <%= f.text_field :content %>
+<%= form_for @post.comments.build do |f| %>
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+  <%= f.hidden_field :post_id %>
+
   <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
 
-  <%= f.fields_for :user do |users_fields| %>
-      <%= users_fields.text_field :username %>
-      <%= users_fields.text_field :email %>
-
+  <%= f.fields_for :user_attributes, @post.users.build do |user_fields| %>
+    <%= user_fields.text_field :username %>
   <% end %>
-  <%= f.submit "Create Comment" %>
+
+  <%= f.submit %>
 <% end %>

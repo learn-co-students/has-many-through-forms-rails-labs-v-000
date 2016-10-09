@@ -1,12 +1,16 @@
-<h3><%= @post.content %></3>
-
-<% form_for post do |f| %>
+<%= form_for @post do |f| %>
+  <%= f.label :title %>
   <%= f.text_field :title %>
-  <%= f.text_field :content %>
-  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
-    <!-- create your own category -->
-  <%= f.fields_for :categories, post.categories.build do |categories_fields| %>
+
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name, include_blank: true %>
+
+  <!-- create your own category -->
+  <%= f.fields_for :categories, @post.categories.build do |categories_fields| %>
       <%= categories_fields.text_field :name %>
   <% end %>
+
   <%= f.submit %>
 <% end %>

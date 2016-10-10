@@ -1,1 +1,29 @@
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>
 
+
+<h2>Comments</h2>
+
+<h3>--- Previous comments ---</h3>
+
+<% @post.comments.each do |comment| %>
+  Username: <%= comment.user.username %>
+  <br>
+  Comment: <%= comment.content %>
+<% end %>
+
+<h3>--- Add a new comment ---</h3>
+
+<%= form_for @post do |f| %>
+  
+  <%= f.collection_select :user_ids, User.all, :id, :username %>
+  <br>
+
+  <%=f.fields_for :comments, @post.comments.build do |comment| %>
+    <%= comment.label :content %>
+    <%= comment.text_area :content%>
+  <% end %>
+  <br>
+
+  <%= f.submit "Create Comment" %>
+<% end %>

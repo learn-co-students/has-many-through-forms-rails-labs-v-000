@@ -7,23 +7,27 @@
 <h3>--- Previous comments ---</h3>
 
 <% @post.comments.each do |comment| %>
-  Username: <%= comment.user.username %>
+  <%= comment.user.username %> says: <%= comment.content %>
   <br>
-  Comment: <%= comment.content %>
 <% end %>
 
 <h3>--- Add a new comment ---</h3>
 
-<%= form_for @post do |f| %>
-  
-  <%= f.collection_select :user_ids, User.all, :id, :username %>
-  <br>
 
-  <%=f.fields_for :comments, @post.comments.build do |comment| %>
-    <%= comment.label :content %>
-    <%= comment.text_area :content%>
+<%= form_for @post.comments.build do |f|%>
+
+  <%= f.hidden_field :post_id %>
+  <%= f.collection_select :user_id, User.all, :id, :username %>
+
+  <br>
+  <%= f.fields_for :user do |user| %>
+
   <% end %>
-  <br>
 
+  <br>
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+
+  <br>
   <%= f.submit "Create Comment" %>
 <% end %>

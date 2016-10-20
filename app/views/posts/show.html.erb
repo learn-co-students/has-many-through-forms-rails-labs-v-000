@@ -1,1 +1,11 @@
+Title: <%= @post.title %>
+<br>
+Content: <%= @post.content %>
+<br>
+Comments: 
+<ul>
+<% @post.comments.each do |comment| %>
+  <li><%=comment.content%> by <%= link_to comment.user.username, user_path(comment.user) %></li>
+<% end %>
+</ul>
 

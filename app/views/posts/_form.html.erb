@@ -6,7 +6,7 @@
 <%= p.text_area :content %><br>
 <%= p.label :categories %><br>
 <%= p.collection_check_boxes :category_ids, Category.all, :id, :name %><br>
-<%= p.fields_for :categories_attributes, @post.categories.build do |f| %>
+<%= p.fields_for :categories, @post.categories.build do |f| %>
   <%= f.text_field :name %><br>
 <% end %>
 <%= p.submit %>

@@ -1,1 +1,53 @@
+<% @users = [] %>
+<h1><%= @post.title if @post.title %>
+<p><%= @post.content if @post.content %> </p>
+Comments:
+<ul>
+	<% if @post.comments %>
+		<% @post.comments.each do |comment| %>
+			<% @users << comment.user if comment.user.id %>
+			<li><%= comment.content %></li>
+			<li><%= comment.user.username %> says: <%= comment.content %></li>
+		<% end %>
+	<% end %>
+</ul>
+Users:
+<ul>
+		<% if @users %>
+		<% @users = @users.uniq %>
+		<% @users.each do |user| %>
+			<li><%= link_to user.username, user_path(user) %></li>
+		<% end %>
+	<% end %>
+</ul>
+Categories:
+<ul>
+	<% if @post.categories %>
+		<% @post.categories.each do |category| %>
+			<li><%= category.name %></li>
+		<% end %>
+	<% end %>
+</ul>
 
+<%= form_for @comment do |f| %>
+
+	<%= f.label :content %>
+	<%= f.text_area :content %><br>
+
+	<%= f.fields_for :user do |user| %>
+
+		<%= user.label :username %>
+		<%= user.text_field :username %><br>
+
+
+	<% end %>
+
+	<%= f.collection_select(:user_id, User.all, :id, :username, { include_blank: 'none' }) %><br><br>
+
+	<input type="hidden" name="comment[post_id]" value="<%=@post.id%>">
+
+	<%= f.submit %>
+
+
+
+<% end %>

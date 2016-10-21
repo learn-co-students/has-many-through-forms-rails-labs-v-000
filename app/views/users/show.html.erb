@@ -1,1 +1,6 @@
 
+<h1><%= "#{@user.username}'s Comments" %></h1>
+
+<% @posts_commented.each do |post| %>
+  <%= link_to post.title, post_path(post) %>
+<% end %>

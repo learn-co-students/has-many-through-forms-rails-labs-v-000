@@ -11,7 +11,16 @@
 <h4>Comments:</h4>
 <ul>
 <% @comments.each do |comment| %>
-<%= "#{comment.user.username} says: #{comment.content}" %>
+<li><%= "#{comment.user.username} says: #{comment.content}" %></li>
+<% end %>
+<% end %>
+</ul>
+
+<% if !@commenters.empty? %>
+<h4>Users that have Commented:</h4>
+<ul>
+<% @commenters.each do |commenter| %>
+<li><%= link_to commenter.username, user_path(commenter) %></li>
 <% end %>
 <% end %>
 </ul>

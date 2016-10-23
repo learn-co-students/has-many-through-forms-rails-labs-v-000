@@ -1,0 +1,8 @@
+<h1>Categories Show Page</h1>
+<h3>Category Name: <%= @category.name %></h3><br>
+<h4>Related Posts: </h4>
+
+<% @posts.each do |post| %>
+  Post: <%= link_to post.title, post_path %><br>
+  Content: <%= post.content %><br><br>
+<% end %>

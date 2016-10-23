@@ -1,0 +1,9 @@
+<h1>All Categories index</h1><br>
+
+<% @categories.each do |category| %>
+Category: <%= category.name %>
+Related Posts: 
+<% category.posts.each do |post| %>
+  <%= post.title %><br>
+  <% end %>
+ <% end %>

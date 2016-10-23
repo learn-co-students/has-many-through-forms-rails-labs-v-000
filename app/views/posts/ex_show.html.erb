@@ -1,0 +1,35 @@
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>
+<ul>
+<% @post.categories.each do |category| %>
+<li><%= category.name %></li>
+<% end %>
+</ul>
+<br>
+<p>New Comment:</p>
+
+<%= form_for @post.comments.build do |comments_fields| %>
+<%= comments_fields.label :user %><br>
+<%= comments_fields.collection_select :user_id, User.all, :id, :username, {:include_blank => true} %><br>
+New User: 
+<%= comments_fields.fields_for :user, @post.comments.last.build_user do |user_fields| %>
+<%= user_fields.text_field :username %><br>
+<% end %>
+<%= comments_fields.label :content %><br>
+<%= comments_fields.text_area :content %><br>
+<%= comments_fields.hidden_field :post_id %>
+<%= comments_fields.submit %>
+<% end %>
+
+<p>Commments:</p>
+<ul>
+<% @post.comments.each do |comment| %>
+<li><%= comment.user.username %> says: <%= comment.content %></li>
+<% end %>
+</ul>
+<p>Users:</p>
+<ul>
+<% Comment.where("post_id = ?", @post).select("DISTINCT user_id").each do |user| %>
+<li><%= link_to User.find_by(user.user_id).username, user_path(user.user_id) %></li>
+<% end %>
+</ul>

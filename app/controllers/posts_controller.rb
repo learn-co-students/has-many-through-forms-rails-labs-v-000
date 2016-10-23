@@ -7,7 +7,18 @@ class PostsController < ApplicationController
   end
 
   def show
- # binding.pry
+# binding.pry
+  #   @post = Post.find(params[:id])
+  #   if params.include?([:comment]) && !params[:comment].empty?
+  #     @user = User.find_or_create_by(username: params[:comment][:user_attributes_username])   
+  #     @comment = Comment.create(
+  #       user_id: @user.id,
+  #       content: params[:comment][:content],
+  #       post_id: @post.id
+  #       )
+  #   end
+  # end
+
     @post = Post.find(params[:id])
     if params[:comment] && params[:comment][:user_id]
       @comment = Comment.create(
@@ -19,7 +30,7 @@ class PostsController < ApplicationController
     if params[:comment] && params[:comment][:user_attributes_username]
       @user = User.find_or_create_by(username: params[:comment][:user_attributes_username]) 
       @comment = Comment.create(
-        username: @user.id,
+        user_id: @user.id,
         content: params[:comment][:content],
         post_id: @post.id
         )

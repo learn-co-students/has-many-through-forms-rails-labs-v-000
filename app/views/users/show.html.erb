@@ -9,11 +9,9 @@
 
 <h4>Posts Commented on by this User: </h4>
 <% @user.comments.each do |comment| %>
-<<<<<<< HEAD
+
   <% @post = Post.find_by(id: comment.post_id) %>
-=======
   <% @post = comment.post %>
->>>>>>> 98fcc365fe2cb3c23cb67cf68ceab9b7e6b0110c
   <%= link_to @post.title, post_path(@post) %><br>
  
 <% end %>

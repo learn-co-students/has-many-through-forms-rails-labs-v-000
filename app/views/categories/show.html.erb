@@ -1,11 +1,10 @@
-<<<<<<< HEAD
 <h1><%= @category.name %></h1>
     <% @posts.each do |post| %>
   <p>
     <%= link_to post.title, post_path %>
   </p>
   <% end %>
-=======
+
 <h1>Categories Show Page</h1>
 <h3>Category Name: <%= @category.name %></h3><br>
 <h4>Related Posts: </h4>
@@ -14,4 +13,3 @@
   Post: <%= link_to post.title, post_path %><br>
   Content: <%= post.content %><br><br>
 <% end %>
->>>>>>> 98fcc365fe2cb3c23cb67cf68ceab9b7e6b0110c

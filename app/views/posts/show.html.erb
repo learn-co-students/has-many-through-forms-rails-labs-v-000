@@ -10,8 +10,6 @@
       <%= category.name %>
     <% end %>
   </p>
-<<<<<<< HEAD
-=======
 
   <p>
     Unique Commenters (users): <br />
@@ -41,39 +39,4 @@
     <%= f.submit id="Create Comment" %>
    
   <% end %>
-
-
-
-
-
->>>>>>> 98fcc365fe2cb3c23cb67cf68ceab9b7e6b0110c
-
-  <p>
-    Unique Commenters (users): <br />
-    <% @post.users.uniq.each do |user| %>
-      <%= link_to user.username, user_path(user) %>
-    <% end %>
-  </p>
-
-  <p>
-    Comments: <br />
-    <% @post.comments.each do |comment| %>
-      <% @user = User.find_by(id: comment.user_id) %>
-      <%= "#{@user.username}" %> says: <%= comment.content %><br />
-    <% end %>
-  </p>
-
-  <p>
-    Create Comment:<br />
-    <%= form_for :comment do |f| %>
-
-      <%= f.label "New User:" %>
-      <%= f.text_field :user_id %><br>
-      
-      <%= f.label "Existing User:" %>
-      <%= f.collection_select(:user_id, User.all, :id, :username, {include_blank: ''}) %><br>
-            <%= f.label "Content:" %>
-      <%= f.text_field :content %><br>
-
-      <%= f.submit id="Create Comment" %>
-  <% end %> 
+ 

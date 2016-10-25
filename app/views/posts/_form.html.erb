@@ -5,6 +5,7 @@
     <%= f.text_field :title %>
   </p>
 
+<<<<<<< HEAD
   <p>
     <%= f.label :content %>
     <%= f.text_field :content %>
@@ -38,3 +39,25 @@
   -->
 <%= f.submit %>
 <% end %>
+=======
+<%= form_for @post do |f| %>
+  <p>
+  <%= f.label "Post Title" %>
+  <%= f.text_field :title %>
+  </p>
+
+  <p>
+  <%= f.label "Content" %>
+  <%= f.text_area :content %>
+  </p>
+
+  <p>
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %><br>
+  <%= f.fields_for :categories, @post.categories.build do |categories_fields| %><br>
+    <%= categories_fields.label "Add New Category" %><br>
+    <%= categories_fields.text_field :name %><br>
+  </p>
+  <% end %>
+  <%= f.submit %>
+<% end %>
+>>>>>>> 98fcc365fe2cb3c23cb67cf68ceab9b7e6b0110c

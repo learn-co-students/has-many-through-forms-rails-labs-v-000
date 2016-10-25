@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   resources :categories
 
   post '/posts/:id' => 'posts#show' 
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 98fcc365fe2cb3c23cb67cf68ceab9b7e6b0110c
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

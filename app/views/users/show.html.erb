@@ -1,1 +1,16 @@
+<h1>User: <%= @user.username %></h1>
 
+<h4>Email: <%= @user.email %></h4>
+ 
+<h4>User Comments: </h4>
+<% @user.comments.each do |comment| %>
+  <%= comment.content %><br>
+<% end %>
+
+<h4>Posts Commented on by this User: </h4>
+<% @user.comments.each do |comment| %>
+  <% @post = Post.find_by(id: comment.post_id) %>
+  <%= link_to @post.title, post_path(@post) %><br>
+ 
+<% end %>
+ 

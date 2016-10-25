@@ -1,8 +1,5 @@
 require 'pry'
-<<<<<<< HEAD
-=======
 
->>>>>>> 98fcc365fe2cb3c23cb67cf68ceab9b7e6b0110c
 class PostsController < ApplicationController
   
   def index
@@ -10,8 +7,7 @@ class PostsController < ApplicationController
   end
 
   def show
-# binding.pry
-<<<<<<< HEAD
+ 
     @post = Post.find(params[:id])
     if params[:comment]
       @comment = Comment.create(
@@ -28,7 +24,7 @@ class PostsController < ApplicationController
     #     post_id: @post.id
     #     )
     # end
-=======
+ 
   #   @post = Post.find(params[:id])
   #   if params.include?([:comment]) && !params[:comment].empty?
   #     @user = User.find_or_create_by(username: params[:comment][:user_attributes_username])   
@@ -56,7 +52,6 @@ class PostsController < ApplicationController
         post_id: @post.id
         )
     end
->>>>>>> 98fcc365fe2cb3c23cb67cf68ceab9b7e6b0110c
   end
 
   def new
@@ -64,20 +59,13 @@ class PostsController < ApplicationController
     @post.categories.build
   end
 
-<<<<<<< HEAD
-  def create 
-=======
   def create
- # binding.pry
->>>>>>> 98fcc365fe2cb3c23cb67cf68ceab9b7e6b0110c
     @post = Post.create(post_params)
     if @post.save
       redirect_to post_path(@post)
     end
   end
 
-<<<<<<< HEAD
-=======
   def edit
     @post = Post.find(params[:id])
   end
@@ -91,7 +79,6 @@ class PostsController < ApplicationController
     end
   end
 
->>>>>>> 98fcc365fe2cb3c23cb67cf68ceab9b7e6b0110c
   private
   def post_params
     params.require(:post).permit(:title, :content, :category_ids => [], :categories_attributes => [:name])

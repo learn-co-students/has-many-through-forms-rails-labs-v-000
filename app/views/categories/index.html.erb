@@ -1,0 +1,14 @@
+<h1>Categories</h1>
+
+<% @categories.each do |category| %>
+<h3> <%= link_to category.name, category %></h3>
+
+<p>  
+    Posts: 
+    <% category.posts.each do |post| %>
+  <ul>
+    <li><%= link_to post.title, post %></li>
+  </ul>
+</p>
+  <% end %>   
+<% end %>

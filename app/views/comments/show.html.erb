@@ -1,0 +1,15 @@
+<h1>Show Comment:</h1>
+<h1><%= @comment.content %></h1>
+ 
+<p>
+  This comment made by User: <%= link_to @user.username, @user %><br>
+  On Post Title:<%= link_to @post.title, @post %><br>
+  Post Content: <%= link_to @post.content, @post %><br>
+  on <%= @comment.created_at.strftime("%A") %>,
+  <%= @comment.created_at.strftime("%b") %>
+  <%= @comment.created_at.strftime("%d") %>,
+  <%= @comment.created_at.strftime("%Y") %><br>
+  at: <%= @comment.created_at.strftime("%l") %>:<%= @comment.created_at.strftime("%M") %>
+  <%= @comment.created_at.strftime("%p") %><br><br>
+  <%= @comment.created_at %>
+</p>

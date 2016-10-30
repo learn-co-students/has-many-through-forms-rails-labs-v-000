@@ -1,5 +1,3 @@
-require 'pry'
-
 class Post < ActiveRecord::Base
   has_many :post_categories
   has_many :categories, through: :post_categories
@@ -17,4 +15,10 @@ class Post < ActiveRecord::Base
       end
     end
   end
+
+  def unique_users
+    comment_users = self.comments.collect{|comment| comment.user}
+    comment_users.uniq
+  end
+ 
 end

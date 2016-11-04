@@ -9,7 +9,9 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @post.categories.build
+    @post.categories.build 
+    #build creates a blank category object
+    #[#<Category id: nil, name: nil, created_at: nil, updated_at: nil>]
   end
 
   def create

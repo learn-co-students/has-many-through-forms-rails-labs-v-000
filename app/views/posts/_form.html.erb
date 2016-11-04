@@ -2,15 +2,15 @@
 
 <%= form_for @post do |f| %>
 
-<p>
-  <%= f.label :Title %>
-  <%= f.text_field :title %>
-</p>
-  
-<p>
-  <%= f.label :content %>
-  <%= f.text_area :content %>
-</p>
+  <p>
+    <%= f.label :Title %>
+    <%= f.text_field :title %>
+  </p>
+    
+  <p>
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+  </p>
 
   <p> Select a category
     <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b| %>
@@ -27,4 +27,6 @@
     <% end %>
   </p>
   <%= f.submit %>
+
+  
 <% end %>

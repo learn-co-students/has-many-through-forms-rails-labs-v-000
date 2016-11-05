@@ -12,12 +12,8 @@
 <% end %>
 
 <h3>User list:</h3>
-<% @user_array = [] %>
 <% @post.comments.each do |comment| %>
-  <% @user_array << comment.user %>
-<% end %>
-<% #could set this up differently, @post has_many :users already %>
-<% @user_array.uniq.each do |user| %>
+  <% user = User.find(comment.user_id) %>
   <%= link_to user.username, user_path(user) %>
 <% end %>
 

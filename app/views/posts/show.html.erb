@@ -1,33 +1,48 @@
-<h3><%= @post.title %></h3>
-<h4> Content: <%= @post.content %></h4>
+<p>
+  Title: <%= @post.title %>
+</p>
 
-<h3>Comments:</h3><br>
+<p>
+  Content: <%= @post.content %>
+</p>
+
+<p> 
+Comments:<br>
 <% @post.comments.each do |comment| %>
-  <%="#{comment.user.username} says: "%><%= comment.content %><br>
+  <%="#{comment.user.username} says: "%><%= comment.content %> <br>
 <% end %><br>
+</p>
 
-<h3>Categories:</h3>
-<% @post.categories.each do |category| %>
-  <%= category.name %>
+<p>
+Users who commented:
+<% @post.users.uniq.each do |user| %>
+  <%= link_to user.username, user_path(user) %><br>
 <% end %>
 
-<h3>User list:</h3>
-<% @post.comments.each do |comment| %>
-  <% user = User.find(comment.user_id) %>
-  <%= link_to user.username, user_path(user) %>
-<% end %>
+</p>
+
+
+
+<p>
+Categories: <br>
+  <% @post.categories.each do |cat| %>
+    <%= cat.name %> <br>
+  <% end %>
+</p>
+
 
 <h3>Add a new comment:</h3>
 <%= form_for @post.comments.build do |f| %>
   <%= f.hidden_field(:post_id) %>
-  <%= f.text_area :content %>
+  <%= f.text_field :content %>
 
-<h3>Select a user </h3>
+  <p> Select a user </p> 
   <%= f.collection_select(:user_id, User.all.uniq, :id, :username) %>
 
-<h3>Create a new user</h3>
+  <p> Create a user </p>
   <%= f.fields_for :user, User.new do |user| %>
     <%= user.text_field :username %>
   <% end %>
-  <%= f.submit %>
-<% end %>
+    <%= f.submit %>
+  <% end %>
+

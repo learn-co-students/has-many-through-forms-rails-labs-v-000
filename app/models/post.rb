@@ -4,15 +4,22 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :users, through: :comments
 
-
   def categories_attributes=(category_attributes)
-    category_attributes.each do |i, category|
-      if category[:name].present?
-        @category = Category.create(name: category[:name])
-        self.post_categories.build(:category => @category)
-      end
+    category_attributes.values.each do |category|
+      category = Category.find_or_create_by(category)
+      self.categories << category 
     end
   end
+
+
+  # def categories_attributes=(category_attributes)
+  #   category_attributes.values.each do |i, category|
+  #     if category[:name].present?
+  #       @category = Category.create(name: category[:name])
+  #       self.post_categories.build(:category => @category)
+  #     end
+  #   end
+  # end
 
 end
 # {"title"=>"test title", 

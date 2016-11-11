@@ -1,1 +1,12 @@
+<h1><%= @post.title %></h1>
+
+<% @post.categories.each do |cat| %>
+    <p><i><%= cat.name %></i></p>
+<% end %>
+
+<p><%= @post.content %></p>
+
+<% @post.comments.each do |comment| %>
+    <p><%= link_to comment.user.name,  %> - <%= comment.content %></p>
+<% end %>
 

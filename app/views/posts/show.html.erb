@@ -1,1 +1,26 @@
+Post show <br>
+<%= @post.title %><br>
+<%= @post.content %><br>
+Categories:
+<% @post.categories.each do |category|%>
+    <%= "#{category.name}, " %>
+<%end%><br>
+Users:
+<% @post.unique_users.each do |user| %>
+    <%=link_to "#{user.username}", "/users/#{user.id}"%>
+<%end%>
+Comments:
+<% @post.comments.each do |comment| %>
+<%= "#{comment.user.username} says: #{comment.content}"%> <br>
+<%end%>
 
+<%= form_for @post.comments.build do |f| %>
+    <%= f.hidden_field :post_id, value: @post.id %>
+    <%= f.label :user %>
+    <%= f.collection_select :user_id, User.all, :id, :username %>
+    <%= f.fields_for :user, @post.users.build do |user_fields| %>
+         <%= user_fields.text_field :username %>
+    <%end%>
+    <%= f.text_field :content %>
+    <%= f.submit %>
+<%end%>

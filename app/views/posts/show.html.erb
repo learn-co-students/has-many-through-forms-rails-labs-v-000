@@ -1,1 +1,18 @@
+<%= @post.title %>
+<%= @post.content %>
+<% users_arr = [] %>
+<% @post.comments.each do |comment| %>
+  <%= comment.content %>
+  <% users_arr << comment.user %>
+<% end %>
+<% users_arr.uniq.each do |user| %>
+  <%= link_to user.username, user_path(user) %>
+<% end %>
 
+<%= form_for @post do |f| %>
+  <%= f.label "Comment" %>
+  <%= f.fields_for :comments, @post.comments.build do |comments_fields| %>
+    <%= comments_fields.text_area :content %>
+  <% end %>
+  <%= f.submit %>
+<% end %>

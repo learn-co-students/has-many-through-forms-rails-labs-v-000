@@ -1,1 +1,18 @@
+<h1><%= @post.title %></h1><br>
+<h3><%= @post.content %></h3><br>
 
+<% @post.comments.each do |c| %>
+  <%= c.content %>
+<% end %>
+
+<% @post.unique_user_for_comments.each do |user| %>
+  <%= link_to user.username, user_path(user) %>
+  count: <%= user.comments.size %>
+<% end %>
+
+<%= form_for @post do |f| %>
+  <% f.fields_for :comments do |c| %>
+    <%= c.label :comment_content %>
+    <%= c.text_field :comment_content %>
+  <% end %>
+<% end %>

@@ -5,14 +5,20 @@
   <%= c.content %>
 <% end %>
 
+<% @post.categories.each do |cat| %>
+  <%= cat.name %>
+<% end %>
+
 <% @post.unique_user_for_comments.each do |user| %>
   <%= link_to user.username, user_path(user) %>
   count: <%= user.comments.size %>
 <% end %>
 
-<%= form_for @post do |f| %>
-  <% f.fields_for :comments do |c| %>
-    <%= c.label :comment_content %>
-    <%= c.text_field :comment_content %>
-  <% end %>
+<%= form_for @comment do |f| %>
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+
+  <%= f.collection_select :user_id, User.all, :id, :username %>
+
+  <%= f.submit %>
 <% end %>

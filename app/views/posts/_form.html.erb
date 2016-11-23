@@ -7,9 +7,9 @@
 
   <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %><br>
 
-  <%= f.fields_for :categories do |c| %>
-    <%= c.label :name %>
-    <%= c.text_field :name %>
+  <%= f.fields_for :categories do |category_fields| %>
+    <%= category_fields.label :name %>
+    <%= category_fields.text_field :name %>
   <% end %>
 
   <%= f.submit %>

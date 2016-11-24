@@ -7,10 +7,4 @@ class Comment < ActiveRecord::Base
     self.user.username
   end
 
-  #def user_attributes=(user_attributes)
-  #  user_attributes.values.each do |user_attribute|
-  #    user = User.find_or_create_by(username: user_attribute[:username])
-  #    self.users << user
-  #  end
-  #end
 end

@@ -16,7 +16,7 @@
 </ul>
 <br></br>
 
-<%= form_for @post.comments.build do |f| %>
+<%= form_for @comments do |f| %>
 
   <%= f.label :content %>
   <%= f.text_field :content %>
@@ -25,8 +25,9 @@
   <%= f.label "Choose an existing user:" %>
   <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "Username" %>
   <br></br>
+  
   <%= f.hidden_field :post_id %>
-  <%= f.fields_for :user, @post.comments.last.build_user do |user_attribute| %>
+  <%= f.fields_for :user do |user_attribute| %>
     <%= user_attribute.label "Or, create a new user:" %>
     <%= user_attribute.text_field :username %>
   <% end %>

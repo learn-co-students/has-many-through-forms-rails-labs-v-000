@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Posts', type: 'feature' do
 
   describe 'new' do
-
+ 
     before :each do
       @cool = Category.create(name: 'Cool')
       visit 'posts/new'
@@ -15,11 +15,7 @@ describe 'Posts', type: 'feature' do
       click_button('Create Post')
       expect(page).to have_content('Feeling Awesome')
     end
-
-    it 'can create a post with a previously created category' do
-      check('Cool')
-      click_button('Create Post')
-      expect(page).to have_content('Cool')
+ 
     end
 
     it 'can create a post with a brand new category' do
@@ -67,4 +63,4 @@ describe 'Posts', type: 'feature' do
       expect(page).to have_link(@user.username, href: user_path(@user), count: 1)
     end
   end
-end
+

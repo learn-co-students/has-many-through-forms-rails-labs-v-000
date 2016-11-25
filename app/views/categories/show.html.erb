@@ -1,0 +1,6 @@
+  	
+	<ol>
+	 	<%@category.posts.each do |category|%>
+	 		<li> <%= link_to category.title, post_path(category.id) %> </li>
+	 	<% end %>
+ 	</ol>

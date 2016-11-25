@@ -10,15 +10,30 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
   end
-
+  require 'pry'
   def create
     post = Post.create(post_params)
+    binding.pry
     redirect_to post
   end
 
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
+    # Avi hates this patternn for => [] :category_ids
+    params.require(:post).permit(:title, :content, :category_ids => [], categories_attributes: [:name])
   end
 end
+
+
+# Post.find(4)
+
+
+
+
+
+
+
+
+
+

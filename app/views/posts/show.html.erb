@@ -1,1 +1,13 @@
+  <b>Title:</b> <%= @post.title %> 
+  <b>Content: </b><%= @post.content %>    
+  <br> 
+  <br> 
+
+ <b>Categories: </b><br>
+ <ul>
+ 	<%@post.categories.each do |c| %>
+ 		<li><%= c.name%></li>
+ 	<% end %>
+ </ul>
+
 

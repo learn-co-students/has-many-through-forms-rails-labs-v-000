@@ -1,1 +1,10 @@
 
+<h1>USer show page</h1>
+
+	<%= @user.posts.inspect %>
+
+	<ol>
+	 	<%@user.comments.each do |comment|%>
+	 		<li> <%= link_to comment, post_path(comment.id) %> </li>
+	 	<% end %>
+ 	</ol>

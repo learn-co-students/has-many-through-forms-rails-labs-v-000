@@ -1,11 +1,17 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new
+    @comment = @post.comments.build
+    @user = @comment.build_user
   end
 
   def index
     @posts = Post.all
-  end
+  end 
+
+
+
 
   def new
     @post = Post.new
@@ -13,7 +19,7 @@ class PostsController < ApplicationController
   require 'pry'
   def create
     post = Post.create(post_params)
-    binding.pry
+    # binding.pry
     redirect_to post
   end
 

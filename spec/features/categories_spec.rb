@@ -12,9 +12,9 @@ describe 'categories', type: 'feature' do
 
     it 'should display all of the related posts' do
       visit category_path(@cool)
-      expect(page).to have_link(@post.title, href: post_path(@post))
+      expect(page).to have_link(@post.title, href: post_path(@post)) 
     end
-
+      # expecting show page to have a link for this category.posts title 
   end
 
 

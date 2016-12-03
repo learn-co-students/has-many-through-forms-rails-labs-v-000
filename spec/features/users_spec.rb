@@ -7,13 +7,14 @@ describe 'users', type: 'feature' do
     @user = User.create(username: 'CoolGuy5')
     @comment = @post.comments.build(content: "Great Post!", user: @user)
     @post.save
-  end
+  end  
 
   describe 'show page' do
 
     it 'should link to all of the posts the user commented on' do
       visit user_path(@user)
       expect(page).to have_link(@post.title, href: post_path(@post))
+      
     end
 
   end

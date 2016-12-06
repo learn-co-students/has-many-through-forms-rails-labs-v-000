@@ -1,0 +1,13 @@
+
+
+<h4><%= @category.name %></h4>
+
+  <ul>
+  <% Post.all.each do |post| %>
+    <% post.categories.each do |category| %>
+      <%if category.name == @category.name %>
+        <li><%= link_to post.title, post_path(post)%></li>
+      <%end%>
+    <%end%>
+  <%end%>
+  </ul>

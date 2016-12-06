@@ -4,8 +4,7 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :users, through: :comments
 
-  accepts_nested_attributes_for :comments,:allow_destroy => :true
-  accepts_nested_attributes_for :users
+  accepts_nested_attributes_for :comments
 
   def categories_attributes=(categories_hashes)
     categories_hashes.each do |i, category_attributes|
@@ -18,7 +17,4 @@ class Post < ActiveRecord::Base
     end
   end
 
-  def comments_attributes=(comments_hashes)
-
-  end
 end

@@ -1,1 +1,8 @@
+<h1>Username: <%= @user.username %></h1>
 
+Has <%= pluralize(@user.posts.count, "comment") %> on the following <%= "article".pluralize(@user.posts.count) %>: 
+<ul>
+	<% @user.posts.each do |post| %>
+		<li><%= link_to post.title, post_path(post) %></li>
+	<% end %>
+</ul>

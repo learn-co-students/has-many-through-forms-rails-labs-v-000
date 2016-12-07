@@ -5,7 +5,7 @@ class Post < ActiveRecord::Base
   has_many :users, through: :comments
 
   accepts_nested_attributes_for :comments
-  
+
   def categories_attributes=(categories_hashes)
     categories_hashes.each do |i, category_attributes|
       if category_attributes[:name].present?
@@ -16,5 +16,4 @@ class Post < ActiveRecord::Base
       end
     end
   end
-
 end

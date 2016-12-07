@@ -1,1 +1,11 @@
+<h4><%= @user.username %></h4>
 
+  <ul>
+  <% Post.all.each do |post| %>
+    <% post.users.each do |user| %>
+      <%if user.username == @user.username %>
+        <li><%= link_to post.title, post_path(post)%></li>
+      <%end%>
+    <%end%>
+  <%end%>
+  </ul>

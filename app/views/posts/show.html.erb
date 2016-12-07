@@ -1,4 +1,9 @@
 <h2><%= @post.title %></h2>
+  <h3>Category </h3>
+<% @post.categories do |category| %>
+<%= category.name %>
+<%end%>
+
   <h3><%= @post.content %></h3>
   Comments:
 
@@ -12,6 +17,7 @@
   New Comment:
       <%= f.fields_for :comments do |comments_form| %>
           <%= comments_form.text_area :content %>
+          <input type="hidden" name="post_id" value="<%@post.id%>">
       <% end %>
     <%=f.submit%>
 <% end %>

@@ -39,6 +39,7 @@ describe 'Posts', type: 'feature' do
 
   describe 'show' do
     before do
+      Post.destroy_all
       @category = Category.create(name: "Cool")
       @post = Post.create(title: "So Awesome", content: "Man am I a great blogger OR WHAT!")
       @post.categories << @category

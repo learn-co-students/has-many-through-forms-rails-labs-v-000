@@ -1,1 +1,43 @@
+<label>Title: </label><%= @post.title %><br>
+<label>Post: </label><%= @post.content %><br>
+<% @post.categories.each do |category| %>
+<label>Caterogy: </label><%= category.name%><br>
+<%end%> 
+
+<% @post.users.each do |user| %>
+<%= link_to user.username, user_path(user)%>
+  
+  <ul>
+  <% user.comments.each do |comment|%>
+  <li><%="#{comment.user.username} says: #{comment.content}"%></li>
+
+<% end %>
+</ul>
+<% end %>
+
+<%= form_for @post.comments.build do |f| %>
+<%= f.hidden_field :post_id, value: @post.id  %>
+<%= f.label :new_comment %><br> 
+<%= f.text_area :content %><br>
+<%= f.collection_select(:user_id, User.all, :id, :username, prompt: true) %>
+<%= f.label :new_user %> 
+<%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
+  <%= user_fields.text_field :username %>
+<% end %>
+<%= f.submit %>
+<% end %>
+
+<!--   it 'creates a comment and a new user' do
+    fill_in('comment_content', with: 'i agree')
+    fill_in('comment_user_attributes_username', with: 'CoolPerson25')
+    click_button('Create Comment')
+    expect(page).to have_content("CoolPerson25 says: i agree")
+  end
+
+end
+ --> 
+
+
+
+
 

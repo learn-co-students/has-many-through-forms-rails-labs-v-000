@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%= form_for(@post) do |f| %>
 <%= f.label :title %><br>
 <%= f.text_field :title %><br>
@@ -9,3 +10,11 @@
   <%end%>
 <%= f.submit%>
 <%end%>
+=======
+
+<%= form_for @post do |f| %>
+  <%= f.text_field :title %>
+  <%= f.text_field :content %>
+  <%= f.submit %>
+<% end %>
+>>>>>>> b5388792a09cb06e98fd7fe1c719990ecd8bbcf5

@@ -1,5 +1,10 @@
 
+<<<<<<< HEAD
 
 <%= @category.posts.each do |post| %>
   <%= link_to post.title, post_path(post) %>
+=======
+<%= @category.posts.each do |post| %>
+  <p><li><%= link_to post.title, post_path(post) %></li></p>
+>>>>>>> b5388792a09cb06e98fd7fe1c719990ecd8bbcf5
 <% end %>

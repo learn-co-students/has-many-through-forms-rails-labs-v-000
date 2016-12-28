@@ -2,6 +2,7 @@
 <%= @post.title %>
 <%= @post.content %>
 <%= @post.comments.each do |comment| %>
+<<<<<<< HEAD
   <%= comment.user.username %> says: <%= comment.content %>
 <% end %>
 <%= @post.users.uniq.each do |user| %>
@@ -27,3 +28,7 @@
   <br></br>
   <%= f.submit %>
   <% end %>
+=======
+  <%= comment.content %>
+<% end %>
+>>>>>>> b5388792a09cb06e98fd7fe1c719990ecd8bbcf5

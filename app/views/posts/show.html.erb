@@ -1,34 +1,29 @@
-
-<%= @post.title %>
-<%= @post.content %>
-<%= @post.comments.each do |comment| %>
-<<<<<<< HEAD
-  <%= comment.user.username %> says: <%= comment.content %>
-<% end %>
+<label>Title: </label><%= @post.title %><br>
+<label>Post: </label><%= @post.content %><br>
+<% @post.categories.each do |category| %>
+<label>Caterogy: </label><%= category.name%><br>
+<%end%>
 <%= @post.users.uniq.each do |user| %>
-  <%= link_to user.username, user_path(user)%>
+  <%= link_to user.username, user_path(user) %>
 <% end %>
+<% @post.users.each do |user| %>
+  <ul>
+    <%= user.username %>
+  <% user.comments.each do |comment|%>
+  <li><%="says: #{comment.content}"%></li>
 
+<% end %>
+</ul>
+<% end %>
 
 <%= form_for @post.comments.build do |f| %>
-
-  <%= f.label :content %>
-  <%= f.text_field :content %>
-  <br></br>
-
-  <%= f.label "Select User" %>
-  <%= f.collection_select :user_id, User.all, :id, :username %>
-  <br></br>
-
-  <%= f.hidden_field :post_id %>
-  <%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
-    <%= user_fields.label "Create new User" %>
-    <%= user_fields.text_field :username %>
-  <% end %>
-  <br></br>
-  <%= f.submit %>
-  <% end %>
-=======
-  <%= comment.content %>
+<%= f.hidden_field :post_id, value: @post.id  %>
+<%= f.label :new_comment %><br>
+<%= f.text_area :content %><br>
+<%= f.collection_select(:user_id, User.all, :id, :username, prompt: true) %>
+<%= f.label :new_user %>
+<%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
+  <%= user_fields.text_field :username %>
 <% end %>
->>>>>>> b5388792a09cb06e98fd7fe1c719990ecd8bbcf5
+<%= f.submit %>
+<% end %>

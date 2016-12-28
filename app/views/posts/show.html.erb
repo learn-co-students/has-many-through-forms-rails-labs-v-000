@@ -1,6 +1,9 @@
 
 <%= @post.title %>
 <%= @post.content %>
-<%= @post.comments.each do |comment| %>
+<%= @post.comments.each do |comment|%>
   <%= comment.content %>
+<% end %>
+<%= @post.users.each do |user| %>
+  <%= user.username %>
 <% end %>

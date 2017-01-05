@@ -1,0 +1,5 @@
+
+Posts associated with <%= @category.name %>:<br><br>
+<% @category.posts.each do |post| %>
+  <%= link_to post.title, post %><br>
+<% end %>

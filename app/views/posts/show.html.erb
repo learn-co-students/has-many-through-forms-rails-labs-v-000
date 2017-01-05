@@ -1,1 +1,7 @@
-
+<%= form_for @post do |t| %>
+  <%= t.fields_for :comments do |comments_form| %>
+    <%= comments_form.label :content %>
+    <% binding.pry %>
+    <%= comments_form.text_field :content %>
+  <% end %>
+<% end %>

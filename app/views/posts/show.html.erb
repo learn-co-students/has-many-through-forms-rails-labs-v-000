@@ -1,1 +1,47 @@
+<h3><%= @post.title %></h3>
+<p><%= @post.content %></p>
 
+<h4>Categories</h4>
+<ul>
+  <% @post.categories.each do |c| %>
+    <li><%= c.name %></li>
+  <% end %>
+</ul>
+
+<h4>Comments</h4>
+<ul>
+  <% @post.comments.each do |c| %>
+    <% if c.user && c.content %>
+      <li><%= "#{c.user.username} says: #{c.content}" %></li>
+    <% end %>
+  <% end %>
+</ul>
+
+<h4>Commenters</h4>
+<ul>
+  <% @post.unique_users.each do |u| %>
+    <li><%= link_to u.username, user_path(u) %></li>
+  <% end %>
+</ul>
+
+<h4>Add new comment:</h4>
+<p>TEST: comment.post.title = <%= @comment.post.title %></p>
+<p>TEST: comment.post_id = <%= @comment.post_id %></p>
+
+
+<%= form_for @comment do |f| %>
+
+  <%= f.label "Content" %>
+  <%= f.text_field :content %><br>
+
+  <%= f.label "Existing Users" %>
+  <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: true} %><br>
+
+  <%= f.label "or Create New User" %>
+  <%= f.fields_for :user, @comment.build_user do |categories_fields| %>
+    <%= categories_fields.text_field :username %>
+  <% end %>
+  <%= f.hidden_field :post_id, :value => @comment.post_id %>
+
+  <%= f.submit %>
+<% end %>

@@ -1,7 +1,27 @@
-<%= form_for @post do |t| %>
-  <%= t.fields_for :comments do |comments_form| %>
-    <%= comments_form.label :content %>
-    <% binding.pry %>
-    <%= comments_form.text_field :content %>
-  <% end %>
+<%= @post.title %><br />
+<%= @post.content %><br />
+<% @post.categories.each do |category| %>
+  <%= category.name %><br />
+<% end %>
+
+<% @post.comments.each do |comment| %>
+  <p><%=comment.user.username%> says: <%=comment.content%></p>
+  <br />
+<% end %>
+
+<%= form_for @post.comments.build do |f| %>
+
+    <%=f.label :user_id %>
+    <%=f.collection_select :user_id, User.all, :id, :username %>
+
+    <%=f.fields_for :user_attributes do |t| %>
+      <%=t.text_field :username %>
+    <% end %>
+
+    <%= f.label :content %>
+    <%= f.text_field :content %>
+
+    <%= f.hidden_field :post_id, value: @post.id %>
+
+    <%= f.submit "Create Comment" %>
 <% end %>

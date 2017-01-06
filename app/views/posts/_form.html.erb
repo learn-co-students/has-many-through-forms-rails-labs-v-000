@@ -10,7 +10,11 @@
 		<%= f.text_area :content %>
 	</p>
 
-	<%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+	<%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
+	
+	<%= f.fields_for :categories, post.categories.build do |category_builder| %>
+		<%= category_builder.text_field :name %>
+	<% end %>
 
 	<%= f.submit %>
 

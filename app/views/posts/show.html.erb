@@ -9,6 +9,16 @@
   <br />
 <% end %>
 
+<% commented = [] %>
+<% @post.comments.each do |comment| %>
+  <% if !commented.include?(comment.user) %>
+    <% commented << comment.user %>
+  <% end %>
+<% end %>
+<% commented.each do |user| %>
+  <%= link_to user.username, user_path(user) %>
+<% end %>
+
 <%= form_for @post.comments.build do |f| %>
 
     <%=f.label :user_id %>

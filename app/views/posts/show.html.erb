@@ -1,1 +1,32 @@
+<%= @post.title %>
+<%= @post.content %>
 
+<% @post.comments.each do |comment| %>
+  <p><%= "#{comment.user.username} says: #{comment.content}"  %>
+<%end%> <br>
+
+<% @post.categories.each do |category| %>
+  <%= category.name %></p>
+<%end%>
+
+
+
+<% (@post.users.select(:username).distinct).each do |user|  %>
+  <%= link_to user.username, user_path %>
+<%end%>
+
+
+<%=form_for @comment do |f| %>
+  <%= f.label :content %>
+  <%= f.text_field :content %>
+  <%#binding.pry%>
+  <%= f.collection_select :user_id,  User.all, :id, :username ,  {include_blank: true} %>
+  <input type="hidden" name="comment[post_id]" value="<%= @post.id%>">
+  <%= f.fields_for :user, @post.users.build do |user_attributes| %>
+    <%= user_attributes.label :username %>
+    <%= user_attributes.text_field :username %>
+
+  <%end%>
+
+  <%= f.submit%>
+<%end%>

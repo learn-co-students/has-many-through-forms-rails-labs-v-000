@@ -18,3 +18,13 @@ category2 = Category.create(name: "spelling")
 
 user1 = User.create(username: "tom")
 user2 = User.create(username: "rob")
+
+
+post1.comments << comment1
+post1.comments << comment2
+
+comment1.user = user1
+comment1.user = user2
+
+comment2.user = user1
+comment2.user = user2

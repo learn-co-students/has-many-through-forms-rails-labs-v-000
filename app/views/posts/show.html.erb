@@ -1,12 +1,13 @@
-<%= render 'form', post: Post.new %>
 <h2><%= @post.title %></h2>
 <h2><%= @post.content %></h2>
 <% @post.categories.each do |category| %>
   <%= category.name %><br>
 <% end %>
 <% @post.comments.each do |comment| %>
-  <%= comment.content %><br>
+  <%= comment.user.username %> says:
+  <%= comment.content %>!<br>
 <% end %>
 <% @post.comments.select(:user_id).distinct.each do |u| %>
   <%= link_to User.find_by(u.user_id).username, user_path(User.find_by(u.user_id)) %>
 <% end %>
+<%= render 'form', post: Post.new %>

@@ -7,3 +7,9 @@ Comments:
     <%= link_to comment.user.username, user_path(comment.user) %> said
     <%= comment.content %>
   <% end %>
+Categories:
+<% @post.categories.each do |category| %>
+  <%= category.name %>
+<% end %>
+
+<%= render 'form', comment: Comment.new %>

@@ -1,1 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Post Page</title>
+</head>
+<body>
+  <h1><%= @post.title %></h1>
+  <p><%= @post.content %></p>
+  <% @post.categories.each do |cat| %>
+  <p><%= cat.name %></p>
+  <% end %>
 
+  <h4>Comments:</h4>
+
+  <%= form_for @post.comments.build do |f| %>
+    <%= f.label :content %> <br>
+    <%= f.text_area :content %> <br>
+    <%= f.label "User Name" %> <br>
+    <%= f.collection_select :user_id, User.all, :id, :username %> <br>
+    <%= f.hidden_field :post_id %> <br>
+    <%= f.label "Create A User Name" %><br><br>
+    <%= f.fields_for :user, @post.comments.last.build_user do |u| %>
+      <%= u.text_field :username %><br>
+    <% end %><br>
+    <%= f.submit %> <br>
+  <% end %>
+  <br>
+  <ul>
+    <% @post.comments.each do |comment| %>
+      <li><%= comment.user.username if !comment.user.nil? %> says: <%= comment.content %></li>
+    <% end %>
+  </ul>
+
+  <h4>Commenters:</h4>
+  <ul>
+    <% @post.users.uniq.each do |u| %>
+      <%= link_to u.username, user_path(u) %>
+    <% end %>
+  </ul>
+
+</body>
+</html>

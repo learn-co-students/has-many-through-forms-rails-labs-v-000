@@ -9,7 +9,7 @@
 <!-- Need to fix the options section below. Have to id my select box with what's provided -->
 
 
-<%= form_for @post do |f| %>
+<%= form_for ([@post, @post.comments.build]) do |f| %>
   <%= f.label :comment %>
   <br>
 

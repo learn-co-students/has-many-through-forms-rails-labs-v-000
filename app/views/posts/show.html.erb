@@ -1,1 +1,40 @@
+<h1><%= @post.title %></h1>
 
+<% @post.categories.each do |category| %>
+  <%= category.name %>
+<% end %>
+
+<p><%= @post.content %></p>
+
+<!-- Need to fix the options section below. Have to id my select box with what's provided -->
+
+<%= form_for @post do |f| %>
+  <%= f.label :comment %>
+  <br>
+  <%= f.collection_select :comments, User.all, :id, :username, options = { :include_blank=>true } %>
+  <br>
+  <%= f.fields_for :comments, @post.comments.build do |comments_fields| %>
+    <%= comments_fields.text_area :content, id: 'comment_content' %>
+  <% end %>
+  <br></br>
+  <%= f.submit :value =>'Create Comment'%>
+<% end %>
+
+
+<% if !@post.comments.empty? %>
+  <h3>Comments</h3>
+  <% @post.comments.each do |comment| %>
+    Comment: <%= comment.content %>
+  <% end %>
+
+  <ul>
+<% 
+=begin %>
+    <% @post.unique_commenters.each do |commenter| %>
+      <li><%= commenter.username %></li>
+    <% end %>
+<% 
+=end %>
+  </ul>
+
+<% end %>

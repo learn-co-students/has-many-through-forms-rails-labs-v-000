@@ -8,12 +8,16 @@
 
 <!-- Need to fix the options section below. Have to id my select box with what's provided -->
 
+
 <%= form_for @post do |f| %>
   <%= f.label :comment %>
   <br>
-  <%= f.collection_select :comments, User.all, :id, :username, options = { :include_blank=>true } %>
-  <br>
+
   <%= f.fields_for :comments, @post.comments.build do |comments_fields| %>
+    <%= comments_fields.collection_select :user, User.all, :id, :username, options = { :include_blank=>true } %>
+    <br></br>
+    <%= comments_fields.text_field :user %>
+    <br></br>
     <%= comments_fields.text_area :content, id: 'comment_content' %>
   <% end %>
   <br></br>
@@ -21,10 +25,13 @@
 <% end %>
 
 
-<% if !@post.comments.empty? %>
+
+<% if @post.comments.empty? %>
   <h3>Comments</h3>
   <% @post.comments.each do |comment| %>
-    Comment: <%= comment.content %>
+    <%= comment.user.username %>
+    <%= comment.content %>
+    <br></br>
   <% end %>
 
   <ul>

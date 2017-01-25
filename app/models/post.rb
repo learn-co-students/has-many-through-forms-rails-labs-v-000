@@ -5,6 +5,8 @@ class Post < ActiveRecord::Base
   has_many :users, through: :comments
 
   accepts_nested_attributes_for :categories
+  # need to think of a proper reject_if method
+  # accepts_nested_attributes_for :comments, reject_if: :username
 
   def category_attributes=(category_attributes)
     category_attributes.values.each do |category_attribute|

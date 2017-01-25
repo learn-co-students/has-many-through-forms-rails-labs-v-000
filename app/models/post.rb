@@ -5,6 +5,9 @@ class Post < ActiveRecord::Base
   has_many :users, through: :comments
 
   accepts_nested_attributes_for :categories
+  accepts_nested_attributes_for :users
+
+
   # need to think of a proper reject_if method
   # accepts_nested_attributes_for :comments, reject_if: :username
 
@@ -20,7 +23,8 @@ class Post < ActiveRecord::Base
     self.comments.each do |comment|
       commenters << comment.user
     end
-    commenters.uniq!
+    commenters = commenters.uniq
+    commenters
   end
 
 end

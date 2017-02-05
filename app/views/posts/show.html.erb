@@ -7,6 +7,20 @@
   <% end %>
 </ul>
 
+<h4>Comments</h4>
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li><%= comment.user.username %> says: <%= comment.content %></li>
+  <% end %>
+</ul>
+
+<h4>Commenters</h4>
+<ul>
+  <% @post.commenters.each do |commenter| %>
+    <li><%= link_to commenter.username, user_path(commenter) %></li>
+  <% end %> 
+</ul>  
+
 <h4>Create a Comment</h4>
 <%= form_for @post.comments.build do |f| %>
   <%= f.hidden_field :post_id %>
@@ -21,17 +35,3 @@
   <br>
   <%= f.submit %>
 <% end %>
-
-
-<h4>Comments</h4>
-<ul>
-  <% @post.comments.each do |comment| %>
-    <li><p><%= comment.user.username %> says: <%= comment.content %></p></li>
-  <% end %>
-</ul>
-<h4>Commenters</h4>
-<ul>
-  <% @post.commenters.each do |commenter| %>
-    <li><%= link_to commenter.username, user_path(commenter) %></li>
-  <% end %> 
-</ul>  

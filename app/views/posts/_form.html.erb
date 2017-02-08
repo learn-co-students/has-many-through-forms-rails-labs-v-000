@@ -1,28 +1,20 @@
+<h1>Create your post below</h1>
+
 <%= form_for @post do |f| %>
   <%= f.label :title %>
-  <%= f.text_field :title %><br>
+  <%= f.text_field :title, placeholder: "title" %><br>
 
   <%= f.label :content %>
-  <%= f.text_area :content %><br>
+  <%= f.text_area :content, placeholder: "type post here..." %><br>
 
+
+  <%= f.label "Choose existing category:" %>
   <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %><br>
 
+  <%= f.label "Or create a new ones:" %><br>
   <%= f.fields_for :categories do |category_fields| %>
-    <%= category_fields.label :name %>
-    <%= category_fields.text_field :name %>
+    <%= category_fields.text_field :name, placeholder: "name" %><br>
   <% end %>
 
   <%= f.submit %>
 <% end %>
-
-<!--
-<h2><%= f.label "Choose Up To Three categories:" %></h2><br></br>
-<% 3.times do %>
-<strong><%= f.label "Select existing category:" %></strong>
-<%= f.collection_check_boxes :category_ids, Category.all, :id, :name, include_blank: true %><br>
-<p><strong>OR create new category:</strong>
-  <%= f.fields_for @post.categories do |category_fields| %>
-    <%= category_fields.text_field :name %>
-  <% end %></p><br></br>
-<% end %><br>
--->

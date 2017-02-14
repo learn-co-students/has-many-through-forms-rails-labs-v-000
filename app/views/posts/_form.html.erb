@@ -1,1 +1,24 @@
+<%= form_for post do |f| %>
 
+  <p><%= f.label :title %></p>
+  <p><%= f.text_field :title %></p>
+
+  <p><%= f.label :content %></p>
+  <p><%= f.text_area :content %></p>
+
+  <ul>
+    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |cb| %>
+      <li><%= cb.check_box %> <%= cb.label %></li>
+    <% end %>
+
+    <%= f.fields_for :categories, post.categories.build do |cat| %>
+      <li>
+        <%= cat.label :name %>
+        <%= cat.text_field :name %>
+      </li>
+    <% end %>
+  </ul>
+
+  <%= f.submit %>
+
+<% end %>

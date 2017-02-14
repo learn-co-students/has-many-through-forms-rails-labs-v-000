@@ -1,1 +1,46 @@
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>
 
+<ul>
+  <% @post.categories.all.each do |c| %>
+    <li>
+      <%= c.name %>
+    </li>
+  <% end %>
+</ul>
+
+
+<ul>
+  <% @post.comments.all.each do |c| %>
+    <li>
+      <%= c.user.username + " says: " + c.content %>
+    </li>
+  <% end %>
+</ul>
+
+
+<!--This Is UGLY, needs refactoring -->
+<ul>
+  <% @post.comments.map { |u| u[:user_id] }.uniq.each do |u| %>
+    <li>
+      <% user = User.find_by_id(u)%>
+      <%= link_to user.username, user_path(user) %>
+    </li>
+  <% end %>
+</ul>
+
+<%= form_for @comment do |f| %>
+  <%= hidden_field_tag :post_id, @post.id %>
+
+  <%= f.label "Comment" %><br />
+  <%= f.text_area :content %><br />
+
+  <%= f.collection_select :user_id, User.all, :id, :username %><br />
+
+  <%= f.fields_for :user_attributes, @comment.user do |user_fields| %>
+    <%= f.label "Username: " %>
+    <%= user_fields.text_field :username %><br />
+  <% end %>
+
+  <%= f.submit "Create Comment"%>
+<% end %>

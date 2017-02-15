@@ -4,12 +4,13 @@
   </p>
  <ul>
    <% @post.comments.each do |comment| %>
-   <li> <% comment.content %> </li>
+   <li><%= comment.user.username %> says:<%= comment.content %> </li>
  </ul>
    <% end %>
 
-   <%= form_for @comment do |f|  %>
+   <%= form_for @post.comments.build  do |f|  %>
+     <%= f.label :content %>
      <%= f.text_field :content %>
-     <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Select a User'  %>
+     <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Select a User'  %><br />
      <%= f.submit %>
  <% end %>

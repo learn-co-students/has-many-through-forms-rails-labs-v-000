@@ -1,13 +1,14 @@
 class CommentsController < ApplicationController
 
   def create
-  comment = Comment.create(comment_params)
+  comment = Comment.new(comment_params)
    if comment.save
+     comment = Comment.create(comment_params)
     redirect_to post_path(comment.post)
   else
     puts "Wrong"
   end
-end 
+end
 
   private
 

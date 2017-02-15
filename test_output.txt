@@ -16,7 +16,7 @@ Failures:
      # /usr/local/rvm/gems/ruby-2.3.1/gems/actionpack-4.2.2/lib/action_dispatch/routing/route_set.rb:234:in `optimized_helper'
      # /usr/local/rvm/gems/ruby-2.3.1/gems/actionpack-4.2.2/lib/action_dispatch/routing/route_set.rb:220:in `call'
      # /usr/local/rvm/gems/ruby-2.3.1/gems/actionpack-4.2.2/lib/action_dispatch/routing/route_set.rb:345:in `block (2 levels) in define_url_helper'
-     # ./app/controllers/comments_controller.rb:6:in `create'
+     # ./app/controllers/comments_controller.rb:7:in `create'
      # /usr/local/rvm/gems/ruby-2.3.1/gems/actionpack-4.2.2/lib/action_controller/metal/implicit_render.rb:4:in `send_action'
      # /usr/local/rvm/gems/ruby-2.3.1/gems/actionpack-4.2.2/lib/abstract_controller/base.rb:198:in `process_action'
      # /usr/local/rvm/gems/ruby-2.3.1/gems/actionpack-4.2.2/lib/action_controller/metal/rendering.rb:10:in `process_action'
@@ -100,7 +100,7 @@ Failures:
      # /usr/local/rvm/gems/ruby-2.3.1/gems/capybara-2.4.4/lib/capybara/dsl.rb:51:in `block (2 levels) in <module:DSL>'
      # ./spec/features/comments_spec.rb:15:in `block (2 levels) in <top (required)>'
 
-Finished in 0.87913 seconds (files took 4.11 seconds to load)
+Finished in 0.82494 seconds (files took 4.07 seconds to load)
 2 examples, 1 failure
 
 Failed examples:

@@ -4,6 +4,14 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :users, through: :comments
 
-  accepts_nested_attributes_for :comments,  reject_if: proc { |attributes| attributes['content'].blank? }
+
+  def categories_attributes=(category_hashes)
+    category_hashes.values.each do |cat_hash|
+      category = Category.find_or_create_by(cat_hash)
+      self.categories << category
+    end
+  end
+
+  
 
 end

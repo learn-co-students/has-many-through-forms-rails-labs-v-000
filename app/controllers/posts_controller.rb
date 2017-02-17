@@ -13,18 +13,20 @@ class PostsController < ApplicationController
   end
 
   def create
-    
-    if @post.save
-      @post.create(post_params)
-      redirect_to post_path(@post)
-      # renders to a page
-    end
+     @post = Post.new(post_params)
+    redirect_to post_path(@post)
   end
+
+
 
   private
 
   def post_params
-    params.require(:post).permit(:title, category_ids:[], categories_attributes: [:name])
+    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
+  end
+
+  def user_params
+    params.require(:user).permit(:username, :email)
   end
 
 

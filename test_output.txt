@@ -1,23 +1,29 @@
-
-categories
-  show page
-    should display all of the related posts
-
-comments
-  creates a comment with an existing user (FAILED - 1)
+.F
 
 Failures:
 
-  1) comments creates a comment with an existing user
+  1) comments creates a comment and a new user
      Failure/Error: click_button('Create Comment')
-     ActionView::MissingTemplate:
-       Missing template comments/show, application/show with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:erb, :builder, :raw, :ruby, :coffee, :jbuilder]}. Searched in:
-         * "/home/cjhhhta-27739/code/labs/has-many-through-forms-rails-labs-v-000/app/views"
-     # /usr/local/rvm/gems/ruby-2.3.1/gems/actionview-4.2.2/lib/action_view/path_set.rb:46:in `find'
-     # /usr/local/rvm/gems/ruby-2.3.1/gems/actionview-4.2.2/lib/action_view/lookup_context.rb:121:in `find'
-     # /usr/local/rvm/gems/ruby-2.3.1/gems/actionview-4.2.2/lib/action_view/renderer/abstract_renderer.rb:18:in `find_template'
-     # /usr/local/rvm/gems/ruby-2.3.1/gems/actionview-4.2.2/lib/action_view/renderer/template_renderer.rb:40:in `determine_template'
-     # /usr/local/rvm/gems/ruby-2.3.1/gems/actionview-4.2.2/lib/action_view/renderer/template_renderer.rb:8:in `render'
+     ActionView::Template::Error:
+       undefined method `username' for nil:NilClass
+     # ./app/views/posts/show.html.erb:7:in `block in _app_views_posts_show_html_erb___3323246219575570061_46655560'
+     # /usr/local/rvm/gems/ruby-2.3.1/gems/activerecord-4.2.2/lib/active_record/relation/delegation.rb:46:in `each'
+     # /usr/local/rvm/gems/ruby-2.3.1/gems/activerecord-4.2.2/lib/active_record/relation/delegation.rb:46:in `each'
+     # ./app/views/posts/show.html.erb:6:in `_app_views_posts_show_html_erb___3323246219575570061_46655560'
+     # /usr/local/rvm/gems/ruby-2.3.1/gems/actionview-4.2.2/lib/action_view/template.rb:145:in `block in render'
+     # /usr/local/rvm/gems/ruby-2.3.1/gems/activesupport-4.2.2/lib/active_support/notifications.rb:166:in `instrument'
+     # /usr/local/rvm/gems/ruby-2.3.1/gems/actionview-4.2.2/lib/action_view/template.rb:333:in `instrument'
+     # /usr/local/rvm/gems/ruby-2.3.1/gems/actionview-4.2.2/lib/action_view/template.rb:143:in `render'
+     # /usr/local/rvm/gems/ruby-2.3.1/gems/actionview-4.2.2/lib/action_view/renderer/template_renderer.rb:54:in `block (2 levels) in render_template'
+     # /usr/local/rvm/gems/ruby-2.3.1/gems/actionview-4.2.2/lib/action_view/renderer/abstract_renderer.rb:39:in `block in instrument'
+     # /usr/local/rvm/gems/ruby-2.3.1/gems/activesupport-4.2.2/lib/active_support/notifications.rb:164:in `block in instrument'
+     # /usr/local/rvm/gems/ruby-2.3.1/gems/activesupport-4.2.2/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+     # /usr/local/rvm/gems/ruby-2.3.1/gems/activesupport-4.2.2/lib/active_support/notifications.rb:164:in `instrument'
+     # /usr/local/rvm/gems/ruby-2.3.1/gems/actionview-4.2.2/lib/action_view/renderer/abstract_renderer.rb:39:in `instrument'
+     # /usr/local/rvm/gems/ruby-2.3.1/gems/actionview-4.2.2/lib/action_view/renderer/template_renderer.rb:53:in `block in render_template'
+     # /usr/local/rvm/gems/ruby-2.3.1/gems/actionview-4.2.2/lib/action_view/renderer/template_renderer.rb:61:in `render_with_layout'
+     # /usr/local/rvm/gems/ruby-2.3.1/gems/actionview-4.2.2/lib/action_view/renderer/template_renderer.rb:52:in `render_template'
+     # /usr/local/rvm/gems/ruby-2.3.1/gems/actionview-4.2.2/lib/action_view/renderer/template_renderer.rb:14:in `render'
      # /usr/local/rvm/gems/ruby-2.3.1/gems/actionview-4.2.2/lib/action_view/renderer/renderer.rb:42:in `render_template'
      # /usr/local/rvm/gems/ruby-2.3.1/gems/actionview-4.2.2/lib/action_view/renderer/renderer.rb:23:in `render'
      # /usr/local/rvm/gems/ruby-2.3.1/gems/actionview-4.2.2/lib/action_view/rendering.rb:100:in `_render_template'
@@ -118,12 +124,12 @@ Failures:
      # /usr/local/rvm/gems/ruby-2.3.1/gems/capybara-2.4.4/lib/capybara/node/actions.rb:37:in `click_button'
      # /usr/local/rvm/gems/ruby-2.3.1/gems/capybara-2.4.4/lib/capybara/session.rb:676:in `block (2 levels) in <class:Session>'
      # /usr/local/rvm/gems/ruby-2.3.1/gems/capybara-2.4.4/lib/capybara/dsl.rb:51:in `block (2 levels) in <module:DSL>'
-     # ./spec/features/comments_spec.rb:15:in `block (2 levels) in <top (required)>'
+     # ./spec/features/comments_spec.rb:22:in `block (2 levels) in <top (required)>'
 
-Finished in 0.93236 seconds (files took 4.86 seconds to load)
+Finished in 0.89839 seconds (files took 9.71 seconds to load)
 2 examples, 1 failure
 
 Failed examples:
 
-rspec ./spec/features/comments_spec.rb:12 # comments creates a comment with an existing user
+rspec ./spec/features/comments_spec.rb:19 # comments creates a comment and a new user
 

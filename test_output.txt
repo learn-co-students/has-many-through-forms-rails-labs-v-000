@@ -1,0 +1,16 @@
+.
+[1mFrom:[0m /home/cjhhhta-27739/code/labs/has-many-through-forms-rails-labs-v-000/spec/features/comments_spec.rb @ line 13 :
+
+     [1;34m8[0m:     @user = [1;34;4mUser[0m.create([35musername[0m: [31m[1;31m'[0m[31mRealBigFish[1;31m'[0m[31m[0m)
+     [1;34m9[0m:     visit post_path(@post)
+    [1;34m10[0m:   [32mend[0m
+    [1;34m11[0m: 
+    [1;34m12[0m:   it [31m[1;31m'[0m[31mcreates a comment with an existing user[1;31m'[0m[31m[0m [32mdo[0m
+ => [1;34m13[0m:     binding.pry
+    [1;34m14[0m:     fill_in([31m[1;31m'[0m[31mcomment_content[1;31m'[0m[31m[0m, [35mwith[0m: [31m[1;31m'[0m[31mgreat post![1;31m'[0m[31m[0m)
+    [1;34m15[0m:     select(@user.username, [35mfrom[0m: [31m[1;31m'[0m[31mcomment_user_id[1;31m'[0m[31m[0m)
+    [1;34m16[0m:     click_button([31m[1;31m'[0m[31mCreate Comment[1;31m'[0m[31m[0m)
+    [1;34m17[0m:     expect(page).to have_content([31m[1;31m"[0m[31m#{@user.username}[0m[31m says: great post![1;31m"[0m[31m[0m)
+    [1;34m18[0m:   [32mend[0m
+
+[0G[1] pry(#<RSpec::ExampleGroups::Comments>)> 

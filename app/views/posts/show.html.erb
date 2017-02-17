@@ -2,12 +2,11 @@
   <p> <%= @post.content %> </p>
 
 
-
+  <% if @post.comments %>
    <% @post.comments.each do |comment| %>
-    <% if comment.user %>
       <p> <%= comment.user.username %> says:<%= comment.content %> </p>
-    <% end %>
    <% end %>
+  <% end %>
 
    <label> Comment Section:</label><br />
 
@@ -15,16 +14,13 @@
       <section> <%= comment.user.username %> says: <%= comment.content %></section>
     <% end %>
 
-
-
-
-  <%= form_for @post.comments.build do |f| %>
+  <%= form_for @comment do |f| %>
       <p> <%= f.text_field :content %> </p>
       <%= f.hidden_field :post_id, :value => @post.id %>
 
       <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "Select a User" %><br />
     <label> or you can create your own User and make a comment</label>
-    <%= f.fields_for :user_attributes, @post.users.build do |users_fields| %>
+    <%= f.fields_for :user_attributes, @comment.build_user do |users_fields| %>
        <%= users_fields.text_field :username %>
     <% end %>
     <%= f.submit %>

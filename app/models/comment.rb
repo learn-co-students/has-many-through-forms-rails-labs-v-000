@@ -12,6 +12,10 @@ class Comment < ActiveRecord::Base
 
    end
 
+   def user_attributes
+
+   end
+
    def username=(username)
         User.find_or_create_by(username)
    end
@@ -20,3 +24,4 @@ class Comment < ActiveRecord::Base
    end
 
 end
+

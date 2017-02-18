@@ -5,6 +5,7 @@ class PostsController < ApplicationController
     @user = User.new
     @comment.user = @user
     # binding.pry
+    # For an example of how to do it all in the view, rather than controller, see https://github.com/morgvanny/has-many-through-forms-rails-labs-v-000/blob/master/app/views/posts/_post.html.erb
   end
 
   def index

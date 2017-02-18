@@ -2,10 +2,21 @@ Title: <%= @post.title %>
 <br>
 Content: <%= @post.content %>
 <br>
+Categories:
+<% @post.categories.all.each do |c| %>
+  <%= c.name %>
+  <br>
+<% end %>
 
 Comments:
+<% unique_commenters = [] %>
 <% @post.comments.all.each do |c| %>
     <%= c.user.username %> says: <%= c.content %>
+    <% if unique_commenters.include? c.user %>
+    <% else %>
+      <% unique_commenters << c.user %>
+      <%= link_to c.user.username, user_path(c.user) %>
+    <% end %>
   <br>
 <% end %>
 <br>

@@ -1,1 +1,22 @@
+Title: <%= @post.title %>
+<br>
+Content: <%= @post.content %>
+<br>
 
+Comments:
+<% @post.comments.all.each do |c| %>
+    <%= c.user.username %> says: <%= c.content %>
+  <br>
+<% end %>
+
+Leave a comment:
+<%= form_for @comment do |f| %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  Content: <%= f.text_field :content %>
+  User: <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Any' %>
+  <%= f.fields_for :users, @post.users.build do |users_fields| %>
+    <%= users_fields.text_field :username %>
+    <%= users_fields.text_field :email %>
+  <% end %>
+  <%= f.submit %>
+<% end %>

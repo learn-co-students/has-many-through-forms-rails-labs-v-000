@@ -1,6 +1,12 @@
+require 'pry'
+
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new(post_id: params[:id])
+    @commenters = []
+    # @post.comments << @comment
+    # binding.pry
   end
 
   def index

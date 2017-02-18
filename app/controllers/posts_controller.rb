@@ -3,7 +3,9 @@ require 'pry'
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
-    # @comment = Comment.new(post_id: params[:id])
+    @comment = Comment.new(post_id: params[:id])
+    @commenters = []
+    # @post.comments << @comment
     # binding.pry
   end
 
@@ -17,7 +19,6 @@ class PostsController < ApplicationController
 
   def create
     post = Post.create(post_params)
-    # binding.pry
     redirect_to post
   end
 

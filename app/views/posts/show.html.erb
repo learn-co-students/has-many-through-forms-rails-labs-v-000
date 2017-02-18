@@ -6,12 +6,26 @@
 <br/>
 <h3>Comments Section</h3>
 
-<%= form_for comments_path do |f| %>
+<% @post.comments.each do |comment| %>
+
+<p> <%= comment.user.username %> says: <%= comment.content %> </p>
+<% @commenters << comment.user %>
+<% end %>
+
+<%= form_for @comment, url: comments_path, method: :post do |f| %>
+
+  <%= f.hidden_field :post_id, value: @comment.post_id %>
   <p><%= f.label "Your Content" %></p>
   <p><%= f.text_area :content %></p>
 <label>User</label>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "" %>
   <%= f.fields_for :user, @post.comments.build do |user_fields| %>
-    <p><%= user_fields.text_field :user_id %></p>
+    <p><%= user_fields.text_field :username %></p>
   <% end %>
   <%= f.submit %>
+<% end %>
+
+<% @commenters.uniq.each do |commenter| %>
+
+<p> <%= link_to commenter.username, user_path(commenter) %> </p>
 <% end %>

@@ -3,6 +3,8 @@ require 'pry'
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    # @comment = Comment.new(post_id: params[:id])
+    # binding.pry
   end
 
   def index

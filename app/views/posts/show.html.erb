@@ -1,5 +1,17 @@
-<%= @post.title %>
-<%= @post.content %>
+<p><%= @post.title %></p>
+<p><%= @post.content %></p>
 <% @post.categories.each do |category| %>
-<%= category.name %>
+<p><%= category.name %></p>
+<% end %>
+<br/>
+<h3>Comments Section</h3>
+
+<%= form_for comments_path do |f| %>
+  <p><%= f.label "Your Content" %></p>
+  <p><%= f.text_area :content %></p>
+<label>User</label>
+  <%= f.fields_for :user, @post.comments.build do |user_fields| %>
+    <p><%= user_fields.text_field :user_id %></p>
+  <% end %>
+  <%= f.submit %>
 <% end %>

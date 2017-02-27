@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
   has_many :categories, through: :post_categories
   has_many :comments
   has_many :users, through: :comments
-  accepts_nested_attributes_for :categories
+  accepts_nested_attributes_for :categories, reject_if: :all_blank
 
   def distinct_users
     users.distinct
@@ -15,7 +15,6 @@ class Post < ActiveRecord::Base
 
   def categories_attributes=(categories_attributes)
     categories_attributes.values.each do |category_attributes|
-      next if category_attributes[:name].blank?
       category = Category.find_or_create_by category_attributes
       categories << category
     end

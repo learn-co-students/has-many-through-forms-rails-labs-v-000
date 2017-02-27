@@ -1,14 +1,18 @@
 <h1><%= @post.title %></h1>
 <br>
+<p>Categories: <%= @post.category_names %></p> <br>
+<h3>Content:</h3>
 <p><%= @post.content %></p>
+
 
 <h3>New Comment</h3>
   <%= form_for @post.comments.build do |f| %>
 
     <%= f.hidden_field :post_id %> <br>
+    <p>Select a User:</p>
     <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true  %> <br>
 
-    <p>Create New User</p>
+    <p>Or Create New User</p>
 
     <%= f.fields_for :user, User.new do |user_fields| %>
 
@@ -33,6 +37,7 @@
 <ul>
   <% @post.comments.each do |comment| %>
     <li>
+      <% next unless comment.content %>
       <%= comment.time %> - <%= comment.username %> says: <%= comment.content %>
     </li>
   <% end %>

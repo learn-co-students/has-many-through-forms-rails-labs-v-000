@@ -36,8 +36,8 @@
 </p>
 <ul>
   <% @post.comments.each do |comment| %>
+    <% next unless comment.persisted? %>
     <li>
-      <% next unless comment.content %>
       <%= comment.time %> - <%= comment.username %> says: <%= comment.content %>
     </li>
   <% end %>

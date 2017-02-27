@@ -13,10 +13,10 @@ class Post < ActiveRecord::Base
     categories.map(&:name).join(', ')
   end
 
-  def categories_attributes=(categories_attributes)
-    categories_attributes.values.each do |category_attributes|
-      category = Category.find_or_create_by category_attributes
-      categories << category
-    end
-  end
+  # def categories_attributes=(categories_attributes)
+  #   categories_attributes.values.each do |category_attributes|
+  #     category = Category.find_or_create_by category_attributes
+  #     categories << category
+  #   end
+  # end
 end

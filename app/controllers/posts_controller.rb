@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    @commenters = @post.comments.collect {|comment| comment.user}.uniq
   end
 
   def index
@@ -14,6 +15,13 @@ class PostsController < ApplicationController
   def create
     post = Post.create(post_params)
     redirect_to post
+  end
+
+  def categories_attributes=(categories_attributes)
+    categories_attributes.values.each do |category_attribute|
+      category = Category.find_or_create_by(category_attribute)
+      self.categories << category
+    end
   end
 
   private

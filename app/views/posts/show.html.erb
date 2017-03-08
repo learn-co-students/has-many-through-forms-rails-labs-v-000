@@ -8,30 +8,34 @@
 
 <ul>
 <% @post.comments.each do |comment| %>
-<li><%= comment.content %></li>
+<%= comment.user.username %> says: <%= comment.content %>
 <% end %>
 </ul><br /><br />
 
 <ul>
 <% @post.users.uniq.each do |user| %>
-<li><%= link_to user.username, user_path(user) %></li>
+<%= link_to user.username, user_path(user) %>
 <% end %>
 </ul><br /><br />
 
 <h4>Make a new comment: </h4>
-<%= form_for @post do |f| %>
-  <%= f.label :user_ids, "Username:" %>
-  <%= f.collection_select :user_ids, User.all, :id, :username, {include_blank: true} %><br /><br />
-  <%= f.label :users, "Or, Create a new user to comment on this post:" %><br /><br />
-  <%= f.fields_for :users, @post.users.build do |user_fields| %>
-    <%= user_fields.label :username %>
-    <%= user_fields.text_field :username %><br />
-    <%= user_fields.label :email %>
-    <%= user_fields.text_field :email %><br />
+
+<%= form_for @comment do |f| %>
+  <%= f.label :user_id, "Username:" %>
+  <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: true} %><br /><br />
+
+  <%= f.label :user_attributes, "Or, Create a new user to comment on this post:" %><br /><br />
+  <%= f.fields_for :user_attributes, @comment.build_user do |user| %>
+    <%= user.label :username %>
+    <%= user.text_field :username %><br />
+    <%= user.label :email %>
+    <%= user.text_field :email %><br />
     <% end %><br /><br />
-  <%= f.fields_for :comments, @post.comments.build do |comment_fields| %>
-    <%= comment_fields.label :content %>
-    <%= comment_fields.text_area :content %><br />
-    <% end %><br /><br />
+
+  <%= f.label :content, "Comment:" %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.text_area :content %>
+    <br /><br />
+
   <%= f.submit %>
 <% end %>

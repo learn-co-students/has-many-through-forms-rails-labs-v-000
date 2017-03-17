@@ -3,17 +3,25 @@
 <%@post.categories.each do |c| %>
 <%=c.name%>
 <%end%>
-<h3>Comments</h3>
+<!-- <h3>Comments</h3>
 <%@post.comments.each do |c| %>
 <%= c.content%><br>
-<%end%>
+<%end%> -->
 <h3>These users commented: </h3>
 <%@post.comments.each do |c| %>
+<!-- <%if c.user_id%> -->
 <%= link_to c.user.username, user_path(c)%>
+says:
+<!-- <%end%> -->
+<%= c.content%><br>
 <%end%>
 <h3>Leave a Comment</h3>
 <%= form_for @comment do |f|%>
 <%= f.collection_select :user_id, User.all, :id, :username, :include_blank => true%><br>
+<%= f.label "Create New User:"%><br>
+<%= f.fields_for :user, @comment.build_user do |user_fields|%>
+<%= user_fields.text_field :username %><br>
+<%end%>
 <%= f.hidden_field :post_id, value: @post.id%>
 <%= f.label "Comment:"%><br>
 <%= f.text_area :content%><br>

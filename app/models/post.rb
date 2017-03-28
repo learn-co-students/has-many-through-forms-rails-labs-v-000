@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
   def categories_attributes=(category_attributes)
     category_attributes.values.each { |category_attribute|
       #        self.categories << Category.find_or_create_by(category_attribute) if category_attribute[:name].size > 0
-      self.post_categories.new(category: Category.find_or_create_by(category_attribute)) if category_attribute[:name].size > 0
+      self.post_categories.new(category: Category.find_or_create_by(category_attribute)) if category_attribute[:name].present?
     }
   end
 

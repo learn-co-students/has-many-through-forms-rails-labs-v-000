@@ -8,7 +8,7 @@ class Comment < ActiveRecord::Base
       attr_name  = user_attribute[0]
       attr_value = user_attribute[1]
 
-      if attr_name == "username" and attr_value.size > 0
+      if attr_name == "username" and attr_value.present?
         self.user = User.find_or_create_by(username: attr_value)
       end
     }

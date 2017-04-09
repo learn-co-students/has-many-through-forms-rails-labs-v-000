@@ -1,0 +1,3 @@
+<% @comments.each do |comment | %>
+ <%= comment.user.username%> says: <%=comment.content %> <br />in: <%= comment.post.title %>
+ <%end%>

@@ -1,17 +1,34 @@
 <h1><%= @post.title %></h1>
 <p><%= @post.content %></p>
 
-<%= form_for @comment do |f| %>
+<% @post.categories.each do |category| %>
+<%= category.name %>
+<% end %>
 
-<%= f.label "Comment" %>
+<%= form_for @post.comments.build do |f| %>
+
+<%= f.label :content %>
 <%= f.text_field :content %>
 
 <%= f.collection_select(:user_id, User.all, :id, :username, include_blank: 'Select User') %>
-<%= f.hidden_field :post_id, :value => @post.id %>
 
-<%= f.submit 'Create Comment'%>
+<%= f.hidden_field :post_id%>
+
+<%= f.fields_for :user, @comment.build_user do |user| %>
+  <%= user.text_field :username %>
+<%end%>
+
+<%= f.submit%>
 <% end %>
 
-<% binding.pry%>
+<% @post.comments.each do |comment| %>
+  <%= comment.user.username if comment.user%>
+  <%= "says:" if comment.user %>
+  <%= comment.content if comment.content%>
+<% end %>
 
-<%=
+<% if @post.users.length %>
+   <% @post.users.uniq.each do |user|  %>
+   <%= link_to user.username, user_path(user)%>
+<% end %>
+<% end %>

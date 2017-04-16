@@ -10,7 +10,7 @@ class Post < ActiveRecord::Base
     category_attributes.values.each do |category_attribute|
       #category = Category.find_or_create_by(category_attribute)
       #self.categories << category
-      self.categories.build(category_attribute) #using build replaces 2 lines of code
+      self.categories.build(category_attribute) #using build replaces the above 2 lines of code
     end
   end
 

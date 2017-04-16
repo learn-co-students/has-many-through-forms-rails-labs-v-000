@@ -7,11 +7,13 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :categories
 
   def categories_attributes=(category_attributes)
-    category_attributes.values.each do |category_attribute|
-      #category = Category.find_or_create_by(category_attribute)
-      #self.categories << category
-      self.categories.build(category_attribute) #using build replaces the above 2 lines of code
-    end
+    category_attributes.values.each {|category_attribute| self.categories.build(category_attribute)}
   end
+
+  #category_attributes.values.each do |category_attribute|
+    #category = Category.find_or_create_by(category_attribute)
+    #self.categories << category
+    #self.categories.build(category_attribute) #using build replaces the above 2 lines of code
+  #end
 
 end

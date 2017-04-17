@@ -10,15 +10,20 @@
   </ul>
 
 <p>Comments:</p>
-  <ul>
-    <% tmp_arr = [] %>
-    <% @post.comments.each do |comment| %>
-      <% if !(tmp_arr.include?(comment.user.username)) %>
-          <li><%=link_to comment.user.username, user_path(comment.user)%> says: <%= comment.content %></li>
-          <% tmp_arr << comment.user.username %>
-        <% end %>
+<br>
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li><%= comment.user.username %> says: <%= comment.content %></li>
   <% end %>
 </ul>
+<br>
+Commenting Users:
+<ul>
+  <% @post.users.uniq.each do |user| %>
+    <li><%= link_to user.username, user_path(user) %></li>
+  <% end %>
+</ul>
+  
 
 <p>Add a new comment:</p>
 

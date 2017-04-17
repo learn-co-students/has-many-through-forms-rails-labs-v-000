@@ -7,8 +7,13 @@
   <%= f.label :content %>
   <%= f.text_field :content %><br>
 
-  <%= f.label :category %>
-  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+  <%= f.label :category %><br>
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |box| %>
+    <%= box.label %>
+    <%= box.check_box %>
+  <% end %>
+
+
   Add new category: <%= f.fields_for :categories, @post.categories.build do |categories_fields| %>
     <%= categories_fields.text_field :name %><br>
   <% end %>

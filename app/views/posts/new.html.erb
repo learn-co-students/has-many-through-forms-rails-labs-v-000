@@ -11,11 +11,11 @@
   <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |box| %>
     <%= box.label %>
     <%= box.check_box %>
-  <% end %>
+  <% end %><br>
 
 
   Add new category: <%= f.fields_for :categories, @post.categories.build do |categories_fields| %>
-    <%= categories_fields.text_field :name %><br>
+    <%= categories_fields.text_field :name, placeholder: "New Category" %><br>
   <% end %>
   <%= f.submit %>
 <% end %>

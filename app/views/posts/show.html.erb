@@ -1,1 +1,7 @@
+views/posts/show <br/>
 
+<%= @post.title %>
+<%= @post.content %>
+<% @post.comments.each do |comment| %>
+  <%= comment.content %>
+<% end %>

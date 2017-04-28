@@ -1,1 +1,6 @@
+views/users/show <br/>
 
+<%= @user.username %>
+<% @user.posts.each do |post| %>
+  <%= link_to post.title, post %>
+<% end %>

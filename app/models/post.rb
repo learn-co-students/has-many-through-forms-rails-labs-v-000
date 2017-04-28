@@ -5,7 +5,8 @@ class Post < ActiveRecord::Base
   has_many :users, through: :comments
 
   def uniq_users_list
-    self.users.name.collect.uniq
+    users = self.users.collect
+    users.map {|u| u }.uniq 
   end
 
 end

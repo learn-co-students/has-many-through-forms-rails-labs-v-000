@@ -5,3 +5,6 @@ views/posts/show <br/>
 <% @post.comments.each do |comment| %>
   <%= comment.content %>
 <% end %>
+<% @post.uniq_users_list.each do |user| %>
+  <%= link_to user.username, user %>
+<% end %>

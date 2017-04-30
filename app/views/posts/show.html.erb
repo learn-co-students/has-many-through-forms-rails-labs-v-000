@@ -1,1 +1,33 @@
-
+<h1><%= @post.title %></h1>
+<p>
+  <%= @post.content %>
+</p>
+<% @post.categories.each do |c| %>
+  <h3><%= c.name %></h3>
+<% end %>
+<% @post.comments.each do |c| %>
+  <p><%= c.user.username %> says: <%= c.content %></p>
+<% end %>
+<% @post.users.uniq.each do |u| %>
+  <%= link_to u.username, user_path(u) %>
+<% end %>
+<%= form_for @comment do |f| %>
+  <%= f.label :content %><br />
+  <%= f.text_area :content %><br />
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %><br />
+  <%= f.fields_for :user_attributes, User.new do |u_fields| %>
+    <%= u_fields.text_field :username %>
+  <% end %><br />
+  <%= hidden_field_tag 'comment[post_id]', @post.id %>
+<%= f.submit %>
+<% end %>
+<!-- <%= form_for @post.comments.build do |f| %>
+  <%= f.label "Content" %>
+  <%= f.text_field :content %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Choose a User' %>
+  <%= f.hidden_field :post_id %>
+  <%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
+    <%= user_fields.text_field :username %>
+  <% end %>
+  <%= f.submit %>
+<% end %> -->

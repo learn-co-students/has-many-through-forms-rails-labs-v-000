@@ -6,9 +6,9 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :categories
   accepts_nested_attributes_for :comments
 
-  def categories_attributes=(attributes)
-    category = Category.find_or_create_by(attributes)
-    self.categories << category
-  end
+  # def categories_attributes=(attributes)
+  #   category = Category.find_or_create_by(attributes)
+  #   self.categories << category
+  # end
 
 end

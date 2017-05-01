@@ -1,0 +1,5 @@
+views/categories/show <br/>
+
+<% @category.posts.each do |post| %>
+    <%= link_to post.title, post %>
+<% end %>

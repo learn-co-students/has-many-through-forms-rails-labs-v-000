@@ -10,12 +10,11 @@ class Post < ActiveRecord::Base
     users.map {|u| u }.uniq
   end
 
-  def categories_attributes=(attributes_hash)
-    attributes_hash.each do |k, v|
-      category = Category.find_or_create_by(name: v[:name])
+  def categories_attributes=(attributes_hashes)
+    attributes_hashes.each do |index_key, attribute_hash|
+      category = Category.find_or_create_by(name: attribute_hash[:name])
       self.post_categories.build(category: category)
     end
-    # self.save
   end
 
 end

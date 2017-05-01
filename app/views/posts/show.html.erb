@@ -1,14 +1,28 @@
 views/posts/show <br/>
 
+<h4>Post Title:</h4>
 <%= @post.title %><br/>
+
+<h4>Post Content:</h4>
 <%= @post.content %><br/>
+
+<h4>Comments::</h4>
 <% @post.comments.each do |comment| %>
-  <%= comment.user.username %> says: <%= comment.content %><br/>
+  <p><%= comment.user.username %> says: <%= comment.content %></p><br/>
 <% end %>
+<h4>Users who have commented include:</h4>
 <% @post.uniq_users_list.each do |user| %>
   <%= link_to user.username, user %>
 <% end %>
 
+<h4>Add a Comment:</h4>
+<%= form_for @post do |f| %>
+  <%= comment = @post.comments.build %>
+  <%= f.text_field comment.content %>
+  <%= f.submit %>
+<% end %>
+
+<h4>Post Categor<%= @post.categories.count > 1 ? "ies" : "y" %>:</h4>
 <ul>
 <% @post.categories.each do |category| %>
   <li><%= category.name %></li>

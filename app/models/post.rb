@@ -3,6 +3,7 @@ class Post < ActiveRecord::Base
   has_many :categories, through: :post_categories
   has_many :comments
   has_many :users, through: :comments
+  # accepts_nested_attributes_for :categories
 
   def uniq_users_list
     users = self.users.collect
@@ -10,10 +11,11 @@ class Post < ActiveRecord::Base
   end
 
   def categories_attributes=(attributes_hash)
-    binding.pry
-    category = Category.find_or_create_by(name: attributes_hash[:name])
-    self.post_categories.build(category: category)
-    self.save
+    attributes_hash.each do |k, v|
+      category = Category.find_or_create_by(name: v[:name])
+      self.post_categories.build(category: category)
+    end
+    # self.save
   end
 
 end

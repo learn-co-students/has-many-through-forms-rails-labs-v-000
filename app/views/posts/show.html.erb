@@ -6,18 +6,19 @@
   <h3><%= c.name %></h3>
 <% end %>
 <% @post.comments.each do |c| %>
+
   <p><%= c.user.username %> says: <%= c.content %></p>
 <% end %>
 <% @post.users.uniq.each do |u| %>
   <%= link_to u.username, user_path(u) %>
 <% end %>
-<%= form_for @comment do |f| %>
+<%= form_for @post.comments.build do |f| %>
   <%= f.label :content %><br />
   <%= f.text_area :content %><br />
   <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %><br />
-  <%= fields_for :comment_user_attributes, User.new do |u_fields| %>
+  <%= f.fields_for :user, @post.comments.last.build_user do |u_fields| %>
     <%= u_fields.text_field :username %>
   <% end %><br />
-  <%= hidden_field_tag 'comment[post_id]', @post.id %>
+  <%= f.hidden_field :post_id %>
 <%= f.submit %>
 <% end %>

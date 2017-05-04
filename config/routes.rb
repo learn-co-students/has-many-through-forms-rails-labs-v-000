@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :posts
-  resources :comments
+  resources :comments, only: :create
   resources :users
   resources :categories
 

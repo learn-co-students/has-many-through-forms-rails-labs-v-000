@@ -1,1 +1,11 @@
 
+<%= form_for Comment.new do |f| %>
+  <%= f.label :comment[:content] %>
+  <%= f.text_field :comment[:content] %>
+  <%= select_tag(:user, :user_id)  %>
+
+
+  <%= f.submit %>
+
+
+<% end %>

@@ -1,1 +1,24 @@
+<%=@post.title%>
+<%=@post.content%>
+<% @post.categories.each do |category|%>
+<%=category.name%>
+<% end %>
+<% @post.comments.each do |c| %>
+ <%=c.user.username+" says: "+c.content %>
+ <% end %>
+ <% @post.users.uniq{|u| u.id }.each do |u| %>
+ <%= link_to u.username, user_path(u) %>
+ <% end %>
 
+<%= form_for @comment do |f| %>
+   <%= f.label "content" %>
+   <%= f.text_area :content %>
+   <%= f.text_area :post_id %>
+   <%= f.collection_select :user_id, User.all, :id, :username %>
+
+   <%= f.fields_for :user, User.new do |user_fields| %>
+   <%= user_fields.text_area :username %>
+   <% end %>
+
+   <%= f.submit "Create Comment" %>
+   <% end %>

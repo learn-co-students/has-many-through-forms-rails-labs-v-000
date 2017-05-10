@@ -1,1 +1,8 @@
+Welcome <%= @user.username %>,
 
+Here are posts you commented on:
+
+<% @user.comments.each do |comment| %>
+  <%= link_to comment.post.title, post_path(comment.post) %>
+  <%= comment.post.content %>
+<% end %>

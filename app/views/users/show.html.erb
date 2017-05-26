@@ -1,1 +1,4 @@
-
+<h2>Posts commented: </h2>
+<% @user.posts.each do |post| %>
+	<div><%= link_to post.title, post_path(post) %></div>
+<% end %>

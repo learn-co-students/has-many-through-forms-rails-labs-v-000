@@ -1,1 +1,6 @@
-
+<h3><%= @user.username %></h3>
+<ul>
+  <% @user.comments.each do |comment| %>
+    <li><%= link_to comment.post_title, post_path(comment.post) %></li>
+  <% end %>
+</ul>

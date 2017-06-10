@@ -1,12 +1,21 @@
 <h1><%= @post.title %></h1>
 <h2><%= @post.content %></h2>
 <% @post.categories.each do |cat| %>
-  <h2><%= link_to cat.name, category_path(cat) %></h2>
+  <p><%= link_to cat.name, category_path(cat) %></p>
 <% end %>
+
+
+<h2>Commenters</h2>
+<p>
+<% @post.users.uniq.each do |user| %>
+  <%= link_to user.username, user_path(user) %>
+<% end %>
+</p>
+
 <h2>Comments</h2>
 <ul>
 <% @post.comments.each do |comment| %>
-  <li><%= link_to comment.user.username, user_path(comment.user) %> -
+  <li><%= comment.user.username %> says:
     <%= comment.content %></li>
 <% end %>
 </ul>

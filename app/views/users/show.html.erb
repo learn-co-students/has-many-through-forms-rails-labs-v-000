@@ -1,1 +1,11 @@
+<p>Username: <%= @user.username %></p>
+<p>Email: <%= @user.email %></p>
 
+<p>This user commented on following posts: </p>
+<ul>
+  <% @user.posts.uniq.each do |post| %>
+    <li>
+      <%= link_to post.title, post_path(post) %>
+    </li>
+  <% end %>
+</ul>

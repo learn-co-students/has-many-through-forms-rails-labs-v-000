@@ -1,1 +1,49 @@
 
+<p>Post Title: <%= @post.title %></p>
+<p>Post Content: <%= @post.content %></p>
+<ul>Post Categories: <% @post.categories.each do |c| %>
+<li> <%=c.name %></li>
+<% end %>
+</ul>
+
+<ul>
+<% @post.users.uniq.each do |u| %>
+ <li> Comment Username: <%= link_to u.username, user_path(u) %> </li>
+  
+  <ul>
+  	Comment Content:  
+  	<% u.comments.each do |c| %> 
+  		<% if c.post_id == @post.id %>
+  	<li>		<%= c.content %> </li>
+  		<% end %>
+  	</ul>
+  	<% end %>
+  
+ 
+<% end %>
+</ul>
+
+
+
+
+<%= form_for @comment do |f| %>
+  
+  <%= f.label "Users" %>
+  <%= f.collection_select( :user_id, User.all, :id, :username, :prompt => true) %>
+  
+  <%= f.fields_for :user, User.new do |user_fields| %>
+    Create User  : <%= user_fields.text_field :username%>
+  <% end %>
+
+  <%= f.label "Content" %>
+  <%= f.text_field :content %>
+
+  <%= f.hidden_field :post_id, :value => @post.id %>
+
+  <%= f.submit "Create Comment" %>
+<% end %>
+
+
+
+
+

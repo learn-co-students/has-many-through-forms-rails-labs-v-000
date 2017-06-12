@@ -1,0 +1,6 @@
+<% @comments.each do |c|%> 
+	<% c.user_id.each do |u| %>		
+		<li><%= u.username %></li>
+	<% end %>
+	
+<% end %>

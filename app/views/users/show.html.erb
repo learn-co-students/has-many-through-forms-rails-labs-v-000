@@ -1,1 +1,11 @@
-
+<h2><%= @user.username %></h2>
+<h4>Posts: </h4>
+<div id="user-posts">
+	<ul>
+		<%= @user.posts.each do |post|%>
+		  <li>
+		  	<%= link_to(post.title, post_path(post.id))%>
+		  </li>
+		<% end%>
+	</ul>
+</div>

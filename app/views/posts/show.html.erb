@@ -1,1 +1,54 @@
+Title: <%= @post.title%><br>
+Content: <%= @post.content %><br>
+
+<div id="categories">
+	Categories:
+	<ul>
+		<% @post.categories.each do |category|%>
+		<li>
+		<%= category.name%>
+		</li>
+		<% end%>
+	</ul>
+</div>
+
+<div id="comments">
+    <ul>
+		<% @post.comments.each do |comment|%>
+		<li>
+			<p>
+				<%= comment.user.username %> says: <%= comment.content %>
+			</p>
+		</li>
+		<% end%>
+    </ul>	
+</div>
+
+<div id="users"> 
+	<ul>
+		<% @post.users.map{|u| u.username }.uniq.each do |element|%>
+		  <% user = User.find_by(username: element) %>
+		  <li>
+		  Users:
+		   <%=link_to user.username, user_path(user.id) %>	
+		  </li>
+		<% end%>
+	</ul>
+</div>
+
+<div id="new-comment">
+	<%= form_for @comment do |comment_builder|%>
+	 Comment here -> <%= comment_builder.text_field :content%><br>
+	 Select user: <%= comment_builder.collection_select(:user_id, User.all, :id, :username, { include_blank: true}) %><br>
+	 <%= comment_builder.hidden_field(:post_id, value: @post.id) %>
+     Create New Username:
+	 <%= comment_builder.fields_for :user , @comment.build_user() do |user_builder|%>
+	  <%= user_builder.text_field :username%>
+	 <% end%><br>
+
+	 <%= comment_builder.submit %>
+	<% end%>	
+</div>
+
+
 

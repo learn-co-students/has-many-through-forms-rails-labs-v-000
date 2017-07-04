@@ -1,13 +1,11 @@
-<h1><%=@post.title%></h1>
+ <h1><%=@post.title%></h1>
 
-<p><%=@post.content%></p>
-
-<%form_for @post do |f|%>
-      <%=f.label :content%>
-      <%=f.text_area :content%>
-      <%= f.collection_select :user_ids,  User.all, :id, :name %>
-      <%= f.fields_for :comments, post.comments.build do |categories_fields| %>
-          <%= categories_fields.text_field :content %>
-    <% end %>
-  <%=f.submit%>
-<%end%>
+  <p><%=@post.content%></p>
+   <%=@post.users.each do |x|%>
+       <h3><%=x.username%></h3>
+        <ul>
+          <%x.comments.each do |comment|%>
+          <li><%=comment.content%></li>
+        </ul>
+        <%=end%>
+   <%end%>

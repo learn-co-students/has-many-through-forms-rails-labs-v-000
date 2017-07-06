@@ -11,13 +11,33 @@
 <h3>Post Comments</h3>
 <ul>
   <% @post.comments.each do |comment| %>
-    <li><%= comment.content %> -- <%= comment.user.username %></li>
+    <li>-- <%= comment.user.username %> says: <%= comment.content %> </li>
   <% end %>
 </ul>
 
-<h3>Users Who Have Commented</h3>
+<h3>Here are the Users Who Have Commented</h3>
 <ul>
   <% @post.users.uniq.each do |uniq_user| %>
     <li><%= link_to uniq_user.username, user_path(uniq_user) %></li>
   <% end %>
 </ul>
+
+<!-- Add a comment with an existing user -->
+<h3>We Love Your Opinion: Leave a comment:</h3>
+<%= form_for @post.comments.build do |f| %>
+  <div><%= f.hidden_field :post_id, value: @post.id %></div>
+
+  <div><%= f.label :content %></div>
+  <div><%= f.text_area :content %></div>
+  
+  <%# Select an existing user %>
+  <div><%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Choisissez un Utilisateur' %></div>
+  
+  <%# Creating a New User While Submitting the Comment %>
+  <div><%= f.label "Or, create a new one here:" %></div>
+  <%= f.fields_for :user, @post.users.build do |user_fields| %>
+    <%= user_fields.text_field :username %>
+  <% end %>
+
+  <div><%= f.submit %></div>
+<% end %>

@@ -19,9 +19,7 @@ class PostsController < ApplicationController
     redirect_to post
   end
   def update
-  #  binding.pry
     @post = Post.find(params[:id])
-    @post = Post.update(post_params)
     redirect_to post
   end
 
@@ -30,4 +28,5 @@ class PostsController < ApplicationController
   def post_params
      params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name], comment: [])
   end
+
 end

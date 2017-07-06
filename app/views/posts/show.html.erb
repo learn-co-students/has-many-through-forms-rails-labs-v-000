@@ -2,22 +2,17 @@
 
   <p><%=@post.content%></p>
 
-   <%=@post.comments.each do |x|%>
-       <h3><%=x.username%></h3>
-          <ul>
-            <%x.comments.each do |comment|%>
-            <li><%=comment.content%></li>
-            <%end%>
-         </ul>
-   <%end%>
+Comments
+  <%@comments.each do |x|%>
+    <p><%=x.user.username%> says: <%=x.content%></p>
+  <%end%>
 
-  <%=form_for @post do |f|%>
-    <%=f.fields_for :comment do |c|%>
+  <%=form_for @comment do |c|%>
        <%=c.label  :content%>
-       <%=c.text_field :content%>
+       <%=c.text_area :content%>
        <%=c.collection_select :user_id,  User.all, :id, :username %>
-       <% end %>
-     <%=f.submit "Create Comment"%>
+       <%=c.hidden_field :post_id%>
+       <%=c.submit "Create Comment"%>
    <%end%>
 
     <!--<%=form_for @comment do |f|%>

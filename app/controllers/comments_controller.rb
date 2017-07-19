@@ -1,9 +1,20 @@
 class CommentsController < ApplicationController
 
+  # def create
+  #   comment = Comment.create(comment_params)
+  #   @comment = @post.comments.create(comment_params)
+  #   @comment.user_id = @user.post_id
+  #   @comment.save
+  #
+  #   if @comment.save
+  #     redirect_to comment.post
+  #   end
+  # end
   def create
-    comment = Comment.create(comment_params)
-    redirect_to comment.post
+   comment = Comment.create(comment_params)
+   redirect_to comment.post
   end
+
 
   private
 

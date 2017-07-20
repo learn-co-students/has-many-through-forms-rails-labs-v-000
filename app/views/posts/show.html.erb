@@ -1,1 +1,51 @@
+<h1><%= @post.title %></h1>
 
+<div>
+  <h3>Content:</h3>
+  <p><%= @post.content %></p>
+</div>
+<div>
+  <h3>Category:</h3>
+  <ul>
+    <% @post.categories.each do |c| %>
+      <li><%= c.name %></li>
+    <% end %>
+  </ul>
+</div>
+
+<div class="comments">
+  <h2>New Comments</h2>
+  <div class="create_comments">
+    <%= form_for @post.comments.build do |f| %>
+      <%= f.label :content %><br>
+      <%= f.text_area :content %><br>
+      <%= f.hidden_field :post_id, value: @post.id %><br>
+      <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Select a user' %><br>
+      <%= f.label "or create a new user" %><br>
+      <%= f.fields_for :user, @post.comments.build.build_user do |u| %>
+        <%= u.text_field :username %>
+      <% end %>
+      <%= f.submit %>
+    <% end %>
+  </div>
+
+  <div class="show_comments">
+    <h2>Show Comments</h2>
+    <ul>
+      <% @post.comments.each do |c| %>
+        <li><%= c.display_comment %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="show_uniq_commenters">
+    <h2>Commenter List</h2>
+    <ul>
+      <% @post.users.uniq.each do |user| %>
+        <%= link_to user.username, user_path(user) %><br>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<!-- 순서가 상관이 있는거같은데 -->

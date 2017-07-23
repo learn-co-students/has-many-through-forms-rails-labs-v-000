@@ -1,12 +1,14 @@
 class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :post
-  accepts_nested_attributes_for :user
 
-  # def user_attributes=(user_attributes)
-  #   user_attributes.each do |user_attribute|
-  #     self.user.build(user_attribute)
-  #   end
-  # end
-
+  def user_attributes=(user_attributes)
+    user_attributes.each do |i, user_attributes|
+      if user_attributes != ""
+        new_user = User.create(username: user_attributes)
+        self.user_id = new_user.id
+        self.save
+      end
+    end
+  end
 end

@@ -9,6 +9,6 @@
   <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
   <%= f.fields_for :categories do |cat| %>
     <%= cat.text_field :name %>
-  <% end %>
+  <% end %><br><br>
 <%= f.submit %>
 <% end %>

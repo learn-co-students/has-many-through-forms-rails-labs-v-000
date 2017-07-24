@@ -1,8 +1,9 @@
 class Post < ActiveRecord::Base
 
   has_many :comments
+  accepts_nested_attributes_for :comments, :reject_if => :all_blank
   has_many :users, through: :comments
-
+  accepts_nested_attributes_for :users
   has_many :post_categories
   has_many :categories, through: :post_categories
   accepts_nested_attributes_for :categories

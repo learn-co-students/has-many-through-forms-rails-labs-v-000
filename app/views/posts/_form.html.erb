@@ -1,1 +1,30 @@
 
+<%= form_for(@post) do |f| %>
+
+<p>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+</p>
+
+<p>
+  <%= f.label :content %>
+  <%= f.text_field :content %>
+</p>
+
+<%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
+<!--  ill generate a checkbox named post[category_ids][] for each cateogry in Category, use the :id as the value, and use the :name method as the label for the checkbox (i.e :downcase_name)-->
+
+
+<%= f.fields_for :categories, @post.categories.build do |category_builder| %>
+  <%= category_builder.text_field :name %>
+  <!-- 1. f is attached to the post.
+        2. the fields_for methods looks to see if the object (post) attachedk to f responds to a method called categories_attributes=
+        3a. If the underlying object (post) does respond to the method, the fields_for knows you are building a nested form.
+        3b. If the object does not, the fields_for assumes you're doing something custom (our method writer that we build in post.rb).
+      -->
+<% end %>
+
+
+<%= f.submit %>
+
+<% end %>

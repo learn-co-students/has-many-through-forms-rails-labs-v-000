@@ -1,22 +1,14 @@
-<!--DISPLAYING COMMENTS ON OUR POSTS-->
-<h1><%=@post.title%></h1>
-
-Categories:
-<ul>
-<% @post.categories.each do |category| %>
-  <li>
+<h1><%= @post.title %></h1>
+<h4><% @post.categories.each do |category| %>
     <%= link_to category.name, category_path(category) %>
-  </li>
-<% end %>
-</ul>
-
-<p><%=@post.content%></p>
+<% end %></h4>
+<p><%= @post.content %></p>
 
 <h5>Add a Comment</h5>
 <%= form_for Comment.new do |f| %>
   <%= f.hidden_field :post_id, value: @post.id %>
   <p>Select a User:</p>
-  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "New User" %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "New User", reject_if?: nil %>
   <p>Or create a new user:</p>
   <%= f.fields_for :user_attributes do |user_fields| %>
     <%= user_fields.text_field :username %>
@@ -26,19 +18,17 @@ Categories:
   <p><%= f.submit %></p>
 <% end %>
 
-<%= pluralize(@post.comment_count, "comment") %> by
+  <%= pluralize(@post.comment_count, "comment") %> by
   <ul class="comma-list">
     <% @post.commented_users.each do |user| %>
       <li><%= link_to user.username, user_path(user) %></li>
     <% end %>
   </ul>
 
-
-
-<ul class="comments">
+<ol class="comments">
   <% @post.comments.each do |comment| %>
     <li>
-      <%= link_to comment.user_name%> says: <%= comment.content %>
+      <%= comment.user_name %> says: <%= comment.content %>
     </li>
   <% end %>
-</ul>
+</ol>

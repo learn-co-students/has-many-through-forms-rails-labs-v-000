@@ -12,5 +12,6 @@
 <% end %>
 <h2>New Comment</h2>
 <%= f.fields_for :comments, @post.comments.build do |comment_field| %>
+  <%= f.text_field :content %>
   
 <% end %>

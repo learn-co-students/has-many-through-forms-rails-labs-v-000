@@ -11,7 +11,7 @@
 <h3>Comments: </h3> <br>
 <ul>
   <% @post.comments.each do |comment| %>
-  <%= link_to comment.user.username%> <%=comment.content %><br>
+  <%= link_to comment.user.username%> says: <%=comment.content %><br>
   <%end%>
   </ul>
 
@@ -24,13 +24,13 @@
 
     <h3>New Comment Form</h3>
     <%= form_for @post.comments.build do |f| %>
-    <p>
+    <br>
       <%= f.label :content %>
       <%= f.text_area :content %>
-    </p>
-
+    <br>
+    <%= f.hidden_field :post_id%>
     <%= f.collection_select :user_id, User.all, :id, :username %>
-     <%= f.fields_for :user, post.comments.build do |user_fields| %>
+     <%= f.fields_for :user, @post.comments.build.build_user do |user_fields| %>
        <%= user_fields.text_field :username %>
      <% end %>
      <%= f.submit %>

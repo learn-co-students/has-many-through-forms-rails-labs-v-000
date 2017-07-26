@@ -1,1 +1,16 @@
-
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>
+<h2>Comments:</h2>
+<% @post.users.each do |user| %>
+  <%= link_to user, user_path(user) %>
+  <br>
+  <ul>
+    <% user.find_comments_by_post(@post).each do |comment| %>
+      <li><%= comment.content %></li>
+    <% end %>
+  </ul>
+<% end %>
+<h2>New Comment</h2>
+<%= f.fields_for :comments, @post.comments.build do |comment_field| %>
+  
+<% end %>

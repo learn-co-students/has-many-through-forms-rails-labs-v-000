@@ -3,9 +3,16 @@ class Post < ActiveRecord::Base
   has_many :categories, through: :post_categories
   has_many :comments
   has_many :users, through: :comments
-  accepts_nested_attributes_for :categories, :comments, reject_if: :all_blank
+  accepts_nested_attributes_for :categories, reject_if: :all_blank
 
-  def category_attributes=()
-    
+  def category_attributes=(attr_hash)
+    attr_hash.values.each do |name|
+      category = Category.find_or_build_by(name)
+      self.categories << category
+    end
+  end
+
+  def find_unique_users
+    self.users.group("username")
   end
 end

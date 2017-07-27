@@ -1,1 +1,22 @@
 
+<h1> New Posts</h1>
+
+<%= form_for @post do |f| %>
+    Title:
+    <%= f.text_field :title %>
+    <br>
+    Content:
+    <%= f.text_area :content %><p>
+    Comments:
+
+    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |box| %>
+      <%= box.label %>
+      <%= box.check_box %>
+    <% end %>
+    <br>
+
+    <%= f.fields_for :categories, @post.categories.build do |category_fields| %>
+    <%= category_fields.text_field :name, placeholder: "New Category" %>
+ <% end %>
+    <%= f.submit %>
+<% end %>

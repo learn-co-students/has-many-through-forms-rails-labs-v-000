@@ -1,22 +1,25 @@
 Title: <%= @post.title %>
+<br />
 Content: <%= @post.content %>
+<br />
 Catgeories: <% @post.categories.each do |category| %>
   <%= category.name %>
 <% end %>
-<% users = [] %>
+<br />
 Comments: <% @post.comments.each do |comment| %>
-  <%= comment.content %>
-  <% users << comment.user %>
+  <%= comment.user.username %> says: <%= comment.content %>
 <% end %>
-Commenters: <% users.uniq! %>
-  <% users.each do |user| %>
+<br />
+Commenters: <% @post.users.uniq.each do |user| %>
     <%= link_to user.username, user_path(user) %>
   <% end %>
-
-<%= form_for @post do |f| %>
-  <%= fields_for :comments do |comment| %>
-    <%= comment.collection_select :user, User.all, :id, :username, include_blank: "" %>
-    <%= comment.text_area :content %>
+  <br />
+Add a Comment: <%= form_for @post.comments.build do |f| %>
+  <%= f.hidden_field :post_id %>
+  Content: <%= f.text_area :content %>
+  Current user: <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "" %>
+  New user: <%= f.fields_for :user, @post.users.build do |user_fields| %>
+    <%= user_fields.text_field :username %>
   <% end %>
-  <%= f.submit %>
+  <%= f.submit :value => "Create Comment" %>
 <% end %>

@@ -15,8 +15,8 @@ Commenters: <% users.uniq! %>
 
 <%= form_for @post do |f| %>
   <%= fields_for :comments do |comment| %>
-    <%= f.collection_select :users, User.all, :id, :username, include_blank: "" %>
-    <%= f.text_area :comment %>
+    <%= comment.collection_select :user, User.all, :id, :username, include_blank: "" %>
+    <%= comment.text_area :content %>
   <% end %>
   <%= f.submit %>
 <% end %>

@@ -1,1 +1,7 @@
-
+<ul>
+  <% if @user.comments %>
+    <% @user.comments.each do |comment| %>
+      <li><%= link_to comment.post.title , post_path(comment.post) %></li>
+    <% end %>
+  <% end %>
+</ul>

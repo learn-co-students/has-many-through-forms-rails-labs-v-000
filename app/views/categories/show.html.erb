@@ -1,0 +1,9 @@
+<h1>Related Posts</h1>
+
+<% if @category.posts %>
+  <% @category.posts.each do |post| %>
+    <ul>
+      <li><%= link_to post.title, post_path(post) %></li>
+    </ul>
+  <% end %>
+<% end %>

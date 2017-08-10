@@ -14,11 +14,11 @@
   </p>
 
   <p>
-    <%= f.fields_for :categories, @post.categories.build do |category| %>
+    <%= f.fields_for :categories do |category| %>
       <%= category.label :name %>
       <%= category.text_field :name %>
     <% end %>
   </p>
-  
+
   <%= f.submit %>
 <% end %>

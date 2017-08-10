@@ -1,1 +1,57 @@
+<h2><%= @post.title %></h2>
+  <span>
+    <%= pluralize(@post.categories.count, "Category") %>
+    <% @post.categories.each do |category| %>
+      <%= link_to category.name, category %><%= ", " unless category == @post.categories.last %>
+    <% end %>
+  </span>
 
+    <p>
+      <%= @post.content %>
+    </p><br>
+
+    <%= form_for @comment do |f| %>
+        <%= f.hidden_field :post_id, value: @post.id %>
+      <p>
+        <%= f.label :content, "Comment" %><br>
+        <%= f.text_field :content %>
+      </p>
+      <p>
+        <%= f.label :user_id, "User:" %><br>
+        <%= f.collection_select :user_id, User.all, :id, :username, prompt: "" %>
+      </p>
+
+      <p>
+        <fieldset>
+          <legend>New User</legend>
+            <%= f.fields_for :user do |user| %>
+              <p>
+                <%= user.label :username %>
+                <%= user.text_field :username %>
+              </p>
+
+              <p>
+                <%= user.label :email %>
+                <%= user.email_field :email %>
+              </p>
+
+            <% end %>
+          </fieldset>
+      </p>
+
+      <%= f.submit %>
+    <% end %>
+
+    <p>
+      Commentors:
+      <% @post.uniq_commentors.each do |commentor| %>
+        <%= link_to commentor.username, commentor %><%= ", " if commentor != @post.uniq_commentors.last %>
+      <% end %>
+    </p><br>
+
+      Comments:
+      <% @post.comments.reverse.each do |comment| %>
+        <p>
+          <%= comment.user.username %> says: <%= comment.content %>
+        </p>
+      <% end %>

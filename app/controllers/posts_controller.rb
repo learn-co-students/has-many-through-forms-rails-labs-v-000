@@ -11,7 +11,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @post.comments.build
+    # @post.comments.build
   end
 
   def create

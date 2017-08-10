@@ -1,1 +1,44 @@
+<h1><%= @post.title %></h1>
+<h4><% @post.categories.collect do |category| %>
+    <%= link_to category.name, category_path(category) %>
+<% end %></h4>
+<p><%= @post.content %></p>
 
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li><%= comment.user.username %> says: <%= comment.content %> </li>
+  <% end %>
+</ul>
+
+<ul>
+  <% @post.users.uniq.each do |user| %>
+    <li><%= link_to user.username, user_path(user) %> </li>
+  <% end %>
+</ul>
+
+<h5>Add a Comment</h5>
+<%= form_for Comment.new do |f| %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <p>Select a User:</p>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "New User" %>
+  <p>Or create a new user:</p>
+  <%= f.fields_for :user_attributes do |user_fields| %>
+    <%= user_fields.text_field :username %>
+  <% end %>
+  <p>Comment:</p>
+  <p><%= f.text_area :content %></p>
+  <p><%= f.submit %></p>
+<% end %>
+
+
+
+
+
+<!-- 2. Create a `posts#show` page to display the following:
+  1. The title and content of the post.
+  2. All of the comments associated with the post.
+  3. A list of all the unique users who have commented on the post. A user's name should only show up once in this section,
+  even if they've commented multiple times.
+  4. A form to add a new comment. The form should have a drop-down menu to select a user
+  (we'll change this in future lessons to automatically associate the comment with a logged-in user).
+  We should also be able to create a new user here and automatically associate it with the post. -->

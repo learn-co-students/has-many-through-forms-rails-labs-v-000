@@ -6,24 +6,20 @@
   <% end %>
 </ul>
 <h4>Comments:</h4>
-  <ul>
-    <% @post.comments.each do |comment| %>
-      <li><%= comment.content %></li>
-    <% end %>
-  </ul>
-<h4>Users Who Have Commented:</h4>
     <ul>
     <% @post.users.uniq.each do |user| %>
-      <li><%=link_to user.username, user_path(user) %></li>
+      <li><%=link_to user.username, user_path(user) %> says: <% user.comments.each do |c|%> <%= c.content %><% end%></li>
     <% end %>
   </ul>
+
+
+
 <h4>Add a Comment:</h4>
 <%= form_for @comment do |f| %>
   Select a User:
-    <%= f.collection_check_boxes :user_id, User.all, :id, :username%><br />
+    <%= f.collection_select(:user_id, User.all, :id, :username, include_blank: 'new user' )%><br />
 
- <%= f.fields_for :users do |user_fields| %>
-
+ <%= f.fields_for :user, User.new do |user_fields| %>
 
     Or Create A New User:
     <%= user_fields.text_field :username %>
@@ -31,7 +27,8 @@
   <% end %>
 
   Comment: <%=f.text_area :content%> <br />
-  <%= f.submit %>
+  <%= f.hidden_field :post_id, :value => @post.id%>
+  <%= f.submit "Create Comment"%>
 <% end %>
 
 

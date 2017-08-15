@@ -1,1 +1,37 @@
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>
+<ul>
+  <% @post.categories.each do |cat| %>
+  <li><%= link_to cat.name, category_path(cat) %></li>
+  <% end %>
+</ul>
+<h4>Comments:</h4>
+  <ul>
+    <% @post.comments.each do |comment| %>
+      <li><%= comment.content %></li>
+    <% end %>
+  </ul>
+<h4>Users Who Have Commented:</h4>
+    <ul>
+    <% @post.users.uniq.each do |user| %>
+      <li><%=link_to user.username, user_path(user) %></li>
+    <% end %>
+  </ul>
+<h4>Add a Comment:</h4>
+<%= form_for @comment do |f| %>
+  Select a User:
+    <%= f.collection_check_boxes :user_id, User.all, :id, :username%><br />
+
+ <%= f.fields_for :users do |user_fields| %>
+
+
+    Or Create A New User:
+    <%= user_fields.text_field :username %>
+
+  <% end %>
+
+  Comment: <%=f.text_area :content%> <br />
+  <%= f.submit %>
+<% end %>
+
 

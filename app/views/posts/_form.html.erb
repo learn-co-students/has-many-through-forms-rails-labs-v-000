@@ -8,9 +8,9 @@
       <%=  b.label %>
       <%=  b.check_box %>
       </p>
-    <% end %>
-  <%= f.fields_for :categories, post.categories.build do |categories_fields| %>
-    <%= categories_fields.text_field :name %>
+  <% end %>
+  <%= f.fields_for :categories, Category.new do |c| %>
+    <%= c.text_field :name %>
   <% end %>
   <%= f.submit %>
 <% end %>

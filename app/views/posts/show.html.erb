@@ -1,1 +1,39 @@
+<h1> <%= @post.title %> </h1>
+<h2> <%= @post.content %> </h2>
 
+<h3> Tags </h3>
+  <ul>
+    <% @post.categories.each do |cat| %>
+      <li> <%= cat.name %> </li>
+      <% end %>
+  </ul>
+
+  <h3> Comments </h3>
+  <ul>
+    <% @post.comments.each do |comment| %>
+      <li> <%= comment.user.username %> says: <%= comment.content %> </li>
+      <% end %>
+  </ul>
+  <h4> Links to user pages of users who have commented on this post: </h4>
+  <ul>
+    <% commenting_users = [] %>
+    <% @post.comments.each do |comment| %>
+      <% commenting_users << comment.user %>
+      <% end %>
+      <% commenting_users.flatten.uniq.each do |v| %>
+          <%= link_to v.username, user_path(v) %>
+          <% end %>
+  </ul>
+  <h4> Add a comment: </h4>
+    <%= form_for @comment do |f| %>
+      <%= f.collection_select :user_id, User.all, :id, :username, :include_blank => "Create a new user" %> <br>
+      <%= f.fields_for :user_attributes do |user_attribute| %>
+        <%= user_attribute.label "Or create a new username:" %>
+        <%= user_attribute.text_field :username %> <br>
+        <% end %>
+
+      <%= f.label "Content" %>
+      <%= f.text_area :content %><br>
+      <%= f.hidden_field :post_id, value:"#{@post.id}" %>
+      <%= f.submit %>
+    <% end %>

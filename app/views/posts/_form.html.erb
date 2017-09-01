@@ -1,5 +1,6 @@
 <%= form_for @post do |f| %>
     <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
-    post[:category_ids][][:name]
+    <%# post[:category_ids][] %>
+    <%= f.fields_for :categories, @post.categories.build do |categories_fields| %>
 
 <% end %>

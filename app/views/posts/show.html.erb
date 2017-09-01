@@ -1,1 +1,41 @@
+<h1><%= @post.title %></h1>
+<h2><%= @post.content %></h2>
 
+<ul>
+<h3>Categories</h3>
+    <li> 
+    <% @post.categories.each do |category| %> 
+        <%= category.name %>
+    <% end %>
+    </li>
+</ul>
+
+<ul>
+<%= @post.comments.each do |comment| %>
+    <li><%= comment.user.username %> says: <%= comment.content %></li>
+<% end %>
+</ul>
+
+<%= form_for @comment do |f| %>
+    <%= f.label :content  %>
+    <%= f.text_area :content %> </br>
+    <%= f.collection_select :user_id, User.all, :id, :username, :include_blank => true%><br>
+    <%= f.fields_for :user, User.new do |u| %>
+        Create User <%= u.text_field :username %>
+    <% end %> <br>
+    <%= f.hidden_field :post_id, value: @post.id %>
+    <%= f.submit %>
+<% end %>
+
+<h2>Commenters</h2>
+<%= @post.unique_commentors.each do |commentor| %>
+    <%= link_to commentor.username, user_path(commentor) %>
+<% end %>
+ 
+
+   <%# Example of nested structure: %>
+<%# comment[content] = "heheheheheheh"
+comment[user_id] = "1"
+comment[users_attributes][0][:name] = 
+comment[post_id] = @post.id
+%>

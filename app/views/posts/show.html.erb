@@ -8,11 +8,18 @@ Categories:<br>
   <li><%= c.name %></li><br>
   <% end %>
 </ul>
-<%binding.pry%>
+
 Comments:<br>
 <ul>
-  <%= @post.comments.each do |c| %>
-  <li><%= c.content %></li><br>
-  <p><%= link_to c.user.username, user_path(c.user) %></p><br>
+  <% if @post.comments.count > 0 %>
+    <%= @post.comments.each do |c| %>
+      <li><%= c.content %></li><br>
+    <% end %>
+  <% end %>
+</ul>
+
+Comments Users:<br>
+  <%= @post.users.distinct.each do |u| %>
+    <li><%= link_to u.username, user_path(u) %></li><br>
   <% end %>
 </ul>

@@ -23,3 +23,14 @@ Comments Users:<br>
     <li><%= link_to u.username, user_path(u) %></li><br>
   <% end %>
 </ul>
+
+<<%= form_for(@comment) do |f| %>
+
+  <p>
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+  </p>
+
+  <%= f.submit %>
+
+<% end %>

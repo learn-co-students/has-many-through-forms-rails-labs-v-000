@@ -13,24 +13,30 @@ Comments:<br>
 <ul>
   <% if @post.comments.count > 0 %>
     <%= @post.comments.each do |c| %>
-      <li><%= c.content %></li><br>
+      <% if c.user_id %>
+        <li><%= c.user.username + " says: " + c.content %></li><br>
+    <% end %>
     <% end %>
   <% end %>
 </ul>
 
 Comments Users:<br>
+<ul>
   <%= @post.users.distinct.each do |u| %>
     <li><%= link_to u.username, user_path(u) %></li><br>
   <% end %>
 </ul>
 
-<<%= form_for(@comment) do |f| %>
+New Comments:<br>
 
-  <p>
-    <%= f.label :content %>
-    <%= f.text_area :content %>
-  </p>
-
-  <%= f.submit %>
-
-<% end %>
+<%= form_for @comment do |f| %>
+    <%= f.hidden_field :post_id, :value => @comment.post_id %>
+    <%= f.label :user %><br>
+    <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: 'New User'} %><br>
+    <%= f.fields_for :user  do |user| %>
+      <%= user.text_field :username %>
+    <% end %><br>
+    <%= f.label :content %><br>
+    <%= f.text_area :content %><br>
+    <%= f.submit %>
+  <% end %>

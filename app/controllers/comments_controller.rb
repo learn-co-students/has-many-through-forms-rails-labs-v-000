@@ -1,10 +1,5 @@
 class CommentsController < ApplicationController
 
-  def new
-    binding.pry
-    @comment = Comment.new
-  end
-
   def create
     comment = Comment.create(comment_params)
     redirect_to comment.post

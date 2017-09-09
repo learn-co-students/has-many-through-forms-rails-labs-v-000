@@ -8,3 +8,11 @@ Categories:<br>
   <li><%= c.name %></li><br>
   <% end %>
 </ul>
+
+Comments:<br>
+<ul>
+  <%= @post.comments.each do |c| %>
+  <li><%= c.content %></li><br>
+  <p><%= link_to c.user.username, user_path(c.user) %></p><br>
+  <% end %>
+</ul>

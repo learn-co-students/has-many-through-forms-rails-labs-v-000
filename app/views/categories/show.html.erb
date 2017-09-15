@@ -3,6 +3,5 @@
     <li><%= @category.name %></li>
     <% @cateogry_posts.each do |category_post| %>
       <%= link_to category_post.title, post_path(category_post)%>
-    <% end %>
-    
+    <% end %>  
 </ul>

@@ -10,8 +10,8 @@
   </p>
 <ul>
   <% Comment.all.each do |comment| %>
-  <li><%= comment.content %></li>
-  <% end %>  
+  <li>User <%= User.find(comment.user_id).username %> says: <%= comment.content %></li>
+  <% end %>
 </ul>
 
 

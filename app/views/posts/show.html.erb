@@ -10,15 +10,17 @@
   </p>
 <ul>
   <% Comment.all.each do |comment| %>
-  <li>User <%= User.find(comment.user_id).username %> says: <%= comment.content %></li>
+  <li>User <%= link_to User.find(comment.user_id).username, user_path(User.find(comment.user_id)) %> says: <%= comment.content %></li>
   <% end %>
 </ul>
 
 
 <%= form_for Comment.new do |f| %>
-<%= f.collection_select :user_id, User.all, :id, :username %></br>
+<%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Not a User' %></br>
 <%= f.hidden_field :post_id, value: @post.id %>
   <%= f.label :comment%>:
-  <%= f.text_field :content%>
+  <%= f.text_field :content %>
+
+
   <%= f.submit %>
 <% end %>

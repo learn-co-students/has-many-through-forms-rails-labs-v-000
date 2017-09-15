@@ -1,1 +1,44 @@
+<h1>Post Show Page </h1>
+<h3><%= @post.title %></h3></br>
 
+
+<% @post.category_ids.each do |category_id| %>
+  <%= Category.find(category_id).name%></br>
+<% end %>
+  <p>
+    <%= @post.content %>
+  </p>
+<ul>
+  <% if @post.comments.length > 0 %>
+    <% @post.comments.each do |comment| %>
+      <% if comment.user %>
+        <li><%= comment.user.username %> says:</li>
+        <li><%= comment.content %></li></br>
+      <% end %>
+    <% end %>
+  <% end  %>
+</ul>
+
+<ul>
+  <% @post.comments.map{|comment| comment.user}.uniq.each do |user| %>
+    <% if user %>
+      <%= link_to user.username, user_path(user) %>
+    <% end  %>
+  <% end %>
+</ul>
+
+
+
+
+<%= form_for @comment do |f| %>
+<%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Not a User' %></br>
+<%= f.hidden_field :post_id %>
+  <%= f.label :comment%>:
+  <%= f.text_field :content %>
+  <%= f.fields_for :user, @comment.build_user do |user_fields| %>
+    <%= user_fields.text_field :username %>
+  <% end %>
+
+
+  <%= f.submit %>
+<% end %>

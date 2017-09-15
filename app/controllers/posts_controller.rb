@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    @comments = @post.comments
+    @comment = @post.comments.build
   end
 
   def index
@@ -12,7 +14,12 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = Post.create(post_params)
+    # raise params.inspect
+    # if params[:category_ids].nil? && params[:categories_attributes].nil?
+      # post = Post.create(title: post_params[:title], content: post_params[:content])
+    # else
+      post = Post.create(post_params)
+    # end
     redirect_to post
   end
 

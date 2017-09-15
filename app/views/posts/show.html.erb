@@ -9,10 +9,17 @@
     <%= @post.content %>
   </p>
 <ul>
-  <% Comment.all.each do |comment| %>
-  <li>User <%= link_to User.find(comment.user_id).username, user_path(User.find(comment.user_id)) %> says: <%= comment.content %></li>
+  <% User.all.each do |user| %>
+    <li><%= link_to user.username, user_path %> says:</li>
+    <ul>
+      <% user.comments.each do |comment|%>
+      <li><%= comment.content %></li></br>
+      <% end %>
+    </ul>
   <% end %>
 </ul>
+
+
 
 
 <%= form_for Comment.new do |f| %>

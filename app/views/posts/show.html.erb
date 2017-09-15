@@ -1,11 +1,16 @@
 <h1>Post Show Page </h1>
-<%= @post.title %>
+<h3><%= @post.title %></h3></br>
+
+
+<% @post.category_ids.each do |category_id| %>
+  <%= Category.find(category_id).name%></br>
+<% end %>
   <p>
     <%= @post.content %>
   </p>
 
 <%= form_for Comment.new do |f| %>
-  <%= f.label :content%>:
+  <%= f.label :comment%>:
   <%= f.text_field :content%>
   <%= f.submit %>
 <% end %>

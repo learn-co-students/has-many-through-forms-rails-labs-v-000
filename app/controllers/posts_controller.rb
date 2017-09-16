@@ -16,6 +16,14 @@ class PostsController < ApplicationController
     redirect_to post
   end
 
+  # no need  for the update method - we are creating comments  and stuff in the
+  # posts#show method, not editing the post
+  # def update
+  #   @post = Post.find(params[:id])
+  #   @post.update(post_params)
+  #   redirect_to @post
+  # end
+
   private
 
   def post_params

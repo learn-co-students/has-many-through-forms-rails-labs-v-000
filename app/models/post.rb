@@ -4,5 +4,10 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :users, through: :comments
 
+  accepts_nested_attributes_for :categories
+
+  def commenters
+    comments.map { |comment| comment.user }.uniq
+  end
 
 end

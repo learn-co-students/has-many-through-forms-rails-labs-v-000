@@ -1,1 +1,31 @@
-<%= render 'form', post: Post.new %>
+<style>
+.checkstyle {
+  border: 1px solid red
+}
+</style>
+
+<%= form_for @post do |f| %>
+
+  <p>
+    <%= f.label "Title" %>
+    <%= f.text_field :title %>
+  </p>
+
+  <p>
+    <%= f.label "Content" %>
+    <%= f.text_area :content %>
+  </p>
+
+  <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b| %>
+    <p>
+      <%= b.label :class => "checkstyle"%>
+      <%= b.check_box %>
+    </p>
+  <% end %>
+
+  <%= f.fields_for :categories do |category_builder| %>
+    new category:<%= category_builder.text_field :name %>
+  <% end %>
+
+  <%= f.submit %>
+<% end %>

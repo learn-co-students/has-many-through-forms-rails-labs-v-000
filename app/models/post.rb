@@ -4,5 +4,22 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :users, through: :comments
 
+   def categories_attributes=(category_attributes)
+     category_attributes.values.each do |category_attribute|
+
+       if category_attribute[:name].present?
+         category = Category.find_or_create_by(category_attribute)
+         if !self.categories.include?(category)
+           self.categories.build(category_attribute)
+         end
+       end
+     end
+   end
+
+   def comments_attributes=(content)
+     content.values.each do |content|
+       self.comments.build(content)
+     end
+   end
 
 end

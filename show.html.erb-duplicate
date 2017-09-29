@@ -32,20 +32,16 @@
   <h3>Add Comment</h3>
   <%= form_for @post.comments.build do |f| %>
 
-    <%= f.hidden_field :post_id %>
-
     <%= f.label "Comment" %>
     <%= f.text_field :content %>
 
     <%= f.label "User" %>
-    <%= f.collection_select :user, User.all, :id, :username, { include_blank: true }, { name: 'comment_user_id'} %>
+    <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: true} %>
 
-    <%= f.text_field :user, list: "users_autocomplete", name: 'comment_user_attributes_username' %>
-    <datalist id="users_autocomplete">
-      <% User.all.each do |user| %>
-        <option name="username" value="<%= user.username %>">
-      <% end %>
-    </datalist>
+    <%= f.label "Create or Search for User" %>
+    <%= f.fields_for :users do |name| %>
+    <%= name.text_field :username %><br>
+    <% end %>
 
     <%= f.submit %>
   <% end %>

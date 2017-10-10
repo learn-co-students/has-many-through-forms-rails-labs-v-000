@@ -1,0 +1,17 @@
+
+
+<%= form_for comment do |f| %>
+  <%= f.hidden_field :post_id, :value => @post.id %>
+  <%= f.label "Comment:" %>
+  <%= f.text_area :content %><br>
+  <%= f.label "User:" %>
+  <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: 'Select a user'} %>
+  <%= f.label "or create a new user" %>
+
+  <%= f.fields_for :user, comment.build_user do |user_fields| %>
+    <%= user_fields.text_field :username %>
+  <% end %>
+
+
+  <%= f.submit %>
+<% end %>

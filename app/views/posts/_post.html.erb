@@ -1,0 +1,20 @@
+<div class=post-content>
+  <%= @post.title %>
+  <%= @post.content %>
+  <% @post.categories.each do |category| %>
+    <%= category.name %>
+  <% end %>
+
+  <p>comments</p>
+  <% @post.comments.each do |c| %>
+    <li><%= c.user.username %> says: <%= c.content %></li>
+  <% end %>
+
+  <%= render "comment", comment: Comment.new %>
+
+  <p> Users who commented:</p>
+  <% @post.comments.collect {|c| c.user_id }.uniq.each do |u| %>
+    <li><%= link_to User.find(u).username, user_path(User.find(u)) %></li>
+  <% end %>
+
+</div>

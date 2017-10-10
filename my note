@@ -1,0 +1,14 @@
+Parameters: {"utf8"=>"✓",
+"authenticity_token"=>"dLkBRvFzbKdhRmOtcMypdR3cCZrksQWe7c6A2ddnnsQRs14g88G
+ERgIovsRB/P812cOJr+HscE/1gm/3XQnbxQ==",
+"comment"=>{"post_id"=>"2", "content"=>"me threee", "user_id"=
+>"", "users"=>{"username"=>"phoebe"}}, "commit"=>"Create Comment"}
+
+Unpermitted parameter: users
+
+Parameters: {"utf8"=>"✓",
+"authenticity_token"=>"dQRiucR09ONxSEambHazlBt0x+iXa6Qe1CDarlq4K1oQDj3fxsY
+cAhImm89dRuXU32tH3ZI20c/MbDWA0NZuWw==",
+"post"=>{"title"=>"smiths", "content"=>"new lip balm", "catego
+ry_ids"=>[""],
+"categories_attributes"=>{"0"=>{"name"=>"hydrating"}}}, "commit"=>"Create Post"}

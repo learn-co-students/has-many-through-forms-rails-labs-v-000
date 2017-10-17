@@ -9,6 +9,8 @@ describe 'comments', type: 'feature' do
     visit post_path(@post)
   end
 
+  
+
   it 'creates a comment with an existing user' do
     fill_in('comment_content', with: 'great post!')
     select(@user.username, from: 'comment_user_id')

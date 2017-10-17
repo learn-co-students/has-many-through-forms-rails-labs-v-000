@@ -1,15 +1,16 @@
-<%= @post.title %>
-<%= @post.content%>
+Post Title: <%= @post.title %></br>
+Post Content: <%= @post.content%>
 
 categories: 
 <% @post.categories.each do |c|%>
   <%=c.name%>
   <% end %>
   <h4>Comments:</h4>
+  
   <% @post.comments.each do |comment|%>
-  <%binding.pry%>
   <% unless comment.user.username == nil%>
-  <%= comment.user.username%> <%=comment.content%>
+  <%= comment.user.username%> says: <%=comment.content%>
+    <% end %>
   <% end %>
 Users:
 <% @post.users.uniq.each do |u|%>
@@ -19,19 +20,20 @@ Users:
 
 
   <%= form_for @post.comments.build do |f|%>
-  <%= f.label "Content"%>
-  <%= f.text_area :content, id:"comment_content", name: "comment_content", value: "comment_content" %>
+  <%= f.label "content"%>
+  <%= f.text_area :content %>
   <%= f.hidden_field :post_id%>
   <%= f.label "choose user"%>
   <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "select a user"%>
+
   <br/>
   <h4> Create a user </h4>
   <%= f.fields_for :user, @post.users.build do |users_fields|%>
     <%= f.label "username"%>
     <%= users_fields.text_field :username %>
-       <%= f.submit 'Create Comment'%>
     <% end %>
-  <% end %>
-  <% end %>
-  
+  <%= f.submit 'Create Comment'%>
+
+
+<% end %>
   

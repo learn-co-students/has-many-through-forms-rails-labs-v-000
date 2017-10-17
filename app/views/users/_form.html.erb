@@ -1,0 +1,12 @@
+<%= form_for @user do |f| %>
+  <%= f.label "username" %>
+  <%= f.text_field :username %><br>
+  <%= f.label "email" %>
+  <%= f.text_area :email %><br>
+  <%= f.collection_check_boxes :comment_ids, Comment.all, :id, :content%>
+  <%= f.fields_for :comments, @user.comments.build do |comments_fields| %>
+  <%= comments_fields.label "comment_content" %>
+  <%= comments_fields.text_field :content %><br>
+  <% end %>
+  <%= f.submit %>
+<% end %>

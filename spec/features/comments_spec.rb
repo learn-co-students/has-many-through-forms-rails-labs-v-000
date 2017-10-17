@@ -6,7 +6,7 @@ describe 'comments', type: 'feature' do
     @category = Category.create(name: "Cool")
     @post = Post.create(title: "So Awesome", content: "Man am I a great blogger OR WHAT!")
     @user = User.create(username: 'RealBigFish')
-    visit post_path(@post)
+    visit post_path(@post)#here is the hint to modify the Post#show method
   end
 
   it 'creates a comment with an existing user' do

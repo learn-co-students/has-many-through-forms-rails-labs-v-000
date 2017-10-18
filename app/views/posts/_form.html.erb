@@ -3,6 +3,7 @@
     border: 1px solid red
   }
 </style>
+
 <%= form_for(@post) do |f|%>
 <p>
 <%= f.label :title %>
@@ -21,8 +22,10 @@
 </p>
 <%end%>
 
-<%= f.fields_for :categories, Category.new do |category_builder| %>
+<%= f.fields_for :categories, @post.categories do |category_builder| %>
+<%binding.pry%>
 <%= category_builder.text_field :name %>
+<%binding.pry%>
 <% end %>
 
 <%=f.submit%>

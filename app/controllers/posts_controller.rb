@@ -10,7 +10,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    binding.pry
+    #binding.pry
     3.times do
       @post.categories.build
     end

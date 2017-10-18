@@ -23,9 +23,9 @@
 <%end%>
 
 <%= f.fields_for :categories, @post.categories do |category_builder| %>
-<%binding.pry%>
-<%= category_builder.text_field :name %>
-<%binding.pry%>
+<!--%binding.pry%-->
+<p>new comment: <%= category_builder.text_field :name %></p>
+<!--%binding.pry%-->
 <% end %>
 
 <%=f.submit%>

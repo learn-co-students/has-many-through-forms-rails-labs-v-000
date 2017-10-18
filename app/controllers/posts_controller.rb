@@ -10,6 +10,9 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    3.times do
+      @post.categories.build
+    end
     #raise @post.inspect
   end
 

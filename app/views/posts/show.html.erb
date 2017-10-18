@@ -1,1 +1,71 @@
+<div>
+  <h1><%= @post.title %></h1>
+</div>
 
+<div>
+  <p>Content: <%= @post.content %></p>
+</div>
+
+<br />
+
+<div>
+  <h3>Categories:</h3>
+</div>
+
+<ul>
+  <% @post.categories.each do |category| %>
+    <li><%= category.name %></li>
+  <% end %>
+</ul>
+
+<div>
+  <h3>Comments</h3>
+</div>
+
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li><%= comment.user.username %> says: <%= comment.content %></li>
+  <% end %>
+</ul>
+
+<div>
+  <h3>Commentors</h3>
+</div>
+
+<ul>
+  <% @post.users.uniq.each do |user| %>
+    <li><%= link_to user.username, user %>
+  <% end %>
+</ul>
+
+<br />
+
+<div>
+  <h3>Added a Comment</h3>
+</div>
+
+<%= form_for @comment do |f| %>
+  <div>
+    Select a user:
+      <%= f.collection_select :user_id, User.all, :id,
+        :username, include_blank: true %>
+    <br />
+
+    Create a user:
+    <%= f.fields_for :user, @comment.build_user do |user_attributes| %>
+      Username: <%= user_attributes.text_field :username %>
+    <% end %>
+  </div>
+
+  <br />
+  <div>
+    Comment: <%= f.text_field :content %>
+    <%= f.hidden_field :post_id, value: @post.id %>
+  </div>
+
+  <br />
+
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

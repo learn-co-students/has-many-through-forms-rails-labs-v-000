@@ -6,9 +6,9 @@ class CommentsController < ApplicationController
     @comment = Comment.new
   end
   def create
-    comment = Comment.create(comment_params)
-    #binding.pry
-    redirect_to post_path
+    @comment = Comment.create(comment_params)
+    binding.pry
+    redirect_to post_path(@comment.post)
   end
 
   private

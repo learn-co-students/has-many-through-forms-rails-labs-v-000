@@ -10,6 +10,8 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :users, through: :comments
   accepts_nested_attributes_for :categories
+  #https://www.youtube.com/watch?v=amT27SfNhKM
+  accepts_nested_attributes_for :users
 
   def categories_attributes=(categories_hashes)
     categories_hashes.each do |index,category_attributes|

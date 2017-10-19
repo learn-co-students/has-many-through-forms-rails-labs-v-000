@@ -10,6 +10,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    #binding.pry
     3.times do
       @post.categories.build
     end
@@ -19,7 +20,7 @@ class PostsController < ApplicationController
   def create
     # raise params.inspect
     post = Post.create(post_params)
-    redirect_to post
+      redirect_to post
     #binding.pry
   end
 

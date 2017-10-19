@@ -3,6 +3,7 @@
     border: 1px solid red
   }
 </style>
+
 <%= form_for(@post) do |f|%>
 <p>
 <%= f.label :title %>
@@ -15,10 +16,6 @@
 <%#how to checkbox ea category%>
 <%#!-- <%ActionView collection checkboxes rails%>
 <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b| %>
-<%# generates checkbox named post[category_ids][] for ea category in Category
-#it'll use :id as the value for check_box
-#it'll use :name method to label check_box
-%>
 <p>
   <%= b.label :class => "whatever" %>
   <%= b.check_box %>
@@ -26,17 +23,10 @@
 <%end%>
 
 <%= f.fields_for :categories, @post.categories do |category_builder| %>
-<%#How Can I build a checkbox for each category%>
-<%#Category.all.each do |c| "iterate over Category"%>
-<%#!-- <%#label for="category_id_<%#=i.d %><%#{}"><%#= c.name %><%#/label> -->
-<%#!-- input type="checkbox" name="post[category_ids][]" value="<%#=c.id %><%# id="category_id_<%= c.id %><%#">
-<%#!-- #%>
-<%= category_builder.text_field :name %>
+<!--%binding.pry%-->
+<p>new comment: <%= category_builder.text_field :name %></p>
+<!--%binding.pry%-->
 <% end %>
 
-<%# 1. How can I build a comment with an existing user?
-    2. How can I obtain existing user?
-    3. How can I build a comment?
-%>
 <%=f.submit%>
 <%end%>

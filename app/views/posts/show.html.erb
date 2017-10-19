@@ -6,3 +6,8 @@ Categories: <br />
  <% @post.categories.each do |c| %>
  <li><%= c.name %></li>
  <%end%>
+<%# way to write the code here to ensure test passing byebug 
+%>
+<% @post.comments.each do |comment| %>
+<%= comment.user.username%> says: <%=comment.content%>
+<% end %>

@@ -1,1 +1,9 @@
+<h4><%=@user.username%></h4>
 
+<% if @user.comments.any? %>
+  <ul>
+    <% @user.comments.each do |comment| %>
+    <li><%= link_to comment.post_title, post_path(comment.post) %></li>
+    <% end %>
+  </ul>
+<% end %>

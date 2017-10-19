@@ -4,5 +4,7 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :users, through: :comments
 
-
+  def unique_users
+    self.users.uniq
+  end
 end

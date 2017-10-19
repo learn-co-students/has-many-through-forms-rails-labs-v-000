@@ -1,0 +1,10 @@
+<h2>Category: <%= @category.name %></h2>
+
+<h4>Posts</h4>
+<% if @category.posts.any? %>
+  <ul>
+    <% @category.posts.each do |p| %>
+      <li><%= link_to p.title, post_path(p) %></li>
+    <% end %>
+  </ul>
+<% end %>

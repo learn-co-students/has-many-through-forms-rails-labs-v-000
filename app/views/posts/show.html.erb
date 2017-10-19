@@ -1,1 +1,20 @@
+<h2><%= @post.title %></h2>
+<p><%= @post.content %></p>
 
+<h4>Comments</h4>
+  <% if @post.comments.any? %>
+    <ul>
+      <% @post.comments.each do |c| %>
+        <li><%= c.content %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+<h4>Users</h4>
+<% if @post.comments.any? %>
+  <ul>
+    <% @post.unique_users.each do |u| %>
+      <li><%= link_to u.username, user_path(u) %></li>
+    <% end %>
+  </ul>
+<% end %>

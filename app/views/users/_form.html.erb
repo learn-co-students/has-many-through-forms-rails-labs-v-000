@@ -5,7 +5,7 @@
   <%= f.text_area :email %><br>
   <%= f.collection_check_boxes :comment_ids, Comment.all, :id, :content%><br>
   <%= f.fields_for :comments, @user.comments.build do |comments_fields| %> 
-  <%# binding.pry %>
+  <%# byebug %>
   <%##build method pushes and associate @ same time; 
   http://railscasts.com/episodes/17-habtm-checkboxes-revised;  
   https://ducktypelabs.com/how-a-has_many-through-association-works-in-practice/; 

@@ -13,7 +13,8 @@ class User < ActiveRecord::Base
   # User#comments.create
     has_many :posts, through: :comments#add methods such as ????
    #https://ducktypelabs.com/how-a-has_many-through-association-works-in-practice/
-
+   has_many :commented_posts,  through: :comments, source: :post
+   #https://www.learneroo.com/modules/137/nodes/767
 
   def comments_attributes=(comment_attributes)
    comment_attributes.values.each do |comment_attribute|

@@ -3,10 +3,20 @@
   <%= f.text_field :username %><br>
   <%= f.label "email" %>
   <%= f.text_area :email %><br>
-  <%= f.collection_check_boxes :comment_ids, Comment.all, :id, :content%>
-  <%= f.fields_for :comments, @user.comments.build do |comments_fields| %>
-  <%= comments_fields.label "comment_content" %>
-  <%= comments_fields.text_field :content %><br>
+  <%= f.collection_check_boxes :comment_ids, Comment.all, :id, :content%><br>
+  <%= f.fields_for :comments, @user.comments.build do |comments_fields| %> 
+  <%# binding.pry %>
+  <%##build method pushes and associate @ same time; 
+  http://railscasts.com/episodes/17-habtm-checkboxes-revised;  
+  https://ducktypelabs.com/how-a-has_many-through-association-works-in-practice/; 
+  https://rubyplus.com/articles/3631-Debugging-using-ByeBug-Gem-in-Rails-5; 
+  https://fleeblewidget.co.uk/2014/05/byebug-cheatsheet/;
+  http://guides.rubyonrails.org/debugging_rails_applications.html
+  #%>
+  <%= comments_fields.label "comment_content" %><br>
+  <%= comments_fields.text_field :content %>
   <% end %>
   <%= f.submit %>
+  <%# binding.pry %>
+ <!--  <%#= link_to @posts.users, user_path %> -->
 <% end %>

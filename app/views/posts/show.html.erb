@@ -1,5 +1,5 @@
 
-<h1>Post Title: <%= @post.title%></h1>
+<h1>Post TTTTTTT: <%= @post.title%></h1>
 <p>Post Content:<%= @post.content%></p>
 Categories: <br />
 <ul>
@@ -13,8 +13,10 @@ Categories: <br />
 <% end %>
 
 <%#creates a comment with an existing user%>
-<%=form_for @post.comments.build do |f|%>
+<%=form_for @comment do |f|%>
 <%#build is Alias for: new%>
+<%=f.hidden_field :post_id, value: @post.id%>
+<%#use line above to pass data to controller>
 <%=f.label :content%>
 <%=f.text_field :content%>
 <%=f.collection_select(:user_id, User.all, :id, :username)%>

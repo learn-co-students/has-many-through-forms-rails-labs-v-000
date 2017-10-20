@@ -13,14 +13,26 @@ Categories: <br />
 <% end %>
 
 <%#creates a comment with an existing user%>
-<%=form_for @comment do |f|%>
+<%=form_for @post.comments.build do |comment|%>
 <%#build is Alias for: new%>
-<%=f.hidden_field :post_id, value: @post.id%>
+<%=comment.hidden_field :post_id, value: @post.id%>
 <%#use line above to pass data to controller>
 <%=f.label :content%>
-<%=f.text_field :content%>
-<%=f.collection_select(:user_id, User.all, :id, :username)%>
+<%=comment.text_field :content%><%#new content for comment%><br>
+<%=comment.collection_select(:user_id, User.all, :id, :username)%><br>
 <%# raise params.inspect %>
-<%=f.submit%>
+<%# how to create a new comment and a new user ???? %>
+<%=comment.fields_for :user, @post.comments.last.build_user do |user_attributes| %><br>
+<%# fields_for helper receivs 4..6 arguments
+Post object receives chain methods, comments, last, build_user, call  ???? %>
+<%# HTML:name="comment[user_attributes][username]"  %>
+     <%=user_attributes.label :username, 'UserName'%><br>
+  <%# raise user_attributes.inspect %>   
+     <%=user_attributes.text_field :username %><br>
+     <% end %>
+<%# raise params.inspect %>
+<%#It's also possible to specify the instance to be used:http://api.rubyonrails.org/classes/ActionView/Helpers/FormHelper.html#method-i-fields_for%>
+<%# input id="username" name="parent_attributes:[ {username: ''}]" type="text" /%>
+<%=comment.submit%>
 <% end %>
 <%#creates a comment with an existing user%>

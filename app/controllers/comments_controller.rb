@@ -7,7 +7,6 @@ class CommentsController < ApplicationController
   end
   def create
     @comment = Comment.create(comment_params)
-    binding.pry
     redirect_to @comment.post
     #supplied comment's user's foreign key id argument
   end

@@ -2,6 +2,8 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @comment = Comment.new
+    #binding.pry
+    #@comment.save
   end
 
   def index
@@ -15,6 +17,7 @@ class PostsController < ApplicationController
       @post.categories.build
     end
     #raise @post.inspect
+    #https://www.pluralsight.com/guides/ruby-ruby-on-rails/ruby-on-rails-nested-attributes
   end
 
   def create

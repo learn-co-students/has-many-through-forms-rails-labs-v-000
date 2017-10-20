@@ -31,7 +31,7 @@
 <br><br>
 
 <h3>If a New User, Create Username below</h3>
-  <%= f.fields_for :user, User.new do |user_builder| %>
+  <%= f.fields_for :user, @user do |user_builder| %>
   <%= user_builder.label :username %>
   <%= user_builder.text_field :username %>
       <% end %>

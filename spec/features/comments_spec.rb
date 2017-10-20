@@ -12,7 +12,9 @@ describe 'comments', type: 'feature' do
   it 'creates a comment with an existing user' do
     # byebug
     fill_in('comment_content', with: 'great post!')
+    #byebug
     select(@user.username, from: 'comment_user_id')
+    #byebug
     click_button('Create Comment')
     expect(page).to have_content("#{@user.username} says: great post!")
   end

@@ -1,13 +1,24 @@
 
-<h1><%= @post.title%></h1>
-<p><%= @post.content%></p>
+<h1>Post Title: <%= @post.title%></h1>
+<p>Post Content:<%= @post.content%></p>
 Categories: <br />
 <ul>
  <% @post.categories.each do |c| %>
  <li><%= c.name %></li>
  <%end%>
-<%# way to write the code here to ensure test passing byebug 
+<%# way to write the code here to ensure test passing byebug
 %>
 <% @post.comments.each do |comment| %>
-<%= comment.user.username%> says: <%=comment.content%>
+<%= comment.user.username%> says: <%=comment.content%><br>
 <% end %>
+
+<%#creates a comment with an existing user%>
+<%=form_for @post.comments.build do |f|%>
+<%#build is Alias for: new%>
+<%=f.label :content%>
+<%=f.text_field :content%>
+<%=f.collection_select(:user_id, User.all, :id, :username)%>
+<%# raise params.inspect %>
+<%=f.submit%>
+<% end %>
+<%#creates a comment with an existing user%>

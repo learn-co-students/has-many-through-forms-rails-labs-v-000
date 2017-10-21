@@ -9,7 +9,7 @@ class Post < ActiveRecord::Base
   #collection singular ids=ids
   has_many :comments
   has_many :users, through: :comments
-  accepts_nested_attributes_for :categories, :users, reject_if: :reject_users
+  accepts_nested_attributes_for :categories, :users, reject_if: :all_blank
   accepts_nested_attributes_for :comments, reject_if: :reject_comments
   #https://www.youtube.com/watch?v=amT27SfNhKM
   #https://gorails.com/episodes/comments-with-polymorphic-associations?autoplay=1

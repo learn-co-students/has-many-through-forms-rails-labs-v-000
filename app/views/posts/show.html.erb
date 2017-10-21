@@ -13,23 +13,28 @@ Categories: <br />
 <% end %>
 
 <%#creates a comment with an existing user%>
-<%=form_for @comment do |comment|%>
-<%#build is Alias for: new%>
-<%=comment.hidden_field :post_id, value: @post.id%>
-<%#use line above to pass data to controller%>
-<%=comment.label :content%>
-<%=comment.text_field :content%><%#new content for comment%><br>
-<%=comment.collection_select(:user_id, User.all, :id, :username)%><br>
-<%# raise params.inspect %>
+<h5>Create Comment With Existing User</h5>
+<%=form_for @post.comments.build do |comment|%>
+  <%#build is Alias for: new%>
+  <%=comment.hidden_field :post_id, value: @post.id%>
+  <%#use line above to pass data to controller%>
+  <%=comment.label :content%>
+  <%=comment.text_field :content%><%#new content for comment%><br>
+  <%#The form should have a drop-down menu to select a user%>
+  <%=comment.label :user_id%>
+  <%=comment.collection_select(:user_id, User.all, :id, :username)%><br>
+  <%# raise params.inspect %>
 <%# how to create a new comment and a new user ???? %>
-<%=comment.fields_for :user, @comment.build_user do |user_attributes| %><br>
-<%# fields_for helper receivs 4..6 arguments
-Post object receives chain methods, comments, last, build_user, call  ???? %>
-<%# HTML:name="comment[user_attributes][username]"  %>
-     <%=user_attributes.label :username, 'UserName'%><br>
-  <%# raise user_attributes.inspect %>
-     <%=user_attributes.text_field :username %><br>
-     <% end %>
+<h5>Create Comment With New User</h5>
+ <%#We should also be able to create a new user here and automatically associate it with the post%>
+  <%=comment.fields_for :user, @post.comments.last.build_user do |user_attributes| %><br>
+  <%# fields_for helper receivs 4..6 arguments
+  Post object receives chain methods, comments, last(item of comment's collection), build_user, call  ???? %>
+  <%# HTML:name="comment[user_attributes][username]"  %>
+  <%=user_attributes.label :username, 'UserName'%><br>
+    <%# raise user_attributes.inspect %>
+  <%=user_attributes.text_field :username %><br>
+  <% end %>
 <%# raise params.inspect %>
 <%#It's also possible to specify the instance to be used:http://api.rubyonrails.org/classes/ActionView/Helpers/FormHelper.html#method-i-fields_for%>
 <%# input id="username" name="parent_attributes:[ {username: ''}]" type="text" /%>

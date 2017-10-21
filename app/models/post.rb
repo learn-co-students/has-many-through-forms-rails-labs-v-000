@@ -9,11 +9,11 @@ class Post < ActiveRecord::Base
   #collection singular ids=ids
   has_many :comments
   has_many :users, through: :comments
-  accepts_nested_attributes_for :categories
+  accepts_nested_attributes_for :categories, :users, reject_if: :reject_users
+  accepts_nested_attributes_for :comments, reject_if: :reject_comments
   #https://www.youtube.com/watch?v=amT27SfNhKM
   #https://gorails.com/episodes/comments-with-polymorphic-associations?autoplay=1
-  accepts_nested_attributes_for :users
-
+  #categories_attributes=(attributes),  users_attributes=(attributes), comments_attributes=(attributes)..
   def categories_attributes=(categories_hashes)
     categories_hashes.each do |index,category_attributes|
       #I need to create a category that's already associated w/ this post
@@ -28,6 +28,12 @@ class Post < ActiveRecord::Base
         # self.categories.find_or_create_by(name: category_attributes[:name])
         end
       end
+    end
+    def reject_users(attributes)
+      attributes['username'].blank?
+    end
+    def reject_comments(attributes)
+      attributes['content'].blank?
     end
     # raise categories_hashes.inspect
   end

@@ -4,7 +4,7 @@ class Comment < ActiveRecord::Base
 
 
   def user_attributes=(user_attributes)
-      self.user = User.find_or_create_by(user_attributes)
+      self.user = User.find_or_create_by(user_attributes) if !user_attributes.values.first.empty?
   end
 
 end

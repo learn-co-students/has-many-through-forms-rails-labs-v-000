@@ -36,7 +36,7 @@
      <%= f.hidden_field :post_id, :value => @post.id %>
      <%= f.label "Leave a comment" %><br>
      <%= f.text_area :content %><br>
-     <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: 'Select a user'} %> <br>
+     <%= f.collection_select :user_id, @users, :id, :username, {include_blank: 'Select a user'} %> <br>
 
      <%= f.fields_for :user_attributes do |users_fields| %>
         <%= users_fields.label "...or enter your username" %><br>

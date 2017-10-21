@@ -6,8 +6,9 @@ class Post < ActiveRecord::Base
 
 
   def categories_attributes=(categories_attributes)
-    categories_attributes.values.each do |categories_attribute|
-      self.categories << Category.find_or_create_by(categories_attribute) if !categories_attribute.values.empty?
+    categories_attributes.values.each do |category_attributes|
+      category = Category.find_or_create_by(category_attributes) if !category_attributes.values.empty?
+      self.categories << category if !self.categories.include?(category)
     end
   end
 

@@ -12,7 +12,7 @@ class Post < ActiveRecord::Base
   def categories_attributes=(attributes)
     attributes.values.each do |c|
       category = Category.find_or_create_by(c)
-      self.categories << category
+      self.post_categories.build(:category => category)
     end
   end
 end

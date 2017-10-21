@@ -6,8 +6,9 @@ class CommentsController < ApplicationController
     @comment = Comment.new
   end
   def create
-    byebug
     @comment = Comment.create(comment_params)
+    #raise comment_params.inspect
+    #byebug
     redirect_to @comment.post
     #supplied comment's user's foreign key id argument
   end
@@ -16,6 +17,6 @@ class CommentsController < ApplicationController
 
 
   def comment_params
-    params.require(:comment).permit(:content, :post_id, :user_id, user_attributes:[:username])
+    params.require(:comment).permit(:content, :post_id, :user_id, :username, user_attributes:[:username])
   end
 end

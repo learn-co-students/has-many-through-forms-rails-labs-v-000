@@ -9,6 +9,7 @@ Categories: <br />
 <%# way to write the code here to ensure test passing byebug
 %>
 <% @post.comments.each do |comment| %>
+<%# byebug%>
 <%#raise comment.inspect%>
 <%= comment.user.username%> says: <%=comment.content%><br>
 <% end %>
@@ -23,8 +24,9 @@ Categories: <br />
   <%=comment.text_field :content%><%#new content for comment%><br>
   <%#The form should have a drop-down menu to select a user%>
   <%=comment.label :user_id%>
-  <%=comment.collection_select(:user_id, User.all, :id, :username)%><br>
-  <% raise params.inspect %>
+  <%=comment.collection_select(:user_id, User.all, :id, :username, include_blank:true)%><br>
+  <%#=comment.hidden_field :username, value:@user.username%><%# how to obtain username???? %>
+  <%# raise params.inspect %>
 <%# how to create a new comment and a new user ???? %>
 <h5>Create Comment With New User</h5>
  <%#We should also be able to create a new user here and automatically associate it with the post%>

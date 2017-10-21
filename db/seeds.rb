@@ -4,4 +4,7 @@
 # Examples:
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+  Category.create(name: 'Art')
+  Category.create(name: 'Movies')
+  Category.create(name: 'Nature')
+  Category.create(name: 'Crime')

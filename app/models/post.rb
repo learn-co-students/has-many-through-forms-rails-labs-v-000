@@ -7,8 +7,9 @@ class Post < ActiveRecord::Base
 
   def categories_attributes=(category_attributes)
     category_attributes.values.each do |category_attr|
-    @category = Category.find_or_create_by(category_attr)
-    self.categories << @category
+      category = Category.find_or_create_by(category_attr)
+      #because << returns every category, and unncessarily takes up memory
+      self.post_categories.build(category: category)
     end
   end
 

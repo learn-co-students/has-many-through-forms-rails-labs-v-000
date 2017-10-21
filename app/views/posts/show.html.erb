@@ -1,1 +1,7 @@
+<h1><%= @post.title %></h1>
+<h4><%= @post.content %></h4>
 
+<p>categories:</p>
+<% @post.categories.each do |cat| %>
+  <p><%= cat.name %></p>
+<% end %>

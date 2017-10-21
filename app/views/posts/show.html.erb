@@ -1,7 +1,42 @@
 <h1><%= @post.title %></h1>
-<h4><%= @post.content %></h4>
+<h2><%= @post.content %></h2>
 
-<p>categories:</p>
-<% @post.categories.each do |cat| %>
-  <p><%= cat.name %></p>
-<% end %>
+<div class="post_categories">
+  Categories:
+  <ul>
+    <% @post.categories.each do |cat| %>
+        <li><p><%= cat.name %></p></li>
+    <% end %>
+  </ul>
+</div>
+
+
+<div class="post_comments">
+  Comments:
+  <ul>
+    <% @post.comments.each do |comment| %>
+        <li><%= comment.content %></li>
+    <% end %>
+  </ul>
+</div>
+
+<div class="post_users">
+  Users:
+  <ul>
+    <% @post.users.uniq.each do |user| %>
+        <li><%= link_to user.username, user_path(user) %></li>
+    <% end %>
+  </ul>
+</div>
+
+<!--
+[x] The title and content of the post.
+
+[x] All of the comments associated with the post.
+
+[ ] A list of all the unique users who have commented on the post.
+    A user's name should only show up once in this section, even if they've commented multiple times.
+
+[ ] A form to add a new comment. The form should have a drop-down menu to select a user
+    (we'll change this in future lessons to automatically associate the comment with a logged-in user).
+    We should also be able to create a new user here and automatically associate it with the post. -->

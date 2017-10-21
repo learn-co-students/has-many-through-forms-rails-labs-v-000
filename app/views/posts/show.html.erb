@@ -29,14 +29,22 @@
   </ul>
 </div>
 
+<div class="form_for_comment">
+
+  <%= form_for comment.post_build do |t| %>
+
+     <%= t.fields_for :comments, @post.comments.build do |comments_fields| %>
+        <%= comments_fields.label "Add a comment to this post as..." %><br>
+        <%= comments_fields.collection_select :user_id, User.all, :id, :username  %> <br>
+        <%= comments_fields.text_area :content %><br>
+        <%= comments_fields.submit %>
+     <% end %>
+   <% end %>
+
+
+</div>
+
 <!--
-[x] The title and content of the post.
-
-[x] All of the comments associated with the post.
-
-[ ] A list of all the unique users who have commented on the post.
-    A user's name should only show up once in this section, even if they've commented multiple times.
-
 [ ] A form to add a new comment. The form should have a drop-down menu to select a user
     (we'll change this in future lessons to automatically associate the comment with a logged-in user).
     We should also be able to create a new user here and automatically associate it with the post. -->

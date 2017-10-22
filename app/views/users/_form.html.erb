@@ -4,12 +4,12 @@
   <%= f.label "email" %>
   <%= f.text_area :email %><br>
   <%= f.collection_check_boxes :comment_ids, Comment.all, :id, :content%><br>
-  <%= f.fields_for :comments, @user.comments.build do |comments_fields| %> 
+  <%= f.fields_for :comments, @user.comments.build do |comments_fields| %>
   <%# byebug %>
-  <%##build method pushes and associate @ same time; 
-  http://railscasts.com/episodes/17-habtm-checkboxes-revised;  
-  https://ducktypelabs.com/how-a-has_many-through-association-works-in-practice/; 
-  https://rubyplus.com/articles/3631-Debugging-using-ByeBug-Gem-in-Rails-5; 
+  <%##build method pushes and associate @ same time;
+  http://railscasts.com/episodes/17-habtm-checkboxes-revised;
+  https://ducktypelabs.com/how-a-has_many-through-association-works-in-practice/;
+  https://rubyplus.com/articles/3631-Debugging-using-ByeBug-Gem-in-Rails-5;
   https://fleeblewidget.co.uk/2014/05/byebug-cheatsheet/;
   http://guides.rubyonrails.org/debugging_rails_applications.html
   This is one of the best ways to find bugs in your code;If we use step in the same situation, byebug will literally go to the next Ruby instruction to be executed -- in this case, Active Support's week method;
@@ -24,5 +24,5 @@
   <% end %>
   <%= f.submit %>
   <%# binding.pry %>
- <!--  <%#= link_to @posts.users, user_path %> -->
+  <%#= link_to @posts.users, user_path %>
 <% end %>

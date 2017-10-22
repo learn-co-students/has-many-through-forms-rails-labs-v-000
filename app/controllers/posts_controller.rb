@@ -3,6 +3,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @comment = Comment.new
     #@users = User.all
+    # link_to "Post", controller: "posts", action: "show", id: @profile
   end
 
   def index

@@ -8,7 +8,7 @@ We've looked at setting up the associations behind posts with comments, categori
 ## Objectives
 
 1. Construct a bi-directional has many through.
-2. Identify the join model in a has many through.
+2. Identify the join model in a has many through. #comment is the join model
 3. Construct a nested params hash with data about the primary object and a has many through association.
 4. Use the conventional key names for associated data (association_attributes).
 5. Name form inputs correctly to create a nested params hash with has many through association data.
@@ -40,5 +40,6 @@ We've looked at setting up the associations behind posts with comments, categori
 + [Accepts Nested Attributes For](http://api.rubyonrails.org/classes/ActiveRecord/NestedAttributes/ClassMethods.html)
 + [Collection Select](http://apidock.com/rails/ActionView/Helpers/FormOptionsHelper/collection_select)
 + [Lab Review](https://www.youtube.com/watch?v=k7s2LjVF3YY)
+# https://www.devwalks.com/lets-build-instagram-test-driven-with-ruby-on-rails-part-1/
 
 <p data-visibility='hidden'>View <a href='https://learn.co/lessons/has-many-through-forms-rails-labs' title='Has Many Through Forms Rails Labs'>Has Many Through Forms Rails Labs</a> on Learn.co and start learning to code for free.</p>

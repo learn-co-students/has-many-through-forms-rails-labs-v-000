@@ -1,1 +1,32 @@
+<style>
+  .whatever {
+    border: 1px solid red
+  }
+</style>
 
+<%= form_for(@post) do |f|%>
+<p>
+<%= f.label :title %>
+<%= f.text_field :title %>
+</p>
+<p>
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+</p>
+<%#how to checkbox ea category%>
+<%#!-- <%ActionView collection checkboxes rails%>
+<%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b| %>
+<p>
+  <%= b.label :class => "whatever" %>
+  <%= b.check_box %>
+</p>
+<%end%>
+
+<%= f.fields_for :categories, @post.categories do |category_builder| %>
+<!--%binding.pry%-->
+<p>new comment: <%= category_builder.text_field :name %></p>
+<!--%binding.pry%-->
+<% end %>
+
+<%=f.submit%>
+<%end%>

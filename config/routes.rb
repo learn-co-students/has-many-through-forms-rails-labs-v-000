@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   resources :comments
   resources :users
   resources :categories
-
+  get 'users/:id/comments' => 'users#show', :as => :user_comments
+  #https://stackoverflow.com/questions/17911431/how-can-i-get-all-posts-from-a-specific-user
+  #http://guides.rubyonrails.org/routing.html
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

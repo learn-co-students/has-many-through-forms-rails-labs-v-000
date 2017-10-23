@@ -1,1 +1,47 @@
+<h2><%= @post.title %></h2>
+<ul>
+  <% @post.categories.each do |c| %>
+    <li><%= link_to c.name, category_path(c) %></li>
+  <% end %>
+</ul>
 
+<p><%= @post.content %></p>
+
+<h4>Participating Users: </h4>
+<ul>
+<% @post.users.uniq.each do |user| %>
+  <li><%= link_to user.username, user_path(user) %></li>
+<% end %>
+</ul>
+
+<h4>Comments:</h4>
+<% @post.comments.each do |c| %>
+  <% if c.content.present? %>
+    <p><%= c.user.username %> says:  <%= c.content %></p>
+  <% end %>
+<% end %>
+
+<br>
+
+<h4>New Comment: </h4>
+<%= form_for @comment do |f|%>
+
+  <%= f.hidden_field :post_id, :value => @post.id %>
+
+  <%= f.label :user_id, "Existing User: " %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "-choose a username-" %>
+  <br>
+  <%= f.fields_for :user do |user_builder| %>
+    <p><%= user_builder.label :username, "OR New User: " %></p>
+    <%= user_builder.text_field :username %>
+  <% end %> <br>
+  <br />
+
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+  <br>
+
+
+  <%= f.submit %>
+
+<% end %>

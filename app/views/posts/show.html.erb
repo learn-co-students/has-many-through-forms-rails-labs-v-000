@@ -1,1 +1,42 @@
-
+<div>
+    <h1><%=@post.title%></h1>
+    <p><%=@post.content%></p>
+    <h3>Tags</h3>
+    <ul>
+        <%@post.categories.each do |category|%>
+            <li><%=category.name%></li>
+        <%end%>
+    </ul>
+</div>
+<div>
+    <h2>Comments</h2>
+    <%@post.comments.each do |comment|%>
+        <div>
+                <!-- this used to have the username integrated, it was pretty. -->
+            <h5><%="#{comment.created_at.pretty}"%>  </h5> 
+            <p><%="#{comment.author} says: #{comment.content}"%></p>
+        </div>
+    <%end%>
+        <h2>Leave a comment</h2>
+    <%= form_for @comment do |f| %>
+        <%=f.label :comment %> <br>
+        <%= f.hidden_field :post_id, :value => @post.id %>
+        <%=f.text_field :content%> <br>
+        <%= f.collection_select :user_id, User.all, :id, :username %><br> <br>
+        <%= f.fields_for :user_attributes, @post.users.build do |users_fields|%>
+            <%=users_fields.label "New User" %> <br>
+            <%=users_fields.text_field :username %> <br>
+        <% end %>
+        <%=f.submit%>
+    <% end %>
+    
+</div>
+<div>
+    <h3>All these boyes left comments</h3>
+    <ul>
+        <%@post.users.uniq.each do |author|%>
+            <%next if author.username == nil%>
+            <li><%= link_to  "#{author.username}", user_path(author)  %></li>
+        <%end%>
+    </ul>
+</div>

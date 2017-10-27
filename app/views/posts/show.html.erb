@@ -7,3 +7,12 @@ Content: <%= @post.content %><br>
 Category: <% @post.categories.each do |category| %>
 <%= category.name %>
 <% end %>
+
+<!-- need to show all comments for particular post -->
+<br>
+<br>
+Comments: <% @post.comments.each do |comment| %>
+<% comment.content %>
+<% end %>
+
+<!-- need to show list of unique users who have commented on this post -->

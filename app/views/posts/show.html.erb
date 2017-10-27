@@ -1,18 +1,24 @@
-Title: <%= @post.title %><br>
-<br>
-<br>
-Content: <%= @post.content %><br>
-<br>
-<br>
-Category: <% @post.categories.each do |category| %>
-<%= category.name %>
+<h2><%= @post.title %></h2>
+<h5></h5>Categories: <% @post.categories.each do |cat| %><%= cat.name %> <% end %>
+<p><%= @post.content %></p>
+
+<%= form_for @post.comments.build do |f| %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  Leave a Comment: <%= f.text_field :content %>
+  <%= f.collection_select :user_id, User.all, :id, :username %>
+  <%= f.fields_for :user, @post.users.build do |user_fields| %>
+    <%= user_fields.text_field :username %>
+  <% end %>
+
+  <%= f.submit %>
 <% end %>
 
-<!-- need to show all comments for particular post -->
-<br>
-<br>
-Comments: <% @post.comments.each do |comment| %>
-<% comment.content %>
-<% end %>
+Comments:
+  <% @post.comments.each do |comment| %>
+    <p> <% if comment.user %><%= comment.user.username %> says: <%= comment.content %><% end %></p>
+  <% end %>
 
-<!-- need to show list of unique users who have commented on this post -->
+Contributing Users:
+<% @post.users.uniq.each do |user| %>
+  <%= link_to user.username, user %>
+<% end %>

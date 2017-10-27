@@ -1,7 +1,3 @@
-it 'should link to all of the posts the user commented on' do
-  visit user_path(@user)
-  expect(page).to have_link(@post.title, href: post_path(@post))
-
-
-
-  <%= link_to @post.title post_path(@post) %>
+<% @user.posts.each do |post| %>
+  <%= link_to post.title, post_path(post) %>
+<% end %>

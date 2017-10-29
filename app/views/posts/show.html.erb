@@ -4,9 +4,11 @@
 
 <div>
   <h3> Comments </h3>
-  <p>commenters:</p>
-  <% @post.commenters.each_with_index do |commenter, index| %>
-    <%= link_to commenter.user_name, comment.user  %><%="," unless index + 1 == @post.commenters.size %>
+  <% @post.uniq_commenters.each_with_index do |commenter, index| %>
+    <%= link_to commenter.username, commenter  %>
+    <%= ", " if index <= @post.uniq_commenters.size - 3 %>
+    <%= " and " if index == @post.uniq_commenters.size - 2 %>
+    <%= " commented on this post." if index == @post.uniq_commenters.size - 1 %>
   <% end %>
   <ul>
     <% @post.comments.each do |comment| %>

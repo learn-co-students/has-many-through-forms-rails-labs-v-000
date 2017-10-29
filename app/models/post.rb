@@ -4,7 +4,7 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :users, through: :comments
 
-  def commenters
-    users = self.comments.each { |comment| comment.user_name }.uniq
+  def uniq_commenters
+    self.comments.map { |comment| comment.user }.uniq
   end
 end

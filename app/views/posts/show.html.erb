@@ -1,1 +1,18 @@
+<h2><%= @post.title %></h2>
 
+<p><%= @post.content %></p>
+
+<div>
+  <h3> Comments </h3>
+  <p>commenters:</p>
+  <% @post.commenters.each_with_index do |commenter, index| %>
+    <%= link_to commenter.user_name, comment.user  %><%="," unless index + 1 == @post.commenters.size %>
+  <% end %>
+  <ul>
+    <% @post.comments.each do |comment| %>
+      <b><%=link_to comment.user_name, comment.user %>:</b> <br>
+      <%= comment.content %> <br><br>
+    <% end %>
+  </ul>
+
+</div>

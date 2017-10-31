@@ -8,7 +8,6 @@ class Comment < ActiveRecord::Base
   end
 
   def user_attributes=(user_attributes)
-    # binding.pry
     user = User.find_or_create_by(user_attributes)
     self.user = user
   end

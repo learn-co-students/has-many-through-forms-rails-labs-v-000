@@ -6,5 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-sweet = Category.create(name: 'sweet')
-sour = Category.create(name: 'sour')
+# sweet = Category.create(name: 'sweet')
+# sour = Category.create(name: 'sour')
+
+# david = User.create(username: 'David', email: 'david.tannenbaum@gmail.com')
+amy = User.create(username: 'Amy', email: 'aftannenbaum@gmail.com')

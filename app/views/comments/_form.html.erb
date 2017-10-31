@@ -1,5 +1,5 @@
-<%= form_for comment do |f| %>
-  <%= f.label "Content" %>
+<%= form_for @comment do |f| %>
+  <%= f.label "content" %>
   <%= f.text_area :content %>
   <%= f.label "user_id" %>
   <%= f.number_field :user_id %>

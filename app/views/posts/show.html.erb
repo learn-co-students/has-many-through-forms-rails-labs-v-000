@@ -11,7 +11,7 @@ Categories:
 Comments:
 <ul>
   <%= @post.comments.each do |c| %>
-    <li><%= c.content %></li>
+    <li><%= c.user.username %> says: <%= c.content %></li>
   <% end %>
 </ul>
 
@@ -21,3 +21,20 @@ Commenters:
     <li><%= link_to user.username, user_path(user) %></li>
   <% end %>
 </ul>
+
+<p>Comments:<br>
+  <%= form_for @comment do |f| %>
+    <p>
+      <%= f.text_area :content %><br>
+      <%= f.hidden_field :post_id, value: @post.id %>
+
+      <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'New User' %>
+
+      <%= f.fields_for :user_attributes do |user| %>
+        <%= f.label :username %>
+        <%= user.text_field :username %><br>
+      <% end %>
+
+      <%= f.submit %>
+    </p>
+  <% end %>

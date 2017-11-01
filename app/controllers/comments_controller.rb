@@ -1,6 +1,9 @@
 class CommentsController < ApplicationController
 
   def create
+    params[:comment][:post_id] = session[:post_id]
+    #binding.pry
+
     comment = Comment.create(comment_params)
     redirect_to comment.post
   end

@@ -13,7 +13,10 @@ class Post < ActiveRecord::Base
   def categories_attributes=(category_attributes)
     category_attributes.values.each do |category_attribute|
       category = Category.find_or_create_by(category_attribute)
-      self.categories << category
+      # self.categories << category
+      self.post_categories.build(:category => category)
+      # access the join table, and then slip the category in...
+      # more efficient than shoving in a category and have it return all the post's categories
     end
   end
 end

@@ -11,12 +11,12 @@
 
   <% @post.comments.each do |comment| %>
    <%= comment.user.username %> says: <%= comment.content %>
-  <% end %>
+  <% end %></br></br>
 
 <%= form_for @post.comments.build do |f| %>
   <%= f.hidden_field :post_id %>
-  <%= f.label "Content:" %></br>
-  <%= f.text_field :content %></br>
+  <%= f.label :content, "Create a comment:" %></br>
+  <%= f.text_field :content %></br></br>
   <%= f.label "Select a User" %></br>
   <%= f.collection_select :user_id, User.all, :id, :username %></br></br>
   <%= f.label "Create a User" %>
@@ -26,9 +26,9 @@
   <%= f.submit "Create Comment" %>
 <% end %>
 
-<h1> Users that have commented </h1>
+<h3> Users that have commented </h3>
 <ul>
-
 <% @post.users.uniq.each do |user| %>
-  <%= link_to user.username, user_path(user) %>
+  <li><%= link_to user.username, user_path(user) %></li>
 <% end %>
+</ul>

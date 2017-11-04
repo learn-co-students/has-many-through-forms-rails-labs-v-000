@@ -1,13 +1,13 @@
-<h1>Post Overview</h1>
-
-<h3><%= @post.title %></h3>
+<h1><%= @post.title %></h1>
 <p><%= @post.content %></p>
 
 <h5>Categories:</h5>
 
+  <ul>
   <% @post.categories.each do |category| %>
-    <%= category.name %>
+    <li><%= category.name %></li>
   <% end %><br>
+  </ul>
 
 <% if !@post.comments.empty? %>
 
@@ -24,6 +24,7 @@
       </li>
     <% end %>
   </ul>
+
 <% end %>
 
 <h5>Leave A Comment:</h5>

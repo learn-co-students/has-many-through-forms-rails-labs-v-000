@@ -5,10 +5,11 @@
   <%= f.label :content %>
   <%= f.text_area :content %><br />
 
-  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
-  <%= f.fields_for :categories, post.categories.build do |c| %>
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %><br />
+  Add new category:
+  <%= f.fields_for :categories, @post.categories.build do |c| %>
     <%= c.text_field :name %>
-  <% end %>
+  <% end %><br />
 
   <%= f.submit %>
 <% end %>

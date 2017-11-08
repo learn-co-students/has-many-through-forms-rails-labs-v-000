@@ -20,3 +20,4 @@ describe 'categories', type: 'feature' do
 
 
 end
+ 

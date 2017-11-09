@@ -3,7 +3,6 @@ Content: <%= @post.content %><br>
 Categories: <% @post.categories.each do |category| %>
               <%= category.name %>
             <% end %>
-
 <br>
 <br>
 
@@ -17,7 +16,6 @@ Commentors:<br>
   <%=link_to User.find(user_id).username, User.find(user_id)%>
 <% end %>
 
-
 New Comment:
 <br>
 <%= form_for @post.comments.build do |f| %>
@@ -25,8 +23,8 @@ New Comment:
   <%= f.text_field :content %>
   <%= f.hidden_field :post_id, :value => params[:id] %>
   <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Select Username' %>
-  <%= f.fields_for :user do |g| %>
-    <%= g.text_field :username %>
+  <%= f.fields_for :user, @post.users.build do |username_field| %>
+    <%= username_field.text_field :username %>
   <% end %>
   <%= f.submit %>
 <% end %>

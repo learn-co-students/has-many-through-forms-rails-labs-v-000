@@ -30,7 +30,7 @@
     <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
      
     <%= f.label :new_user %>
-    <%= f.fields_for :user, @post.users.build do |user_field| %>
+    <%= f.fields_for :user, User.new do |user_field| %>
         <%= user_field.text_field :username %>
     <% end %>
 

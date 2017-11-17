@@ -1,1 +1,3 @@
-
+<% @user.comments.each do |c| %>
+  <a href="/posts/<%= c.post.id %>"><%= c.post.title %> </a>
+<% end %>

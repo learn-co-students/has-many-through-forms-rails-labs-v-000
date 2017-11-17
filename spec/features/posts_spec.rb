@@ -1,3 +1,5 @@
+#pass tests in this order: posts_spec, categories_spec, comments_spec, user_spec
+
 require 'rails_helper'
 
 describe 'Posts', type: 'feature' do

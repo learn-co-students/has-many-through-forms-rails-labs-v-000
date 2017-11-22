@@ -1,0 +1,41 @@
+<h2><%= @post.title %></h2>
+
+<p><%= @post.content %></p>
+
+<div>
+  <h3> Comments </h3>
+  <% @post.uniq_commenters.each_with_index do |commenter, index| %>
+    <b><%= link_to commenter.username, commenter  %></b>
+    <%= ", " if index <= @post.uniq_commenters.size - 3 %>
+    <%= " and " if index == @post.uniq_commenters.size - 2 %>
+    <%= " commented on this post." if index == @post.uniq_commenters.size - 1 %>
+  <% end %>
+  <ul>
+    <% @post.comments.each do |comment| %>
+      <b><%=comment.user_name %> says:</b> <br>
+      <%= comment.content %> <br><br>
+    <% end %>
+  </ul>
+</div>
+
+<div>
+  <h3><%=pluralize(@post.categories.count, "Category")%></h3>
+  <ul>
+  <% @post.categories.each do |category| %>
+    <li><%= link_to category.name, category %></li>
+  <% end %>
+  </ul>
+</div>
+
+<div style="padding-left: 2.5em">
+
+  <%= form_for @post.comments.build do |f| %>
+    <%= f.hidden_field :post_id %>
+    New Comment: <%= f.text_field :content %>
+    Select an existing User: <%= f.collection_select :user_id, User.all, :id, :username %>
+    <%= f.fields_for :user_attributes do |user_fields| %>
+      Create new user: <%= user_fields.text_field :username %>
+    <% end %>
+  <%= f.submit "Create Comment" %>
+  <% end %>
+</div>

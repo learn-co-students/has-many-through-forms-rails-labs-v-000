@@ -1,7 +1,11 @@
 class CommentsController < ApplicationController
 
   def create
-    comment = Comment.create(comment_params)
+    #hacky, but works
+    if !params[:comment][:user_id].blank?
+      params[:comment][:user_attributes][:username] = User.find(params[:comment][:user_id]).username
+    end
+    comment =  Comment.create(comment_params)
     redirect_to comment.post
   end
 

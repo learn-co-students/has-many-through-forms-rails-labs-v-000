@@ -1,1 +1,43 @@
+<h1><%=@post.title%></h1>
+<h3>Categories:</h3>
+<%@post.categories.each do |cat|%>
+  <%=cat.name%>
+  <br>
+<%end%>
+<h3>Content:</h3>
+<p><%=@post.content%></p>
 
+<!-- listing comments w/user -->
+<h3>Comments:</h3>
+<%@post.comments.each do |comment|%>
+  <p><%=comment.user.username%> says: <%=comment.content%></p>
+<%end%>
+
+<!-- listing users -->
+<h3>Unique Users:</h3>
+<%@post.users.uniq.each do |user|%>
+  <%=link_to user.username, user_path(user)%>
+<%end%>
+
+<!-- allowing form to add comment -->
+<h3>New Comment:</h3>
+
+<%= form_for @post.comments.build do |f|%>
+  <!-- keeping post_id -->
+  <%=f.hidden_field :post_id, :value => @post.id%>
+
+  <%=f.label :content%>
+  <%=f.text_field :content%>
+
+  <!-- find previous users -->
+  <%=collection_select(:comment,:user_id, User.all, :id, :username, {include_blank: true})%>
+
+  <!-- or create new user -->
+  <!-- have to name specifically -->
+  <%= f.fields_for :user, @post.users.build do |user_fields| %>
+    <%= user_fields.text_field :username %>
+  <% end %>
+
+
+  <%=f.submit%>
+<%end%>

@@ -9,7 +9,7 @@
   <% end %>
 </ul>
 
-<h4>Comments:</h4> 
+<h4>Comments:</h4>
 <ul>
   <% @post.unique_users.each do |user| %>
     <li><%= link_to user.username, user_path(user) %>
@@ -18,10 +18,15 @@
         <% end %>
   <% end %>
 </ul>
-
-<%= form_for @post do |f| %>
-  <%= f.fields_for :comments, @post.comments.build do |comments_attributes| %>
-    <%= comments_attributes.text_area :content %>
+<h4>Add a Comment: </h4>
+<%= form_for @post.comments.build do |f| %>
+  <%= f.text_area :comment_content, {id: 'comment_content'} %><br>
+  <%= f.label "Choose a User" %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %><br>
+  <%= f.label "Or Create a New User" %>
+  <%= f.fields_for :user, @post.users.build do |user_attributes| %>
+    <%= user_attributes.text_field :username %><br>
   <% end %>
+  <input type="hidden" name="comment[post_id]" value=<%= @post.id %> />
   <%= f.submit %>
 <% end %>

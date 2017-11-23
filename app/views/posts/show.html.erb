@@ -27,6 +27,6 @@
   <%= f.fields_for :user, @post.users.build do |user_attributes| %>
     <%= user_attributes.text_field :username %><br>
   <% end %>
-  <input type="hidden" name="comment[post_id]" value=<%= @post.id %> />
+  <%= f.hidden_field :post_id, :value => @post.id %>
   <%= f.submit %>
 <% end %>

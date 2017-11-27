@@ -1,1 +1,8 @@
-
+<%=@post.content%>
+<%=form_for @post do |f|%>
+  <%= f.fields_for :comments, @post.comments.build do |comment| %>
+      <%= comment.text_field :comment_content %>
+      <%= comment.text_field :comment_user_id %>
+    <% end %>
+  <%= f.submit %>
+<% end %>

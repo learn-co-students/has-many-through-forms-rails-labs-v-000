@@ -1,7 +1,12 @@
 class UsersController < ApplicationController
 
   def show
-    @user = User.find(params[:id])
+  	comment = Comment.find(params[:id])
+    @user = comment.user
+  end
+
+  def create
+  	@user = User.new
   end
 
 end

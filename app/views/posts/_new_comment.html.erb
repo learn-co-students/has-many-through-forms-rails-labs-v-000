@@ -1,0 +1,16 @@
+<p>Comment Below:</p>
+<%= form_for comment do |f|%>
+
+  <%=f.label :content%>
+  <%=f.text_field :content%><br></br>
+
+  Select or create user:
+    <%=f.collection_select :user_id, User.all, :id, :username, {include_blank:"New User"} %><br></br>
+
+    <%=f.fields_for :user do |users_fields|%>
+      <%=users_fields.label "Username"%>
+      <%=users_fields.text_field :username%><br></br>
+    <%end%>
+
+    <%=f.submit "Create Comment"  %>
+  <%end%>

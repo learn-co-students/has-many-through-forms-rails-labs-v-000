@@ -27,14 +27,17 @@ class Post < ActiveRecord::Base
     categories_hashes.each do |i, category_attributes|
       # I need to create a category instance that is already associated with this post instance
       # and I need to make sure that a category instsance with this same name attribute value doesn't already exist
-      # first, find or create the category instance regardless of whether this post has it...
-      category = Category.find_or_create_by(name: category_attributes[:name])
+      if category_attributes[:name].present? # If field to enter new category's name is NOT blank
+        category = Category.find_or_create_by(name: category_attributes[:name]) # find or create the category instance regardless of whether this post has it...
+        if !self.categories.include?(category) # if the post has NOT already been classified in that category
+          self.post_categories.build(:category => category) # add row to join table to associate post with category
+        end
+      end
+    end
+  end
       # To associate a post and a category, insert a row into the post_categories join table
       # instantiate an instance of PostCategory join model, which belongs_to a post and belongs_to a category
       # the instance of the PostCategory join model is already associated to the post instance (self),
       # and then we're just passing in the category
-      self.post_categories.build(:category => category)
       # the category instance that the PostCategory join model instance belongs_to is the category instance just created
-    end
-  end
 end

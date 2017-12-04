@@ -8,7 +8,12 @@
 
   <p><em>Select a category for your post from the list of existing categories below:</em></p>
 
-  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+    <p>
+      <%= b.label %>
+      <%= b.check_box %>
+    </p>
+  <% end %>
 
   <br>
 

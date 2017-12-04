@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    @comment = @post.comments.build
   end
 
   def index
@@ -8,6 +9,7 @@ class PostsController < ApplicationController
   end
 
   def new
+    params.inspect
     @post = Post.new
   end
 

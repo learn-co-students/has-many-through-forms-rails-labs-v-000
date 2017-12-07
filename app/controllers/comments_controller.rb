@@ -1,6 +1,9 @@
+require 'pry'
+
 class CommentsController < ApplicationController
 
   def create
+    #binding.pry
     comment = Comment.create(comment_params)
     redirect_to comment.post
   end

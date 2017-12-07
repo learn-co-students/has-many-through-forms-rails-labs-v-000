@@ -1,0 +1,17 @@
+<%= form_for @post.comments.build do |f| %>
+  <%= f.label :content %>
+  <%= f.text_field :content %>
+  <br />
+
+  <%= f.hidden_field :post_id %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "Create new User" %>
+  <br />
+
+  <%= f.fields_for :user_attributes do |user_fields| %>
+      <%= user_fields.label :username %>
+      <%= user_fields.text_field :username %>
+  <% end %>
+  <br />
+
+  <%= f.submit %>
+<% end %>

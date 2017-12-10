@@ -1,1 +1,61 @@
+<h1><%= @post.title %></h1>
+
+<p><%= @post.content %> </p>
+
+Categories:
+<ul>
+    <% if @post.categories != [] %>
+    <% @post.categories.each do |cat| %>
+    <li> <%= link_to cat.name, category_path(cat) %></li>
+    <% end%>
+    <% end%>
+</ul>
+
+Comments
+
+<ul>
+    <% if @post.comments != [] %>
+    <% @post.comments.each do |comm| %>
+    <li> <%= comm.username %> says: <%= comm.content %> </li>
+    <% end%>
+    <% end%>
+</ul>
+
+
+Unique Users that Have Commented
+<ul>
+    <% if @post.unique_user != [] %>
+    <% @post.unique_user.each do |user| %>
+    <li> <%= link_to user.username, user_path(user) %></li>
+    <% end%>
+    <% end%>
+</ul>
+
+
+
+Add a Comment:
+
+
+<%= form_for @comment do |f|%>
+
+    
+    <%= f.label :content %>
+ <%= f.text_area :content %>
+ 
+ 
+   <%= f.collection_select :user_id, User.all, :id, :username, include_blank:"Select User" %><br/>
+   -or-
+Create a New User:
+ <%= f.fields_for :user, @comment.build_user do |user_fields| %>
+    <%= user_fields.text_field :username %>
+  <% end %>
+ 
+ 
+ 
+ <%= f.hidden_field :post_id, :value => @post.id %>
+ 
+  <%= submit_tag "Create Comment" %>
+
+<% end %>
+
 

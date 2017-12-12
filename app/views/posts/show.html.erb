@@ -1,5 +1,5 @@
-Title: <%= @post.title %>
-<%= @post.content %>
+Title: <%= @post.title %><br>
+<%= @post.content %><br>
 
 Add a new comment:
 <%= form_for(@post.comments.build) do |f| %>
@@ -30,3 +30,10 @@ Users:
         <li><%= link_to user.username, user_path(user)%></li>
     <% end %>
 </ul>
+
+Categories
+<ul>
+  <% @post.categories.each do |post| %>
+    <%= post.name %>
+  <% end %>
+</ul> 

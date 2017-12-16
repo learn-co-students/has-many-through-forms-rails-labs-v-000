@@ -1,5 +1,8 @@
 <h1><%= @post.title %></h1>
 <h1><%= @post.content %></h1>
+<% @post.categories.each do |category| %>
+  <h2><%= category.name %></h2>
+<% end %>
 <% @post.comments.each do |comment| %>
  <%= comment.user.username %> says: <%= comment.content  %>
 <% end %>

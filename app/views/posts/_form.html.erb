@@ -4,9 +4,9 @@
   <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |category| %>
     <%= category.label { category.check_box + category.text } %>
   <% end %>
-  <%= f.fields_for :categories do |cat| %>
-    <%= cat.label :content %>
-    <%= cat.text_area :content %><br>
+  <%= f.fields_for :categories, @post.categories.build do |cat| %>
+    <%= cat.label :name %>
+    <%= cat.text_field :name %><br>
   <% end %>
   <%= f.submit %>
 <% end %>

@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    # binding.pry
   end
 
   def index
@@ -13,7 +14,15 @@ class PostsController < ApplicationController
 
   def create
     post = Post.create(post_params)
+    # binding.pry
     redirect_to post
+  end
+
+  def categories_attributes=(categories_attributes)
+    categories_attributes.values.each do |categories_attribute|
+      category = Category.find_or_create_by(categories_attribute)
+      self.categories << category
+    end
   end
 
   private

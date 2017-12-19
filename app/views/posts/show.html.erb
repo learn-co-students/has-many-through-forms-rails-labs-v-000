@@ -6,10 +6,30 @@ Categories:
     <li><%= category.name %></li>
   <% end %>
 </ul>
+
+Users who commented:
+<ul>
+  <% @post.comments.map{|comm| comm.user}.uniq.each do |user| %>
+    <%= link_to user.username, user_path(user) %>
+  <% end %>
+</ul>
+
 Comments:
 <ul>
   <% @post.comments.each do |comment| %>
-    <%= comment.content %>
-    <%= link_to comment.user.username, user_path(comment.user) %>
+    <li><%= "#{comment.user.username} says: #{comment.content}"%></li>
   <% end %>
 </ul>
+
+New Comment:
+<%= form_for @post.comments.build do |c| %>
+  <%= c.text_area :content %><br>
+  <%= c.collection_select :user_id, User.all, :id, :username, :prompt => 'New User' %><br>
+  <%= c.hidden_field :post_id %>
+
+  <%= c.fields_for :user, @post.comments.last.build_user do |u| %>
+    <%= u.text_field :username %>
+  <% end %>
+  <br>
+  <%= c.submit %>
+<% end %>

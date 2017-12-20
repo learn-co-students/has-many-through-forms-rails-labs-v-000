@@ -1,1 +1,50 @@
+<h1><%= @post.title %></h1>
 
+<h3> Content: <%= @post.content %></h4>
+
+<h4> Categories: </h4>
+<ul>
+<% @post.categories.order(:name).each do |category| %>
+  <li><%= category.name %></li>
+<% end %>
+</ul>
+
+<p> Commenters: </p>
+
+<ul>
+<% @post.unique_commenters.each do |commenter_username| %>
+  <li><%= link_to commenter_username, user_path(User.find_by(username: commenter_username)) %></li>
+<% end %>
+</ul>
+
+<p> Comments: </p>
+
+<ul>
+<% @post.comments.each do |comment| %>
+    <li><%= comment.user.username %> says: <%= comment.content %></li>
+<% end %>
+</ul>
+
+<p> Create a Comment: </p>
+
+<%= form_for comment = Comment.new do |f| %>
+  <%= f.hidden_field :post_id, {value: @post.id} %>
+
+  <p>
+  <%= f.label :content, "Content:" %>
+  <%= f.text_area :content %>
+  </p>
+
+  <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: 'Select an Existing User'}%>
+
+  <ul>
+  <%= f.fields_for :user, comment.build_user do |users_fields| %>
+    <p>
+    <%= users_fields.label :username, "Create a New User:" %>
+    <%= users_fields.text_field :username %>
+    </p>
+  <% end %>
+  </ul>
+
+  <%= f.submit "Create Comment"%>
+<% end %>

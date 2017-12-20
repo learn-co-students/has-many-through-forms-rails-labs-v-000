@@ -2,10 +2,28 @@
 
 <%= @post.content %><br>
 
+<%= @post.categories.each do |category| %>
+  <li>
+    <%= category.name %>
+  </li>
+<% end %>
+
 <%= @post.comments.each do |comment| %>
   <li>
     <%= comment.content %>
   </li>
 <% end %>
 
-<%= form_for @post %>
+<h3>Comments:</h3><br>
+
+<%= form_for @post.comments do |f| %>
+  <%= f.label "Content" %><br>
+  <%= f.text_area :content, 'name' => 'comment_content' %><br>
+  User:<br>
+  <%= f.collection_check_boxes :user_id, User.all, :id, :name %><br>
+  Add a New User:<br>
+  <%= f.fields_for :user, @post.users.build do |user| %>
+    <%= user.text_field :username%><br>
+  <% end %>
+  <%= f.submit "Create Comment" %>
+<% end %>

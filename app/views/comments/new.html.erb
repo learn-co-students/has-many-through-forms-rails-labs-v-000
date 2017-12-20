@@ -1,0 +1,11 @@
+<%= form_for @comment do |f| %>
+  <%= f.label "Content" %><br>
+  <%= f.text_area :content, 'name' => 'comment_content' %><br>
+  User:<br>
+  <%= f.collection_check_boxes :user_id, User.all, :id, :name %><br>
+  Add a New User:<br>
+  <%= f.fields_for :user, @comment.build_user do |user| %>
+    <%= user.text_field :username%><br>
+  <% end %>
+  <%= f.submit "Create Comment" %>
+<% end %>

@@ -1,5 +1,9 @@
 class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :post
-  accepts_nested_attributes_for :user#, reject_if: proc {|attributes| attributes[content].blank?}
+  accepts_nested_attributes_for :user, reject_if: :all_blank
+
+  def any_blank?(att)
+    att['content'].blank?  
+  end
 end

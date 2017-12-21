@@ -1,36 +1,38 @@
+
 <h1><%= @post.title %></h1>
-
+<% if @post.categories %>
+  <p>Tags:</p>
+    <ul>
+      <% @post.categories.each do |category| %>
+      <li><%= category.name %></li>
+      <% end %>
+    </ul>
+<% end %>
 <p><%= @post.content %></p>
-
-Categories:<br />
 <ul>
-  <% @post.categories.each do |c| %>
-  <li><%= c.name %></li>
+  <% @comments.each do |comment| %>
+    <li><%= comment.user.username %> says: <%= comment.content %></li>
   <% end %>
 </ul>
 
-Comments:<br />
 <ul>
-  <% @post.comments.each do |c| %>
-  <li><%= c.content %></li>
-  <% end %>
+<% @users.each do |user| %>
+  <li><%= link_to user.username, user_path %></li>
+<% end %>
 </ul>
-
-Users:<br />
-<ul>
-  <% @post.users.uniq.each do |u| %>
-  <li><%= link_to u.username, user_path(u) %>
-    <% end %>
-</ul>
-
-
 
 <%= form_for @comment do |f| %>
-  <%= f.text_area :content %>
+<%= f.hidden_field :post_id, {value: @post.id} %>
+<%= f.label :content, "Add Comment" %><br />
+<%= f.text_area :content %><br /><br />
+<%= f.label :username, "BY:" %><br />
+<%= f.collection_select :user_id, User.all, :id, :username, {include_blank: 'Choose an existing user'}%><br />
+<%= f.fields_for :user, @comment.build_user do |user_fields| %>
 
-  <%= collection_select(:comment, :user_id, User.all, :id, :username) %>
+  <h3>OR:</h3>
+  <%= user_fields.label :username, "Create New User" %><br />
+  <%= user_fields.text_field :username %>
+<% end %><br />
 
-  <input type="text" id="comment_user_attributes_username" name="comment[users_attributes][username]" />
-
-  <%= f.submit %>
+<%= f.submit %>
 <% end %>

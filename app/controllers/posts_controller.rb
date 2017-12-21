@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
-    # binding.pry
   end
 
   def index
@@ -10,12 +9,11 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    # binding.pry
   end
 
   def create
+    #raise params.inspect
     post = Post.create(post_params)
-    # binding.pry
     redirect_to post
   end
 
@@ -25,6 +23,14 @@ class PostsController < ApplicationController
       self.categories << category
     end
   end
+
+  ### From the video ###
+  # def categories_attributes=(categories_hashes)
+  #   categories_hashes.each do |index, category_attributes|
+  #     category = Category.find_or_create_by(name: category_attributes[:name])
+  #     self.post_categories.build(:category => category)
+  #   end
+  # end
 
   private
 

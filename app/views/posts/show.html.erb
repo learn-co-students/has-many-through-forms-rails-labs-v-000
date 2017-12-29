@@ -1,4 +1,8 @@
 <h1><%= @post.title %></h1>
+<h4><% @post.categories.each do |category| %>
+<%= category.name %>,
+<% end %></h4>
+
 <p><%= @post.content %></p>
 <h4>Comments:</h4>
 <% @post.comments.each do |comment| %>

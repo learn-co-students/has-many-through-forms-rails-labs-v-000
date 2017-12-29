@@ -1,1 +1,8 @@
-
+<%= @post.title %>
+<%= @post.content %>
+<% @post.comments.each do |comment| %>
+    <ul><%= comment.content %></ul>
+<% end %>
+<% @post.users.uniq.each do |user| %>
+    <ul><%= link_to user.username, user_path(user) %></ul>
+<% end %>

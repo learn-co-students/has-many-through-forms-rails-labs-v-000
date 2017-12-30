@@ -1,6 +1,10 @@
 class PostsController < ApplicationController
   def show
+    #binding.pry
     @post = Post.find(params[:id])
+    @comment = Comment.new
+    @comment.post_id = @post.id 
+    @categories = @post.categories 
   end
 
   def index

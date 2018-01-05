@@ -1,7 +1,19 @@
 class CommentsController < ApplicationController
 
+
+  def new
+    @comment = user.build
+  end
+
+
   def create
-    comment = Comment.create(comment_params)
+    #raise params:inspect
+    comment = Comment.new(comment_params)
+    if params[:comment][:user_id] != ""
+      comment.user = User.find(params[:comment][:user_id])
+    end
+    comment.post = Post.find(params[:post][:id])
+    comment.save
     redirect_to comment.post
   end
 

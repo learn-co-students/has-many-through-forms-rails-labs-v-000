@@ -1,0 +1,10 @@
+<%= form_for post.comments.build do |c| %>
+  <p>Post a comment: <%= c.text_field :content %></p>
+  <p>What's yer name? <%= c.collection_select :user_id, User.all, :id, :username, {include_blank: "New user"} %></p>
+  <input type="hidden" name="comment[post_id]" value="<%= @post.id %>">
+  <%= c.fields_for :user_attributes do |u| %>
+    <p>Or sign up: <%= u.text_field :username %></p>
+  <% end %>
+
+  <%= c.submit %>
+<% end %><br />

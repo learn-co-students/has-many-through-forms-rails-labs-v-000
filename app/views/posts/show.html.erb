@@ -1,1 +1,26 @@
+<h1>Post: <%= @post.title %></h1>
 
+<h2>Categories:</h2>
+  <% @post.categories.each do |c| %>
+    <%= c.name %><br />
+  <% end %>
+
+<%= @post.content %><br />
+
+
+<%= render "comments/new", post: @post %>
+
+<% if !@post.users.empty? %>
+  <table>
+    <% @post.unique_commenters.each do |uc| %>
+    <tr>
+      <td><%= link_to uc.username, user_path(uc) %> says: 
+      <td>
+        <% uc.comments.each do |comm| %>
+          <%= comm.content %>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+<% end %>

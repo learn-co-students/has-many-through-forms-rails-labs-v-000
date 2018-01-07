@@ -1,1 +1,11 @@
+<%= @user.username %>
 
+
+<% if @user.comments %>
+  <% @user.comments.each do |c| %>
+    <%= link_to c.post.title, post_path(c.post)%>
+  <% end %>
+
+
+
+<% end %>

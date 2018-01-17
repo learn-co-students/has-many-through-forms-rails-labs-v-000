@@ -1,4 +1,28 @@
-<%= form_for @post do |f| %>
-<%= f.label "Comment Content" %>
-<%= f.text_area :comment_content %>
+<!--The title and content of the post.-->
+<h1> <%= @post.title %> </h1>
+<p> <%= @post.content %> </p>
+<Categories: <br />
+<ul>
+<% @post.categories.each do |c| %>
+<li><%= c.name %>
 <% end %>
+</ul>
+
+
+<!--All of the comments associated with the post.-->
+<Comments: <br />
+<p><% @post.comment_ids%>
+
+</p>
+
+<!--A list of all the unique users who have commented on the post.
+A user's name should only show up once in this section,
+even if they've commented multiple times.-->
+<li>  <% @post.comment_ids %>
+</li>
+<!--A form to add a new comment.
+The form should have a drop-down menu to select a user
+(we'll change this in future lessons to automatically associate the comment with a logged-in user).
+We should also be able to create a new user here
+and automatically associate it with the post.-->
+<% link_to @post.title, comment_path(@post.title) %>

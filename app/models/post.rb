@@ -9,8 +9,8 @@ class Post < ActiveRecord::Base
 
       #do NOT create a category if it does NOT name
       if category_attributes[:name].present?
-      #But do NOT add a category to a post if the category exists
-      #Check if this post already has this category already?
+        #But do NOT add a category to a post if the category exists
+        #Check if this post already has this category already?
         category = Category.find_or_create_by(name: category_attributes[:name])
         if !self.categories.include?(category)
           self.post_categories.build(:category => category)

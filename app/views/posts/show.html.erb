@@ -8,18 +8,43 @@
 <% end %>
 </ul>
 
+<%= form_for @post.comments.build do |c| %>
+<p>
+  <%= c.label "comment_content" %>
+  <%= c.text_area :content %>
+</p>
+<%= c.collection_select(:user_id, User.all, :id, :username, prompt: true) %>
+<%= c.hidden_field(:post_id) %>
+<p>
+  <%= c.submit %>
+</p>
+<% end %>
 
-<!--All of the comments associated with the post.-->
+<!--can create a post with a brand new category-->
+
+<!--can create a post with a brand new category and an existing category-->
+
+
+<!--should display all of the comments for that post
+Failure/Error: expect(page).to have_content(@comment1.content)
+  expected to find text "This was great!" in "So Awesome Man am I a great blogger OR WHAT! Cool Comment content Please select RealBigFish"
+# ./spec/features/posts_spec.rb:61:in `block (3 levels) in <top (required)-->
 <Comments: <br />
-<p><% @post.comment_ids%>
+<% @post.comments.all%>
+<!--%@post.comments=%-->
+<!--%= @post.comment_ids%>[10, 11]-->
+<!--%= @post.comments%> #<Comment::ActiveRecord_Associations_CollectionProxy:0x007fd048b52be0-->
 
 </p>
 
-<!--A list of all the unique users who have commented on the post.
+<!--should display a list of unique users who have commented on the post
+Failure/Error: expect(page).to have_link(@user.username, href: user_path(@user), count: 1)
+  expected to find link "RealBigFish" with href "/users/1" 1 time but there were no matches
+# ./spec/features/posts_spec.rb:67:in `block (3 levels) in <top (required)>'
+
 A user's name should only show up once in this section,
-even if they've commented multiple times.-->
-<li>  <% @post.comment_ids %>
-</li>
+even if they've commented multiple times. <% @post.user_ids %>-->
+
 <!--A form to add a new comment.
 The form should have a drop-down menu to select a user
 (we'll change this in future lessons to automatically associate the comment with a logged-in user).

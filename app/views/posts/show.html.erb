@@ -1,38 +1,38 @@
-<h2> <%= @post.title%></h2> <br> 
-<p> <%= @post.content%></p> <br>
-
-<% Category.all.each do |cgory| %>
-  <p><%= cgory.name%> </p>
-<%end%>
-
-<h5> Post a Comment:</h5>
-
-<%=form_for @comment do |f|%>
-<input type="hidden" id="post_id" name="comment[post_id]" value="<%=@post.id%>" />
-<%= f.label :content, "Comment:"%>
-<%= f.text_field :content%>
-<%= f.label :user_id, "Select A User"%>
-<%= f.collection_select :user_id, User.all, :id, :username%>
-<%= f.fields_for :user do |t|%>
-  <%= t.text_field :username %><br>
-<%end%>
-<%= f.submit%>
-<%end%>
-
-
-<h5> Comments: </h5> <br>
-<% @user_array = []%>
-<%if @post.comments%>
-<% @post.comments.each do |comment|%>
-  <% if !@user_array.include?(comment.user)%>
-    <%@user_array << comment.user%>
+<h3> <%=@post.title %> </h3>
+<p> <%=@post.content%> </p>
+<% @post.categories.each do |c| %>
+  Categories: <%=c.name%>
   <%end%>
-  <p> <%= comment.user.username%> says: <%=comment.content%></p>
+
+<h4>Comments</h4>
+<% @post.comments.each do |comment| %>
+<ul>
+  <li><%=comment.user.username%> says: <%=comment.content %></li>
+</ul>
+<% end %>
+
+<h4>Commented Users</h4>
+<ul>
+<% @post.users.uniq.each do |user| %>
+  <li><%= link_to user.username, user_path(user) %></li>
+<% end %>
+</ul>
+
+
+
+<h4>Add New Comment</h4>
+<%= form_for @post.comments.build do |f| %>
+  <%= f.label "Comment" %>
+  <%= f.text_area :content %>
+  <%= f.hidden_field :post_id %>
+  <br></br>
+  Select a User:
+  <%=f.collection_select :user_id, User.all, :id, :username %>
+  <br></br>
+  Or Create a User:
+  <%= f.fields_for :user, @post.comments.last.build_user do |users| %>
+    <%= users.text_field :username %>
   <%end%>
-  <h5> Users: </h5> <br>
-  <% if !@user_array.empty?%>
-    <% @user_array.each do |user|%>
-      <%= link_to user.username, user_path(user)%> <br>
-    <%end%>
-  <%end%>
-<%end%>
+  <br></br>
+  <%= f.submit %>
+<% end %>

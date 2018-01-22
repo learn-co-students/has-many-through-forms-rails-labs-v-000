@@ -3,16 +3,19 @@
 <p> <%= @post.content %> </p>
 <Categories: <br />
 <ul>
-<% @post.categories.each do |c| %>
-<li><%= c.name %></li>
-<% end %>
+  <% @post.categories.each do |c| %>
+    <li><%= c.name %></li>
+  <% end %>
 </ul>
 
 <ul>
-<% @post.comments.each do |comment| %>
-<li><%= comment.user.username %> says: <%=comment.content %>
+  <% @post.comments.each do |comment| %>
+    <li><%= comment.user.username %> says: <%=comment.content %></li>
 </ul>
-<% end %>
+  <% end %>
+
+
+
 
 <%= form_for @post.comments.build do |c| %>
 <p>

@@ -6,7 +6,7 @@
 		<%= comment.content %>
 		<% end %>
 
-	<%= comment.content, link_to user_path(@user), comment.user.size  %> 
+	<%= link_to user_path(@post.user), comment.user.size  %> 
 
 
 	

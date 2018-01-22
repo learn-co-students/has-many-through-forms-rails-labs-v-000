@@ -1,4 +1,5 @@
 <h1><%=@post.title%></h1>
+
 <p><%=@post.content%></p>
 
 Categories: <br />
@@ -7,3 +8,46 @@ Categories: <br />
   <li><%=c.name%></li>
   <%end%>
 </ul>
+
+Comments: <br />
+<ul>
+
+  <%@post.comments.each do |c|%>
+   <!--<%=link_to c.user, user_path(c.user)%>-->
+   <li><%=c.content%></li>
+  <%end%>
+
+</ul>
+
+
+
+
+Users: <br />
+<ul>
+  <%@post.users.uniq.each do |u|%>
+  <li>
+  <%=link_to u.username, user_path(u)%> </li>
+  <%end%>
+</ul>
+
+
+
+<%=form_for(@post.comments.build) do |f|%>
+
+   <input type="text" id="comment_content" name="comment[content]" >
+   <input type="text" id="comment_user_id" name="comment[user_id]" >
+   <input type="text" id="comment_post_id" name="comment[post_id]" value="<%=@post.id%>">
+
+   <%User.all.each do |u|%>
+   <p>
+     <label for="user_id_<%=u.id%>"><%=u.username%></label>
+     <input type="checkbox" name="comment[user_id]" value="<%=u.id%>" id="comment_user_id"%>">
+   </p>
+   <%end%>
+
+   <%=f.fields_for :user  do |user_builder|%>
+     <%= user_builder.text_field :name%>
+   <%end%>
+
+   <%=f.submit%>
+   <%end%>

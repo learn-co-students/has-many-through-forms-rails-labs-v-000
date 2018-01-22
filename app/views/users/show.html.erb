@@ -1,1 +1,5 @@
-
+<%= @user.username%>
+<%@user.posts.each do |p|%>
+<%=p.title%><br>
+<%=link_to p.title, post_path(p)%>
+<%end%>

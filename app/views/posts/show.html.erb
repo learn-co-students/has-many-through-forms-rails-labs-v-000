@@ -19,8 +19,8 @@
 	  <% end %>
 
 	  Comment Below: 
-	  <%= f.text_area: content %>
-	<%= f.submit "Create Comment" %>
+	  <%= f.text_area  :content %>
+		<%= f.submit "Create Comment" %>
 <% end %>
 
 	In the conversation: 
@@ -28,4 +28,4 @@
 	<% @post.users.uniq.each do |user| %>
 	<li> link_to user.username, user_path(user) %></li>
 	<% end %>
-	
+

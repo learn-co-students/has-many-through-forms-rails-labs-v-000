@@ -1,1 +1,31 @@
 
+	<%= @post.title %>
+	<%= @post.content %>
+
+	<% @post.comments.each do |comment| %>
+		<%= comment.content %>
+		<% end %>
+
+	<%= comment.content, link_to user_path(@user), comment.user.size  %> 
+
+
+	
+	<% form_for @comment do |f| %>
+		Select user
+		<%= f.collection_select :user, User.all, :id, :username, include_blank: true %>
+		<% f.fields_for :user do |user| %>
+		 Or create new user: <%= user.text_field :username %>
+
+	  <% end %>
+
+	  Comment Below: 
+	  <%= f.text_area: content %>
+	<%= f.submit "Create Comment" %>
+<% end %>
+
+	In the conversation: 
+
+	<% @post.users.uniq.each do |user| %>
+	<li> link_to user.username, user_path(user) %></li>
+	<% end %>
+	

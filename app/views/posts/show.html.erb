@@ -13,7 +13,6 @@ Comments: <br />
 <ul>
 
   <%@post.comments.each do |c|%>
-   <!--<%=link_to c.user, user_path(c.user)%>-->
    <li><%=c.content%></li>
   <%end%>
 
@@ -32,22 +31,28 @@ Users: <br />
 
 
 
-<%=form_for(@post.comments.build) do |f|%>
+<%=form_for(@comment) do |f|%>
+  <br><br>
+    <%=f.label :content%>
+    <%=f.text_area :content%>
 
-   <input type="text" id="comment_content" name="comment[content]" >
-   <input type="text" id="comment_user_id" name="comment[user_id]" >
-   <input type="text" id="comment_post_id" name="comment[post_id]" value="<%=@post.id%>">
+    <%User.all.each do |c|%>
+    <p>
+      <label for="user_id_<%=c.id%>"><%=c.username%></label>
+      <input type="checkbox" name="comment[user_id]" value="<%=c.id%>" id="user_id_<%=c.id%>">
+    </p>
+    <%end%>
 
-   <%User.all.each do |u|%>
-   <p>
-     <label for="user_id_<%=u.id%>"><%=u.username%></label>
-     <input type="checkbox" name="comment[user_id]" value="<%=u.id%>" id="comment_user_id"%>">
-   </p>
-   <%end%>
+    <%= f.collection_check_boxes(:user_ids, User.all, :id, :name) do |b|%>
+    <p>
+      <%=b.label %>
+      <%=b.check_box%>
+    </p>
+    <%end%>
 
-   <%=f.fields_for :user  do |user_builder|%>
-     <%= user_builder.text_field :name%>
-   <%end%>
+    <%=f.fields_for :user  do |user_builder|%>
+      <%= user_builder.text_field :username%>
+    <%end%>
 
-   <%=f.submit%>
-   <%end%>
+ <%=f.submit%>
+ <%end%>

@@ -4,9 +4,15 @@
 <Categories: <br />
 <ul>
 <% @post.categories.each do |c| %>
-<li><%= c.name %>
+<li><%= c.name %></li>
 <% end %>
 </ul>
+
+<ul>
+<% @post.comments.each do |comment| %>
+<li><%= comment.user.username %> says: <%=comment.content %>
+</ul>
+<% end %>
 
 <%= form_for @post.comments.build do |c| %>
 <p>
@@ -20,8 +26,10 @@
 </p>
 <% end %>
 
-<!--can create a post with a brand new category-->
 
+
+<!--can create a post with a brand new category-->
+<!--%= link_to "Add Comment", new_comment_path(post_id: @post.id) %-->
 <!--can create a post with a brand new category and an existing category-->
 
 
@@ -50,4 +58,4 @@ The form should have a drop-down menu to select a user
 (we'll change this in future lessons to automatically associate the comment with a logged-in user).
 We should also be able to create a new user here
 and automatically associate it with the post.-->
-<% link_to @post.title, comment_path(@post.title) %>
+<!--% link_to @post.title, comment_path(@post.title) %-->

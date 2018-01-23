@@ -5,6 +5,6 @@ SyntaxError:
 '.freeze; end );@output_buffer.safe_append='
 # ./spec/features/users_spec.rb:15:in `block (3 levels) in <top (required)-->
 
-<% @user.post.each do |p| %>
-  <%= link_to p.user.comments, user_path(p.comments) %>
+<% @user.posts.each do |p| %>
+  <%= link_to p.users.comment, user_path(p.comments) %>
 <% end %>

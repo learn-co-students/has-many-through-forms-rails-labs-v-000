@@ -1,8 +1,15 @@
 <% Post.all.each  do |post|%>
-<h4>post.title</h4>
+<h4><%=post.title%></h4>
+<%=post.content%>
 <p>
   <%post.comments.each do |comment|%>
     <%=comment.content%> <br>
   <%end%>
 </p>
+
+<ul>
+  <%post.categories.each do |c|%>
+  <li><%=c.name%></li>
+  <%end%>
+</ul>
 <%end%>

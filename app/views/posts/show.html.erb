@@ -13,7 +13,8 @@ Comments: <br />
 <ul>
 
   <%@post.comments.each do |c|%>
-   <li><%=c.content%></li>
+   <li><%=c.content%> User:<%=c.user_id%>
+   </li>
   <%end%>
 
 </ul>
@@ -36,19 +37,25 @@ Users: <br />
     <%=f.label :content%>
     <%=f.text_area :content%>
 
+    <input type="integer" id="post_id" name="comment[post_id]" value="<%=@post.id%>" />
+
+
     <%User.all.each do |c|%>
     <p>
-      <label for="user_id_<%=c.id%>"><%=c.username%></label>
-      <input type="checkbox" name="comment[user_id]" value="<%=c.id%>" id="user_id_<%=c.id%>">
+      <label for="user_id"><%=c.username%></label>
+      <input type="checkbox" name="comment[user_id]" value="<%=c.id%>" id="user_id">
     </p>
     <%end%>
 
-    <%= f.collection_check_boxes(:user_ids, User.all, :id, :name) do |b|%>
+
+    <%= f.collection_check_boxes(:user_id, User.all, :id, :username) do |b|%>
     <p>
       <%=b.label %>
       <%=b.check_box%>
     </p>
     <%end%>
+
+
 
     <%=f.fields_for :user  do |user_builder|%>
       <%= user_builder.text_field :username%>

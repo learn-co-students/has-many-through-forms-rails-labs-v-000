@@ -1,1 +1,37 @@
+<h1><%= link_to @post.title, post_path(@post) %></h1>
+<p>
+  <%= @post.content %>
+</p>
+<p>
+  <ul>
+     <% @post.categories.each do |category| %>
+     <li>
+       <%= category.name %>
+     </li>
+     <% end %>
+  </ul>
+</p>
+<h3>All User Comments</h3>
+<p>
+  <% @post.users.uniq.each do |user|%>
+    <li><%= link_to user.username, user_path(user) %></li>
+      <%end%>
+      <br />
+</p>
+<h3>Comments</h3>
+<p>
+  <ul>
+    <% @post.comments.each do |comment| %>
+    <li>
+      <%= comment.user.username %> says: <%= comment.content %>
+    </li>
+    <% end %>
+  </ul>
+</p>
+<p>
 
+</p>
+<h4>Add a comment</h4>
+<p>
+<%= render 'comments/form', comment: @post.comments.build %>
+</p>

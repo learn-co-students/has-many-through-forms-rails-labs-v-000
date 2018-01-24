@@ -1,1 +1,42 @@
+Title: <%= @post.title %><br>
+<p>Content: <%=@post.content %><p>
 
+<ul> Comments: <% @post.comments.each do |comment| %>
+	<li> <%= comment.content %></li>
+<% end %> </ul>
+
+<ul> Commentors: <% @post.users.uniq.each do |user| %>
+	<li> <%= link_to user.username, user_path(user) %></li>
+<% end %> </ul>
+
+<ul> Categories: <% @post.categories.uniq.each do |category| %>
+	<li> <%= category.name %></li>
+<% end %> </ul>
+
+<ul> Commentors: <% @post.users.uniq.each do |user| %>
+	<li> <% user.comments.where(post_id: @post.id).each do |comment| %>
+		<%= user.username%> says: <%=comment.content%></li>
+	<% end %>
+ <% end %>
+<</ul>
+
+
+<%= form_for  @comment do |f| %>
+	<p>Create a comment on this post for existing user: </p>
+	<input type="hidden"  name="comment[post_id]" value=<%=@post.id %> />
+	<%= f.label :content %>
+	<%= f.text_field :content %><br>
+	<%= f.collection_select :user_id, User.all, :id, :username, include_blank: "Any" %><br>
+	<%= f.fields_for :user, @comment.build_user do |user| %>
+		<%= user.label :username %>
+		<%= user.text_field :username %>
+		<%= user.label :email %>
+		<%= user.text_field :email %>
+	<% end %>
+	<%= f.submit %>
+<% end %>
+
+
+
+
+  

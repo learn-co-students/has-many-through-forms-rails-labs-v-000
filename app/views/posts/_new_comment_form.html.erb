@@ -1,0 +1,23 @@
+<h5>New Comment</h5>
+<%= form_for comment, :remote => true do |f| %>
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+  <br>
+
+  <%= f.label :user_id %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
+  <br><br>
+
+  <%= f.hidden_field :post_id %>
+
+  <%= f.label :user_attributes, "New User" %><br>
+  <%= f.fields_for :user_attributes do |user_fields| %>
+    <%= user_fields.label :username %>
+    <%= user_fields.text_field :username %><br>
+
+    <%= user_fields.label :email %>
+    <%= user_fields.text_field :email %><br>
+  <% end %>
+
+  <%= f.submit %>
+<% end %>

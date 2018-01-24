@@ -1,1 +1,15 @@
+<%= form_for  @post do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field  :title %><br><br>
 
+  <%= f.label :content %>
+  <%= f.text_area :content %><br><br>
+
+  <%= f.label :"choose an existing category" %>
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %><br><br>
+
+  <%= f.label :category_attributes %>
+  <input name="post[categories_attributes][0][name]" id="post_categories_attributes_0_name"><br>
+
+  <%= f.submit :'Create Post' %>
+<%end%>

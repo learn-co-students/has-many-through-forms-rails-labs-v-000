@@ -1,1 +1,13 @@
+<h1><%=@post.title%></h1>
+<p><%=@post.content%></p>
+<%@post.categories.each do |cat|%>
+<p><%=cat.name%></p>
+<%end%>
+<%@users.each do |user|%>
+<%=link_to user.username, user_path(user)%>
+  <%user.comments.each do |comm|%>
+  <%=user.username + " says: " + comm.content%>
+  <%end%>
+<%end%>
 
+<%= render 'comments/form', comment: @comment%>

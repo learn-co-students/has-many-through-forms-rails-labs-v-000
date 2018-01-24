@@ -1,1 +1,60 @@
+<h1>Behold the Post!</h1>
+  <p>Title: <%= @post.title %></p>
+  <p>Content: <%= @post.content %></p>
+  
+
+  <label>Categories:</label>
+  <% if @post.categories %>
+  <ul>
+    <% @post.categories.each do |cat| %>
+   <li><%= cat.name %></li>
+    <% end %>
+  </ul>  
+  <% end %> 
+
+  <label>Comments:</label><br>
+    <% if @post.comments %>
+    <ul>
+      <% @post.comments.each do |com| %>
+       <li><%= com.user.username %> says: <%= com.content %></li>
+      <% end %>
+    </ul>  
+    <% end %>
+
+  <label>Commenters:</label>
+    <ul>
+    <% @post.users.uniq.each do |user| %>
+      <li><%= link_to user.username, user_path(user) %></li> 
+    <% end %>
+   </ul> 
+
+  <label>Create a new comment:</label>
+    <%= form_for @post.comments.build do |f| %>
+      <%= f.text_area :content %><br></br>
+
+  <label>Choose a user</label>
+    <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Select User' %>
+  <%= f.hidden_field :post_id %><br></br>
+
+  <%= f.label "Or create a new user" %>
+    <%= f.fields_for :user, @post.comments.last.build_user do |user| %>
+      <%= user.text_field :username %><br></br>
+    <% end %>
+
+    <%= f.submit %> 
+<% end %> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

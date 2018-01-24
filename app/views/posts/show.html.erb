@@ -1,1 +1,15 @@
+<h1><%= @post.title %></h1>
+<% @post.categories.each do |c| %>
+  <p><em>Categories: <%= c.name %></em></p>
+<% end%>
+<p><%= @post.content %></p>
+<h3>Comments:</h3>
+<% @post.comments.each do |comment| %>
+  <p><em><%= comment.user.username %> says:</em></p>
+  <p><%= comment.content %></p>
+<% end %>
+<% @post.users.uniq.each do |user| %>
+  <%= link_to user.username, user_path(user) %>
+<% end %>
 
+<%= render 'new_comment' %>

@@ -1,6 +1,6 @@
 <h1><%=@post.title%></h1>
 
-<p><%=@post.content%></p>
+<p>Content: <%=@post.content%></p>
 
 Categories: <br />
 <ul>
@@ -20,9 +20,6 @@ Comments: <br />
 
 </ul>
 
-
-
-
 Users: <br />
 <ul>
   <%@post.users.uniq.each do |u|%>
@@ -33,7 +30,7 @@ Users: <br />
 
 
 
-<%=form_for(@comment) do |f|%>
+<%=form_for(@post.comments.build) do |f|%>
   <br><br>
     <%=f.label :content%>
     <%=f.text_area :content%>
@@ -42,9 +39,10 @@ Users: <br />
 
     <%=f.collection_select  :user_id, User.all,  :id, :username, include_blank: true%>
 
-    <%=f.fields_for :user_id  do |user_builder|%>
-      <%= user_builder.text_field :username%>
+    <%=f.fields_for :user do |u|%>
+      <%= u.text_field :username%>
     <%end%>
+
 
  <%=f.submit%>
  <%end%>

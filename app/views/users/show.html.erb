@@ -1,1 +1,5 @@
-
+<h2>Posts <%= @user.username %> has commented on:</h2>
+<% @user.posts.each do |post| %>
+  <h3><%= link_to post.title, post_path(post) %></h3>
+  <%= post.content %>
+<% end %>

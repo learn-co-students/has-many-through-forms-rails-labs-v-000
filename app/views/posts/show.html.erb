@@ -1,1 +1,50 @@
+<fieldset>
+	<legend>Post Details</legend>
+	<h2><%= @post.title %></h2>
+	<p><%= @post.content %></p>
+	<br>
+	<b>Categories: </b>
+	<% @post.categories.each do |category| %>
+		<%= category.name %>
+	<% end %>
 
+</fieldset>
+
+<br>
+
+<fieldset>
+	<legend>Comments</legend>
+	<ul>
+		<% @post.comments.each do |comment| %>
+			<li><%= "#{comment.user.username} says: #{comment.content}" if comment.user %></li>
+		<% end %>
+	</ul>
+
+	<p>
+		Users who have commented:
+		<% @post.users.uniq.each do |user| %>
+			<%= link_to user.username, user_path(user) %>
+		<% end %>
+	</p>
+
+	<hr>
+
+	<p>
+		<%= form_for @post.comments.build do |f| %>
+			<h4>Add a comment</h4>
+			<%= f.text_area :content, :cols => 50, :rows => 10 %><br />
+
+			<%= f.label "Select existing user" %>
+			<%= f.collection_select(:user_id, User.all, :id, :username) %>
+
+			<%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
+				<%= user_fields.label "or Create New User" %>
+				<%= user_fields.text_field :username %><br /><br />
+			<% end %>
+
+			<%= f.hidden_field :post_id %>
+			
+			<%= f.submit %>
+		<% end %>
+	</p>
+</fieldset>

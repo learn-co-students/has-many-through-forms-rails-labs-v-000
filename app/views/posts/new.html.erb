@@ -1,14 +1,1 @@
 <%= render 'form', post: Post.new %>
-<!--can create a post with a brand new category
-Failure/Error: fill_in('post_categories_attributes_0_name', :with => 'Funny')
-Capybara::ElementNotFound:
-Unable to find field "post_categories_attributes_0_name"
-# ./spec/features/posts_spec.rb:26:in `block (3 levels) in <top (required)>'-->
-
-
-
-<!--can create a post with a brand new category and an existing category
-Failure/Error: fill_in('post_categories_attributes_0_name', :with => 'Funny')
-Capybara::ElementNotFound:
-  Unable to find field "post_categories_attributes_0_name"
-# ./spec/features/posts_spec.rb:33:in `block (3 levels) in <top (required)-->

@@ -10,8 +10,10 @@
 </p>
 
 <ul>
-  <% @post.comments.each do |comment| %>
-    <li><%= comment.user.username %> says: <%=comment.content %></li>
+  <% @post.users.uniq.each do |user| %>
+    <li><%= link_to user.username, user_path(user) %> says: <% user.comments.each do |c| %></li>
+    <%= c.content %>
+    <% end %>
   <% end %>
 </ul>
 
@@ -30,8 +32,5 @@
 </p>
 <%= c.hidden_field(:post_id) %>
 
-
-
   <%= c.submit %>
-
 <% end %>

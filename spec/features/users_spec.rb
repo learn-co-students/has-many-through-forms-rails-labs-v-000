@@ -12,6 +12,7 @@ describe 'users', type: 'feature' do
   describe 'show page' do
 
     it 'should link to all of the posts the user commented on' do
+      #binding.pry
       visit user_path(@user)
       expect(page).to have_link(@post.title, href: post_path(@post))
     end

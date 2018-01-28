@@ -1,9 +1,5 @@
-<!--  should link to all of the posts the user commented on
-Failure/Error: visit user_path(@user)
-SyntaxError:
-/home/scott/code/labs/has-many-through-forms-rails-labs-v-000/app/views/users/show.html.erb:5: syntax error, unexpected ')', expecting end-of-input
-'.freeze; end );@output_buffer.safe_append='
-# ./spec/features/users_spec.rb:15:in `block (3 levels) in <top (required)-->
-<!--User has many Comments
-user has_many Posts through Comments-->
-<%= link_to @user.comments, user_path(post_url) %>
+<li>
+  <%= @user.posts.each do |post| %>
+    <%= link_to post.title, post_path(post) %>
+  <%end %>
+</li>

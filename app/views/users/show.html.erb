@@ -1,1 +1,5 @@
+<h1><%= @user.username %></h1>
 
+<%= div_for(@user.posts) do |post| %>
+  <p><%= link_to post.title, post_path(post) %></p>
+<% end %>

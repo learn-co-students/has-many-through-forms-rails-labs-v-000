@@ -1,0 +1,7 @@
+<h1>Category: <%= @category.name %></h1>
+
+<h3>Related posts:</h3>
+
+<%= div_for @category.posts do |post| %>
+  <%= link_to post.title, post_path(post) %>
+<% end %>

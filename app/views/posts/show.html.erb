@@ -15,11 +15,11 @@
 
   <br></br>
 
-  <%= f.collection_select :user_id, User.all, :id, :username, {:id => "comment_user_id"} %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
 
   <br></br>
 
-  <%= f.fields_for :users, @post.users.build do |users_fields| %>
+  <%= f.fields_for :user, @post.comments.build.build_user do |users_fields| %>
     <%= users_fields.text_field :username %>
   <% end %>
 
@@ -30,5 +30,11 @@
 
 <h4>Previous Comments:</h4>
 <%= div_for(@post.comments) do |comment| %>
-  <p>RealBigFish says: <%= comment.content %></p>
+  <% if comment.id %>
+    <p><%= "#{comment.username} says: #{comment.content}" %></p>
+  <% end %>
+<% end %>
+
+<%= div_for(@post.users.uniq) do |user| %>
+  <%= link_to user.username, user_path(user) %>
 <% end %>

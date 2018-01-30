@@ -3,6 +3,7 @@ class CommentsController < ApplicationController
   def new
     @comment = Comment.new
     @comment.build_user
+    binding.pry
   end
 
   def create

@@ -1,1 +1,20 @@
+<h2><%= @post.title %></h2>
+<h3>Content: <%= @post.content %> </h3>
 
+<ul>
+  <% @comments.each do |i| %>
+    <li><%= i.content %></li>
+  <% end %>
+</ul>
+
+<ul>
+  <% @users.uniq.each do |user| %>
+    <li><%= link_to user.username, user %></li>
+  <% end %>
+</ul>
+
+<ul>
+  <% @categories.each do |i| %>
+    <li><%= i.name %></li>
+  <% end %>
+</ul>

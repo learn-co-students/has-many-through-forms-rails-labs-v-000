@@ -2,11 +2,10 @@ class CommentsController < ApplicationController
 
   def new
     @comment = Comment.new
-    @comment.user.build
+    @comment.build_user
   end
 
   def create
-
     @comment = Comment.create(comment_params)
     redirect_to comment_path(@comment)
   end

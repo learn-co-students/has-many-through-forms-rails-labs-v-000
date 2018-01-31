@@ -1,1 +1,4 @@
-<h2><%= @user.username %> says: <%= @comment.content %></h2>
+<h3><%= @user.username %> says: <%= @comment.content %></h3>
+<% if !@comment.post.nil? %>
+  <h4>in the following post: <%= link_to @comment.post.title, @comment %></h4>
+<% end %>

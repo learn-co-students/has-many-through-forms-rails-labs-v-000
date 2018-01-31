@@ -1,16 +1,25 @@
-<h2>Create comments </h2>
 
 <%= form_for @comment do |f| %>
-  <%= f.label "Content" %>
-  <%= f.text_field :content %><br>
-
-  <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: 'None'} %><br>
-
+<p>
+  <%= f.label "Content:" %>
+  <input type="text" name="comment[content]" id="comment_content"><br>
+  <!-- <%= f.text_field :content %><br> -->
+</p>
+<p>
+  <%= f.label "Select from existing users:" %>
+  <%= f.collection_select :user_id, User.all.uniq, :id, :username do |user| %>
+    <%= user.check_box %>
+  <% end %>
+</p>
+<p>
   <%= f.fields_for :user, @comment.build_user do |user_fields| %>
-    <%= user_fields.label "New Username" %>
+    <%= user_fields.label "New Username:" %>
     <%= user_fields.text_field :username %>
   <% end %>
-  <br>
+</p>
+  <%if @post != nil %>
+    <input type="check_box" style="display:none" checked="checked" name="comment[post_id]" value="<%= @post.id %>"></label>
+  <% end %>
 
   <%= f.submit class: 'btn btn-default' %>
 <% end %>

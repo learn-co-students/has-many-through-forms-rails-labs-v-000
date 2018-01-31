@@ -1,6 +1,7 @@
 <h2><%= @post.title %></h2>
 <h3>Content: <%= @post.content %> </h3>
 
+<p>
 <ul>
   <% @comments.each do |i| %>
     <li><%= i.content %></li>
@@ -18,3 +19,10 @@
     <li><%= i.name %></li>
   <% end %>
 </ul>
+</p>
+<p>
+  <h4>Add a new comment:</h4>
+  <%= form_for @comment, url: comments_path, method: :post do |f| %>
+    <%= render 'comments/form' %>
+  <% end %>
+</p>

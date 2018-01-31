@@ -4,6 +4,7 @@ class PostsController < ApplicationController
     @comments = @post.comments
     @users = @post.users
     @categories = @post.categories
+    @comment = Comment.new
   end
 
   def index
@@ -12,7 +13,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @post.categories.build(name: 'name_1')
+    @post.categories.build
   end
 
   def create

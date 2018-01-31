@@ -1,0 +1,10 @@
+<h2>Posts</h2>
+
+<ul>
+<% @posts.each do |i| %>
+  <li>
+    <%= link_to i.title, i %>:
+    <%= i.content%>
+  </li>
+<% end %>
+</ul>

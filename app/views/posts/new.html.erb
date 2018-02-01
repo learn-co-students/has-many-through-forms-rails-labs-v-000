@@ -1,4 +1,8 @@
-
+<style>
+.whatever {
+	border: 1px solid red;
+}
+</style>
 
 
 <%= form_for (@post) do |f| %>
@@ -12,15 +16,21 @@
 	</p>
 
 
-<% Category.all.each do |c| %>
+
+
+ <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b| %>
+ 	<p>
+ 		<%= b.label :class=>"whatever"%>
+ 		<%= b.check_box %>			
+ 	</p>
+ 	<% end %>
+ 	<%= f.submit %>
+
+<% end %>
+
+
+<% Category.each do |c| %>
 	<p> 
 	<label for="category_id <%= c.id %>"><%= c.name %></label>
-	<input type="checkbox" name="post[category_ids][]" value="<%= c.id %>" id="category_id <%= c.id %>">
+	<input type="checkbox" name="post[category_ids]" value="<%= c.id %>" id="category_id <%= c.id %>">
 	</p>
-	<% end %>
-
-	<input type="test"  id="post_categories_attributes_0_name" name="post[categories_attributes][0][name]" />
-
-	<input type="test"  id="post_categories_attributes_0_name" name="post[categories_attributes][1][name]" />
-   <%= f.submit %>
-<% end %>

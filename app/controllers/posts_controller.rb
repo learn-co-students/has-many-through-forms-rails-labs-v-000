@@ -1,20 +1,27 @@
 class PostsController < ApplicationController
-  def show
-    @post = Post.find(params[:id])
-    @comment = Comment.new
-  end
+  
 
   def index
     @posts = Post.all
   end
 
+  def show
+  
+    @post = Post.find(params[:id])
+   
+  end
+
   def new
-    @post = Post.new
+    @post = Post.create
+    
+    # @post.categories.build
+    3.times do
+      @post.categories.build(:name => "sample category")
+    end
   end
 
   def create
-   
-    post = Post.create(post_params)
+    @post = Post.create(post_params)
     redirect_to post
   end
 

@@ -1,1 +1,23 @@
+<h1>Post#show</h1>
 
+<%= form_for post do |f| %>
+  <p>
+    <%= f.label "Title:" %>
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label "Content:" %>
+    <%= f.text_area :content %>
+  </p>
+  <p>
+    Existing Categories:
+    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+  </p>
+  <p>
+    New Category:
+    <%= f.fields_for :categories, post.categories.build do |fields| %>
+      <%= fields.text_field :name %>
+    <% end %>
+  </p>
+  <%= f.submit "Create Post" %>
+<% end %>

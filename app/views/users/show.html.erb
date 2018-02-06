@@ -1,1 +1,6 @@
-
+<h1><%= @user.username %></h1>
+<ul>
+  <% @user.comments.map{|c| c.post_id}.uniq.each do |post_id| %>
+    <li><%= link_to Post.find(post_id).title, post_path(Post.find(post_id)) %></li>
+  <% end %>
+</ul>

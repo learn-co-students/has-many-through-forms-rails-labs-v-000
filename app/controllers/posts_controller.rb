@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    @unique = @post.comments.map{|t| t.user_id}.uniq
+    @comment = Comment.new
   end
 
   def index
@@ -13,6 +15,7 @@ class PostsController < ApplicationController
 
   def create
     post = Post.create(post_params)
+    #binding.pry
     redirect_to post
   end
 

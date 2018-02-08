@@ -1,6 +1,14 @@
+require 'pry'
 class PostsController < ApplicationController
   def show
+    #binding.pry
     @post = Post.find(params[:id])
+    @comment = Comment.new
+    @user_array = []
+    @post.users.each do |u|
+      @user_array << u.id
+    end
+      @user_array = @user_array.uniq
   end
 
   def index
@@ -12,9 +20,11 @@ class PostsController < ApplicationController
   end
 
   def create
+    #binding.pry
     post = Post.create(post_params)
     redirect_to post
   end
+
 
   private
 

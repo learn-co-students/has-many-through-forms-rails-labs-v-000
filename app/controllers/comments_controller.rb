@@ -1,9 +1,13 @@
 class CommentsController < ApplicationController
 
   def create
+    #raise params.inspect
     comment = Comment.create(comment_params)
+    #binding.pry
+    Comment.all << comment
     redirect_to comment.post
   end
+
 
   private
 

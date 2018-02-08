@@ -5,3 +5,9 @@
     <li><%=category.name%></li>
   <%end%>
 </ul>
+
+<ul>
+  <%=@post.comments.each do |comment|%>
+    <%=comment.content%>
+  <%end%>
+</ul>

@@ -11,3 +11,10 @@
     <%=comment.content%>
   <%end%>
 </ul>
+
+<ul>
+  <%=@post.users.uniq.each do |user|%>
+    <li><%=link_to user.username, user_path(user)%></li>
+  <%end%>
+
+</ul>

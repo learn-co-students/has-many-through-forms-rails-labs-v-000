@@ -1,2 +1,7 @@
-<%=@post.title%>
-<%=@post.content%>
+<%=@post.title%><br>
+<%=@post.content%><br>
+<ul>
+  <%=@post.categories.each do |category|%>
+    <li><%=category.name%></li>
+  <%end%>
+</ul>

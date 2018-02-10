@@ -16,9 +16,12 @@
   <% end %></ul>
 </p>
 
-<%= form_for [:comment, :content, @post] do |f| %>
-  <%= f.label "Comment" %>
-  <%= f.text_area :comment_content %>
-  <%= f.collection_check_boxes :user_ids, User.all, :id, :username, :include_blank %>
+<h3>New comment:</h3>
+<%= form_for @post do |f| %>
+  <%= f.fields_for :comment do |comment_content| %>
+  <%= comment_content.label "Comment" %>
+  <%= comment_content.text_area :comment_content %>
+  <%= comment_content.collection_check_boxes :user_ids, User.all, :id, :username, include_blank: true %>
+  <% end %>
   <%= f.submit %>
 <% end %>

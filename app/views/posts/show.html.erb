@@ -3,6 +3,13 @@
   <%= @post.content %>
 </p>
 
+<h3>Categories:</h3>
+<p><ul>
+<% @post.categories.each do |category| %>
+    <li><%= category.name %></li>
+  <% end %>
+</ul></p>
+
 <h3>Comments:</h3>
 <p><ul>
 <% @post.comments.each do |comment| %>
@@ -11,17 +18,18 @@
 </ul></p>
 
 <h3>Users who have commented:</h3>
-<p><ul><% @post.users.each do |user| %>
-    <li><%= link_to user.username, user %></li>
-  <% end %></ul>
+<p><ul><% unique_users = @post.comments.each do |comment| %>
+    <li><% link_to comment.user.username, comment.user %></li>
+  <% end %>
+  <li><%= unique_users.uniq %></li>
+</ul>
 </p>
 
 <h3>New comment:</h3>
 <%= form_for @post do |f| %>
-  <%= f.fields_for :comment do |comment_content| %>
-  <%= comment_content.label "Comment" %>
-  <%= comment_content.text_area :comment_content %>
-  <%= comment_content.collection_check_boxes :user_ids, User.all, :id, :username, include_blank: true %>
+  <%= f.fields_for :comments, @post.comments.build do |comment_fields| %>
+  <%= comment_fields.text_area :content %>
+  <%= comment_fields.collection_check_boxes :user_id, User.all, :id, :username, include_blank: true %>
   <% end %>
   <%= f.submit %>
 <% end %>

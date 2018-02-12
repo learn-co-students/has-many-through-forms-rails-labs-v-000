@@ -1,17 +1,17 @@
-<%= @post.title %>
-<%= @post.content %>
+Title: <%= @post.title %><br>
+Content: <%= @post.content %><br>
+Categories:
 <% @post.categories.each do |category| %>
-<%= category.name %>
+  <%= category.name %><br>
 <% end %>
-
+Comments:
 <% @post.comments.each do |comment| %>
-
-<%= comment.content %>
-
-<%= link_to comment.user.username, user_path(comment.user) %>
+<%= comment.user.username %> says: <%= comment.content %>
 <% end %>
 
-<%= form_for @comment do |f| %>
+<%= link_to @post.users.uniq, user_path %>
+
+<%= form_for @post.comments.build do |f| %>
 <%= f.text_field :content %>
 <%= f.hidden_field :post_id %>
 <%= f.collection_select :user_id, User.all, :id, :username %>

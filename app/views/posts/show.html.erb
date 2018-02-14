@@ -12,24 +12,32 @@
 
 <h3>Comments:</h3>
 <p><ul>
-<% @post.comments.each do |comment| %>
-    <li><%= comment.content %></li>
-  <% end %>
+    <% @post.comments.each do |comment| %>
+      <li><%= comment.content %></li>
+    <% end %>
 </ul></p>
 
 <h3>Users who have commented:</h3>
-<p><ul><% unique_users = @post.comments.each do |comment| %>
-    <li><% link_to comment.user.username, comment.user %></li>
-  <% end %>
-  <li><%= unique_users.uniq %></li>
-</ul>
-</p>
+  <% if @post.comments != [] %>
+    <p><ul><% @post.users.uniq.each do |user| %>
+      <li><%= link_to user.username, user_path(user) %></li>
+    <% end %>
+  <% end %></ul></p>
+
 
 <h3>New comment:</h3>
-<%= form_for @post do |f| %>
-  <%= f.fields_for :comments, @post.comments.build do |comment_fields| %>
-  <%= comment_fields.text_area :content %>
-  <%= comment_fields.collection_check_boxes :user_id, User.all, :id, :username, include_blank: true %>
+<%= form_for @comment do |f| %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
+  <%= f.fields_for :user, @comment.build_user do |user_fields| %>
+    <%= user_fields.text_field :username %>
   <% end %>
-  <%= f.submit %>
+  <%= f.submit "Create Comment" %>
 <% end %>
+
+<h3>Comments:</h3>
+  <% @post.comments.each do |comment| %>
+    <br /><%= "#{comment.user.username} says: #{comment.content}" %>
+  <% end %>

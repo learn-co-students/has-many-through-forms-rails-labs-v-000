@@ -1,12 +1,40 @@
 notes.md
 
 
+REqs
+ 1. post have many cats/cats have many posts
+ 2. post nested form with smart non duplicative categories
+ 3. posts have many comments 
+ 4. comment belongs to a user
+ 5. on the post show page, need a comment form with dropdown for users and text-field for comments. 
+ 6. create users show page that links to all posts a user has commented on. 
+ 7. some validation process, blank option for collections_select 
+
+
+Process: so much about programming is about process. 
+post.spec
+categories.spec
+comments.spec
+users.spec 
+
+post model
+cat model
+posts controller
+posts new 
+
+rails generate resource post title content:text 
+
+
 1. Create form posts#new
 	-- checkboxes  to selectg categories 
 	-- and text field to create a new category 
 	-- nested form 
-	-- if exists, don't create new 
-	-- 
+	-- if exists, don't create new  ie, unique category. 
+		-- smart, non-duplicative 
+
+Posts have many categoies, cats have many posts, so you need a join model and a through. it can't be post.category_id, because it would only have one post. Has many through. 
+
+	-- posts have many categories.  
 
 2. posts#show 
 	--displays title and content
@@ -47,6 +75,7 @@ post[title] =? title to fthe post
 look at strong params: 
     params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
 
+<%= link_to "Delete", category, method: :delete, data: { confirm: "Really?" } %>
 
 
 <!-- refactoring: collection_check_boxes(:post, :author_ids, Author.all, id, ) -->

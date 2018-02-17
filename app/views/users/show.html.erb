@@ -1,3 +1,8 @@
-links to all posts that user has commented on. 
+<h3> <%= @user.username.capitalize %> has left a comment on these posts: <h3> 
 
-link_to @user.post.comment, @user. 
+
+<ul>
+  <% @user.posts.uniq.each do |post| %>
+    <li><%= link_to post.title, post %></li>
+  <% end %>
+</ul>

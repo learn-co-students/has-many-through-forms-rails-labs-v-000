@@ -15,7 +15,7 @@
 		<ul>
 			<% @post.comments.each do |comment| %>
 		
-			<p><%=  link_to comment.user.username, user_path(comment.user) %> says: <%= comment.content %></p> 			
+			<p><%= comment.user.username %> says: <%= comment.content %></p> 			
 			<% end %>
 		</ul>
 	</section>
@@ -23,7 +23,8 @@
 
 	<section><h4>Here's who has commented on this post:</h4>
 		<ul><% @post.users.uniq.each do |user| %>
-			<li><%= link_to user.username, user_path(@post) %></li>	
+			
+			<li><%= link_to user.username, user_path(user) %></li>	
 		<% end %>
 		</ul>
 	</section>		

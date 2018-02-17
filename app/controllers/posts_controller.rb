@@ -8,6 +8,7 @@ class PostsController < ApplicationController
   def new
     @post = Post.new 
     @categories = Category.all   
+    # can add @post.categories.build(name: =>?? )
   end
 
   def create

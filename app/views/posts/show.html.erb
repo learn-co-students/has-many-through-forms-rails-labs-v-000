@@ -1,1 +1,10 @@
-
+<h1>Title: <%= @post.title %></h1>
+<h2>Content: <%= @post.content %></h2>
+<h3>Comments:</h3> 
+<ol>
+    <li>
+        <%= @post.comments.each do |c| %>
+        <%= c.content %>
+        <% end %>
+    </li>
+</ol>

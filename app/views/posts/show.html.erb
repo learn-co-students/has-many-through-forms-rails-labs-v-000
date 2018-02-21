@@ -1,1 +1,41 @@
+<h1><%= @post.title %></h1>
 
+<p><%= @post.content %></p>
+
+<ul>
+  <% @post.categories.each do |category| %>
+    <li><%= category.name %></li>
+  <% end %>
+</ul><br>
+
+<h3>Commentors</h3>
+  <% @post.uniq_users.each do |user| %>
+    <%= link_to user.username, user_path(user) if user %>
+  <% end %>
+  <br>
+
+
+
+<h3><%= @post.comments.count %>
+  <% if @post.comments.count == 1 %>
+    Comment
+  <% else %>
+    Comments
+  <% end %>
+  </h3>
+
+  <% @post.comments.each do |comment| %>
+    <% if comment.user %>
+    <p> <%= comment.user.username %> says: <%= comment.content %></p>
+    <% end %>
+  <% end %>
+
+<%= form_for(@comment) do |f| %>
+  <%= f.text_area :content %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.collection_select :user_id, User.all, :id, :username %>
+  <%= f.fields_for :user, @comment.build_user do |user_builder| %>
+    <%= user_builder.text_field :username %>
+  <% end %>
+  <%= f.submit %>
+<% end %>

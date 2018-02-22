@@ -6,17 +6,25 @@
   <% end %>
 </ul>
 <ul>
+  <% @post.comments.each do |comment| %>
+    <%= comment.content %>
+  <% end %>
+</ul>
+<ul>
   <% @post.users.uniq.each do |user| %>
     <li><%= link_to user.username, user_path(user) %></li>
   <% end %>
 </ul>
 <br>
-<%= form_for(@post.comments.build) do |f| %>
-  Comment: <%=f.text_field :content %><br>
-  <%=f.collection_select :user_id, User.all, :id, :username %>
-  <%= f.fields_for :user, User.new do |user| %>
+<h3>Add a new comment:</h3>
+<%= form_for(@post.comments.build) do |comment| %>
+  <%= comment.hidden_field :post_id %>
+  Comment: <%=comment.text_field :content %><br>
+  <%=comment.collection_select :user_id, User.all, :id, :username %>
+  <%= comment.fields_for :user, User.new do |user| %>
     <%= user.text_field :username %>
   <% end %>
-  <%= f.submit %>
+  <br>
+  <%= comment.submit %>
 <% end %>
 <br>

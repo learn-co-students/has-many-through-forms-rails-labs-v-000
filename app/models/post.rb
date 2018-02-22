@@ -18,5 +18,4 @@ class Post < ActiveRecord::Base
       self.categories << Category.find_or_create_by(category_attribute)
     end
   end
-
 end

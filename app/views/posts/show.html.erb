@@ -11,7 +11,7 @@
   <% end %>
 </ul>
 <br>
-<%= form_for(Comment.new) do |f| %>
+<%= form_for(@post.comments.build) do |f| %>
   Comment: <%=f.text_field :content %><br>
   <%=f.collection_select :user_id, User.all, :id, :username %>
   <%= f.fields_for :user, User.new do |user| %>

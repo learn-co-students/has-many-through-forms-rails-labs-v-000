@@ -1,20 +1,17 @@
+<h1>Post Form</h1>
 <%= form_for @post do |f| %>
-    <%= f.label "Title:" %>
-    <%= f.text_field :title %><br><br>
-    <%= f.label "Content:" %>
-    <%= f.text_area :content %><br><br>
+    Title: <%= f.text_field :title %><br><br>
+    Content: <%= f.text_area :content %><br><br>
+    Categories: <br><br>
+    <label>Choose a Category:</label>
     <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %><br>
     <br>
+    
+    <%= f.label "Create a new category"%>
     <%= f.fields_for :categories, post.categories.build do |cat_fields| %>
-        <%= cat_fields.label "Category:" %>
         <%= cat_fields.text_field :name %>
     <% end %>
     <br>
-    <%= f.fields_for :user do |f| %>
-    <%= f.label "User:" %>
-    <%= f.text_field :name %>
-    <%= f.collection_select(:user_ids, User.all, :id, :name, {:include_blank => 'Select'}) %>
-    <% end %>
     
     <%= f.submit %>
 <% end %>

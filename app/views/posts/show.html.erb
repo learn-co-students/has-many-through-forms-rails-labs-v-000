@@ -1,2 +1,17 @@
 <h1><%= @post.title %></h1>
 <p><%= @post.content %></p>
+<ul>
+  <% @post.users.uniq.each do |user| %>
+    <li><%= link_to user.username, user_path(user) %></li>
+  <% end %>
+</ul>
+<br>
+<%= form_for(Comment.new) do |f| %>
+  Comment: <%=f.text_field :content %><br>
+  <%=f.collection_select :user_id, User.all, :id, :username %>
+  <%= f.fields_for :user, User.new do |user| %>
+    <%= user.text_field :username %>
+  <% end %>
+  <%= f.submit %>
+<% end %>
+<br>

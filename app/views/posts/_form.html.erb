@@ -1,13 +1,19 @@
 <%= form_for(@post) do |f| %>
-<p>
+<h1>
   <%= f.label :title %>
   <%= f.text_field :title %>
-</p>
+</h1>
 
 <p>
   <%= f.label :content %>
   <%= f.text_area :content %>
 </p>
 
+<% Category.all.each do |cat| %>
+<p>
+<label for="category_id<%= cat.id %>"><%= cat.name %></label>
+<input type="checkbox" name="post[category_ids][]" value="<%= cat.id %>" id="category_id<%= cat.id %>">
+</p>
+<% end %>
 <%= f.submit %>
 <% end %>

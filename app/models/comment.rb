@@ -14,7 +14,9 @@ class Comment < ActiveRecord::Base
   end
 
   def user_attributes=(attribute)
-    self.user = User.find_or_create_by(attribute[:username]) if attribute[:username] != ""
+    # binding.pry
+    self.user = User.find_or_create_by(attribute) if attribute[:username] != ""
+    self.save
   end
 
 end

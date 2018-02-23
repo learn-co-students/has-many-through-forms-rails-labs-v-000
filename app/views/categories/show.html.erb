@@ -1,0 +1,7 @@
+<h1>Here are posts related to <%= @category.name %></h1>
+
+<ul>
+  <% @category.posts.all.each do |post| %>
+    <%= link_to post.title, post_path(post) %>
+  <% end %>
+</ul>

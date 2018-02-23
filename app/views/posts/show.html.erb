@@ -1,16 +1,16 @@
 <h2><%= @post.title %></h2>
 
-<p>
-  Content: <%= @post.content %>
-</p>
-
+  <strong>Content:</strong></br>
+  <%= @post.content %>
+<br></br>
+<strong><%= pluralize(@post.categories.count, "Category") %>:</strong></br>
 <ul>
   <% @post.categories.each do |category| %>
   <li><%= link_to category.name, category_path(category) %></li>
   <% end %>
 </ul>
 
-<h3>Comments:</h3>
+<strong>Comments:</strong>
 
 <ul>
   <li>
@@ -28,13 +28,13 @@
   <%= f.label :content %>
   <%= f.text_area :content %>
   <%= f.hidden_field :post_id, value: @post.id %>
-  <%= f.submit "Create Comment"%>
-
+<br></br>
   <label>Select a User:</label>
   <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'new user' %>
   <label>Or create a new user:</label>
   <%= f.fields_for :user, User.new do |user_fields| %>
-    <%= user_fields.label :username %>
     <%= user_fields.text_field :username %>
   <% end %>
+  <br></br>
+  <%= f.submit "Create Comment"%>
 <% end %>

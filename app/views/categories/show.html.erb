@@ -1,7 +1,7 @@
-<h1>Here are posts related to <%= @category.name %></h1>
+<h1>Here are posts related to <%= (@category.name).downcase %>:</h1>
 
-<ul>
+<ol>
   <% @category.posts.all.each do |post| %>
-    <%= link_to post.title, post_path(post) %>
+    <li><%= link_to post.title, post_path(post) %></li>
   <% end %>
-</ul>
+</ol>

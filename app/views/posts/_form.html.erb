@@ -1,1 +1,28 @@
+<%= form_for @post do |f| %>
+<label for="post_title">Post Title: </label>
+<%= f.text_field :title %> <br>
+<label for="post_content">Content: </label>
+<%= f.text_area :content %> <br>
 
+<%= collection_select :post, :user_ids, User.all, :id, :username, :options => :include_blank %> <br>
+<%= f.fields_for :user do |u| %>
+	<%= u.text_field :username %>
+<%end%>
+
+<%= collection_check_boxes :post, :category_ids, Category.all, :id, :name %> <br>
+<%= f.fields_for :categories do |c| %>
+	<%= c.label :name %>
+	<%= c.text_field :name %> <br>
+<% end %>
+
+<br><br>
+<div>NOT IN USE</div>
+<%= f.fields_for :comments do |c| %>
+	<%= c.text_area :content %>
+<%end%>
+<div>NOT IN USE</div>
+
+
+<br>
+<%= f.submit %>
+<%end%>

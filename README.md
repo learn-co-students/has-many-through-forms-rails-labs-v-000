@@ -42,3 +42,10 @@ We've looked at setting up the associations behind posts with comments, categori
 + [Lab Review](https://www.youtube.com/watch?v=k7s2LjVF3YY)
 
 <p data-visibility='hidden'>View <a href='https://learn.co/lessons/has-many-through-forms-rails-labs' title='Has Many Through Forms Rails Labs'>Has Many Through Forms Rails Labs</a> on Learn.co and start learning to code for free.</p>
+
+
+<%=# f.fields_for :user, @post.user.build do |user_fields| %>
+  <label>Make a new User</label><br>
+  <%=# user_fields.text_field :username %>
+  <%=# user_fields.text_field :email %>
+<% #end %>

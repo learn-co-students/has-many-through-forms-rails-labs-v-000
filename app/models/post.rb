@@ -12,14 +12,12 @@ class Post < ActiveRecord::Base
       self.categories << category
       end
     end
-  end
 
   def users_attributes=(users_attributes)
     user_attributes.values.each do |user_attribute|
-    User = User.find_or_create_by(user_attribute)
+    user = User.find_or_create_by(user_attribute)
     self.users << user
     end
   end
-end
 
 end

@@ -1,1 +1,19 @@
 
+<h2><%= @post.title %></h2>
+
+<p><%= @post.content %></p>
+
+<h3>Comments</h2>
+
+<ul>
+<% @post.comments.each do |comment| %>
+  <li><%= comment.name %></li>
+<% end %>
+
+<h3>Users</h2>
+
+<ul>
+<% @post.users.each do |user| %>
+  <li><%= user.name %></li>
+<% end %>
+</ul>

@@ -6,12 +6,11 @@
 <% @post.categories.each do |category| %>
   <%= category.name %>
 <% end %>
-<% @post.comments.each do |comment| %>
-  <%= comment.user.username %> <%= comment.content %>
-<% end %>
-
 
 <h3>Comments</h2>
+  <% @post.comments.each do |comment| %>
+    <%= comment.user.username %> <%= comment.content %>
+  <% end %>
 
  <%= form_for @post.comments.build do |f| %>
  <%= f.label "Content" %>

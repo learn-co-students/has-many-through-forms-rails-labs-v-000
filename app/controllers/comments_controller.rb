@@ -5,6 +5,10 @@ class CommentsController < ApplicationController
     redirect_to comment.post
   end
 
+  def show
+    @comment = Comment.find(params[:id])
+  end
+
   private
 
   def comment_params

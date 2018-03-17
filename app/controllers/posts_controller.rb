@@ -8,8 +8,15 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new
-  end
+		@post= Post.new
+		@post.comments.build(content: params[:content])
+	 @post.comments.build(user_id: params[:user_id])
+   @comments = Comment.all
+    @post.post_categories.build(category_id: params[:category_id])
+		@categories = Category.all
+   #  @post.users.build(username: params[:username])
+   #  @users= Users.all
+	end
 
   def create
     post = Post.create(post_params)

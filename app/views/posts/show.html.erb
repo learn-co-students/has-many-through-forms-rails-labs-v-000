@@ -9,26 +9,25 @@
 
 <h3>Comments</h2>
   <% @post.comments.each do |comment| %>
-   <%= comment.content %>
+   <%= comment.user.username %> says: <%= comment.content %><br>
   <% end %>
+
+  <h3>Users</h2>
+
+  <ul>
+  <% @post.users.uniq.each do |user| %>
+    <li><%= link_to user.username, user%></li>
+  <% end %>
+  </ul>
 
 <h3>Create New Comment</h2>
  <%= form_for @post.comments.build do |f| %>
  <%= f.label "Content" %>
  <%= f.text_field :content %>
- <%= f.collection_select :user_id, User.all, :id, :username %>
-
+ <%= f.collection_select :user_id, User.all, :id, :username, :prompt => true %>
+ <%= f.hidden_field :post_id %>
   <%= f.fields_for :user, @post.users.build do |user_fields| %>
    <%= user_fields.text_field :username %>
   <% end %>
   <%= f.submit %>
 <% end %>
-
-<h3>Users</h2>
-
-
-<ul>
-<% @post.users.uniq.each do |user| %>
-  <li><%= link_to user.username, user%></li>
-<% end %>
-</ul>

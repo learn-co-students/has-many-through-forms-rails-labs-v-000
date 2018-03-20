@@ -1,0 +1,8 @@
+<%= form_for(@comment) do |f| %>
+  <%= f.label :comment_content %>
+  <%= f.text_area :content %>
+  <%= f.label "User" %>
+  <%= f.collection_check_boxes :user_id, User.all, :id, :username %>
+
+  <%= f.submit %>
+<% end %>

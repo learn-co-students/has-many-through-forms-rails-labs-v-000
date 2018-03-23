@@ -1,18 +1,15 @@
-<%= form_for post do |f| %>
+<h1>New Post</h1>
+
+<%= form_for @post do |f| %>
   <%= f.label "Title" %>
-  <%= f.text_field :title %>
+  <%= f.text_field :title %><br>
   <%= f.label "Content" %>
+  <%= f.text_area :content %><br>
+  <%= f.label "Choose a category" %>
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %><br>
+  <%= f.label "Or Select a new category" %>
+  <%= f.fields_for :categories, @post.categories.build do |categories_fields| %>
+    <%= categories_fields.text_field :name %>
+  <% end %>
+  <%= f.submit %>
 <% end %>
-
-
-
-
-
-1. <%= form_for post do |f| %>
-2. 24  <%= f.label "Title" %>
-3. 30  <%= f.text_field :title %>
-4. 36  <%= f.label "Content" %>
-5. 42  <%= f.text_area :content %>
-6. 48  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
-7. 54  <%= f.submit %>
-8. 60<% end %>

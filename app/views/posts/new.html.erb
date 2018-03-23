@@ -1,1 +1,18 @@
-<%= render 'form', post: Post.new %>
+<%= form_for post do |f| %>
+  <%= f.label "Title" %>
+  <%= f.text_field :title %>
+  <%= f.label "Content" %>
+<% end %>
+
+
+
+
+
+1. <%= form_for post do |f| %>
+2. 24  <%= f.label "Title" %>
+3. 30  <%= f.text_field :title %>
+4. 36  <%= f.label "Content" %>
+5. 42  <%= f.text_area :content %>
+6. 48  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+7. 54  <%= f.submit %>
+8. 60<% end %>

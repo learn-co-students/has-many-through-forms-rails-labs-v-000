@@ -1,1 +1,44 @@
+<h1><%= @post.title %></h1>
 
+<h4><%= @post.content %></h4>
+
+Categories:
+<ul>
+  <% @post.categories.each do |category| %>
+    <li><%= category.name %></li>
+  <% end %>
+</ul>
+
+Comments:
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li><%= "#{comment.user.username} says: #{comment.content}" %></li>
+  <% end %>
+</ul>
+
+Users who have commented on this post:
+<ul>
+  <% @users.each do |u| %>
+    <li><%= link_to u.username, user_path(u) %></li>
+  <% end %>
+</ul>
+
+Comment on this post:
+<br>
+<%= form_for @comment do |f| %>
+  <%= f.text_field :content %><br><br>
+  Select your username:
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: '' %><br><br>
+
+  Or if you're a new user:<br>
+  <%= f.fields_for :user, @user do |user_builder| %>
+    Username: <%= user_builder.text_field :username %><br>
+    Email: <%= user_builder.text_field :email %><br><br>
+
+  <% end %>
+
+
+<%= hidden_field_tag 'post_id', "#{@post.id}"%>
+
+  <%= f.submit %>
+<% end %>

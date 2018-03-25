@@ -1,7 +1,36 @@
 <h1><%= @post.title %></h1>
 <p><%= @post.content %></p>
+
+<h1>Categories</h1>
 <ul>
-<%= @post.comments.each do |comment| %>
-  <li><%= comment.content %></li>
+<% @post.categories.each do |c| %>
+  <li><%= c.name %></li>
 <% end %>
 </ul>
+
+
+<h1>Comments</h1>
+<ul>
+<% @post.comments.each do |comment| %>
+  <% if comment.content.present? %>
+    <p><%= comment.user.username %> says: <%= comment.content %></p>
+  <% end %> 
+<% end %>
+</ul>
+
+<h1>Create a New Comment</h1>
+<%= form_for @comment do |f| %>
+  <%= f.label :content, "New Comment" %><br>
+  <%= f.text_area :content %><br>
+  <%= f.hidden_field :post_id, :value => @comment.post.id %>
+  <%= f.label "Select User" %>
+  <%= f.collection_select :user_id, User.all, :id, :username, :include_blank => true %><br>
+  <%= f.label :username, "Or Create a New User" %><br>
+    <%= f.fields_for :users, @comment.user do |user_attributes| %>     
+      <%= user_attributes.label :username %>
+      <%= user_attributes.text_field :username %><br>
+    <% end %>
+
+  <%= f.submit %>
+  
+<% end %>

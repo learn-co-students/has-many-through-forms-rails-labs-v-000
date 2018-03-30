@@ -1,12 +1,23 @@
 <%=form_for @post do |f|%>
-<%=f.label :title%><br>
-<%=f.text_field :title%><br>
-<%=f.label :content%><br>
-<%=f.text_area :content%><br>
-<%=f.collection_check_boxes :category_ids, Category.all, :id, :name%>
+
+  <%=f.label :title%><br>
+  <%=f.text_field :title%>
+
+  <br></br>
+
+  <%=f.label :content%><br>
+  <%=f.text_area :content%>
+
+  <br></br>
+
+  <%=f.label :category%><br>
+  <%=f.collection_check_boxes :category_ids, Category.all, :id, :name%>
+
+  <br></br>
+
   <%=f.fields_for :categories, @post.categories.build do |categories_fields|%>
-    <%=categories_fields.label :name%><br>
+    <%=categories_fields.label "New Category"%><br>
     <%=categories_fields.text_field :name%><br>
   <%end%>
-<%=f.submit%>
+  <%=f.submit%>
 <%end%>

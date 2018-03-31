@@ -1,31 +1,36 @@
 
 <h1><%= @post.title %></h1>
 <h3><%= @post.content %></h3><br>
+<% @post.categories.each do |category| %>
+  <%= category.name %>
+<% end %>
 
 Comments:
 <ul>
 <% @post.comments.each do |comment| %>
-  <li><%= comment.content %></li>
+
+  <li><%= comment.user.username%> says: <%= comment.content %></li>
 <% end %>
 </ul>
 
 Contributors:
 <ul>
   <% @post.users.uniq.each do |user| %>
-    <li><%= user.username %></li>
+    <li><%= link_to user.username, user_path(user) %></li>
   <% end %>
 </ul>
 
 Comment:
-<%= form_for comment do |f| %>
+<%= form_for :comment, :url => comments_path do |f| %>
+  <%= f.hidden_field :post_id, :value => @post.id %>
   <%= f.label "Content" %>
   <%= f.text_field :content %>
-  <%= f.collection_select :user_ids, User.all, :id, :username %>
-  <%= f.fields_for :user, comment.user.build do |user_fields| %>
-    <%= user_fields.label :name %>
-    <%= user_fields.text_field :name %>
+  <%= f.collection_select :user_id, User.all, :id, :username %>
+  <%= f.fields_for :user_attributes do |user_fields| %>
+    <%= user_fields.label :username %>
+    <%= user_fields.text_field :username %>
     <%= user_fields.label :email %>
     <%= user_fields.text_field :email %>
   <% end %>
-  <% f.submit %>
+  <%= f.submit "Create Comment"%>
 <% end %>

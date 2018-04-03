@@ -1,0 +1,5 @@
+t 'should display all of the related posts' do
+
+<% @category.posts.each do |post| %>
+  <%= link_to post.title, post_path(post) %>
+<% end %> 

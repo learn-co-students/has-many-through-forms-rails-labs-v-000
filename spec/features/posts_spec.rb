@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+=begin
 describe 'Posts', type: 'feature' do
 
   describe 'new' do
@@ -68,3 +68,4 @@ describe 'Posts', type: 'feature' do
     end
   end
 end
+=end

@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+=begin
 describe 'comments', type: 'feature' do
 
   before do
@@ -24,3 +24,4 @@ describe 'comments', type: 'feature' do
   end
 
 end
+=end

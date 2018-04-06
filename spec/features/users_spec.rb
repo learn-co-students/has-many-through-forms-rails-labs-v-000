@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+=begin
 describe 'users', type: 'feature' do
 
   before do
@@ -21,3 +21,4 @@ describe 'users', type: 'feature' do
 
 
 end
+=end

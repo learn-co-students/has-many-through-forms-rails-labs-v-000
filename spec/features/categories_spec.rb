@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+=begin
 describe 'categories', type: 'feature' do
 
   before do
@@ -20,3 +20,4 @@ describe 'categories', type: 'feature' do
 
 
 end
+=end

@@ -18,6 +18,13 @@
     <br />
 
     <%= f.collection_select :user_id, User.all, :id, :username %>
+    <br />
+
+    <%= fields_for f.users.build do |user| %>
+      <%= user.label :username %>
+      <%= user.text_field :username %>
+      <br />
+    <% end %>
 
     <%= f.submit 'Create Comment' %>
 

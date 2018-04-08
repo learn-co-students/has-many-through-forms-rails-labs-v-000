@@ -1,1 +1,32 @@
+Title: <%= @post.title %>
+Content: <%= @post.content %>
+Categories: <% @post.categories.each do |category| %>
+  <%= category.name %>
+<% end %>
+<br>
 
+<% @post.users.uniq.each do |user| %>
+   <%=  link_to user.username, user_path(user) %> says:
+   <% comment_by_user = user.comments.select do |comment|  %>
+   <% comment.post = @post %>
+   <% end %>
+   <%= comment_by_user.first.content %>
+ <% end %><br>
+
+Add Comment:
+ <%= form_for @post.comments.build do |f| %>
+
+   Select from existing user:
+   <%= f.collection_select :user_id, User.all, :id, :username %> <br>
+   Or create new user:
+   <%= f.hidden_field :post_id, value: @post.id %>
+
+   <%= f.fields_for :user, @post.comments.build.build_user do |user_fields| %>
+     <%= user_fields.label :username %>
+     <%= user_fields.text_field :username %>
+   <% end %><br>
+   <%= f.label :content %>
+   <%= f.text_area :content %><br>
+
+   <%= f.submit  %>
+ <% end %>

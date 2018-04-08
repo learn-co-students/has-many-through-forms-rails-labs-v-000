@@ -4,7 +4,10 @@
 
   <%=f.label :content%><br>
   <%=f.text_field :content%><br>
-  <input type="checkbox" name="post[categories][Cool][]" value="" id="Cool">
+  <%Category.all.each do |c| %>
+    <label for="category_id_<%=c.id%>"><%=c.name%></label>
+    <input type="checkbox" name="post[category_ids]" value="<%=c.id%>" id="category_id_<%=c.id%>">>
+  <%end%>
 
   <%=f.submit%>
 

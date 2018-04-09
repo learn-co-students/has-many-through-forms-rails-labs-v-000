@@ -1,13 +1,21 @@
 
 <h1><%= @post.title %><h1>
 
-  <h2><%= @post.content %> </h2>
+<h2><%= @post.content %> </h2>
 
-  <ul>
-    <% @post.comments.each do |comment| %>
-      <li><%= comment.user.username %> says: <%= comment.content %></li>
-    <% end %>
-  </ul>
+<% @post.categories.each do |cat| %>
+  <%= cat.name %>
+<% end %>
+
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li><%= comment.user.username %> says: <%= comment.content %></li>
+  <% end %>
+</ul>
+
+<% @post.users.uniq.each do |user| %>
+  <ul><%= link_to user.username, user_path(user) %></ul>
+<% end %>
 
   <%= form_for @post.comments.build do |f| %>
     <%= f.hidden_field :post_id %>
@@ -17,11 +25,11 @@
     <%= f.text_field :content %>
     <br />
 
-    <%= f.collection_select :user_id, User.all, :id, :username %>
+    <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: "New"} %>
     <br />
 
-    <%= fields_for f.users.build do |user| %>
-      <%= user.label :username %>
+    <%= f.fields_for :user_attributes, User.new do |user| %>
+      <%= user.label :username, 'New Username' %>
       <%= user.text_field :username %>
       <br />
     <% end %>

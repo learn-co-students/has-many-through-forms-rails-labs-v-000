@@ -11,3 +11,6 @@ user = User.create(username: "User 1", email: "email does not matter")
 user.posts << post
 
 User.create(username: "User 2", email: "email 2")
+
+category1 = Category.create(name: "Happy")
+category2 = Category.create(name: "Sad")

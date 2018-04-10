@@ -1,1 +1,23 @@
-
+<%
+# Illustration of this workspace is available here:
+# https://i.imgur.com/sEiHNRX.png
+%>
+<%= form_for post do |f| %>
+  <%= f.label "Title" %>
+  <%= f.text_field :title %>
+  <%= f.label "Content" %>
+  <%= f.text_area :content %>
+  <!-- f.collection_check_boxes :category_ids, Category.all, :id, :name -->
+  <% # Let's go ahead and make it so the name is titleized %>
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :titleize_name %>
+  <%= f.label "Create a New Category"%>
+  <%= f.fields_for :categories, post.categories.build do |categories_fields| %>
+  <% # This line of code will generate a checkbox named: %>
+  <% # post[category_ids][] %>
+  <% # ...for each category in Category.all %>
+  <% # It will use the :id as the value for the checkbox and it will use the %>
+  <% # name method as the label for the checkbox %>
+    <%= categories_fields.text_field :name %>
+  <% end %>
+  <%= f.submit %>
+<% end %>

@@ -1,1 +1,10 @@
+<%
+# Illustration of this workspace is available here:
+# https://i.imgur.com/sEiHNRX.png
+%>
 <%= render 'form', post: Post.new %>
+<!-- Avi says to do it this way:
+    render 'form'
+...because the Post is already instantiated in the PostsController
+...but his way is not passing the tests right now.
+-->

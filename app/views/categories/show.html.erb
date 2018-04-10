@@ -1,0 +1,11 @@
+<%
+# Illustration of this workspace is available here:
+# https://i.imgur.com/sEiHNRX.png
+%>
+<h1><%= @category.name %></h1>
+
+<ul>
+  <% @category.posts.each do |post| %>
+    <li><%= link_to post.title, post %></li>
+  <% end %>
+</ul>

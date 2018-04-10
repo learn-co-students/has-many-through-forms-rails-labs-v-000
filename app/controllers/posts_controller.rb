@@ -1,6 +1,10 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new
+    @user = User.new
+    commenters = @post.comments.collect {|comment| comment.user}
+    @commenters = commenters.uniq
   end
 
   def index

@@ -1,7 +1,14 @@
 
-<h1><%= @user.username %></h1>
+<h1><%= @user.username %> 's Post Comments</h1>
 <% @user.posts.each do |p| %>
 <li>
+  <h2>Post</h2>
   <%= link_to p.title, post_path(p) %>
+  <ul>
+  <% p.comments.where(user: @user).each do |comment| %>
+  <h3>Comment</h3>
+  <li><%= comment.content %></li>
+</ul>
 </li>
+<% end %>
   <% end %>

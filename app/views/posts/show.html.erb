@@ -6,9 +6,7 @@ A form to add a new comment. The form should have a drop-down menu to select a u
 <h4>Categories:</h4>
 <ul>
   <% @post.categories.each do |category| %>
-    <% if category.name? %>
-      <li><%= category.name %></li>
-    <% end %>
+    <li><%= category.name %></li>
   <% end %>
 </ul>
 <h4>Content:</h4>
@@ -23,8 +21,8 @@ A form to add a new comment. The form should have a drop-down menu to select a u
 </ul>
 <h4>Users Who Commented:</h4>
 <ul>
-  <% @post.users_who_commented.each do |user_name| %>
-    <li><%= link_to user_name, user_path(User.find_by(username: user_name)) %></li>
+  <% @post.users_who_commented.each do |user| %>
+    <li><%= link_to user.username, user %></li>
   <% end %>
 </ul>
 

@@ -14,6 +14,6 @@ class Post < ActiveRecord::Base
   end
 
   def users_who_commented
-    self.comments.map(&:user).compact.uniq.map(&:username)
+    self.comments.map(&:user).compact.uniq
   end
 end

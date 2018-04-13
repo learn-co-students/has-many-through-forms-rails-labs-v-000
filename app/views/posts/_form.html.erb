@@ -1,1 +1,11 @@
+<%=form_for @post do |t|%>
+<p>Title:<%=t.text_field :title%></p>
+<p>Content:<%=t.text_area :content%></p>
 
+<%=t.collection_check_boxes :category_ids, Category.all, :id, :name %>
+<h4>create new category (optional)</h4>
+  <%= t.fields_for :categories, @post.categories.build do |categories_fields| %>
+    <%= categories_fields.text_field :name %>
+  <% end %>
+<%=t.submit%>
+<%end%>

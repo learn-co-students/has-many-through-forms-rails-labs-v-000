@@ -5,11 +5,11 @@ class Post < ActiveRecord::Base
   has_many :users, through: :comments
   accepts_nested_attributes_for :categories, reject_if: proc {|attributes| attributes['name'].blank?}
 
-  # def categories_attributes=(categories_hashes)
-  #   categories_hashes.each do |i, category_attributes|
-  #     category = Category.find_or_create_by(name: category_attributes[:name])
-  #     self.post_categories.build(category: category)
-  #   end
-  # end
+  def categories_attributes=(categories_hashes)
+    categories_hashes.each do |i, category_attributes|
+      category = Category.find_or_create_by(name: category_attributes[:name])
+      self.post_categories.build(category: category)
+    end
+  end
 
 end

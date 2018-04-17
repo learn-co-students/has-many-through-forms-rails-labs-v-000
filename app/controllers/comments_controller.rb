@@ -1,10 +1,8 @@
 class CommentsController < ApplicationController
 
   def create
-    comment = Post.comments.build(comment_params)
-    if comment.save
-      redirect_to comment.post
-    end
+    comment = Comment.create(comment_params)
+    redirect_to comment.post
   end
 
   private

@@ -1,1 +1,18 @@
 
+<h1> <%= @post.title %></h1>
+
+<p> <%= @post.content %></p>
+
+<div>
+  <ul>
+    <% @post.comments.each do |coment| %>
+      <li> <%= comment.name %></li>
+    <% end %>
+  </ul>
+</div>
+
+<%= form_for( @comment ) do |f| %>
+  <%= f.text_field :content %>
+  <%= f.collection_select :user_id, User.all, :id, :username %>
+  <%= f.submit %>
+<% end %>

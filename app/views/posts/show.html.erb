@@ -1,1 +1,33 @@
+<h1><%= @post.title %></h1>
+<% unless @post.categories.empty? %><p>
+  Categories: <% @post.categories.each { |category| %> <%= category.name %><% } %>
+</p><% end %>
+<p><%= @post.content %></p>
 
+<h2>Comments</h2>
+<h3>New Comment</h3>
+<%= form_for @comment do |f| %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <p>
+    <%= f.collection_select :user_id, @users, :id, :username,  {include_blank: 'Create a new user'} %>
+    <%= f.fields_for :user_attributes, @comment.build_user do |user_attributes| %>
+      <%= user_attributes.label :username %>
+      <%= user_attributes.text_field :username %>
+    <% end %>
+  </p>
+
+  <%= f.label :content %>
+  <%= f.text_field :content %>
+
+  <%= f.submit %>
+<% end %>
+
+<h3>Current Comments</h3>
+<% @comments.each do |comment| %>
+  <p><%= comment.username %> says: <%= comment.content %></p>
+<% end %>
+
+<h3>Users who have commented</h3>
+<ul><% @unique_users.each do |user| %>
+  <li><%= link_to user.username, user %></li>
+<% end %></ul>

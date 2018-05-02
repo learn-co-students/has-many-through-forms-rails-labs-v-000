@@ -1,13 +1,13 @@
 <h2>Create Post</h2>
-<%= form_for @post do |f| %>
+<%= form_for @post do |f| %> <!--can create a post without a new category-->
   <p><%= f.label :title %>
     <%= f.text_field :title %></p>
   <p><%= f.label :content %>
     <%= f.text_area :content %></p>
   <p><%= f.label :categories %>
-    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %> <!--can create a post with a previously created category-->
     <%= f.fields_for :categories, post.categories.build do |categories_fields| %>
-    <%= categories_fields.text_field :name %>
+    <%= categories_fields.text_field :name %> <!--can create a post with a brand new category-->
     <% end %></p>
   <p><%= f.submit %></p>
 <% end %>

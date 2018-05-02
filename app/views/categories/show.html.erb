@@ -1,6 +1,6 @@
 <h2><%= @category.name %></h2>
 <ul>
-  <% @category.posts.each do |post| %>
+  <% @category.posts.each do |post| %> <!--should display all of the related posts-->
     <li><%= link_to post.title, post_path(post) %></li>
   <% end %>
 </ul>

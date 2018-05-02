@@ -6,11 +6,13 @@
   <li><%= category.name %></li>
   <% end %>
 </ul>
+
 <p>Comments: <br>
   <% @post.comments.each do |comment| %> <!--should display all of the comments for that post-->
     <li><%= comment.user.username %> says: <%= comment.content %></li>
   <% end %>
 </p>
+
 <p>Comments by: <br>
   <% @post.users.uniq.each do |user| %> <!--'should display a list of unique users who have commented on the post' -->
     <ul>
@@ -23,9 +25,11 @@
 <%= form_for @post.comments.build do |f| %>
 <%= f.hidden_field :post_id %>
   <%= f.collection_select :user_id, User.all, :id, :username %> <br> <!--creates a comment with an existing user-->
+
   <%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %> <!--creates a comment and a new user-->
     <%= user_fields.text_field :username %>
   <% end %> <br>
+
   <%= f.label :content %>
   <%= f.text_area :content %>
   <%= f.submit %>

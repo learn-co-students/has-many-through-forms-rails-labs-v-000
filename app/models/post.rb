@@ -11,13 +11,23 @@ class Post < ActiveRecord::Base
   #   end
   # end
 
+  # def categories_attributes=(category_attributes)
+  #   category_attributes.values.each do |category_attribute|
+  #     category = Category.find_or_create_by(category_attribute)
+  #     # self.categories << category (correct but to inefficient)
+  #     self.post_categories.build(:category => category)
+  #     #creates instance of the post_categories join model, already associated with Post, passing in the category.
+  #   end
+  # end
 
-  def categories_attributes=(category_attributes)
-    category_attributes.values.each do |category_attribute|
-      category = Category.find_or_create_by(category_attribute)
-      # self.categories << category (correct but to inefficient)
-      self.post_categories.build(:category => category)
-      #creates instance of the post_categories join model, already associated with Post, passing in the category.
+  def categories_attributes=(categories_hashes)
+    categories_hashes.each do |i, category_attributes|
+      if category_attributes[:name].present?
+        category = Category.find_or_create_by(name: category_attributes[:name])
+        if !self.categories.include?(category)
+          self.post_categories.build(:category => category)
+        end
+      end
     end
   end
 

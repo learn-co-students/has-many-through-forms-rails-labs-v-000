@@ -16,6 +16,7 @@
       <input type="checkbox" name="post[category_ids][]" value="<%= c.id %>" id="category_id <%= c.id %>">
     </p>
   <% end %> -->
+  
   <p>
     <%= f.label :categories %>
       <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %> <!--label tag--> <!--can create a post with a previously created category-->

@@ -1,3 +1,4 @@
+
 require 'rails_helper'
 
 describe 'Posts', type: 'feature' do
@@ -35,6 +36,7 @@ describe 'Posts', type: 'feature' do
       expect(page).to have_content('Cool')
       expect(page).to have_content('Funny')
     end
+
   end
 
   describe 'show' do

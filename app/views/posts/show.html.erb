@@ -1,1 +1,51 @@
 
+<h2>Post Title: <%=@post.title%> </h2>
+<h2>Post Content: <%=@post.content%> </h2>
+
+<h2>Post Categories: <h2>
+  <ul>
+    <%@post.categories.each do |category|%>
+      <li>  <%= category.name %>  </li>
+    <%end%>
+  </ul>
+
+
+
+  <h2>Post Comments: <h2>
+    <ul>
+      <%@post.comments.each do |comment|%>
+        <li>  <%= comment.content %>  </li>
+        <li> <%=comment.user.username %> says: <%=comment.content%> <li>
+      <%end%>
+    </ul>
+
+
+
+    <h2>Users who have commented: <h2>
+      <ul>
+        <%@post.unique_users.each do |user|%>
+          <%= link_to user.username, user_path(user) %>
+        <%end%>
+      </ul>
+
+<h1> Add a comment </h1>
+    <%@post.comments.build%>
+      <%= form_for @post.comments.first do |f| %>
+        <%= f.label "Content" %>
+        <%= f.text_area :content %>
+        <%= f.hidden_field :post_id, :value => @post.id %>
+
+
+  <br>
+      <h3> Here is a list of all of the users to choose from</h3>
+        <%= f.collection_select :user_id, User.all, :id, :username %>
+  <br>
+
+      <h3> Or create a new user </h3>
+        <%= f.fields_for :user_attributes do |user_fields| %>
+          <%= user_fields.text_field :username %>
+        <% end %>
+
+  <br>
+        <%= f.submit %>
+      <% end %>

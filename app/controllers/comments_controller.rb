@@ -1,8 +1,13 @@
 class CommentsController < ApplicationController
 
   def create
-    comment = Comment.create(comment_params)
-    redirect_to comment.post
+    @comment = Comment.create(comment_params)
+    comment_post = Post.find(comment_params[:user_id])
+    comment_post.comments << @comment
+    @comment.build_user(username: 'new user')
+
+    #binding.pry
+    redirect_to @comment.post
   end
 
   private

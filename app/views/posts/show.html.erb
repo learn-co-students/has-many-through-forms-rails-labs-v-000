@@ -2,6 +2,9 @@
 
 <p><%= @post.content %></p>
 
+<p><%= @post.comments %>
+	<%= @post.users %></p>
+
 Categories:<br/>
 <ul>
 	<% @post.categories.each do |c| %>
@@ -13,7 +16,7 @@ Categories:<br/>
 
 
 <!--Create a posts#show page to display the following:
-	[] The title and content of the post.
+	[x] The title and content of the post.
 	[] All of the comments associated with the post.
 	[] A list of all the unique users who have commented on the post. 
 		[] A user's name should only show up once in this section, even if they've commented multiple times.

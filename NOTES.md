@@ -2,7 +2,8 @@
 	The form should include 
 		[] check boxes for us to select categories 
 		[] a text field to create a new category
-		--do this with a nested form so that our controller stays thin. [] Accept only unique (new) category
+		--do this with a nested form so that our controller stays thin. 
+		[] Accept only unique (new) category
 		e.g., if we type in a category that already exists, we should select it from the database and associate the post we've created with the existing category.
 
 [] Create a posts#show page to display the following:

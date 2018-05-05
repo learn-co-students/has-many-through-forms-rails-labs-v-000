@@ -1,1 +1,22 @@
+<h1><%= @post.title %></h1>
 
+<p><%= @post.content %></p>
+
+Categories:<br/>
+<ul>
+	<% @post.categories.each do |c| %>
+	<li><%= c.name %></li>
+
+	<%end%>
+</ul>
+
+
+
+<!--Create a posts#show page to display the following:
+	[] The title and content of the post.
+	[] All of the comments associated with the post.
+	[] A list of all the unique users who have commented on the post. 
+		[] A user's name should only show up once in this section, even if they've commented multiple times.
+	[] A form to add a new comment. The form should have a 
+		[] drop-down menu to select a user (we'll change this in future lessons to automatically associate the comment with a logged-in user). 
+		[] be able to create a new user here and automatically associate it with the post.

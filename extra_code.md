@@ -7,4 +7,6 @@
 		</p> -->
 		<!-- # <% end %> -->
 
-		
+		from posts#new : 
+		<%= #form_for @post do |f| %>
+	#<%= #f.collection_select :post, Post.all 

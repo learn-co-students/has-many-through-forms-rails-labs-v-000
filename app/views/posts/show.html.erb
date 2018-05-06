@@ -2,9 +2,6 @@
 
 <p><%= @post.content %></p>
 
-<p><%= @post.comments %>
-	<%= @post.users %></p>
-
 Categories:<br/>
 <ul>
 	<% @post.categories.each do |c| %>
@@ -23,3 +20,5 @@ Categories:<br/>
 	[] A form to add a new comment. The form should have a 
 		[] drop-down menu to select a user (we'll change this in future lessons to automatically associate the comment with a logged-in user). 
 		[] be able to create a new user here and automatically associate it with the post.
+<p><%= @post.comments %>
+	<%= @post.users %></p>

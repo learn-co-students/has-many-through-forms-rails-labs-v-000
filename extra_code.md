@@ -10,3 +10,11 @@
 		from posts#new : 
 		<%= #form_for @post do |f| %>
 	#<%= #f.collection_select :post, Post.all 
+
+	from posts#show:
+	Comments:<br />
+
+<%= @post.comments.each do |u| %>
+	<%= u.comment %> by <%= u.user %>
+
+	<% end %>

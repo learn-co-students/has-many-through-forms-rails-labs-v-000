@@ -5,7 +5,7 @@ class Post < ActiveRecord::Base
   has_many :users, through: :comments
   # accepts_nested_attributes_for :categories
 
-  # def categories_attributes=(categories_attributes)
+  # def categories_attributes=(categories_attributes) #same as accepts_nested_attributes_for method above
   #   categories_attributes.each do |categories_attributes|
   #     self.categories.build(categories_attributes)
   #   end
@@ -30,5 +30,4 @@ class Post < ActiveRecord::Base
       end
     end
   end
-
 end

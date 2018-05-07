@@ -11,10 +11,23 @@ Categories:<br/>
 </ul>
 
 Comments: <br />
-	<%= f.fields_for :comments, post.comments.build do |comment_builder| %>
-		<%= comment_builder.text_area(comment_params) %>
-		<%= comment_builder.text_field(user: :username) %>
+	<%= @post.comments.each do |m| %>
+		<%= m.content %>
+		<%= m.user.username %>
 	<% end %>
+	<p>
+	</p>
+
+Users: <br />
+	<%= @post.users.each do |u| %>
+		if post.user.username.unique? 
+	<%= link_to @post.users, user_path(users) %> <!--look up doctors -->
+	<% end %>
+
+
+	<!-- iterate over post users, 
+	pull out all unique users.unique?
+	link_to username user_path -->
 <!--want to show "comments by user" after categories
 	will be a nested form?
 <p><%= @post.comments %></p>

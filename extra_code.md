@@ -18,3 +18,15 @@
 	<%= u.comment %> by <%= u.user %>
 
 	<% end %>
+
+from _post.html.erb
+	<!--# <%= comment.content %>
+    # <%= user.username %> -->
+    
+
+from posts/show.html.erb
+Comments: <br />
+	<%= f.fields_for :comments, post.comments.build do |comment_builder| %>
+		<%= comment_builder.text_area(comment_params) %>
+		<%= comment_builder.text_field(user: :username) %>
+	<% end %>

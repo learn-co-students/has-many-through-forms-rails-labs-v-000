@@ -1,1 +1,12 @@
+<h3> Post Show Page </h3>
 
+ Post Title:  <%= @post.title %><br><br>
+
+
+ Post Content: <%= @post.content %><br><br>
+
+ Post Categories:
+
+ <% @post.post_categories.each do |post_category| %>
+ <li> <%= post_category.category.name %> </li>
+ <% end %>

@@ -15,16 +15,16 @@ class Post < ActiveRecord::Base
   end
 end
 
-  # def comments_attributes=(comments_attributes)
-  #     comments_attributes.each do |i, comment_attributes|
-  #       if comment_attributes[:username].unique?
-  #         content = Comment.find_or_create_by(username: comment_attributes[:username])
-  #         if !self.contents.include(content)
-  #           self.contents.build(content: content)
-  #         end
-  #       end
-  #     end
-  #   end
+  def comments_attributes=(comments_attributes)
+      comments_attributes.each do |i, comment_attributes|
+        if comment_attributes[:comment_content].empty?
+          comment_content = Comment.find_or_create_by(comment_content: comment_attributes[:comment_content])
+          if !self.comment_content.include?(comment_content)
+            self.comment_content.build(comment_content: comment_content)
+          end
+        end
+      end
+    end
 
   #   def users_attributes=(user_attributes)
   #     users_attributes.each do |i, user_attributes|

@@ -22,7 +22,7 @@
 from _post.html.erb
 	<!--# <%= comment.content %>
     # <%= user.username %> -->
-    
+
 
 from posts/show.html.erb
 Comments: <br />
@@ -30,3 +30,19 @@ Comments: <br />
 		<%= comment_builder.text_area(comment_params) %>
 		<%= comment_builder.text_field(user: :username) %>
 	<% end %>
+
+
+	<%= link_to post.user.username, user_path(post.user) %> 
+	<!--look up doctors -->
+	<% end %>
+
+	<%= @post.users.each do |u| %>
+		if @post.users.username.unique? 
+
+			<%= link_to @post_categories, post_categories_path(@post_categories) %>
+
+
+					<%= f.fields_for :comments, post.comments.build do |comment_builder| %>
+  		<%= comment_builder.text_area :content %>
+
+  		<% end %>

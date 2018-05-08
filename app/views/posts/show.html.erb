@@ -11,46 +11,30 @@ Categories:<br/>
 </ul>
 
 Comments: <br />
-	<%= @post.comments.each do |m| %>
+	<% @post.comments.each do |m| %>
 		<%= m.content %>
 		<%= m.user.username %>
 	<% end %>
-	<p>
+
+	<p> 
 	</p>
 
 Users: <br />
-	<%= @post.users.each do |u| %>
-		if post.user.username.unique? 
-	<%= link_to @post.users, user_path(users) %> <!--look up doctors -->
+	<% @post.users.uniq.each do |u| %>
+	 <%= link_to u.username, user_path(u) %> 
 	<% end %>
 
+ 
 
-	<!-- iterate over post users, 
-	pull out all unique users.unique?
-	link_to username user_path -->
-<!--want to show "comments by user" after categories
-	will be a nested form?
-<p><%= @post.comments %></p>
--->
-
-
+<!--form to create comment & user if needed -->
+	
 <!--Create a posts#show page to display the following:
 	[x] The title and content of the post.
-	[] All of the comments associated with the post.
-	[] A list of all the unique users who have commented on the post. 
-		[] A user's name should only show up once in this section, even if they've commented multiple times.
-	[] A form to add a new comment. The form should have a 
-		[] drop-down menu to select a user (we'll change this in future lessons to automatically associate the comment with a logged-in user). 
-		[] be able to create a new user here and automatically associate it with the post.
-<p><%= @post.comments %>
-	<%= @post.users %></p>
+	[x] All of the comments associated with the post.
+	[x] A list of all the unique users who have commented on the post. 
+		[x] A user's name should only show up once in this section, even if they've commented multiple times.
+		[] A form to add a new comment. The form should have a 
+			[x] drop-down menu to select a user (we'll change this in future lessons to automatically associate the comment with a logged-in user). 
+			[] be able to create a new user here and automatically associate it with the post.
 
-	it 'should display all of the comments for that post' do
-      visit post_path(@post)
-      expect(page).to have_content(@comment1.content)
-    end
-
-    it 'should display a list of unique users who have commented on the post' do |variable|
-      @comment2 = Comment.create(content: "And another thing, how come there aren't any vegetabls at the movie theater...", user: @user, post: @post)
-      visit post_path(@post)
-      expect(page).to have_link(@user.username, href: user_path(@user), count: 1)
+	 

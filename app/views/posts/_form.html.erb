@@ -13,16 +13,22 @@
 		<%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b| %>
 	<p>
 		<%= b.check_box %><%= b.label %>
-			
 	</p>
-	
-	<% end %>
+		<% end %>
 
 		<%= f.fields_for :categories, post.categories.build do |category_builder| %>
 		<%= category_builder.text_field :name %>
 
 	<% end %> 
+	<p>
+		<%= f.collection_select(:user_ids, User.all, :id, :username, prompt: 'Please select the author of this comment') do |c| %>
+	</p>
+	<% end %>
 
-		<%= f.submit %>
+		<%= f.fields_for :comments, post.comments.build do |comment_builder| %>
+  		<%= comment_builder.text_area :content %>
 
+  		<% end %>
+  		
+  		<%= f.submit %>
 	<% end %>

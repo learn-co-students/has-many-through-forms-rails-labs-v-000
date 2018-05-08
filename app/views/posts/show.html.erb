@@ -7,6 +7,6 @@
 
  Post Categories:
 
- <% @post.post_categories.each do |post_category| %>
- <li> <%= post_category.category.name %> </li>
+ <% @post.categories.each do |category| %>
+ <li> <%= category.name %> </li>
  <% end %>

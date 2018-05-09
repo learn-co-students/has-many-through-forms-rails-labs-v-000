@@ -27,8 +27,9 @@
 
 	<% end %>
 
+		<%= f.label :comment %>
 		<%= f.fields_for :comments, post.comments.build do |comment_builder| %>
-  		<%= comment_builder.text_area :content %>
+  		<%= comment_builder.text_area :content %>  
 
   		<% end %>
 

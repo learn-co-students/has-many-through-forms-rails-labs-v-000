@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
         if user_attributes[:username].unique?
           user = User.find_or_create_by(username: user_attributes[:username])
           if !self.users.include?(user)
-            self.user_comments.build(user: user)
+            self.user.build(user: user)
           end
         end
       end

@@ -17,19 +17,27 @@
 		<% end %>
 
 		<%= f.fields_for :categories, post.categories.build do |category_builder| %>
-		<%= category_builder.text_field :name %>
+		<%= f.label :category %><%= category_builder.text_field :name %>
 
 	<% end %> 
+
 	<p>
 		<%= f.collection_select(:user_ids, User.all, :id, :username, prompt: 'Please select the author of this comment') do |c| %>
 	</p>
+
 	<% end %>
 
 		<%= f.fields_for :comments, post.comments.build do |comment_builder| %>
   		<%= comment_builder.text_area :content %>
 
   		<% end %>
-  		
+
+  		<p>
+  			<%= f.fields_for :users, post.users.build do |user_builder| %>
+  			<%=f.label :username %><%= user_builder.text_field :username %>
+  			<%=f.label :email %><%= user_builder.text_field :email %>
+  		</p>
+  		<% end %>	
   
-  		<%= f.submit %>
+  		<%= f.submit "Create Post" %>
 	<% end %>

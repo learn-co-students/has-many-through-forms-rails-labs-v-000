@@ -1,0 +1,5 @@
+<% if @related_posts %>
+  <%  @related_posts.all.each do |post| %>
+    <p><%= link_to post.title, post_path(post) %></p>
+  <% end %>
+<% end %>

@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     #comments has a user_id and post_Id column.
-    @user = @post.users
+    @users = @post.users
   end
 
   def index

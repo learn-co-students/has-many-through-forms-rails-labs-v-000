@@ -2,8 +2,8 @@
 <p> <%= @post.content %></p>
 <h4> Users that have Commented </h4>
 <ul> <% @users.uniq.each do |user| %>
-  <li><% @user.user_name </li>
+  <li><%= user.user_name %></li>
 </ul> <% end %>
-
-
- 
+<% form_for @post do |f| %>
+<%= f.label "Comment Here" %>
+<%= f.text_area "comment" %>

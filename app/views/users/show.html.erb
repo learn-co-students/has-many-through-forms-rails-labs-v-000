@@ -1,1 +1,14 @@
+<h1><%= @user.username %>'s comments</h1>
 
+<ul>
+  <% @user.posts.uniq.each do |post| %>
+    <li><%= link_to post.title, post_path(post) %>
+      <ul>
+        <% @user.comments.select { |comment| comment.post == post }
+                          .each do |post_comment| %>
+          <li><%= post_comment.content %></li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+</ul>

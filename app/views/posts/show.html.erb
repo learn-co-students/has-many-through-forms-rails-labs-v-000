@@ -1,1 +1,31 @@
 
+<%= @post.title %>
+<%= @post.content %>
+
+<% @post.comments.each do |comment| %>
+    <%= comment.user.username %> says: <%= comment.content %>
+<% end %>
+
+Make your own post;
+<%= form_for @post.comments.build do |f| %>
+        <%= f.text_field :content %>
+        <%= f.label :user %>
+        <%= f.collection_select(:user_id, User.all, :id, :username) %>
+        <%= f.hidden_field(:post_id) %> 
+
+        <%= f.fields_for :user_attributes, @post.comments.build do |user_fields| %>
+            <%= user_fields.label :user %>
+            <%= user_fields.text_field :user %>
+        <% end %>
+
+<%= f.submit %>
+<% end %>
+
+
+<% @post.users.uniq.each do |user| %>
+    <%= link_to user.username, user_path(user) %>
+<% end %>
+
+<% @post.categories.each do |category| %>
+    <%= category.name %>
+<% end %>

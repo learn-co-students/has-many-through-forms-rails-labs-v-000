@@ -14,7 +14,6 @@ Make your own post;
         <%= f.hidden_field(:post_id) %> 
 
         <%= f.fields_for :user_attributes, @post.comments.build do |user_fields| %>
-            <% binding.pry %>
             <%= user_fields.label :user %>
             <%= user_fields.text_field :user %>
         <% end %>

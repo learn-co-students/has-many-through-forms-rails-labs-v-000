@@ -1,9 +1,7 @@
-<% if @related_posts %>
-  <%  @related_posts.all.each do |post| %>
+  <%  @category.posts.uniq.each do |post| %>
     <p><%= link_to post.title, post_path(post) %></p>
   <% end %>
-<% end %>
 
-<%= Category.all.each do |cat| %>
-  <%= cat.name %>
+<% Category.all.each do |cat| %>
+  <%= cat.name %><br>
   <% end %>

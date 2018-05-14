@@ -46,3 +46,13 @@ Comments: <br />
   		<%= comment_builder.text_area :content %>
 
   		<% end %>
+
+
+  		from posts/show.html.erb:
+  		<p>
+  			
+  		</p>
+  		<% end %>	
+
+  		<!--	f.fields_for :comment, post.comments.build do |comment_builder| %>
+  		= comment_builder.text_area :comment %>  <% end %>-->

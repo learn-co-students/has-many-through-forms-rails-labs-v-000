@@ -1,6 +1,6 @@
 <h1>Users</h1>
 
-	<% @user.posts.each do |t| %>
+	<% @user.posts.uniq.each do |t| %>
 		<%= link_to t.title, post_path(t) %>
 
 <% end %>

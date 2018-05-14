@@ -5,5 +5,9 @@
   <li><%= user.user_name %></li>
 </ul> <% end %>
 <% form_for @post do |f| %>
-<%= f.label "Comment Here" %>
-<%= f.text_area "comment" %>
+<%= f.label "Comment Here" %> <br>
+<%= f.fields_for :comments, @post.comments.build do |comment| %>
+  <%= comment.text_area :content %>
+    <% end %>
+  <%= f.submit %>
+<% end %>

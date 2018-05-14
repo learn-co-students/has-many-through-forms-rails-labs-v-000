@@ -1,8 +1,11 @@
 <h1><%= @post.title %></h1>
 <p> <%= @post.content %></p>
-<h4> Users that have Commented </h4>
+ <% @post.categories.each do |cat| %>
+   <p><%= cat.name %></p>
+  <% end %>
+<h4> Users that have Commented: </h4>
 <ul> <% @users.uniq.each do |user| %>
-  <li><%= user.user_name %></li>
+  <li><%= link_to user.username, user_path(user) %></li>
 </ul> <% end %>
 <% form_for @post do |f| %>
 <%= f.label "Comment Here" %> <br>
@@ -11,3 +14,10 @@
     <% end %>
   <%= f.submit %>
 <% end %>
+
+<br>
+<h2>Comments:</h2>
+<ol>
+<% @post.comments.each do |com| %>
+  <li><%= com.content %></li>
+<% end %></ol>

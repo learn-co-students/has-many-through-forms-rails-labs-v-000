@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+
 describe 'comments', type: 'feature' do
 
   before do
@@ -22,5 +23,4 @@ describe 'comments', type: 'feature' do
     click_button('Create Comment')
     expect(page).to have_content("CoolPerson25 says: i agree")
   end
-
 end

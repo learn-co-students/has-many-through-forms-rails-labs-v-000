@@ -11,7 +11,8 @@ p = Post.create(title: "Old Fashioned gets a Facelift")
 love = Category.create(name: "Love")
 money = Category.create(name: "Money")
 cocktails = Category.create(name: "Cocktails")
-
+aubs = User.new(username: "aubs")
+p.comments(user_id: 1, content: "Test comment by aubs")
 p.categories << cocktails
 a.categories << love
 b.categories << money

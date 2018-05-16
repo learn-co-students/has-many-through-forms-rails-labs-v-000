@@ -1,8 +1,6 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
-    #comments has a user_id and post_Id column.
-
   end
 
   def index
@@ -11,12 +9,11 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @post.comments.build
   end
 
   def create
-    post = Post.create(post_params)
-    redirect_to post
+    @post = Post.create(post_params)
+    redirect_to @post
   end
 
   private

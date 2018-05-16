@@ -1,1 +1,11 @@
+<%= @user.username %>
+<% @user.comments.each do |c| %>
+  <%= c.content %>
+<% end %>
+<br>
 
+<% @user.posts.each do |c| %>
+<% binding.pry %>
+  <%= link_to c.title, c %><br>
+  <%= c.content %>
+<% end %>

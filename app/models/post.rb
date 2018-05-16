@@ -5,8 +5,8 @@ class Post < ActiveRecord::Base
   has_many :users, through: :comments
   accepts_nested_attributes_for :categories
 
-  def category_attributes=(category_attributes)
-    category_attributes.values.each do |category_attr|
+  def categories_attributes=(categories_attributes)
+    categories_attributes.values.each do |category_attr|
       category = Category.find_or_create_by(category_attr)
       self.categories << category
     end

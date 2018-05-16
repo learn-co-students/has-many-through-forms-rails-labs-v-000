@@ -1,1 +1,8 @@
 
+<%= @post.title %>
+<br>
+<%= @post.content %>
+<br>
+<% @post.categories.each do |c| %>
+<%= c.name %>
+<% end %>

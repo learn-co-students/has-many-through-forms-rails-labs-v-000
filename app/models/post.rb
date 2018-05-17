@@ -4,5 +4,10 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :users, through: :comments
 
-
+  def categories_attributes=(cats_attrs)
+    cats_attrs.values.each do |cat_attr|
+      cat = Category.find_or_create_by(cat_attr)
+      self.categories << cat
+    end
+  end
 end

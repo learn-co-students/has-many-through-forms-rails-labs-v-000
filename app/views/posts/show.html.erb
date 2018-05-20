@@ -1,1 +1,10 @@
+<h2><%= @post.title %></h2>
+<h2><%= @post.content %></h2>
 
+<% @post.comments.each do |comment| %>
+  <h3><%= comment.content %><h3>
+<% end %>
+
+<% @post.comments.each do |comment| %>
+  <%= link_to comment.user.username, user_path(comment.user) %>
+<% end %>

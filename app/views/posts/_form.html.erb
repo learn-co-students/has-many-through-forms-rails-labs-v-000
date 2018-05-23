@@ -1,1 +1,20 @@
-
+<!-- checkboxes for categories as well as a text box for a new category; should be nested
+    reject if not a unique category. Post has a title and content -->
+<%= form_for @post do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <br>
+  <%= f.label :content %>
+  <%= f.text_field :content %>
+  <br>
+  <%= f.label :category %>
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+  <br>
+  Or add a Category:
+  <%= f.label :create_category %>
+  <%= f.fields_for :categories, post.categories.build do |categories_fields| %>
+    <%=  categories_fields.text_field :name %>
+  <% end %>
+  <br>
+  <%= f.submit %>
+<% end %>

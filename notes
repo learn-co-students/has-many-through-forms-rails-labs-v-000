@@ -1,0 +1,21 @@
+
+<%=form_for @post do |f| %>
+  Who are you?
+  <%= f.collection_select :user_ids, User.all, :id, :username %><br>
+  <br>
+  <%= f.text_area :comment %>
+  <%= f.submit %>
+<% end %>
+
+
+<%= form_for @post do |f| %>
+  Who are you?
+  <%= f.text_field :user_username, list: 'users_autocomplete' %>
+  <datalist id="users_autocomplete">
+    <% User.all.each do |user| %>
+      <option value="<%= user.username %>"></option>
+    <% end %>
+  </datalist><br>
+  <br>
+  Comment:<br>
+  <textarea name="post[comment]"></textarea><br>

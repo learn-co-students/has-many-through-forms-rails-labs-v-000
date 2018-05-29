@@ -20,10 +20,14 @@ comment_3 = Comment.new(content: "Yum Yum Yum Yum!")
 comment_3.user_id = 2
 comment_3.save
 
+comment_4 = Comment.new(content: "Sugary Sweetness!")
+comment_4.user_id = 2
+comment_4.save
+
 
 post_1 = Post.new(title: "Muffins Are Yummy", content: "muffins muffins muffins muffins muffins muffins muffins")
 post_1.categories << category_1 << category_2 << category_3
-post_1.comments << comment_3
+post_1.comments << comment_3 << comment_4
 post_1.save
 
 post_2 = Post.new(title: "I Like Ice Cream", content: "ice cream ice cream ice cream ice cream ice cream ice cream ice cream!")

@@ -2,6 +2,13 @@
 <%= @post.content %><br>
 
 <hr>
+<h3>Users who have commented:</h3>
+
+<% @post.users.uniq.each do |user| %>
+  <%= link_to user.username, user %>
+<% end %>
+
+<hr>
 <h3>Comments:</h3>
   <% @post.comments.each do |comment| %>
     <h4> <%= comment.user.username %> says: </h4>
@@ -10,6 +17,9 @@
 <hr>
 
 <h4>Add A Comment:</h4>
+
+comments creates a comment with existing user
+comments create a comment and a new user
 
 <%= form_for @post do |f| %>
 

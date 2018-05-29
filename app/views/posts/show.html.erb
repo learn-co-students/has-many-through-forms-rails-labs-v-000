@@ -1,6 +1,6 @@
 <h2> <%= @post.title %> </h2>
 
-<!-- Categories -->
+<!-- POST CATEGORIES -->
 
 Categories:
 <% @post.categories.each do |category| %>
@@ -10,7 +10,7 @@ Categories:
 <hr>
 Content: <%= @post.content %><br>
 
-<!-- USERS -->
+<!-- USERS WHO'VE COMMENTED -->
 
 <hr>
 <h4>Users who have commented:</h4>
@@ -19,26 +19,24 @@ Content: <%= @post.content %><br>
   <%= link_to user.username, user %>
 <% end %>
 
-<!-- COMMENTS -->
+<!-- EXISTING COMMENTS -->
 
 <hr>
 <h4>Comments:</h4>
   <% @post.comments.each do |comment| %>
-    <h4> <%= comment.user.username %> says: </h4>
-    <%= comment.content %>
+    <p> <%= "#{comment.user.username} says: #{comment.content}" %> </p>
   <% end %>
 <hr>
 
-<!-- ADD A COMMENT -->
+<!-- CREATE AND ADD A NEW COMMENT -->
 
 <%= fields_for :comment do |comment| %>
   <%= comment.label :content %> <br>
   <%= comment.text_area :content %>
   <br><br>
 
-<!-- Unable to find visible field "comment_user_attributes_username"  -->
+<!-- CHOOSE EXISTING USERNAME -->
 
-<!-- CHOOSE USER -->
   <%= comment.label :user_username %>
   <br>
   <%= comment.text_field :user_id, list: 'user_id' %>
@@ -49,6 +47,10 @@ Content: <%= @post.content %><br>
     <% end %>
   </datalist><br>
 
-  <!-- NEW USER -->
+  <!-- CREATE NEW USER/USERNAME -->
+
+  <%= comment.label :new_user %><br>
+  <%= comment.text_field :user_attributes_username %>
+  <br><br>
   <%= comment.submit "Create Comment" %>
 <% end %>

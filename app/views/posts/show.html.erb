@@ -11,6 +11,18 @@
 
 <h4>Add A Comment:</h4>
 
+<%= form_for @post do |f| %>
 
+  <%= f.fields_for :comments do |comment| %>
+
+    Who are you? <%= comment.collection_select :user, User.all, :id, :username %>
+    <br><br>
+    <%= comment.label :content %>
+    <br>
+    <%= comment.text_area :content %>
+
+  <% end %>
+  <br><br>
   <%= f.submit %>
+
 <% end %>

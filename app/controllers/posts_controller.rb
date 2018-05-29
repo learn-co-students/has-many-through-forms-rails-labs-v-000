@@ -13,12 +13,21 @@ class PostsController < ApplicationController
 
   def create
     post = Post.create(post_params)
+
     redirect_to post
+  end
+
+  def update
+    # "comments"=>{"users"=>"3", "comment_content"=>"asdfa wet34 twesgarsdfgcv"}
+    @post = Post.find(params[:id])
+    @post.update(post_params)
+
+    redirect_to post_path(@post)
   end
 
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
+    params.require(:post).permit(:title, :content, comments_attributes:[:content, :user], category_ids:[], categories_attributes: [:name])
   end
 end

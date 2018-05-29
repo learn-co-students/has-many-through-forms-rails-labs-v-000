@@ -1,1 +1,8 @@
+<h1>User: <%= @user.username %></h1>
 
+<h2>Commented on...</h2>
+<ul>
+<% @user.posts.select(:id).distinct.each do | post | %> 
+	<li><%= link_to Post.find(post).title, post_path(post) %></li>	
+<% end %>
+</ul>

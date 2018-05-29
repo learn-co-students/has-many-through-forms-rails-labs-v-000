@@ -1,6 +1,59 @@
+<h1><%= @post.title %></h1>
+<p>
+	<%= @post.content %>
+</p>
+<h2>Categories</h2>
+<ul>
+   <% @post.categories.each do | cat | %>
+	<li><%= cat.name %></li>
+   <% end %>
+</ul>
+<hr/>
+<h3>New Comment </h3>
+<%= form_for @new_comment,  :url =>  comments_path do |f| %>
+ 	<%= hidden_field_tag(:post_id, @post.id, name: "comment[post_id]" ) %>
+	<%= f.text_area :content, size:"100x10" %>
+	<br/>
+	User: <%= f.collection_select :user_id, User.all, :id, :username %>
+	<br/>	
+	New User: <%= f.text_field :user_id, id: "comment_user_attributes_username", name: "comment[user_attributes][username]" %> 
+	
+	<%= f.submit "Create Comment" %>
+<% end %>
+
+
+
+<hr/>
+<h2>Comments</h2>
+<% if !@post.comments.empty? %>
+	<!-- Comments -->
+	<ul>
+		<% @post.comments.each do | comment | %>
+			<% if !comment.user.nil? %>
+			<li><%= "#{comment.user.username} says: #{comment.content}"%></li>		
+			<% end %>
+		<% end %>
+	</ul> 
+	<!-- Show Unique Commentators -->
+	<h2> Unique Commentators</h2>
+	<ul>
+	<% @post.comments.select(:user_id).distinct.each do | comment |%>
+		<% if !comment.user.nil? %>
+			<li><%= link_to comment.user.username, user_path(comment.user) %></li>
+		<% end %>
+	<% end %>
+	</ul>
+<% else %>
+	<p>No comments</p>
+<% end %>
+
+
 <!-- 
 	Show Content 
-		- Title 
-		- Content 
-		- Show all comments 
+		x Title 
+		x Content 
+		x Show all comments 
+		x Show unique users who commented
 -->
+
+

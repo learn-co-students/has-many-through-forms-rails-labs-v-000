@@ -9,8 +9,8 @@
 	<%= f.collection_check_boxes :category_ids, Category.all, :id, :name%>
 	<br/>
 	<p>Create a New Category</p>
-	<%= fields_for @post.categories.build do | cat_attr | %>
-		<%= cat_attr.text_field :name, id: "post_categories_attributes_0_name", name: "post[categories_attributes][name]" %> 
+	<%= f.fields_for :categories, @post.categories.build do | cat_attr | %>
+		<%= cat_attr.text_field :name %> 
 	<% end %>
 	<br/>
 	<h3>Body</h3>
@@ -22,8 +22,8 @@
 
 <!-- 
 	New Form Needs: 
-		- checkboxes for categories 
+		x checkboxes for categories 
 		x submit button 'Create Post'
-		- textbox to create a new category 
-		- accepts new and old categories at the same time
+		x textbox to create a new category 
+		x accepts new and old categories at the same time
 -->

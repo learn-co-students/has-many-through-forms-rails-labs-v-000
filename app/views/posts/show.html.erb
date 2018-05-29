@@ -1,12 +1,16 @@
 <h2> <%= @post.title %> </h2>
 
+<!-- Categories -->
+
 Categories:
 <% @post.categories.each do |category| %>
   <%= category.name %>
 <% end %>
 <br><br>
 <hr>
-<%= @post.content %><br>
+Content: <%= @post.content %><br>
+
+<!-- USERS -->
 
 <hr>
 <h4>Users who have commented:</h4>
@@ -14,6 +18,8 @@ Categories:
 <% @post.users.uniq.each do |user| %>
   <%= link_to user.username, user %>
 <% end %>
+
+<!-- COMMENTS -->
 
 <hr>
 <h4>Comments:</h4>
@@ -23,22 +29,26 @@ Categories:
   <% end %>
 <hr>
 
-<h4>Add A Comment:</h4>
+<!-- ADD A COMMENT -->
 
-comments creates a comment with existing user
-comments create a comment and a new user
-<%= form_for @post do |f| %>
-  <br>
-  <%= f.label "Username" %><br>
-  <%= f.collection_check_boxes :user_ids, User.all, :id, :username %><br>
-  <br>
-  <%= f.label "Are you new?" %><br>
-  <%= f.fields_for :users, @post.users.build do |users_fields| %>
-    <%= users_fields.text_field :username %><br>
-    <br>
-  <% end %>
-  Comment Content: <br>
-  <textarea name="comment[content]"></textarea>
+<%= fields_for :comment do |comment| %>
+  <%= comment.label :content %> <br>
+  <%= comment.text_area :content %>
   <br><br>
-  <%= f.submit %>
+
+<!-- Unable to find visible field "comment_user_attributes_username"  -->
+
+<!-- CHOOSE USER -->
+  <%= comment.label :user_username %>
+  <br>
+  <%= comment.text_field :user_id, list: 'user_id' %>
+  <br>
+  <datalist id="user_id">
+    <% User.all.each do |user| %>
+      <option value="<%= user.username %>"></option>
+    <% end %>
+  </datalist><br>
+
+  <!-- NEW USER -->
+  <%= comment.submit "Create Comment" %>
 <% end %>

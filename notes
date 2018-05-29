@@ -19,3 +19,74 @@
   <br>
   Comment:<br>
   <textarea name="post[comment]"></textarea><br>
+
+
+  <%= f.fields_for :comments do |comment| %>
+    <%= comment.label :comment_content %> <br>
+    <%= f.text_area :comment_ids %>
+    <br>
+    <%= f.submit %>
+  <% end %>
+
+
+<%= form_for :comment do |f| %>
+  <%= f.label :comment_content %>
+  <br>
+  <%= f.text_area :content %>
+  <br>
+  <%= f.submit %>
+<% end %>
+
+<%= form_for @post do |f| %>
+
+  <%= f.text_field :user_username, list:"users_autocomplete" %>
+  <datalist id="users_autocomplete"
+    <% User.all.each do |user| %>
+      <option value="<%= user.username %>"></option>
+    <% end %>
+  </datalist>
+  <textarea name="comment[content]"></textarea>
+
+
+  <h4>Add A Comment:</h4>
+
+    Comment Content: <br>
+    <textarea name="comment_content"></textarea>
+    <br><br>
+
+
+
+
+
+<%= form_for @post do |f| %>
+  <br>
+  <%= f.fields_for :comments do |comment| %>
+    <%= comment.label "Username" %><br>
+    <%= comment.collection_check_boxes :user_username, User.all, :id, :username %><br>
+    <br>
+    <%= comment.label "Are you new?" %><br>
+    <%= comment.fields_for :user_attributes_username, @post.users.build do |users_fields| %>
+      <%= users_fields.text_field :username %><br>
+      <br>
+    <% end %>
+  <% end %>
+
+
+
+
+
+
+<%= form_for @post do |f| %>
+  <br>
+  <%= f.label "Username" %><br>
+  <%= f.collection_check_boxes :user_ids, User.all, :id, :username %><br>
+  <br>
+  <%= f.label "Are you new?" %><br>
+  <%= f.fields_for :users, @post.users.build do |users_fields| %>
+    <%= users_fields.text_field :username %><br>
+    <br>
+  <% end %>
+
+
+  <%= f.submit %>
+<% end %>

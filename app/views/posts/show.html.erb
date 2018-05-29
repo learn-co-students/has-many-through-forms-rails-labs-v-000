@@ -1,15 +1,22 @@
 <h2> <%= @post.title %> </h2>
+
+Categories:
+<% @post.categories.each do |category| %>
+  <%= category.name %>
+<% end %>
+<br><br>
+<hr>
 <%= @post.content %><br>
 
 <hr>
-<h3>Users who have commented:</h3>
+<h4>Users who have commented:</h4>
 
 <% @post.users.uniq.each do |user| %>
   <%= link_to user.username, user %>
 <% end %>
 
 <hr>
-<h3>Comments:</h3>
+<h4>Comments:</h4>
   <% @post.comments.each do |comment| %>
     <h4> <%= comment.user.username %> says: </h4>
     <%= comment.content %>
@@ -20,19 +27,18 @@
 
 comments creates a comment with existing user
 comments create a comment and a new user
-
 <%= form_for @post do |f| %>
-
-  <%= f.fields_for :comments do |comment| %>
-
-    Who are you? <%= comment.collection_select :user, User.all, :id, :username %>
-    <br><br>
-    <%= comment.label :content %>
+  <br>
+  <%= f.label "Username" %><br>
+  <%= f.collection_check_boxes :user_ids, User.all, :id, :username %><br>
+  <br>
+  <%= f.label "Are you new?" %><br>
+  <%= f.fields_for :users, @post.users.build do |users_fields| %>
+    <%= users_fields.text_field :username %><br>
     <br>
-    <%= comment.text_area :content %>
-
   <% end %>
+  Comment Content: <br>
+  <textarea name="comment[content]"></textarea>
   <br><br>
   <%= f.submit %>
-
 <% end %>

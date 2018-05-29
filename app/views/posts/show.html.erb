@@ -1,1 +1,41 @@
+<!-- posts/show -->
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>
+<% if @post.categories %>
+  <h3><%= pluralize(@post.category_count, "Category") %></h3>
+  <ul>
+    <% @post.categories.each do |cat| %>
+      <li><%= cat.name %></li>
+    <% end %>
+  </ul>
+<% end %>
 
+<%= form_for @comment do |f| %>
+  <%= f.text_area :content %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "" %>
+  <%= f.fields_for :user, @comment.build_user do |user| %>
+    <%= user.label :username %>
+    <%= user.text_field :username %>
+    <%= user.label :email %>
+    <%= user.text_field :email %>
+  <% end %>
+
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.submit %>
+<% end %>
+
+<% if @post.comments %>
+  <h3>Comments:</h3>
+  <ul>
+    <% @post.comments.each do |comm| %>
+      <li><%= comm.user_name %> says: <%= comm.content %></li>
+    <% end %>
+  </ul>
+
+  <h3>All Commenters:</h3>
+  <ul>
+    <% @post.users.uniq.each do |user| %>
+      <li><%= link_to user.username, user_path(user) %></li>
+    <% end %>
+  </ul>
+<% end %>

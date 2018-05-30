@@ -4,9 +4,14 @@ class Comment < ActiveRecord::Base
 
   def user_attributes=(user_attributes)
     user_attributes.values.each do |user_attribute|
-      user = User.find_or_create_by(user_attribute)
-      self.comment_user.build(user: user)
+      user = User.find_or_create_by(username: user_attribute)
+      self.user_id == user.id
+      self.post_id == post_id
     end
+  end
+
+  def user_attributes
+    @user_attributes
   end
 
 end

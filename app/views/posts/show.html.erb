@@ -14,6 +14,7 @@
 <br>
 
 
+<p>CoolPerson25 says: i agree</p>
 
 <br>
 <h3>Comments on this post:</h3>
@@ -34,6 +35,11 @@
   <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Any' %>
   <br>
 
+  <%= f.fields_for :user_attributes, @comment.user_attributes do |user_attributes_fields| %>
+    <%= user_attributes_fields.text_field :username %>
+  <% end %>
+
+  <%= f.hidden_field :post_id, :value => @post.id %>
 
   <%= f.submit %>
 <% end %>

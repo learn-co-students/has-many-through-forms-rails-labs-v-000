@@ -90,3 +90,36 @@
 
   <%= f.submit %>
 <% end %>
+
+
+
+
+
+
+########
+<!-- CREATE AND ADD A NEW COMMENT -->
+
+<%= fields_for :comment do |comment| %>
+  <%= comment.label :content %> <br>
+  <%= comment.text_area :content %>
+  <br><br>
+
+<!-- CHOOSE EXISTING USERNAME -->
+
+  <%= comment.label :user_username %>
+  <br>
+  <%= comment.text_field :user_id, list: 'user_id' %>
+  <br>
+  <datalist id="user_id">
+    <% User.all.each do |user| %>
+      <option value="<%= user.username %>"></option>
+    <% end %>
+  </datalist><br>
+
+  <!-- CREATE NEW USER/USERNAME -->
+
+  <%= comment.label :new_user %><br>
+  <%= comment.text_field :user_attributes_username %>
+  <br><br>
+  <%= comment.submit "Create Comment" %>
+<% end %>

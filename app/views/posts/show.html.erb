@@ -3,54 +3,40 @@
 <!-- POST CATEGORIES -->
 
 Categories:
+<ul>
 <% @post.categories.each do |category| %>
-  <%= category.name %>
+  <li><%= category.name %>
 <% end %>
-<br><br>
-<hr>
-Content: <%= @post.content %><br>
-
-<!-- USERS WHO'VE COMMENTED -->
+</ul>
 
 <hr>
-<h4>Users who have commented:</h4>
 
-<% @post.users.uniq.each do |user| %>
-  <%= link_to user.username, user %>
-<% end %>
+<p>Content: <%= @post.content %>
 
 <!-- EXISTING COMMENTS -->
 
 <hr>
 <h4>Comments:</h4>
   <% @post.comments.each do |comment| %>
-    <p> <%= "#{comment.user.username} says: #{comment.content}" %> </p>
+    <p> <%= link_to comment.user.username, user_path(comment.user_id) %> says: <%= comment.content %>
   <% end %>
 <hr>
 
 <!-- CREATE AND ADD A NEW COMMENT -->
-
-<%= fields_for :comment do |comment| %>
-  <%= comment.label :content %> <br>
-  <%= comment.text_area :content %>
-  <br><br>
-
 <!-- CHOOSE EXISTING USERNAME -->
 
-  <%= comment.label :user_username %>
-  <br>
-  <%= comment.text_field :user_id, list: 'user_id' %>
-  <br>
-  <datalist id="user_id">
-    <% User.all.each do |user| %>
-      <option value="<%= user.username %>"></option>
-    <% end %>
-  </datalist><br>
+<%= form_for @comment do |f| %>
+  <%= f.label :comment %><br>
+  <%= f.text_area :content %><br><br>
+  <%= f.label :username %><br>
+  <%= f.collection_select :user_id, User.all, :id, :username %><br>
 
   <!-- CREATE NEW USER/USERNAME -->
 
-  <%= comment.label :new_user %><br>
-  <%= comment.text_field :user_attributes_username %>
-  <br><br>
-  <%= comment.submit "Create Comment" %>
+  <%= f.fields_for :user, User.new do |user_username| %>
+    <%= user_username.label :username %>
+    <%= user_username.text_field :username %>
+  <% end %>
+  <br>
+  <%= f.submit %>
 <% end %>

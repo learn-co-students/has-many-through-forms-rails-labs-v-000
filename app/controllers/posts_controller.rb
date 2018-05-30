@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new
+    @comment.build_user
   end
 
   def index
@@ -9,21 +11,16 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    # @post.comments.build(content: "")
   end
 
   def create
-  #   "post"=>
-  # {"title"=>"I love cookies.",
-  #  "content"=>"C is for Cookie, that's good enough for me!",
-  #  "category_ids"=>["3", ""],
-  #  "categories_attributes"=>{"0"=>{"name"=>"delicious"}}}
     post = Post.create(post_params)
-
     redirect_to post
   end
 
   def update
-    # "comments"=>{"users"=>"3", "comment_content"=>"asdfa wet34 twesgarsdfgcv"}
+    binding.pry
     @post = Post.find(params[:id])
     @post.update(post_params)
 
@@ -37,7 +34,7 @@ class PostsController < ApplicationController
   end
 end
 
-# 
+#
 # end
 #
 # def create

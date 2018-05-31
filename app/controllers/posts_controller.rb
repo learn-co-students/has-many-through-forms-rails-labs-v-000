@@ -1,6 +1,9 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    @comment = @post.comments.build
+    @user = @comment.build_user
+    #for belongs_to relationship
   end
 
   def index
@@ -12,8 +15,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-    @post.save
+    @post = Post.create(post_params)
     redirect_to post_path(@post)
   end
 

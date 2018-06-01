@@ -1,7 +1,9 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    # @category = @post.categories.build
     @comment = @post.comments.build
+    #Why would I use build here and not create? Because were are only using test-driven data?
     @user = @comment.build_user
     #for belongs_to relationship
   end

@@ -2,26 +2,53 @@
 
 <%= @post.title %><br>
 <%= @post.content %><br>
-<% @post.comments.each do |c| %>
-<%= current_username = c.users.username %>
-    <% if c.users.uniq.include?(current_username) %>
-        <%= current_username %>
-    <% end %>
-<%= c.content %>
-<% end %>
-<br>
+<% @post.categories.each do |c| %>
+    <%= c.name  %>
+<% end %><br><br>
+
+<h3>Make a comment</h3>
 
 <%= form_for @comment do |f| %>
-<%= f.collection_select :user, User.all, :id, :username %>
-New User: 
+    <%= f.text_area :content %>
+    <label>Choose your username ... </label><br><br>
+    <%= f.collection_check_boxes @comment.user_id, User.all, :id, :username %><br>
+    <% binding.pry %>
+    <%= f.submit "Choose User" %>
+
+ 
+    <%# This worked very well with the PostController#show code but not .build in the above line%>
+    <%= f.label "Or Make a New User" %><br>
+    <%#need a nested form%>
+    <%= f.fields_for :user, @user do |comment_user|%>
+        <%= comment_user.text_field :username %>
+    <% end %>
+    <%= f.hidden_field :post_id %>
+    <%= f.submit "Create Comment"%>
+<% end %>
+
+
+<%# <%= f.collection_select :user, User.all, :id, :username %> %>
+<%# New User: 
 <%= f.fields_for :user, @comment.user.build do |users_fields| %>
-<%= f.label :username %>
-<%= f.users_fields.text_field :username %>
-<%= f.label :email %>
-<%= f.users_fields.text_field :email %>
-<%= f.label "New Comment" %>
-<%= f.text_area :content %>
-<% end %>
-<% end %>
+<%# <%= f.label :username %> %>
+<%# <%= f.users_fields.text_field :username %> %>
+<%# <%= f.label :email %> %>
+<%# <%= f.users_fields.text_field :email %> %>
+<%# <%= f.label "New Comment" %> %>
+<%# <%= f.text_area :content %> %>
+<%# <% end %> %>
+<%# <% end %> %> %> %>
 
 
+
+
+<%# <% @post.comments.each do |c| %> %>
+<%# <%= current_username = c.users.username %> %>
+    <%# <% if c.users.uniq.include?(current_username) %> %>
+            <%# <%= current_username %> %>
+
+        <%# <%= c %>
+    <%# <% end %> %>
+<%# <%= c.content %> %> %>
+<%# <% end %> %>
+<br>

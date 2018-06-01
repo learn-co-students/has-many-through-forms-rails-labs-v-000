@@ -19,6 +19,10 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
+    if params["post"]["categories_attributes_0"]["name"] != ""
+      category = Category.create(name: params["post"]["categories_attributes_0"]["name"])
+      params["post"]["category_ids"] <<  category.id
+    end
+    params.require(:post).permit(:title, :content, category_ids:[])
   end
 end

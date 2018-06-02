@@ -7,9 +7,18 @@
 <% end %><br><br>
 
 
+<h4><% @post.comments.each do |c| %>
+<%# <% binding.pry %> %>
+
+<%= c.user.username %> says: <%= c.content %></h4><br>
+<% %>
+    <% end %><br><br> %>
+
+
 <h4>Users who have commented on this post:</h4>
 
-<% @post.comments.each do |u|%>
+<% uniq_users = @post.comments %>
+<%= uniq_users.uniq.each do |u|%>
 <li><%= link_to u.user.username, user_path %></li>
 <% end %>
 <%# How is this post connected to users?

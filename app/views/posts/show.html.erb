@@ -1,1 +1,44 @@
+<h1>Your Post</h1>
+
+<%= @post.title %><br>
+<%= @post.content %><br>
+<% @post.categories.each do |c| %>
+    <%= c.name  %>
+<% end %><br><br>
+
+
+<% @post.comments.each do |c| %>
+    <%= c.user.username %> says: <%= c.content %><br>
+<% end %><br><br>
+
+
+<h4>Users who have commented on this post:</h4>
+
+<% @post.users.uniq.each do |u|%>
+<%# <% binding.pry %> %>
+
+<li><%= link_to u.username, user_path(u) %></li>
+<%# user_path(u) worked because I passed in the whole object as a parameter %>
+<% end %>
+
+<h3>Make a comment</h3>
+
+<%= form_for @comment do |f| %>
+    <%= f.text_area :content %><br><br>
+    <label>Choose your username ... </label><br><br>
+    <%= f.collection_select :user_id, User.all, :id, :username %><br><br><br>
+    <%# This worked very well with the PostController#show code but not .build in the above line%>
+    <%= f.label "Or Make a New User" %><br>
+    <%#needed a nested form%>
+    <%= f.fields_for :user, @user do |comment_user|%>
+        <%= comment_user.text_field :username %>
+    <% end %>
+    <%= f.hidden_field :post_id %>
+    <%= f.submit "Create Comment"%><br><br>  
+<% end %>
+
+
+
+
+
 

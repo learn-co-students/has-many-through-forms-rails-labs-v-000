@@ -1,3 +1,9 @@
+<style>
+  .supercool {
+    border: 5px solid salmon
+    }
+</style>
+
 <%= form_for(@post) do |f| %>
 
   <p>
@@ -9,13 +15,23 @@
     <%= f.label :content %>
     <%= f.text_field :content %>
   </p>
-  
-  <% Category.all.each do |c| %>
+
+  <%= f.collection_check_boxes(:category_ids, Category.all, :name, :name) do |builder| %>
     <p>
-    <label for="category_id_<%= c.id %>"><%= c.name %></label> 
-    <input type="checkbox" name="post[category_ids]" value="<%= c.id %>">
+      <%= builder.label :class => "supercool" %>
+      <%= builder.check_box %>
     </p>
+  <% end %>
   
+
+
+  <!--<%= f.fields_for :categories do |category_builder| %>
+    <%= category_builder.text_field :name %>
+  <% end %>-->
+
+  <input type="text" id="post_categories_attributes_1_name" name="post[categories_attributes][1][name]"/>
+  Category 2
+  <input type="text" id="post_categories_attributes_2_name" name="post[categories_attributes][2][name]"/>
   <%= f.submit %>
   
 <% end %>

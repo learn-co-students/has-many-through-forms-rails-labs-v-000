@@ -1,3 +1,11 @@
+<%# <h4><% @post.comments.each do |c| %>
+<%# <%= c.user.username %> says: <%= c.content %></h4><br> %>
+    <%# <% end %><br><br> %> %>
+
+
+
+
+
 <%# <%= f.collection_select :user, User.all, :id, :username %> %>
 <%# New User: 
 <%= f.fields_for :user, @comment.user.build do |users_fields| %>

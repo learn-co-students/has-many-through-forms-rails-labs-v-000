@@ -6,11 +6,19 @@
     <%= c.name  %>
 <% end %><br><br>
 
-<h4><% @post.comments.each do |c| %>
-<%= c.user.username %> says: <%= c.content %></h4><br>
 
-    <% end %><br><br>
+<h4>Users who have commented on this post:</h4>
 
+<% @post.comments.each do |u|%>
+<li><%= link_to u.user.username, user_path %></li>
+<% end %>
+<%# How is this post connected to users?
+This post is @post
+Comments on this post are connected to @post by @post.comments
+Users who have commented on one of these posts should be @post.comments iterated to make
+c.user.username
+formatted in a list
+They have to be unique %>
 
 <h3>Make a comment</h3>
 

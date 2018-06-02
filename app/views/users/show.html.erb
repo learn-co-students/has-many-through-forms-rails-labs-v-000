@@ -1,4 +1,10 @@
-<h1><%= @user.username %></h1>
+<h1><%= @user.username %></h1><br>
+
+<h3>Your Posts:</h3>
+<% @user.posts.each do |p| %>
+<%= link_to p.title, post_path(p) %>
+<% end %>
+
 
 
 

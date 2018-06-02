@@ -7,27 +7,19 @@
 <% end %><br><br>
 
 
-<h4><% @post.comments.each do |c| %>
-<%# <% binding.pry %> %>
-
-<%= c.user.username %> says: <%= c.content %></h4><br>
-<% %>
-    <% end %><br><br> %>
+<% @post.comments.each do |c| %>
+    <%= c.user.username %> says: <%= c.content %><br>
+<% end %><br><br>
 
 
 <h4>Users who have commented on this post:</h4>
 
-<% uniq_users = @post.comments %>
-<%= uniq_users.uniq.each do |u|%>
-<li><%= link_to u.user.username, user_path %></li>
+<% @post.users.uniq.each do |u|%>
+<%# <% binding.pry %> %>
+
+<li><%= link_to u.username, user_path(u) %></li>
+<%# user_path(u) worked because I passed in the whole object as a parameter %>
 <% end %>
-<%# How is this post connected to users?
-This post is @post
-Comments on this post are connected to @post by @post.comments
-Users who have commented on one of these posts should be @post.comments iterated to make
-c.user.username
-formatted in a list
-They have to be unique %>
 
 <h3>Make a comment</h3>
 
@@ -35,18 +27,13 @@ They have to be unique %>
     <%= f.text_area :content %><br><br>
     <label>Choose your username ... </label><br><br>
     <%= f.collection_select :user_id, User.all, :id, :username %><br><br><br>
-    <%# <% binding.pry %>
-    <%# <%= f.submit "Choose User" %>
-
- 
     <%# This worked very well with the PostController#show code but not .build in the above line%>
     <%= f.label "Or Make a New User" %><br>
-    <%#need a nested form%>
+    <%#needed a nested form%>
     <%= f.fields_for :user, @user do |comment_user|%>
         <%= comment_user.text_field :username %>
     <% end %>
     <%= f.hidden_field :post_id %>
-    <%# <% binding.pry %> %>
     <%= f.submit "Create Comment"%><br><br>  
 <% end %>
 

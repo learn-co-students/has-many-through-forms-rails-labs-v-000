@@ -8,3 +8,47 @@ Categories:<br />
   <li> <%= cat.name %> </li>
   <% end %>
 </ul>
+
+Comments:<br />
+<ul>
+  <% @post.comments.each do |comment| %>
+  <li> <%= "#{comment.user.username} says: #{comment.content}" %> <br>
+       </li>
+  <% end %>
+</ul>
+
+Users:<br />
+<ul>
+  <% @post.users.uniq.each do |user| %>
+  <li> <%= link_to user.username, user_path(user) %> <br>
+       </li>
+  <% end %>
+</ul>
+
+
+
+
+Add a Comment to this Post
+
+<%= form_for(@comment) do |f| %>
+
+  <p>
+    <%= f.label :content %>
+    <%= f.text_field :content %>
+  </p>
+
+    Select User
+
+  <%= f.collection_select(:user_id, User.all, :id, :username, include_blank: "") %>
+
+  <!--<%= f.fields_for :categories do |category_builder| %>
+    <%= category_builder.text_field :name %>
+  <% end %>-->
+  
+  or New User
+  <input type="text" id="comment_user_attributes_username" name="comment[user_attributes][username]"/>
+  <input type="hidden" value="<%=@post.id%>" id="comment_post_id" name="comment[post_id]"/>
+  <%= f.submit %>
+  
+<% end %>
+

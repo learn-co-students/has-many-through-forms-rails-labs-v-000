@@ -1,0 +1,5 @@
+<!-- Show all of this category's related posts -->
+
+<% @category.posts.each do |post| %>
+  <%= link_to post.title, post_path(post) %>
+<% end %>

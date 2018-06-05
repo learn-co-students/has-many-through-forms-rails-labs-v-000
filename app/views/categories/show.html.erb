@@ -1,4 +1,6 @@
+Create a categories#show page that links to
+all of the posts associated with a given category.
 
-<% @category.posts.each do |p| %>
-<%= link_to p.title, posts_path(p.id) %>
+<% @category.posts.map do |p| %>
+<%= link_to p.title, post_path(p) %>
 <% end %>

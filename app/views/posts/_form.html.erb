@@ -1,18 +1,31 @@
 <h1>Post Form</h1>
+<hr>
 <%= form_for @post do |f| %>
 
-<%= f.label "Title" %>
-<%= f.text_field :title %>
+<div class="">
+  <strong><%= f.label "Title" %></strong><br>
+  <%= f.text_field :title %>
+</div>
 
-<%= f.label "Content" %>
-<%= f.text_area :content %>
+<br>
+<div class="">
+  <strong><%= f.label "Content" %></strong><br>
+  <%= f.text_area :content %>
+</div>
 
+<br>
+<div class="">
+  <strong>Choose From an Existing Category:</strong><br><br>
+    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name, {include_blank: 'None'} %>
+</div>
 
-Choose from an existing category:
-
-<%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
-<%= f.fields_for :categories, post.categories.build do |categories_fields| %>
-  <%= categories_fields.text_field :name %>
-<% end %>
-<%= f.submit %>
-<% end %>
+<br>
+<div class="">
+<strong>Create a New Category:</strong><br>
+  <%= f.fields_for :categories, post.categories.build do |category_fields| %>
+    <%= category_fields.text_field :name %>
+  <% end %><br>
+  <%= f.submit %>
+  <% end %>
+</div>
+<hr>

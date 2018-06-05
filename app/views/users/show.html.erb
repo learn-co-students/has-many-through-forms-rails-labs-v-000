@@ -1,1 +1,10 @@
+Create a users#show page that links to
+all of the posts a user has commented on.
 
+<ul>
+<li>Username: <%= @user.username %></li>
+<% @user.comments.each do |comment| %>
+<li><%= link_to comment.post.title, post_path(comment) %></li>
+<li>Comment: <%= comment.post.content %></li>
+<% end %>
+</ul>

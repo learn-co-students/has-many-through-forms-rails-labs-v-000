@@ -9,12 +9,29 @@
   <% end %>
 </ul>
 
-<h3>Comments:</h3>
+<h3>Users commented on this post:</h3>
 <ul>
   <% @post.users.uniq.each do |user| %>
-    <%= link_to user.username, user_path(user) %>
-    <% user.comments.each do |comment| %>
-      <li><%= comment.content %></li>
-    <% end %>
+    <%= link_to user.username, user_path(user) %><br>
   <% end %>
 </ul>
+
+<h3>Comments:</h3>
+<ul>
+  <% @post.comments.each do |comment| %>
+      <li><%= comment.user.username %> says: <%= comment.content %></li>
+  <% end %>
+</ul>
+
+<h3>Comment on this post:</h3>
+<%= form_for @comment do |f| %>
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+  <%= f.hidden_field :post_id %>
+
+  <%= f.label :user_id, "Select your username" %>
+  <%= f.collection_select :user_id, User.all, :id, :username %><br><br>
+
+
+  <%= f.submit %>
+<% end %>

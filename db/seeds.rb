@@ -7,3 +7,4 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 c= Category.new(name:"animals")
 p= Post.new(title:"hi")
+b= Category.create(name:"animals")

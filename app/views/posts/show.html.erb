@@ -25,13 +25,20 @@
 
 <h3>Comment on this post:</h3>
 <%= form_for @comment do |f| %>
+  <%= f.label :user_id, "Select your username: " %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "New User" %><br>
+
+  <p>If New User, type in your username here: </p>
+  <%= f.fields_for :user, @user do |user_builder| %>
+    <%= user_builder.label :username %>
+    <%= user_builder.text_field :username %>
+  <% end %>
+  <br><br>
+
   <%= f.label :content %>
   <%= f.text_area :content %>
-  <%= f.hidden_field :post_id %>
-
-  <%= f.label :user_id, "Select your username" %>
-  <%= f.collection_select :user_id, User.all, :id, :username %><br><br>
-
+  <%= f.hidden_field :post_id, value:@post.id %>
+  <br><br>
 
   <%= f.submit %>
 <% end %>

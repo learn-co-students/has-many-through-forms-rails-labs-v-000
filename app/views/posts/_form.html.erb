@@ -1,13 +1,12 @@
-<%= form_for(@post) do |f| %>
+<%= form_for @post do |f| %>
   <p>
-    <%= f.label :title %>
+    <%= f.label "Title:" %>
     <%= f.text_field :title %>
   </p>
   <p>
-    <%= f.label :content %>
+    <%= f.label "Content:" %>
     <%= f.text_area :content %>
   </p>
-  <br>
 
   <h3>Categories:</h3>
   <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b| %>

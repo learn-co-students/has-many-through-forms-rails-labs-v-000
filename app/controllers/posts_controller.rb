@@ -9,6 +9,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    #raise @post.inspect     to ck params
   end
 
   def create

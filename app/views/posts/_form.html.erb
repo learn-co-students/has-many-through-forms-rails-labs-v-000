@@ -1,1 +1,10 @@
 
+<%= form_for post do |t| %>
+  <%= t.label "Title" %>
+  <%= t.text_field :title %>
+  <%= t.label "Content" %>
+  <%= t.text_area :content %>
+  <!-- posts table had the foreign key for its category. Because of this, instances of our Post class responded to a method called category_ids=. We called upon this method from our form helpers to build out a nested form. -->
+  <%= t.collection_check_boxes :category_ids, Category.all, :id, :name  %>
+  <%= t.submit  %>
+<% end %>

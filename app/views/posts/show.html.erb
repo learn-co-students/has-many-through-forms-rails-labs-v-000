@@ -4,11 +4,7 @@
 <%= @post.categories.each {|category| category.name} %>
 
 
-<%= @post.comments.each do |comment| %>
-  <%= comment.content %>
-
-<% end %>
-
+<%= @post.comments.each {|comment| comment.content} %>
 
 <%= @post.users.uniq.each do |user|  %>
   <%= link_to user.username, user_path(user)%>

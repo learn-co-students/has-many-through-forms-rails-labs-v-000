@@ -3,9 +3,8 @@ class Post < ActiveRecord::Base
   has_many :categories, through: :post_categories
   has_many :comments
   has_many :users, through: :comments
-  accepts_nested_attributes_for :comments
 
-  def categories_attribute=(category)
+  def categories_attributes=(category)
     category = Category.find_or_create_by(name: category)
     self.categories << category
   end

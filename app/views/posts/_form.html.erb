@@ -7,7 +7,7 @@
   <!-- posts table had the foreign key for its category. Because of this, instances of our Post class responded to a method called category_ids=. We called upon this method from our form helpers to build out a nested form. -->
   <%= t.collection_check_boxes :category_ids, Category.all, :id, :name  %>
   <!-- :categories association and built an empty category associated with the post. The fields_for helper takes two arguments: the associated model that we're creating and an object to wrap around -->
-  <%= t.fields_for :categories, post.categories.build do |categories_fields| %>
+  <%= t.fields_for :categories do |categories_fields| %>
     <%= categories_fields.text_field :name %>
   <% end %><br>
   <%= t.submit  %>

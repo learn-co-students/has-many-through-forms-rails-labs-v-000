@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   def show
 
     @post = Post.find(params[:id])
+    puts params.inspect
   end
 
   def index
@@ -10,13 +11,13 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    # @post.categories.new
   end
 
   def create
     @post = Post.create(post_params)
-
-    binding.pry
-    redirect_to post_path
+    redirect_to post_path(@post)
+    #MUST ALWAYS HAVE @POST transferred when moving to show page!
   end
 
   private

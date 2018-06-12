@@ -8,6 +8,7 @@
   <%= t.collection_check_boxes :category_ids, Category.all, :id, :name %>
     <!-- :categories association and built an empty category associated with the post. The fields_for helper takes two arguments: the associated model that we're creating and an object to wrap around -->
     <!-- This creates <input type="text" name="post[categories_attributes][0][name]" id="post_categories_attributes_0_name"> Our params hash will now have a key of :categories_attributes nested under the key of post.  -->
+
   <%= t.label "Choose Existing Or Create a New Category" %><br>
   <%= t.fields_for :categories, post.categories.build do |categories_fields| %>
   <%= categories_fields.text_field :name %>

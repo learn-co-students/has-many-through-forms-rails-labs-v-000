@@ -1,1 +1,56 @@
+<h1> <%= @post.title %> </h1>
+<h3> <%= @post.content %> </h3>
+<br>
 
+
+
+<br>
+<h3>Categories this post belongs to:</h3>
+<ul>
+  <%= @post.categories.each do |category| %>
+    <li> <%= category.name %> </li>
+  <% end %>
+</ul>
+<br>
+
+
+<p>CoolPerson25 says: i agree</p>
+
+<br>
+<h3>Comments on this post:</h3>
+<ul>
+  <%= @post.comments.each do |comment| %>
+    <li> <%= User.find_by(comment.user_id).username + " says: " + comment.content %> </li>
+  <% end %>
+</ul>
+<br>
+
+<br>
+<%= form_for @comment do |f| %>
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+
+  <br>
+  <%= f.label :user_id %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Any' %>
+  <br>
+
+  <%= f.fields_for :user_attributes, @comment.user_attributes do |user_attributes_fields| %>
+    <%= user_attributes_fields.text_field :username %>
+  <% end %>
+
+  <%= f.hidden_field :post_id, :value => @post.id %>
+
+  <%= f.submit %>
+<% end %>
+<br>
+
+
+
+<br>
+<h3>Users that have commented on this post:</h3>
+<ul>
+  <%= @post.users.uniq.each do |user| %>
+    <li> <%= link_to user.username, user_path(user) %> </li>
+  <% end %>
+</ul>

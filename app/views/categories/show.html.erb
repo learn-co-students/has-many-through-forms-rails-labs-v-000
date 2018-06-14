@@ -1,0 +1,5 @@
+<h1>Posts in the <%= @category.name %> Category</h1>
+
+<% @cat_posts.each do |post_in_cat| %>
+  <%= link_to post_in_cat.title, post_path(post_in_cat) %>
+<% end %>

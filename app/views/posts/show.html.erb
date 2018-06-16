@@ -1,1 +1,16 @@
+<h1><%= @post.title %></h1>
 
+<h3><%= @post.content %></h3>
+
+<p>Comments for this Post:</p>
+
+<% @post.users.uniq.each do |user| %>
+  <ul>
+    <li><%= link_to user.username, user_path(user) %> wrote:</li>
+      <% user.comments.each do |comment| %>
+        <% if comment.post_id == @post.id %>
+        <li><%= comment.content %></li>
+        <% end %>
+      <% end %>
+  </ul>
+<% end %>

@@ -30,15 +30,11 @@
 
 <h3>Add comment</h3>
 <%=form_for @new_comment do |f|%>
+  <%=f.collection_select :user_id, User.all, :id, :username, prompt: "Choose username or add new "%>
   <%=f.fields_for :user, @new_comment.build_user do |user_fields|%>
-    <%= user_fields.text_field :username, list: 'username' %>
-      <datalist id="comment_user_id">
-        <% User.all.each do |user| %>
-          <option value="<%= user.username %>"></option>
-        <% end %>
-      </datalist>
-  <%end%>
-  <%=f.text_field :content%>
+    <%=user_fields.text_field :username, placeholder: "new user [optional]"%>
+    <%end%>
+  <%=f.text_field :content, placeholder: "comment"%>
   <%=f.hidden_field :post_id, :value => @post.id %>
   <%=f.submit "Create Comment"%>
 <%end%>

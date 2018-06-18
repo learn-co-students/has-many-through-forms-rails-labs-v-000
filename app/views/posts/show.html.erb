@@ -1,1 +1,45 @@
+<!-- should display the title
+    should display the content
+    should display all of the comments for that post
+    should display a list of unique users who have commented on the post -->
 
+<h1><%= @post.title %></h1>
+
+<p><%= @post.content %></p>
+
+<h2>Categories:</h2><br/>
+
+<ul>
+  <% @post.categories.each do |c| %>
+  <li><%= c.name%></li>
+  <% end %>
+</ul>
+
+<h2>Comments:</h2> <br/>
+<ul>
+  <% @post.comments.each do |c| %>
+    <li><%="#{c.user.username}"%> says: <%= c.content %></li>
+  <% end %>
+</ul>
+
+Users That Commented: <br />
+<ul>
+  <% users = @post.comments.collect do |c| %>
+    <% c.user %>
+  <% end %>
+  <% users.uniq.each do |u| %>
+    <li><%= link_to u.username, user_path(u) %></li>
+  <% end %>
+</ul>
+
+
+<%= form_for(@comment) do |f| %>
+  <%= f.collection_select :user_id, User.all, :id, :username %>
+  <%= f.fields_for :user, @comment.build_user do |build_user| %>
+    <%= build_user.text_field :username %>
+  <% end %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+  <%= f.submit %>
+<% end %>

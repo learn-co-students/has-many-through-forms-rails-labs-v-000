@@ -1,1 +1,9 @@
+<!--should link to all of the posts the user commented on-->
 
+<ul>
+<%= Comment.all.each do |c| %>
+    <% if c.user_id == @user.id %>
+    <%= link_to Post.find(c.post_id).title, post_path(Post.find(c.post_id)) %>
+    <% end %>
+<% end %>
+</ul>

@@ -5,3 +5,31 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+categories = [
+    "Cool",
+    "Cute",
+    "EPIC FAIL",
+    "Funny",
+    "Hot",
+    "Trending"
+]
+
+categories.each do |cat|
+    Category.find_or_create_by(name: cat)
+end
+
+users = [
+    "Andrea",
+    "ExcellentPoster23",
+    "Rob",
+    "WichitaStan"
+]
+
+users.each do |user|
+    User.find_or_create_by(username: user)
+end
+
+@post = Post.find_or_create_by(title: "Feeling Groovy", content: "I'm feeling so groovy")
+@user = User.find_or_create_by(username: 'CoolGuy5')
+@comment = @post.comments.build(content: "Great Post!", user: @user)
+@post.save

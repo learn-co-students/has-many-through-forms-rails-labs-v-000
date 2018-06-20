@@ -1,8 +1,16 @@
-<h1><%= @post. title %></h1>
+<h1><%= @post.title %></h1>
 <p><%= @post.content %></p>
 <br>
-<strong>Categories:</strong>
+<% @post.comments.each do |comment| %>
+    <p><strong><%= comment.user.username %></strong> said: <p>
+    <p><%= comment.content %></p>
+    <br>
+<% end %>
+<br>
+<% @post.users.uniq.each do |user| %>
+    <p><%= link_to user.username, user_path(user) %></p>
+<% end %>
 <br>
 <% @post.categories.each do |cat| %>
-    <%= cat.name %><br>
+    <%= cat.name %> | 
 <% end %>

@@ -1,1 +1,30 @@
+<div class=post-content>
+  <H2>Title:<%= @post.title %></H2>
+  <h3>Content:<%= @post.content %></h3>
 
+  <% @post.categories.each do |category|%>
+    <%= link_to category.name, category %><br><br>
+  <%end%>
+
+  -  <% @post.comments.each do |comment| %>
+-    <li><%= comment.user.username %> says: <%= comment.content %></li>
+-  <% end %>
+-</ul>
+
+    <% @post.users.uniq.each do |user|%>
+    <%= link_to user.username, user %>
+    <%end%>
+
+</div>
+
+<h3>Add a Comment</h3>
+-<%= form_for @post.comments.build do |f| %>
+-  <%= f.label "Content" %>
+-  <%= f.text_field :content %>
+-  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Choose a User' %>
+-  <%= f.hidden_field :post_id %>
+-  <%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
+-    <%= user_fields.text_field :username %>
+-  <% end %>
+-  <%= f.submit %>
+-<% end %>

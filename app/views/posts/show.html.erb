@@ -1,35 +1,42 @@
-<h1><%= @post.title %></h1>
+<%= @post.title %>
 <br />
-<h3><% @post.categories.each do |category| %>
-    <%= category.name %>
-    <% end %>
-    <br />
-<%= @post.content %></h3>
 
-<p>Add a Comment:</p>
+<%= @post.content %>
 <br />
-<%= form_for @post do |f| %>
-  <%= fields_for :comments, @post.comments.build do |f| %>
-  <%= f.text_field :content %>
-  <% end %>
 
-  <%= f.collection_select :users, User.all, :id, :username %>
-
-  <%= f.submit %>
+<!-- List all the categories for this post -->
+<% @post.categories.each do |category| %>
+  <%= category.name %>
 <% end %>
 <br />
 
-
+<!-- List all the comments for this post -->
 <p>Comments for this Post:</p>
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li><%= comment.user.username %> says: <%= comment.content %></li>
+  <% end %>
+  <br />
+</ul>
+
+
+<!-- List all the unique users that have commented on this post -->
+<p>Users Who Have Commented on this Post:</p>
+<%= @post.users.uniq.each do |user| %>
+  <%= link_to user.username, user_path(user) %>
+<% end %>
 <br />
-<!-- Display user comments on this post with link to their user page. Doesn't show a user more than once -->
-<% @post.users.uniq.each do |user| %>
-  <ul>
-    <li><%= link_to user.username, user_path(user) %> wrote:</li>
-      <% user.comments.each do |comment| %>
-        <% if comment.post_id == @post.id %>
-        <li><%= comment.content %></li>
-        <% end %>
-      <% end %>
-  </ul>
+
+<!-- Form to add a comment to this post -->
+<p>Add a Comment:</p>
+<br />
+<%= form_for @post.comments.build do |comment_builder| %>
+  <%= comment_builder.label :content %>
+  <%= comment_builder.text_area :content %>
+  <%= comment_builder.collection_select :user_id, User.all, :id, :username, include_blank: "Choose One" %>
+  <%= comment_builder.hidden_field :post_id %>
+  <%= comment_builder.fields_for :user do |user_builder| %>
+    <%= user_builder.text_field :username %>
+  <% end %>
+  <%= comment_builder.submit %>
 <% end %>

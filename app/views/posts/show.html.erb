@@ -14,15 +14,17 @@
 <p>Comments for this Post:</p>
 <ul>
   <% @post.comments.each do |comment| %>
-    <li><%= comment.user.username %> says: <%= comment.content %></li>
+    <li>
+      <%= "#{comment.user.username} says: #{comment.content}" %>
+    </li>
   <% end %>
-  <br />
 </ul>
+<br />
 
 
 <!-- List all the unique users that have commented on this post -->
 <p>Users Who Have Commented on this Post:</p>
-<%= @post.users.uniq.each do |user| %>
+<% @post.users.uniq.each do |user| %>
   <%= link_to user.username, user_path(user) %>
 <% end %>
 <br />
@@ -40,6 +42,6 @@
   <%= f.fields_for :user, @post.comments.last.build_user do |u| %>
   <%= u.text_field :username %>
   <% end %>
-  
+
   <%= f.submit %>
 <% end %>

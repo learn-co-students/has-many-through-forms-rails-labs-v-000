@@ -1,1 +1,7 @@
-
+<h3>@user.username</h3>
+Comment Activity: <br/>
+<ul>
+	<% @posts.uniq.each do |p| %>
+		<li> <%= link_to p.title, post_path(p) %> </li>
+	<% end %>
+</ul>

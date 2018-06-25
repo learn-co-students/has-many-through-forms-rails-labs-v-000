@@ -1,0 +1,13 @@
+<div class=comment-content>
+  <%= @comment.content %>
+</div>
+<%= form_for @comment do |f| %>
+  <%= f.label "Content" %>
+  <%= f.text_area :comment_content %>
+  <%= f.collection_check_boxes :user_ids, User.all, :id, :name %>
+  <%= f.fields_for :users, post.users.build do |users_fields| %>
+    <%= users_fields.text_field :name %>
+  <% end %>
+  <%= f.submit %>
+<% end %>
+

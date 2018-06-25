@@ -1,0 +1,6 @@
+<h1>Categories</h1>
+
+<% @category.posts.each do |cat| %>
+Title:   <%= link_to cat.title, post_path %> <br>
+Content: <%= link_to cat.content, post_path  %>
+<% end %>

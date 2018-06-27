@@ -1,25 +1,50 @@
+<fieldset>
+
 <h1><%= @post.title %> </h1>
+
+</fieldset>
+
+<fieldset>
+
 <p><%= @post.content %> </p>
 <h3>Categories:</h3>
 <ul><% @post.categories.each do |c| %> 
   <%= link_to c.name, category_path(c) %>
 <% end %>
 </ul>
+</fieldset>
+
 <h3>Comments:</h3>
+  <% @post.comments.each do |comment| %>
+    <%= link_to comment.user.username, user_path(comment.user) %> said
+    <%= comment.content %>
+  <% end %>
 
-<ul><% @post.comments.each do |comment| %>
-  <li><%= comment.content %></li>
-<% end %> </ul>
-
+<fieldset>
 <div class=comment-content>
   <%= @comments %>
 </div>
-<%= form_for @comments do |f| %>
-  <%= f.label "Content" %>
-  <%= f.text_area :comment_content %>
-  <%= f.collection_check_boxes :user_ids, User.all, :id, :name %>
-  <%= f.fields_for :users, post.users.build do |users_fields| %>
-    <%= users_fields.text_field :name %>
-  <% end %>
+<%= form_for @comment do |f| %>
+  <%= f.label "Comment:" %>
+  <%= f.text_area :content %>
+</fieldset>
+
+<fieldset>
+
+  <b> Choose a user </b>
+
+  <%= f.collection_check_boxes :user_ids, User.all, :id, :name %> <br>
+
+  <b> Create new user:</b>
+   <label>Username:</label>
+   <input type="text" name="user_attributes[][:username]">
+   
+   <label>Email:</label>
+   <input type="text" name="user_attributes[][:email]">
+
   <%= f.submit %>
+  </fieldset>
 <% end %>
+
+
+

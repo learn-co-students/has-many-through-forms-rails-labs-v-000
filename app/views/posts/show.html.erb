@@ -17,7 +17,7 @@
 <fieldset>
 <h3>Comments:</h3>
   <% @comments.each do |comment| %>
-    <%= comment.user %>
+    <%= link_to comment.user.username, user_path(comment.user) %> says:
     <%= comment.content %><br>
   <% end %>
 </fieldset>
@@ -36,15 +36,16 @@
 
   <b> Choose a user </b>
 
-  <%= f.collection_check_boxes :user_id, User.all, :id, :username %> <br>
+  <%= f.collection_select :user_id, User.all, :id, :username %> <br>
 
   <b> Create new user:</b>
    <label>Username:</label>
-   <input type="text" name="comment[user_attributes][username]">
+   <input type="text" name="comment_user_attributes_username">
 
    <label>Email:</label>
-   <input type="text" name="comment[user_attributes][email]">
+   <input type="text" name="comment_user_attributes_email">
    <input type="hidden" name="comment[post_id]" value="<%= @post.id %>">
-  <%= f.submit %>
+  <%= f.submit %>	
+
 </fieldset>
 <% end %>

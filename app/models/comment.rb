@@ -4,9 +4,7 @@ class Comment < ActiveRecord::Base
   accepts_nested_attributes_for :user
 
   def user_attributes=(user_attributes)
-    if user_attributes[:name].present?
-      user = User.find_or_create_by(user_attributes)
-    end
+    @user = User.find_or_create_by(user_attributes)
   end
   
 end

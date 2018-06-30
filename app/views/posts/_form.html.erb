@@ -1,35 +1,22 @@
-<div class=post-content>
-  <%= @post.content %>
-</div>
+<%= form_for @post do |f| %>
+<p>
+  <%= f.label "Post Title" %>
+  <%= f.text_field :title %>
+</p>
 
-<%= form_for post do |f| %>
+<p>
+  <%= f.label "Content" %>
+  <%= f.text_area :content %>
+</p>
 
-  <fieldset>
-
-    <%= f.label "Title" %>
-    <%= f.text_field :title %>
-
-  </fieldset>
-
-  <fieldset>
-
-    <%= f.label "Content" %>
-    <%= f.text_area :content %>
-
-  </fieldset>
-
-  <fieldset>
-
-    <b> Choose catagories: </b><br>
-
-    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %><br><br>
-
-    <b> Create new catagory:<b> 
-    <%= f.fields_for :categories, post.categories.build do |categories_fields| %>
-      </b><%= categories_fields.text_field :name %> 
-    <% end %>
-
-  </fieldset>
-
+<p>
+  <%= f.label "Categories" %>
+	<%= f.collection_check_boxes :category_ids, Category.all, :id, :name %><br>
+	
+  <%= f.fields_for :categories, @post.categories.build do |categories_fields| %><br>
+    <%= categories_fields.label "Add New Category" %><br>
+    <%= categories_fields.text_field :name %><br>
+  </p>
+  <% end %>
   <%= f.submit %>
 <% end %>

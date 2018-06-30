@@ -1,6 +1,19 @@
 class CommentsController < ApplicationController
 
+  def index
+    @comments = Comment.all
+  end
 
+  def show
+    @comment = Comment.find(params[:id])
+    @post = Post.find(@comment.post_id)
+    @user = User.find(@comment.user_id)
+  end
+
+  def new
+    @comment = Comment.new(comment_params)
+  end
+ 
   def create
     if !params[:comment][:user_id].empty?
       @user = User.find(params[:comment][:user_id])
@@ -17,6 +30,7 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:content, :post_id, :user_id, user_attributes:[:username, :email])
+    params.require(:comment).permit(:content, :post_id, :user_id, user_attributes: [:username])
   end
+
 end

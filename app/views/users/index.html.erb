@@ -1,6 +1,7 @@
-<h1>USERS</h1>
-<% @users.each do |user| %>
-  <%= user.username %>
-  <%= user.email %> <br>
+<h1>Users</h1>
 
+<% @users.each do |user| %>
+  <%= user.id %>
+Username: <%= link_to user.username, user_path(user.id) %><br>
+Email: <%= user.email %><br><br>
 <% end %>

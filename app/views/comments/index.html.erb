@@ -1,0 +1,19 @@
+<h1>Comments</h1>
+
+<table>
+<tr>  
+  <th align="left">ID</th>
+  <th align="left">Post</th>
+  <th align="left">User</th>
+  <th align="left">Content</th>
+
+ <% @comments.each do |comment| %>
+  <tr>
+    <td><%= comment.id %></td>
+<%# binding.pry %>
+    <td><%= link_to comment.post.title, post_path(comment.post) %></td>
+    <td><%= link_to comment.user.username, comment_path(comment.id) %></td>
+    <td><%= link_to comment.content, comment_path(comment.id) %></td>
+  <% end %> 
+  </tr>
+ </table> 

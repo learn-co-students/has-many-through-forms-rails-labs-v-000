@@ -8,16 +8,18 @@
 
 <p><%= @post.content %> </p>
 <h3>Categories:</h3>
-<ul><% @post.categories.each do |c| %>
-  <%= link_to c.name, category_path(c) %>
+<ul><% @post.categories.each do |catagory| %>
+  <%= link_to catagory.name, category_path(catagory) %>
 <% end %>
 </ul>
+
 </fieldset>
 
 <fieldset>
 <h3>Comments:</h3>
-  <% @comments.each do |comment| %>
-    <%= link_to comment.user.username, user_path(comment.user) %> says:
+
+  <% @post.comments.each do |comment| %>
+    <%= comment.user.username %> says:
     <%= comment.content %><br>
   <% end %>
 </fieldset>
@@ -27,25 +29,26 @@
 <div class=comment-content>
   
 </div>
-<%= form_for @comment do |f| %>
-  <%= f.label "Comment:" %>
+<%= form_for @post.comments.build do |f| %>
+  <%= f.label "Content:" %>
   <%= f.text_area :content %>
+  <%= f.hidden_field :post_id, :value => @post.id  %>
+
 </fieldset>
 
 <fieldset>
 
   <b> Choose a user </b>
 
-  <%= f.collection_select :user_id, User.all, :id, :username %> <br>
+  <%= f.collection_select :user_id, User.all, :id, :username, :prompt => true %> <br>
 
-  <b> Create new user:</b>
-   <label>Username:</label>
-   <input type="text" name="comment_user_attributes_username">
+    <%= f.fields_for :user, @post.users.build do |user_fields| %>
+      <%= user_fields.label "Username:" %>
+      <%= user_fields.text_field :username %>
 
-   <label>Email:</label>
-   <input type="text" name="comment_user_attributes_email">
-   <input type="hidden" name="comment[post_id]" value="<%= @post.id %>">
+      <%= user_fields.label "Email:" %>
+      <%= user_fields.text_field :email %>
+    <% end %>
   <%= f.submit %>	
-
 </fieldset>
 <% end %>

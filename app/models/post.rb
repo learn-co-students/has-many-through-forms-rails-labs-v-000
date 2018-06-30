@@ -5,6 +5,11 @@ class Post < ActiveRecord::Base
   has_many :users, through: :comments
   accepts_nested_attributes_for :categories
   
+  def unique_users
+    comment_users = self.comments.collect { |comment| comment.user } 
+    comment_users.uniq
+      
+  end
 
   def categories_attributes=(categories_hashes)
 

@@ -1,1 +1,21 @@
+<%= form_for @post do |f| %>
+  <p>
+    <%= f.label :title  %>
+    <%= f.text_field :title %>
+  </p>
 
+  <p>
+    <%= f.label :content %>
+    <%= f.text_field :content %>
+  </p>
+
+  <% Category.all.each do |c| %>
+    <input type="checkbox" id="<%= c.name %>" name="post[category_ids][]" value="<%= c.id %>"><%= c.name %></input>
+  <% end %>
+
+  <input type="text" id="post_categories_attributes_0_name" name="post[category_attributes][name]"></input>
+
+
+  <%= f.submit %>
+
+<% end %>

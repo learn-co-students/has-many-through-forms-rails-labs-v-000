@@ -3,7 +3,7 @@ class Comment < ActiveRecord::Base
   belongs_to :post
 
   def users_attributes=(user_attributes)
-    #binding.pry
+    binding.pry
     user_attributes.values.each do |user_attribute|
       if user_attribute[:username].present?
         user = User.find_or_create_by(user_attribute)

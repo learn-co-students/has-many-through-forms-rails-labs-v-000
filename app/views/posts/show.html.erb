@@ -15,7 +15,7 @@
 
 <%= form_for(@comment) do |f| %> <br>
   <%= f.hidden_field :post_id, :value => @post.id %><br>
-  <%= f.collection_select :user_id, User.all, :id, :username %><br>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %><br>
   <%= f.text_field :user_id %>
   <%= f.label :content %>
   <%=f.text_field :content %>

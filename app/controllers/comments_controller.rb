@@ -1,7 +1,11 @@
 class CommentsController < ApplicationController
 
   def create
+    if params[:comment][:user_id]
+      puts "It's here"
+    end
     comment = Comment.create(comment_params)
+
     redirect_to comment.post
   end
 

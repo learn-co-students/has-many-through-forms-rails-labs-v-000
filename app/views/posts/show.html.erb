@@ -7,11 +7,14 @@
   <%= category.name %>
 <% end %>
 
-
-<% @post.comments.each do |comment| %>
-  <%= comment.content %>
-  <%= link_to comment.user.username, user_path(comment.user) %>
+<% @post.users.uniq.each do |user| %>
+  <%= link_to user.username , user_path(user) %>
+  <%= user.username + " says: " %>
+  <% user.comments.each do |comment| %>
+    <%= comment.content %>
+  <% end %>
 <% end %>
+
 
 <%= form_for @post.comments.build do |f| %> <br>
   <%= f.hidden_field :post_id, :value => @post.id %><br>
@@ -22,10 +25,10 @@
   <%= f.fields_for :user, @post.users.build do |users_fields| %>
     <%= f.label "New User" %>
     <%= users_fields.text_field :username %><br>
-
-    <%= f.label "Exciting User" %>
-    <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %><br>
   <% end %>
+
+  <%= f.label "Exciting User" %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %><br>
 
   <%= f.submit %>
 <% end %>

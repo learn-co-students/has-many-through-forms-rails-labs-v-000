@@ -6,8 +6,13 @@ class Post < ActiveRecord::Base
 
   def categories_attributes=(cat_hashes)
     cat_hashes.each do |i, cat_attr|
-      category = Category.find_or_create_by(name: cat_attr[:name])
-      self.categories << category
+      if cat_attr[:name].present?
+        category = Category.find_or_create_by(name: cat_attr[:name])
+        if !self.categories.include?(category)
+          # self.categories << category #returns all categories, we'd rather insert a new row in the post_category table to associate them
+          self.post_categories.build(category: category)
+        end
+      end
     end
   end
 

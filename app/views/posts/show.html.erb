@@ -1,1 +1,23 @@
 
+<h3><%= @post.title %></h3>
+<p><%= @post.content %></p>
+
+<h3>Categories</h3>
+<ul>
+  <% @post.categories.each do |category| %>
+    <li><%= category.name %></li>
+  <% end %>
+</ul>
+<h4>Comments:</h4>
+<%= render "comments/form" %>
+<ul>
+  <% @users.each do |user| %>
+    <p>
+      <% user.comments.each do |comment| %>
+        <font color="gray"><%= comment.content %></font>
+      <% end %>
+    </p>
+      <em>By <%= link_to user.username, user %></em>
+      <br>
+  <% end %>
+</ul>

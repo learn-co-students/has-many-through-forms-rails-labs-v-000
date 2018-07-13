@@ -16,3 +16,4 @@ User.destroy_all
 @post.categories << @category
 @user = User.create(username: 'RealBigFish')
 @comment1 = Comment.create(content: "This was great!", user: @user, post: @post)
+@user2 = User.create(username: 'Karl')

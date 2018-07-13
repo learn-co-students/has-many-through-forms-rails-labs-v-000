@@ -17,3 +17,15 @@
   <% end %>
 <% end %>
 </ul>
+
+<%= form_for @comment do |f| %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.label "Comment Content" %><br>
+  <%= f.text_area :content %><br>
+  <%= f.label "Users:" %><br>
+  <%= f.collection_select :user_id, User.all, :id, :username %><br>
+  <%= f.fields_for :user, @comment.user.build do |user_fields| %>
+    <%= user_fields.text_field :username %>
+  <% end %>
+  <%= f.submit %>
+<% end %>

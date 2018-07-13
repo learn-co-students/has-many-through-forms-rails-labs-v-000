@@ -3,6 +3,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     users = @post.users.map { |user| user }
     @unique_users = users.uniq
+    @comment = Comment.new
   end
 
   def index

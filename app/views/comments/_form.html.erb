@@ -1,7 +1,0 @@
-<%= form_for :comment do |f| %>
-  <p><%=f.text_area :content %></p>
-  <p>Username <%= f.collection_select :user, User.all, :id, :username, {include_blank: ''} %></p>
-
-
-  <%= f.submit %>
-<% end %>

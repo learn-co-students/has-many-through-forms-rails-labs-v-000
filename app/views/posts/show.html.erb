@@ -1,1 +1,19 @@
+<h2>Your Post</h2>
 
+<p>Title: <%= @post.title %></p>
+<p>Content: <%= @post.content %></p>
+<label>Category(ies):</label>
+<ul>
+<% @post.categories.each do |category| %>
+    <li><%= category.name %></li>
+<% end %>
+</ul>
+<label>Comments:</label>
+<ul>
+<% @unique_users.each do |user| %>
+  <li><%= link_to user.username, user_path(user) %></li>
+  <% user.comments.each do |comment| %>
+    <%= comment.content %>
+  <% end %>
+<% end %>
+</ul>

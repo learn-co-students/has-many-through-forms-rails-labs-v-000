@@ -9,9 +9,11 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+   # raise @post.inspect
   end
 
   def create
+    #raise params.inspect
     post = Post.create(post_params)
     redirect_to post
   end

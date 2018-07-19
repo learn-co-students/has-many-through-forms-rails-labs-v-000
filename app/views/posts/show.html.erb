@@ -13,13 +13,9 @@
 <h4>Comments: </h4>
 <ul>
   <% @post.comments.each do |comment| %>
-    <% if comment != nil %>
       <li>
         <%= comment.user.username %> says: <%= comment.content %>
       </li>
-    <% else %>
-      <p> No comments yet. </p>
-    <% end %>
   <% end %>
 </ul>
 
@@ -38,8 +34,9 @@
 <h4>Submit a comment: </h4>
 
 <%= form_for(@post.comments.build) do |f| %>
-  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Choose a User' %>
   <%= f.hidden_field :post_id %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Choose a User' %>
+
 
   <br><br>
 
@@ -49,7 +46,7 @@
 
   <br><br>
 
-  <%= f.label "Content" %><br>
+  <%= f.label :content %><br>
   <%= f.text_area :content %>
 
   <br><br>

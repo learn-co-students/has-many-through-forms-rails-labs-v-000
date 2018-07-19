@@ -1,0 +1,12 @@
+<h2>Latest Posts:</h2>
+
+<%= link_to "Add a Post", new_post_path %>
+
+<ul>
+  <% @posts.each do |post| %>
+    <li>
+      <%= link_to post.title, post_path(post) %>
+      <br><br>
+    </li>
+  <% end %>
+</ul>

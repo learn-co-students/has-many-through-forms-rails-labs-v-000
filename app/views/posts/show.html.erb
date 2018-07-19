@@ -15,7 +15,7 @@
 <ul>
   <% @post.comments.each do |comment| %>
       <li>
-        <%= comment.user.username %> says: <%= comment.content %>
+        <%= comment.username %> says: <%= comment.content %>
       </li>
   <% end %>
 </ul>
@@ -50,5 +50,6 @@
   <%= f.text_area :content %>
 
   <br><br>
+
   <%= f.submit %>
 <% end %>

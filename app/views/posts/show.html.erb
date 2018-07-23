@@ -1,3 +1,9 @@
+<%= @post.title %>
+<%= @post.content %>
+<% @post.categories.each do |c| %>
+  <%= c.name %>
+<% end %>
+
 <% @post.comments.each do |c| %>
   "<%= c.user.username %> says: <%= c.content %>"
 <% end %>
@@ -13,4 +19,8 @@
     <%= u.text_field :username %>
   <% end %>
   <%= f.submit %>
+<% end %>
+
+<% @post.usernames.map do |u| %>
+  <%= link_to u, user_path(User.find_by(username: u)) %>
 <% end %>

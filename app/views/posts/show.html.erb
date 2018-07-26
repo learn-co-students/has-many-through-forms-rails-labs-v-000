@@ -3,3 +3,11 @@
   c.name <br/>
 <% end %>
 <p><%= @post.content %></p>
+<h2><%= pluralize(@post.comments_count, 'Comment') %></h2>
+<% @post.comments.each do |c| %>
+  <%= c.content %><br/>
+<% end %>
+<h2><%= pluralize(@post.unique_users_count, 'User') %> Commented</h2>
+<% @post.unique_users.each do |u| %>
+  <%= u.username %><br/>
+<% end %>

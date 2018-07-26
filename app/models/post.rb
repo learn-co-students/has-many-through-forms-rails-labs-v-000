@@ -5,4 +5,15 @@ class Post < ActiveRecord::Base
   has_many :users, through: :comments
   accepts_nested_attributes_for :categories
 
+  def comments_count
+    comments.count
+  end
+
+  def unique_users
+    users.uniq
+  end
+
+  def unique_users_count
+    unique_users.count
+  end
 end

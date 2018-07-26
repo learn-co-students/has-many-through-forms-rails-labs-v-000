@@ -19,3 +19,5 @@ PostCategory.create(:post => p2, :category => c2)
 
 Comment.create(:user => u1, :post => p1, :content => "What sport?")
 Comment.create(:user => u2, :post => p2, :content => "What about eggs?")
+Comment.create(:user => u2, :post => p2, :content => "What about coffee?")
+Comment.create(:user => u2, :post => p1, :content => "Is there food?")

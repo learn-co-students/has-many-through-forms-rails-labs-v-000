@@ -14,8 +14,12 @@
 <h2>New Comment?</h2>
 <%= form_for @post do |f| %>
   <%= f.fields_for :comments do |f| %>
-  <% binding.pry %>
-    <%= f.collection_select :user_id, User.all, :id, :username %>
+<!--    <%= f.collection_select :user_id, User.all, :id, :username %> -->
+    <select name="user_id" id="user_id">
+      <% @users.each do |u| %>
+        <option value=<%=u.id%><%=u.username%></option>
+      <% end %>
+    </select>
     <%= f.text_field :content %>
   <% end %>
   <%= f.submit %>

@@ -10,6 +10,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @users = User.all
   end
 
   def update

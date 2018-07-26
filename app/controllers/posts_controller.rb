@@ -14,6 +14,10 @@ class PostsController < ApplicationController
   end
 
   def update
+    binding.pry
+    if params[:post][:users_attributes]["0"].key?(:username)
+      params[:post][:comments_attributes]["0"].delete(:user_id)
+    end
     @post = Post.find(params[:id])
     @post.update (post_params)
     redirect_to post_path(@post)

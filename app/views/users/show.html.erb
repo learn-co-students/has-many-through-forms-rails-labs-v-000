@@ -2,5 +2,5 @@
 <%= @user.email %><br/>
 <h2>Posts</h2>
 <% @user.unique_posts.each do | p | %>
-  <%= p.title %> <br />
+  <%= link_to p.title, post_path(p) %>
 <% end %>

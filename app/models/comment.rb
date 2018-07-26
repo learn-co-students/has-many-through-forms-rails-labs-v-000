@@ -3,6 +3,6 @@ class Comment < ActiveRecord::Base
   belongs_to :post
 
   def username
-    self.user.username
+    user ? self.user.username : nil
   end
 end

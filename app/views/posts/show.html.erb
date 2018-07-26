@@ -11,3 +11,12 @@
 <% @post.unique_users.each do |u| %>
   <%= u.username %><br/>
 <% end %>
+<h2>New Comment?</h2>
+<%= form_for @post do |f| %>
+  <%= f.fields_for :comments do |f| %>
+  <% binding.pry %>
+    <%= f.collection_select :user_id, User.all, :id, :username %>
+    <%= f.text_field :content %>
+  <% end %>
+  <%= f.submit %>
+<% end %>

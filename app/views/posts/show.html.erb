@@ -14,8 +14,7 @@
 <h2>New Comment?</h2>
 <%= form_for @post do |f| %>
   <%= f.fields_for :comments, @post.comments.build do |comments_fields| %>
-    <%= f.collection_select :users, User.all, :id, :username %>
-<!--    <%=  comments_fields.text_field :user_id %>    user id not getting stored in the new comment but content is stored ok -->
+    <%= comments_fields.collection_select :user_id, User.all, :id, :username %>
     <%= comments_fields.text_field :content %>
   <% end %>
   <%= f.submit %>

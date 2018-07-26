@@ -14,9 +14,9 @@ class PostsController < ApplicationController
   end
 
   def update
-    binding.pry
-    if params[:post][:users_attributes]["0"].key?(:username)
-      params[:post][:comments_attributes]["0"].delete(:user_id)
+    if params[:post][:users_attributes]["0"][:username].empty?
+      user = User.find(params[:post][:comments_attributes]["0"][:user_id])
+      params[:post][:users_attributes]["0"][:username] = user.username
     end
     @post = Post.find(params[:id])
     @post.update (post_params)

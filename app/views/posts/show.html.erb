@@ -5,7 +5,7 @@
 <p><%= @post.content %></p>
 <h2><%= pluralize(@post.comments_count, 'Comment') %></h2>
 <% @post.comments.each do |c| %>
-  <%= c.content %><br/>
+  <%= c.username %> says: <%= c.content %><br/>
 <% end %>
 <h2><%= pluralize(@post.unique_users_count, 'User') %> Commented</h2>
 <% @post.unique_users.each do |u| %>
@@ -14,8 +14,9 @@
 <h2>New Comment?</h2>
 <%= form_for @post do |f| %>
   <%= f.fields_for :comments, @post.comments.build do |comments_fields| %>
-    <%= comments_fields.collection_select :user_id, User.all, :id, :username %>
-    <%= comments_fields.text_field :content %>
+    <%= comments_fields.collection_select :user_id, User.all, :id, :username, {}, { :id =>"comment_user_id"} %><br/>
+    New User Name:  <%= comments_fields.text_field :username %><br/>
+    <%= comments_fields.text_field :content, id:"comment_content"%>
   <% end %>
-  <%= f.submit %>
+  <%= f.submit "Create Comment" %>
 <% end %>

@@ -2,6 +2,7 @@ require 'pry'
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    @users = User.all
   end
 
   def index
@@ -10,14 +11,13 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @users = User.all
   end
 
   def update
     binding.pry
     @post = Post.find(params[:id])
     @post.update (post_params)
-    redirect_to posts_path(@post)
+    redirect_to post_path(@post)
   end
 
   def create

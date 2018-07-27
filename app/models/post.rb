@@ -11,7 +11,7 @@ class Post < ActiveRecord::Base
   def categories_attributes=(category_hashes)
     # needed so post new form can be used to create categories_attributes
     category_hashes.each do | index, category_attributes |
-      if !category_attributes[:name].empty?
+      if category_attributes[:name].present?
         category = Category.find_or_create_by(name: category_attributes[:name])
         self.post_categories.build(:category => category)
       end

@@ -7,7 +7,7 @@
   <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
   <br />
 <!--  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
-        <p><%= b.label %><%= b.check_box %></p>
+        <p><%= b.label %><%= b.check_box %></p>  -- can add styling with class => "whatever"
   <% end %> -->
   <!-- Equivalent html code here <% Category.all.each do |c| %>
     <p>

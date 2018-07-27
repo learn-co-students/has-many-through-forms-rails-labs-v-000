@@ -5,7 +5,7 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :users, through: :comments
 #  accepts_nested_attributes_for :categories -- not needed cause building own writer below
-  accepts_nested_attributes_for :comments
+#  accepts_nested_attributes_for :comments
 #  accepts_nested_attributes_for :users
 
   def categories_attributes=(category_hashes)
@@ -21,7 +21,8 @@ class Post < ActiveRecord::Base
     end
   end
 
-  def users_attributes=(user_hashes)
+  def comments_attributes=(comment_hashes)
+    binding.pry
     user_hashes.each do | index, user_attributes |
       if user_attributes[:name].present?
         user = User.find_or_create_by(name: user_attributes[:name])
@@ -30,10 +31,6 @@ class Post < ActiveRecord::Base
         end
       end
     end
-  end
-
-  def comments_attributes=(comment_hashes)
-    binding.pry
   end
   def comments_count
     comments.count

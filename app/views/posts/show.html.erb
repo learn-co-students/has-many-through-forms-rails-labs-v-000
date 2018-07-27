@@ -19,8 +19,8 @@
   <%= f.fields_for :comments, Comment.new do |comments_fields| %>
     <%= comments_fields.collection_select :user_id, User.select_all, :id, :username %><br/>
     New User:
-    <%= users_fields.text_field :username %>
-    <%= comments_fields.text_field :content, id:"comment_content"%>
+    <%= comments_fields.text_field :username %>
+    <%= comments_fields.text_field :content%>
   <% end %>
   <%= f.submit "Create Comment" %>
 <% end %>

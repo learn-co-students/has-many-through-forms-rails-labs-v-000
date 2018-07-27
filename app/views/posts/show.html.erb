@@ -16,12 +16,10 @@
 <% end %>
 <h2>New Comment?</h2>
 <%= form_for @post do |f| %>
-  <%= f.fields_for :comments, @post.comments.build do |comments_fields| %>
-    <%= comments_fields.collection_select :user_id, User.all, :id, :username, {}, { :id =>"comment_user_id"} %><br/>
+  <%= f.fields_for :comments, Comment.new do |comments_fields| %>
+    <%= comments_fields.collection_select :user_id, User.select_all, :id, :username %><br/>
     New User:
-      <%= f.fields_for :users, @post.users.build do |users_fields| %>
-      <%= users_fields.text_field :username, id:"comment_user_attributes_username" %>
-    <% end %>
+    <%= users_fields.text_field :username %>
     <%= comments_fields.text_field :content, id:"comment_content"%>
   <% end %>
   <%= f.submit "Create Comment" %>

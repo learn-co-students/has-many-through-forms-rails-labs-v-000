@@ -13,7 +13,10 @@ class Post < ActiveRecord::Base
     category_hashes.each do | index, category_attributes |
       if category_attributes[:name].present?
         category = Category.find_or_create_by(name: category_attributes[:name])
-        self.post_categories.build(:category => category)
+        # if category already exists for post, don't add it
+        if !self.categories.include?(category)
+          self.post_categories.build(:category => category)
+        end
       end
     end
   end

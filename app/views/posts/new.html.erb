@@ -4,11 +4,15 @@
   <%= f.label :title %>
   <%= f.text_field :title %>
   <br />
-  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
-  <br />
+<!--  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+  <br /> -->
 <!--  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
         <p><%= b.label %><%= b.check_box %></p>  -- can add styling with class => "whatever"
   <% end %> -->
+  <!-- for checkboxes on different lines -->
+      <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+        <p><%= b.label %><%= b.check_box %></p>
+      <% end %>
   <!-- Equivalent html code here <% Category.all.each do |c| %>
     <p>
       <label for="category_id_<%= c.id %>"><%= c.name %></label>

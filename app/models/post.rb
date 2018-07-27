@@ -22,7 +22,6 @@ class Post < ActiveRecord::Base
   end
 
   def comments_attributes=(comment_hashes)
-    binding.pry
     comment_hashes.each do | index, comment_attributes |
       if comment_attributes[:username].present?
         user = User.find_or_create_by(username: comment_attributes[:username])

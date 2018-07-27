@@ -17,10 +17,15 @@
 <h2>New Comment?</h2>
 <%= form_for @post do |f| %>
   <%= f.fields_for :comments, Comment.new do |comments_fields| %>
-    <%= comments_fields.collection_select :user_id, User.select_all, :id, :username %><br/>
+<!--    <%= comments_fields.collection_select :user_id, User.select_all, :id, :username %><br/> -->
+    <select name="post[comments_attributes][0][user_id]" id="comment_user_id">
+      <% User.select_all.each do |u| %>
+        <option value=<%=u.id%>><%=u.username%></option>
+      <% end %>
+    </select>
     New User:
-    <%= comments_fields.text_field :username %>
-
+    <! --<%= comments_fields.text_field :username %>-->
+    <input type="text" name="post[comments_attributes][0][username]" id="comment_user_attributes_username">
     <input type="text" name="post[comments_attributes][0][content]" id="comment_content">
   <% end %>
   <%= f.submit "Create Comment" %>

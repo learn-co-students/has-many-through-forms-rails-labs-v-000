@@ -14,10 +14,6 @@ class PostsController < ApplicationController
   end
 
   def update
-    if params[:post][:users_attributes]["0"][:username].empty?
-      user = User.find(params[:post][:comments_attributes]["0"][:user_id])
-      params[:post][:users_attributes]["0"][:username] = user.username
-    end
     @post = Post.find(params[:id])
     @post.update (post_params)
     redirect_to post_path(@post)

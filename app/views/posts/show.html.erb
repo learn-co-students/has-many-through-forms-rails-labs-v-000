@@ -1,7 +1,10 @@
 <h1><%= @post.title %></h1>
-<% @post.categories.each do |c| %>
-  <%= c.name %><br/>
-<% end %>
+<h2>Categories</h2>
+<ul>
+  <% @post.categories.each do |c| %>
+    <li><%= c.name %></li>
+  <% end %>
+</ul>
 <p><%= @post.content %></p>
 <h2><%= pluralize(@post.comments_count, 'Comment') %></h2>
 <% @post.comments.each do |c| %>

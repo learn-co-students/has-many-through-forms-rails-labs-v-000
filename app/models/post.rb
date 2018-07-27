@@ -23,12 +23,12 @@ class Post < ActiveRecord::Base
 
   def comments_attributes=(comment_hashes)
     binding.pry
-    user_hashes.each do | index, user_attributes |
-      if user_attributes[:name].present?
-        user = User.find_or_create_by(name: user_attributes[:name])
-        if !self.users.include?(user)
-          self.post_categories.build(:category => category)
-        end
+    comment_hashes.each do | index, comment_attributes |
+      if comment_attributes[:username].present?
+        user = User.find_or_create_by(username: comment_attributes[:username])
+        self.comments.build(:user => user, :content => comment_attributes[:content])
+      else
+        self.comments.build(:user_id => comment_attributes[:user_id], :content => comment_attributes[:content])
       end
     end
   end

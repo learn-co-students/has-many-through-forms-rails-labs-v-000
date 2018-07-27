@@ -15,7 +15,8 @@ class Post < ActiveRecord::Base
         category = Category.find_or_create_by(name: category_attributes[:name])
         # if category already exists for post, don't add it
         if !self.categories.include?(category)
-          self.comments.build(:user => user)
+          self.categories << category  # inefficient!
+          self.save
         end
       end
     end

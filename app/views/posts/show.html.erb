@@ -12,7 +12,7 @@
 <% end %>
 <h2><%= pluralize(@post.unique_users_count, 'User') %> Commented</h2>
 <% @post.unique_users.each do |u| %>
-  <%= u.username %><br/>
+  <%= link_to u.username, user_path(u) %><br/>
 <% end %>
 <h2>New Comment?</h2>
 <%= form_for @post do |f| %>

@@ -20,7 +20,8 @@
     <%= comments_fields.collection_select :user_id, User.select_all, :id, :username %><br/>
     New User:
     <%= comments_fields.text_field :username %>
-    <%= comments_fields.text_field :content%>
+
+    <input type="text" name="post[comments_attributes][0][content]" id="comment_content">
   <% end %>
   <%= f.submit "Create Comment" %>
 <% end %>

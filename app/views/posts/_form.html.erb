@@ -1,13 +1,13 @@
 <%=form_for post do |f|%>
-<%=f.label "Title"%>
-<%=f.text_area :title%>
-<%=f.label "Content"%>
-<%=f.text_area :content%>
-<%=f.label "Existing Category:"%>
-<%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
-<%=f.label "New Category:"%>
+<%=f.label "Title"%><br>
+<%=f.text_area :title%><br><br>
+<%=f.label "Content"%><br>
+<%=f.text_area :content%><br><br>
+<%=f.label "Existing Category:"%><br>
+<%= f.collection_check_boxes :category_ids, Category.all, :id, :name %><br><br>
+<%=f.label "New Category:"%><br>
 <%= f.fields_for :categories, post.categories.build do |categories_fields| %>
-<%= categories_fields.text_field :name %>
+<%= categories_fields.text_field :name %><br><br>
 <%end%>
 <%=f.submit%>
 <%end%>

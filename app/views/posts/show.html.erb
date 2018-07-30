@@ -1,4 +1,9 @@
 <h1><%=@post.title%></h1>
+<ul>
+<%@post.categories.each do |category|%>
+ <li><%=category.name%></li> 
+  <%end%>
+</ul>
 <p><%=@post.content%></p>
 
 <h4>Comments</h4>
@@ -7,6 +12,18 @@
   <li><%=comment.content %><li>
   <%end%>
 </ul>
+
+<h3>New Comment:</h3>
+<%=form_for @post.comments.build do |f|%>
+<%=f.label "Existing User"%>
+<%=f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
+<%=f.label "New User:"%><br>
+<%= f.fields_for :users, user.build do |users_fields| %>
+<%= users_fields.text_field :username %><br>
+<%= users_fields.email_field :email %><br>
+<%end%>
+<%= f.submit %>
+<%end%>
 
 <h4>Users</h4>
 <ul>

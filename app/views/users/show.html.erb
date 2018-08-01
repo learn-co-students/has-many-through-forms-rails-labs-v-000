@@ -1,1 +1,8 @@
+<h3>User Show Pahe</h3>
 
+<!-- Link to all posts the user has commented on  -->
+<ul>
+<% @user.comments.each do |comm|%>
+  <li><%= link_to comm.post.title, post_path(comm) %></li>
+<% end %>
+</ul>

@@ -12,7 +12,7 @@ Categories
 Comments
 <ul>
 <% @post.comments.each do |comment| %>
-  <li><%= comment.content %></li>
+  <li><%= "#{comment.user.username} says: #{comment.content}" %></li>
 <% end %>
 </ul>
 
@@ -22,3 +22,20 @@ Users
   <li><%= link_to user.username, user_path(user) %></li>
 <% end %>
 </ul>
+
+New Comment
+<%= form_for @post.comments.build do |f| %>
+  <%= f.hidden_field :post_id %>
+
+  <%= f.label :content %>
+  <%= f.text_field :content %>
+
+  <%= f.collection_select :user_id, User.all, :id, :username %>
+
+  <%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
+    <%= user_fields.label :username %>
+    <%= user_fields.text_field :username %>
+  <% end %>
+
+  <%= f.submit %>
+<% end %>

@@ -9,7 +9,7 @@
 <%= form_for @comment do |f| %>
   <%= f.label "Content" %>
   <%= f.text_area :content %>
-  <%= f.collection_select :user_id, User.all, :id, :username %>
+  <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: true} %>
   <%= f.fields_for :user, @comment.build_user do |user_fields| %>
     <%= user_fields.text_field :username %>
   <% end %>
@@ -20,5 +20,15 @@
 <%if !@post.comments.empty?%>
 <%@post.comments.each do |comment|%>
 <%=comment.user.username%> says: <%=comment.content%>
+<%end%>
+<%end%>
+
+<%username_array = []%>
+<%@post.comments.each do |comment|%>
+<%if !username_array.include?(comment.user.username)%>
+<%username_array << comment.user.username%>
+<%username_array.each do |username|%>
+<%=link_to username, user_path(comment.user)%>
+<%end%>
 <%end%>
 <%end%>

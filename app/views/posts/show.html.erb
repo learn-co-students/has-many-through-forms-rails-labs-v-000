@@ -1,1 +1,32 @@
+<h1><%= @post.title %>
+<h3><%= @post.content %></h3>
 
+<% if !@post.users.empty? %>
+  <% @post.users.uniq.each do |user| %>
+  <p><%= link_to user.username, user_path(user) %></p>
+  <%end%>
+<% end %>
+
+<% if !@post.comments.empty? %>
+  <% @post.comments.each do |comment| %>
+  <p><%= "#{comment.user.username} says: #{comment.content}" %></p>
+  <%end%>
+<% end %>
+
+<% if !@post.categories.empty? %>
+  <% @post.categories.each do |category| %>
+  <p><%= "#{category.name}" %></p>
+  <%end%>
+<% end %>
+
+
+<%= form_for @post.comments.build do |f| %>
+  <p>  <%= f.label "content" %>
+    <%= f.text_area :content %></p>
+  <p>  <%= f.collection_select :user_id, User.all, :id, :username %></p>
+  <%= f.hidden_field :post_id %>
+  <p><%= f.fields_for :user, @post.comments.last.build_user do |user_field| %>
+    <%= user_field.text_field :username %></p>
+    <% end %>
+  <%= f.submit %>
+<% end %>

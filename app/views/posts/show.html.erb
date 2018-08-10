@@ -17,7 +17,7 @@ Comment Form:
 <%= form_for @post.comments.build do |f| %>
 <%= f.label "Username" %>
 <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Any'%>
-<%= f.fields_for :users, @post.comment.users.build do |users_fields| %>
+<%= f.fields_for :users, @post.users.build do |users_fields| %>
   <%= users_fields.text_field :username %>
 <% end %>
 <%= f.label "Content" %>

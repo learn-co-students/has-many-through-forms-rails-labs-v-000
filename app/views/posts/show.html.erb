@@ -1,1 +1,30 @@
+<h1> <%= @post.title %> </h1>
 
+<p> <%= @post.content %> </p>
+
+<br />
+
+<p> Comments: </p>
+
+<ol>
+  <% @post.comments.each do |comment| %>
+    <li>
+      <%= comment.user.username %> wrote: <%= comment.content %>
+    </li>
+  <% end %>
+</ol>
+
+<br />
+
+<p> Users who have commented: </p>
+<ul>
+  <% all_users = [] %>
+  <% @post.comments.each do |comment| %>
+    <% unless all_users.include?(comment.user) %>
+      <li>
+        <%= link_to comment.user.username, user_path(comment.user) %>
+      </li>
+        <% all_users << comment.user %>
+    <% end %>
+  <% end %>
+</ul>

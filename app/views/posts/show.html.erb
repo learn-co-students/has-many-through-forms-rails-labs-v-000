@@ -2,9 +2,9 @@
 
 <h3> Categories: </h3>
   <ul>
-    <% @post.each do |post| %>
+    <% @post.categories.each do |cat| %>
       <li>
-        <%= post.category.name %>
+        <%= cat.name %>
       </li>
     <% end %>
   </ul>
@@ -19,7 +19,7 @@
 <ol>
   <% @post.comments.each do |comment| %>
     <li>
-      <%= comment.user.username %> wrote: <%= comment.content %>
+      <%= comment.user.username %> says: <%= comment.content %>
     </li>
   <% end %>
 </ol>
@@ -38,3 +38,17 @@
     <% end %>
   <% end %>
 </ul>
+
+<h3>Add A Comment</h3>
+<%= form_for @post.comments.build do |f| %>
+    <%= f.hidden_field :post_id %>
+    <%= f.label :content%>
+    <%= f.text_field :content %>
+
+    <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "Select User" %>
+
+    <%= f.fields_for :user, @post.comments.last.build_user do |user| %>
+        <%= user.text_field :username %>
+        <% end %>
+  <%= f.submit %>
+<% end %>

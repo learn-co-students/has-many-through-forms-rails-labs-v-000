@@ -1,5 +1,15 @@
 <h1> <%= @post.title %> </h1>
 
+<h3> Categories: </h3>
+  <ul>
+    <% @post.each do |post| %>
+      <li>
+        <%= post.category.name %>
+      </li>
+    <% end %>
+  </ul>
+
+
 <p> <%= @post.content %> </p>
 
 <br />

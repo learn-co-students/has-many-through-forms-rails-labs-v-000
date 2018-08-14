@@ -1,13 +1,18 @@
+<style media="screen">
+  .comment_submission{ border: 25px red solid;padding: 25px;}
+</style>
+<label for="title"><h2>Title:</h2></label>
+<h3><%= @post.title %></h3>
 
-<h2><%= @post.title %></h2>
-<p>
-  <%= @post.content%>
-</p>
+<div class="body_content">
+<label for="content"><h2>content</h2></label>
+<p>  <%= @post.content%> </p>
+</div>
 
   <h2>Category:</h2>
 <ul>
-  <li>
   <% @post.categories.each do |category|  %>
+  <li>
   <%= category.name %>
   </li>
   <% end %>
@@ -19,8 +24,34 @@
   <li>
     <%= link_to user.username, user_path(user) %>
     <% user.comments.each do |comment| %>
-    <%= comment.content %>
+    <%= "says: #{comment.content}" %>
     <% end %>
   </li>
   <% end %>
 </ul>
+
+<div class="comment_submission">
+<h2>New Comment:</h2>
+<%= form_for @post.comments.build do |f| %>
+  <input type="hidden" name="comment[post_id]" value="<%= @post.id %>">
+  <label for="comment_content"><p>New Comment:</p></label>
+  <%= f.text_area :content %>
+<p>
+  <h3>Users:</h3>
+  <%= f.select :user_id, User.all.collect {|u| [ u.username, u.id ]}, prompt: true%>
+</p>
+
+<%= f.fields_for :user, @post.users.build do |u| %>
+  <h2>Create a new User:</h2>
+  <p>
+    <%= u.label :username %>
+    <%= u.text_field :username %>
+  </p>
+  <p>
+    <%= u.label :email %>
+    <%= u.text_field :email %>
+  </p>
+  <% end %>
+<%= f.submit %>
+<% end %>
+</div>

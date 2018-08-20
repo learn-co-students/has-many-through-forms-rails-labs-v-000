@@ -1,1 +1,50 @@
+<h1><%=@post.title%></h1>
+<p><%=@post.content%></p>
+
+<h3>Categories</h3> 
+<% @post.categories.each do |category| %> 
+  <%= link_to category.name, category %>  
+<% end %>
+
+
+<% if !@post.comments.empty? %>
+  Comments<br>
+  <ul>
+    <%@post.comments.each do |com|%>
+      <li>
+        <%if com.user != nil %>
+          <%= com.user.username%> says: 
+          <%=com.content%>
+        <%else%>
+          <%=com.content%>
+        <%end%>
+      </li>
+    <%end%>
+  </ul><br>
+  Users who have commented<br>
+  <ul>
+    <%@post.unique_commentors.each do |user|%>
+      <li>
+        <%= link_to user.username, user%>
+      </li>
+    <%end%>
+  </ul>
+<%end%>
+
+Add a new comment:<br>
+<%=form_for @comment do |f|%>
+  <%= f.label :content %>
+  <%= f.text_area :content%><br>
+  <%= f.hidden_field :post_id, :value => @post.id %>
+  Made by:<br>
+  <%= f.collection_select :user_id, User.all, :id, :username %><br>
+  or, make a new user:
+  <%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
+    <%= user_fields.text_field :username %> 
+  <% end %>
+
+  
+  <%= f.submit %>
+<%end%>
+  
 

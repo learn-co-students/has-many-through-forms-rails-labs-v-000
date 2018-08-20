@@ -4,5 +4,20 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :users, through: :comments
 
+  def unique_commentors
+    u_c = []
+    self.comments.each do |com|
+      u_c << com.user if com.user != nil
+    end
+    u_c.uniq
+  end
+
+  def categories_attributes=(category_attributes) 
+    category_attributes.values.each do |category_attribute| 
+      category = Category.find_or_create_by(category_attribute) 
+      self.categories << category 
+    end 
+  end
+
 
 end

@@ -17,16 +17,27 @@
 # https://apidock.com/rails/ActionView/Helpers/FormOptionsHelper/collection_select
 
 <%= form_for @post.comments.build do |f| %>
+  <%= f.hidden_field :post_id %>
 
   <%= f.label :content %>
   <br>
   <%= f.text_field :content %>
   <br>
 
-  <%= f.hidden_field :post_id %>
-
-  f.collection_select :user_id, User.all, :id, :username, :include_blank 
+  <%= f.collection_select :user_id, User.all, :id, :username, :include_blank %>
+  <br>
   
+  <%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
+    <%= user_fields.label :username %>
+    <br>
+    <%= user_fields.text_field :username %>
+    <br>
+    <%= f.label :Email %>
+    <br>
+    <%= user_fields.email_field :email %>
+  <% end %>
+  
+  <br>
   <%= f.submit %>
 <% end %>
 

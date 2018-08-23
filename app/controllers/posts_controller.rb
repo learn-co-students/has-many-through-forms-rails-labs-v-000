@@ -12,9 +12,9 @@ class PostsController < ApplicationController
   end
 
   def create
-binding.pry    
-    post = Post.create(post_params)
-    redirect_to post
+    @post = Post.create(post_params)
+binding.pry # rspec spec/features/posts_spec.rb   
+    redirect_to post_path(@post)
   end
 
   private

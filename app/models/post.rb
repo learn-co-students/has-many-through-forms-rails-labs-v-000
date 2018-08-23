@@ -10,7 +10,7 @@ class Post < ActiveRecord::Base
     categories_attributes.values.each do |name_hash|
       unless name_hash["name"].blank?
         category = Category.find_or_create_by(name_hash)
-        self.post_categories.build(:category => category) unless self.categories.include?(category)
+        self.categories << category unless self.categories.include?(category)
       end
     end
   end

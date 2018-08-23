@@ -7,7 +7,7 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :categories, reject_if: :empty_fields?
   
   def empty_fields?
-binding.pry
+binding.pry # reject_if not working
     attributes['title'].blank?
   end
 

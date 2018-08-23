@@ -1,1 +1,5 @@
+<% # binding.pry %>
 
+<% @user.posts.each do |pst| %>
+  <%= link_to pst.title, post_path(pst) %>
+<% end %>

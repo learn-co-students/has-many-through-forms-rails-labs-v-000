@@ -1,12 +1,12 @@
-<% binding.pry # rspec spec/features/posts_spec.rb %>
+<% # binding.pry # rspec spec/features/posts_spec.rb %>
 
 <%= @post.title %>
 
 <%= @post.content %>
 
-# list of users who've commented (no repeats)
 <% @post.commenters.each do |commenter| %>
   <%= link_to commenter.username, user_path(commenter) %>
 <% end %>
 
 # comment form - dropdown to select user, that can create one
+

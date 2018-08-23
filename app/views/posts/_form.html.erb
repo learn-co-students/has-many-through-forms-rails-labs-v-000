@@ -13,9 +13,10 @@
   
   <%= f.label :category %>
   <br>
-  <%= f.collection_check_boxes :post, :category_ids, Category.all, :id, :name %>
-    
-  <!--input name="post[category_name][]" id="post_categories_attributes_0_name"-->
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+  <%= f.fields_for :categories, post.categories.build do |category_fields| %>
+    <%= category_fields.text_field :name %>
+  <% end %>
   
   <br>
   <%= f.submit %>

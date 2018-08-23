@@ -8,5 +8,8 @@
   <%= link_to commenter.username, user_path(commenter) %>
 <% end %>
 
-# comment form - dropdown to select user, that can create one
+# comment form - dropdown to select user, can create one
 
+# https://apidock.com/rails/ActionView/Helpers/FormOptionsHelper/collection_select
+
+collection_select :user_id, User.all, :id, :username 

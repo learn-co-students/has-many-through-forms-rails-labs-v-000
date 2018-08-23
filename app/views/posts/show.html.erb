@@ -1,4 +1,4 @@
-<% binding.pry # rspec spec/features/posts_spec.rb %>
+<% # binding.pry # rspec spec/features/posts_spec.rb %>
 
 <%= @post.title %>
 
@@ -16,12 +16,14 @@
 
 # https://apidock.com/rails/ActionView/Helpers/FormOptionsHelper/collection_select
 
-<%= form_for @post.comments do |f| %>
+<%= form_for @post.comments.build do |f| %>
 
   <%= f.label :content %>
   <br>
   <%= f.text_field :content %>
   <br>
+
+  <%= f.hidden_field :post_id %>
 
   f.collection_select :user_id, User.all, :id, :username, :include_blank 
   

@@ -4,5 +4,12 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :users, through: :comments
 
+  def commenters
+    commenters = []
+    self.comments.each do |comment|
+      commenters << comment.user
+    end
+    commenters.uniq
+  end
 
 end

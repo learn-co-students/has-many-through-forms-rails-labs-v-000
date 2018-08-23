@@ -1,8 +1,11 @@
-<% # binding.pry # rspec spec/features/posts_spec.rb %>
 
 <%= @post.title %>
 
 <%= @post.content %>
+
+<% @post.categories.each do |kategory| %>
+  <%= kategory.name %>
+<% end %>
 
 <% @post.comments.each do |comment| %>
   <%= comment.content %>

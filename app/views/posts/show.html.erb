@@ -1,4 +1,4 @@
-<% binding.pry # categories aren't being displayed, likely because the association is broken %>
+<% # binding.pry # categories aren't being displayed, likely because the association is broken %>
 
 <%= @post.title %>
 
@@ -26,7 +26,7 @@
 
   <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
   <br>
-  
+
   <%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
     <%= user_fields.label :username %>
     <br>
@@ -36,8 +36,7 @@
     <br>
     <%= user_fields.email_field :email %>
   <% end %>
-  
+
   <br>
   <%= f.submit %>
 <% end %>
-

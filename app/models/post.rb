@@ -4,11 +4,11 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :users, through: :comments
   
-  accepts_nested_attributes_for :comments, :users, :categories, reject_if: :empty_fields?
+  accepts_nested_attributes_for :categories, reject_if: :empty_fields?
   
   def empty_fields?
-    binding.pry
-    # attributes['title'].blank?
+binding.pry
+    attributes['title'].blank?
   end
 
   def commenters

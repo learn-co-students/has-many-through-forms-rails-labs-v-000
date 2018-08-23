@@ -1,8 +1,12 @@
-<% # binding.pry # rspec spec/features/posts_spec.rb %>
+<% binding.pry # rspec spec/features/posts_spec.rb %>
 
 <%= @post.title %>
 
 <%= @post.content %>
+
+<% @post.comments.each do |comment| %>
+  <%= comment.content %>
+<% end %>
 
 <% @post.commenters.each do |commenter| %>
   <%= link_to commenter.username, user_path(commenter) %>
@@ -12,4 +16,15 @@
 
 # https://apidock.com/rails/ActionView/Helpers/FormOptionsHelper/collection_select
 
-collection_select :user_id, User.all, :id, :username 
+<%= form_for @post.comments do |f| %>
+
+  <%= f.label :content %>
+  <br>
+  <%= f.text_field :content %>
+  <br>
+
+  f.collection_select :user_id, User.all, :id, :username, :include_blank 
+  
+  <%= f.submit %>
+<% end %>
+

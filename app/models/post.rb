@@ -6,12 +6,12 @@ class Post < ActiveRecord::Base
 
   accepts_nested_attributes_for :categories
 
-  def commenters
-    commenters = []
+  def formatted_comments
+    comment_data = []
     self.comments.each do |comment|
-      commenters << comment.user
+      comment_data << "#{self.comments[0].user.username} says: #{comment.content}"
     end
-    commenters.uniq
+    comment_data
   end
 
 end

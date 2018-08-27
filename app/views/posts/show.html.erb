@@ -1,5 +1,10 @@
 <h1><%=@post.title%></h1>
 
+<ul>
+  <%@post.categories.each do |cat|%>
+    <li><%=link_to cat.name, category_path(cat)%></li>
+  <%end%>
+</ul>
 <p><%=@post.content%></p>
 
 <h2>Comments</h2>

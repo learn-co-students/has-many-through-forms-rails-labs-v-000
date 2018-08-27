@@ -12,8 +12,10 @@
   # this is for creating a new categories
   <br>
   <%= f.fields_for :categories, post.categories.build do |categories_fields| %>
+
     <%= categories_fields.text_field :name %>
     <br>
   <% end %>
   <%= f.submit %>
+
 <% end %>

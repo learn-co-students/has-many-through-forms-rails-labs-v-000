@@ -1,1 +1,41 @@
+<h1><%= @post.title %></h1>
 
+<h2>Categories: <%= @cats.join(', ') %></h2>
+
+<p><%= @post.content %></p>
+
+
+<h3>Comments:</h3>
+<% if @comments.empty? %>
+  <p>No Comments yet!</p>
+<% else %>
+  <% @comments.each do |comment| %>
+    <p><%= comment.user.username %> says: <%= comment.content %></p>
+  <% end %>
+<% end %>
+
+<h3>Commentors:</h3>
+<% if @commentors.empty? %>
+  <p>No Commentors yet!</p>
+<% else %>
+  <ul>
+    <% @commentors.each do |commentor| %>
+      <li><%= link_to commentor.username, user_path(commentor) %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<h3>Add a Comment:</h3>
+<%= form_for @post.comments.build do |f| %>
+  <%= f.label "Comment:" %><br>
+  <%= f.text_area :content %>
+  <br>
+  <%= f.collection_select :user_id, User.all, :id, :username %>
+  <%= f.hidden_field :post_id %>
+  <%= f.fields_for :user, @post.comments.last.build_user do |user| %>
+    <%= user.label "OR create a username:" %>
+    <%= user.text_field :username %>
+  <% end %>
+  <br>
+  <%= f.submit %>
+<% end %>

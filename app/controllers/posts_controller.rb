@@ -1,6 +1,13 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+
+    @cats = Array.new
+    @post.categories.each { |cat| @cats << cat.name }
+
+    @comments = @post.comments
+
+    @commentors = @post.users.uniq
   end
 
   def index

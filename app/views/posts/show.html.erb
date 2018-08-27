@@ -1,1 +1,26 @@
+<div class="post-content">
+    <%= link_to @post.title, post_path(@post) %>
+    <%= @post.content %>
+    <% @post.categories.each do |category| %>
+        <%= category.name %>
+    <% end %>
 
+    <% @post.comments.each do |comment| %>
+        <%= comment.user ? comment.user.username : nil %> says: <%= comment.content %>
+    <% end %>
+
+    <% @post.users.uniq.map do |user| %>
+        <%= link_to user.username, user_path(user) %>
+    <% end %>
+
+    <%= form_for @comment do |f| %>
+        <%= f.hidden_field :post_id, value: @post.id %>
+        <%= f.text_field :content %>
+        <%= f.collection_select :user_id, User.all, :id, :username %>
+        <%= f.fields_for :user, @post.users.build do |user_fields|  %>
+            <%= user_fields.text_field :username %>
+        <% end %>
+
+        <%= f.submit "Create Comment"%>
+    <% end %>
+</div>

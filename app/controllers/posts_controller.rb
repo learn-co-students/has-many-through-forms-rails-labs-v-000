@@ -13,16 +13,16 @@ class PostsController < ApplicationController
 
   def create
     post = Post.create(post_params)
-    #manually associating the categories method.
-     if params[:post][:category_ids] != ""
-      post.category_ids = params[:post][:category_ids]
-     end
+    # #manually associating the categories method.
+    #  if params[:post][:category_ids] != ""
+    #   post.category_ids = params[:post][:category_ids]
+    #  end
 
-     if params[:post][:categories][:name] != ""
-       category = Category.create(:name => params[:post][:categories][:name]  )
-       post.categories << category
-     end
-      # save the new assocaitions
+    #  if params[:post][:categories][:name] != ""
+    #    category = Category.create(:name => params[:post][:categories][:name]  )
+    #    post.categories << category
+    #  end
+    #   # save the new assocaitions
       post.save
 
     redirect_to post

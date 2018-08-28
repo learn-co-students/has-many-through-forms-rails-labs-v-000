@@ -17,15 +17,16 @@
   <%end%>
 </ul>
 
+<h4>Create A New Comment:</h4>
 <%=form_for(@comment) do |f|%>
   <p>New Comment: <%=f.text_field :content%></p>
   <input type="hidden" name="comment[post_id]" value="<%=@post.id%>">
-  <%=f.select(:user_id, @all_users)%>
-  <%=f.fields_for :user do |user|%>
-    <p>New Username: <%=user.text_field :username%></p>
+  <p>Username: <%=f.collection_select(:user_id, User.all, :id, :username, {include_blank: ""})%></p>
+  <%=f.fields_for :user, User.new do |user|%>
+    <p>Or Create New Username: <%=user.text_field :username%></p>
   <%end%>
   <%=f.submit%>
-<%end%>
+<%end%><br>
 
 <h3>Commenters:</h3>
 <ul>

@@ -1,4 +1,8 @@
 
+ <h1><%= @post.title%> </h2>
+ <p> <%= @post.content%></p>
+
+
 <%= form_for @post.comments.build do |f| %>
    <%=  f.hidden_field :post_id, value: @post.id%>
    leave a comment <%= f.text_field :content%>
@@ -16,6 +20,6 @@
 <% end %>
 
 # categories
-<%@post.categories.each  do |category|%>
+ <%@post.categories.each  do |category|%>
  <%= category.name %>
  <%end%>

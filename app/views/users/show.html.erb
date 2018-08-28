@@ -1,1 +1,4 @@
-Hello
+<%@user.comments.each do |c|%>
+  link_to "Post", @post
+  <a href="/posts/<%= c.post.id %>"><%= c.post.title %> </a>
+<%end%>

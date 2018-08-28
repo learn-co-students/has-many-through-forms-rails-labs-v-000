@@ -20,6 +20,12 @@
 <% end %>
 
 # categories
- <%@post.categories.each  do |category|%>
- <%= category.name %>
- <%end%>
+  <%@post.categories.each  do |category|%>
+  <%= category.name %>
+  <%end%>
+
+  # display you unique users who have commented on the post
+  <ul><% @post.users.uniq.each do |u| %>
+  <li> <a href="/users/<%= u.id %>"> <%= u.username %></a> </li><br>
+  <% end %>
+</ul><br>

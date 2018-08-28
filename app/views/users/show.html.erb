@@ -1,1 +1,6 @@
 
+<h5> link to all of the posts the user commented on</h5>
+
+   <%@user.comments.each do |c|%>
+   <a href="/posts/<%= c.post.id %>"><%= c.post.title %> </a>
+<%end%>

@@ -1,1 +1,44 @@
 
+ <h1><%= @post.title%> </h2>
+ <p> <%= @post.content%></p>
+
+<br>   
+  <h5>Make a Comments: </h5>
+<br> 
+
+<%= form_for @post.comments.build do |f| %>
+  
+   <%=  f.hidden_field :post_id, value: @post.id%>
+   leave a comment <%= f.text_field :content%>
+  
+<br> 
+
+      <% @post.comments.each do |comment|%>
+      <p><%if comment.user %><%= comment.user.username %> says: <%= comment.content %><% end %></p>
+      <% end %>
+      <br>
+
+       <h5> Categories </h5>
+     <br>
+      <%= f.collection_select :user_id, User.all, :id, :username, :include_blank => 'Please Select' %>
+      <%= f.fields_for :user_attributes do |users_fields| %>
+      <%= users_fields.text_field :username %>
+      <% end%>
+      <br>
+
+       <h5> Display category name </h5>
+        <%@post.categories.each  do |category|%>
+        <%= category.name %>
+        <%end%>
+      <br>
+      
+
+        <h5> display you unique users who have commented on the post</h5>
+        <ul><% @post.users.uniq.each do |u| %>
+        <li> <a href="/users/<%= u.id %>"> <%= u.username %></a> </li><br>
+        <% end %>
+      </ul><br>
+
+
+      <%= f.submit %>
+<%end%>

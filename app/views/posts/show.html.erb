@@ -1,1 +1,31 @@
+<h3>Current Post</h3>
+
+<h5><%= @post.title %></h5>
+<h5><%= @post.content %></h5>
+
+Categories:
+<ul>
+  <% @post.categories.each do |category| %>
+    <li><%= category.name %></li>
+  <% end %>
+</ul>
+
+Comments:<br>
+<% @post.comments.each do |comment| %>
+  <% if comment.user %>
+    <%= comment.user.username %> says: <%= comment.content %><br>
+  <% end %>
+<% end %>
+<br>
+
+Users:
+<% @post.users.uniq.each do |user| %>
+  <%= link_to user.username, user_path(user) %>
+<% end %>
+
+<br>
+
+<h3>Add new comment</h3>
+
+<%= render 'comment_form' %>
 

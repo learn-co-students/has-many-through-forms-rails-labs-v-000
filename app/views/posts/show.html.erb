@@ -1,12 +1,28 @@
-
 <h1> <%= @post.title %> </h1>
-
 <p> <%= @post.content %>  </p>
 
 Categories: <br>
 
 <ul>
- <%= @post.categories.each do |c| %>
-  <li><%= c.name %></li>
-<% end %>
+   <% @post.categories.each do |c| %>
+    <li><%= c.name %></li>
+  <% end %>
+</ul>
+
+Comments:
+<ul>
+   <% @post.comments.each do |c| %>
+    <% if c.content %>
+      <li> <%= c.user.username %> says <%= c.content %></li>
+    <% end %>
+  <% end %>
+</ul>
+
+Users:
+<ul>
+   <% @post.users.uniq.each do |u| %>
+      <% if u.username %>
+        <li> <%= link_to u.username, user_path(u) %> </li>
+      <% end %>
+  <% end %>
 </ul>

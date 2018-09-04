@@ -2,23 +2,42 @@
 <p> <%= @post.content %>  </p>
 
 Categories: <br>
-
 <ul>
    <% @post.categories.each do |c| %>
     <li><%= c.name %></li>
   <% end %>
 </ul>
 
-Comments:
+Say something nice: <br>
+<%= form_for @comment do |f| %>
+<% # use the post_id as the foreign key for associations (post and comments)%>
+  <%= f.hidden_field :post_id, value: @post.id %>
+
+  <%= f.label "Comment" %>
+  <%= f.text_field :content %>
+
+  <% #id is the value being passed through as a param %>
+  <%= f.collection_select(:user_id, User.all, :id, :username, include_blank: true)%> <br>
+
+  <% # this is used to associate the post with the user~  %>
+  <%= f.fields_for :user, @post.users.build do |u| %>
+    <%= u.label "New User" %>
+    <%= u.text_field :username %>
+  <% end %>
+
+  <%= f.submit %>
+<% end %> <br>
+
+Comments: <br>
 <ul>
    <% @post.comments.each do |c| %>
-    <% if c.content %>
+    <% if c.user %>
       <li> <%= c.user.username %> says <%= c.content %></li>
     <% end %>
   <% end %>
 </ul>
 
-Users:
+Users: <br>
 <ul>
    <% @post.users.uniq.each do |u| %>
       <% if u.username %>

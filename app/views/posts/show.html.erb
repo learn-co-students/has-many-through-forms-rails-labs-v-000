@@ -2,6 +2,15 @@
 <h1>Post show page</h1>
 <%=@post.title%>
 <%=@post.content%>
+
 <% @post.categories.each do |c| %>
 <%= c.name %>
+<% end %>
+
+<% @post.comments.each do |c|%>
+<%= c.content %>
+<% end %>
+
+<% @post.distinct_users.each do |user| %>
+<%= link_to user.username , user_path(user)%>
 <% end %>

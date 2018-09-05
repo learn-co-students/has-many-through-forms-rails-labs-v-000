@@ -5,7 +5,7 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :users, through: :comments
 
-  # accepts_nested_attributes_for :categories
+  accepts_nested_attributes_for :categories
 
   def categories_attributes=(categories_hash)
     categories_hash.each do |i, category_attributes|
@@ -16,6 +16,10 @@ class Post < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def distinct_users
+    self.users.uniq
   end
 
 end

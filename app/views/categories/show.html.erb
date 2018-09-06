@@ -1,0 +1,9 @@
+<div class=post-content>
+  <p> Category: </p>
+  <%= @category.name %><br>
+  <p> Posts: </p>
+  <% @category.posts.each do |post| %>
+    <%= link_to post.title, post_path(post) %>
+  <% end %>
+</div>
+

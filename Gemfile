@@ -43,5 +43,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'capybara'
   gem 'pry'
+  gem 'pry-rails'
   gem 'database_cleaner'
+  gem 'shotgun'
 end

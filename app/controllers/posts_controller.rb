@@ -4,16 +4,21 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.all
+    @posts = Post.all  #good
   end
 
   def new
-    @post = Post.new
+    @post = Post.new  #good
   end
 
   def create
     post = Post.create(post_params)
-    redirect_to post
+     if post.save
+       redirect_to post
+
+     else
+       render :new
+     end
   end
 
   private

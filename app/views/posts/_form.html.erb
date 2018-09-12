@@ -1,1 +1,60 @@
+<%= form_for post do |f|%>
+  <p>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </p>
 
+  <p>
+    <%= f.label :content %>
+    <%= f.text_area :content%>
+  </p>
+
+  <% # How can I build a checkbox for each category%>
+  <!-- <% Category.all.each do |c| %>
+    <p>
+      <label for="category_id_<%= c.id %>"><%= c.name %></label>
+      <input type="checkbox" name="post[category_ids][]" value="<%= c.id%>" id="category_id_<%= c.id %>">
+    </p>
+  <% end %> -->
+  <% # Create field to create new categories %>
+  <!-- <input type="text" id="post_categories_attributes_0_name" name="post[categories_attributes][0][name]"/> -->
+
+  <% #collection_check_boxes Actionview Helper:  %>
+  <% # collection_check_boxes(object, method, collection, value_method, text_method(label) %>
+  <p>
+    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+    <!--
+        # Above code will generate a checkbox named post[category_ids] for each catrgory in Category.all
+        # it will use the :id as the value for the checkbox
+        # and it will use the :name method as the label for the checkbox
+    -->
+
+    <!-- # If you want to have each category listed in separate lines
+    <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b| %>
+      <p>
+        <%= b.label :class => "whatever" %> #use the class to customize in CSS
+        <%= b.check_box %>
+      </p>
+    <% end %> -->
+
+    <%= f.label "Create a New Category" %>
+    <%= f.fields_for :categories, post.categories.build do |categories_fields| %>
+      <%= categories_fields.text_field :name %>
+    <% end %>
+    <%= f.fields_for :categories do |category_builder| %>
+      <%= category_builder.text_field :name %>
+    <% end %>
+    <!--
+    How does fields_for know if there's any changes to the model class
+      1. f is attached to the post
+      2. the fields_for method looks to see if the obhect (post) attached to f
+        responds to a method called categories_attributes=
+      3a. If the underlying object (post) does not respond to that method,
+        fields_for knows your building a nested form.
+      3b. If the underlying object does not respond to that method, fields_for
+        assumes something custom.
+    -->
+
+  </p>
+    <%= f.submit %>
+<% end %>

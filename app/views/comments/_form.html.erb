@@ -1,4 +1,11 @@
-<%= form_for @post do |f| %>
-
-<% f.submit %>
+<%= binding.pry %>
+<%= form_for @post.comments.build do |f| %>
+  <%= f.text_field :content, placeholder: "Add your comment here!" %><br>
+  <%= f.label "Select your user" %>
+  <%= f.collection_select(:user_id, User.all, :id, :username) %><br>
+  <%= f.label "Create a new user" %>
+  <%= f.fields_for :user, @post.comments.build do |user_fields| %>
+    <%= user_fields.text_field :username %>
+  <% end %>
+  <%= f.submit %>
 <% end %>

@@ -1,3 +1,11 @@
 
 <h1><%=@post.title%></h1>
 <h1><%=@post.content%></h1>
+  <label> Post Comments </label>
+    <ul>
+      <%@post.comments.each do |comment|%>
+
+        <li><%=comment.content %></li>
+        <li><%=link_to User.find(comment.user_id).username, user_path(User.find(comment.user_id)) %></li>
+      <%end%>
+    </ul

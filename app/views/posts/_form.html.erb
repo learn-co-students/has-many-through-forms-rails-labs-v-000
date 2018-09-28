@@ -1,1 +1,10 @@
-
+<%=form_for(@post) do |f|%>
+  <p>Title: <%=f.text_field :title%></p>
+  <p>Content: <%=f.text_area :content%></p>
+  <p>Please choose all that apply:</p>
+  <%=f.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
+  <%=f.fields_for :categories do |cat|%>
+    <p>New Category Name: <%=cat.text_field :name%></p>
+  <%end%>
+  <%=f.submit%>
+<%end%>

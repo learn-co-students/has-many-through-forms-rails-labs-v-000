@@ -1,6 +1,20 @@
 class PostsController < ApplicationController
+  
   def show
     @post = Post.find(params[:id])
+    @array = []
+    @post.comments.each do |comment|
+      @array << comment.user_id
+    end
+    @array = @array.uniq
+
+    if @array != nil
+      @users = []
+      @array.each do |id|
+        @users << User.find(id)
+      end
+    end
+    @comment = Comment.new
   end
 
   def index
@@ -9,6 +23,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @post.categories.build
   end
 
   def create

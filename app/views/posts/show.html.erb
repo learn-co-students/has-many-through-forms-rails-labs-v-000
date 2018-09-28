@@ -4,8 +4,16 @@
   <label> Post Comments </label>
     <ul>
       <%@post.comments.each do |comment|%>
-
-        <li><%=comment.content %></li>
-        <li><%=link_to User.find(comment.user_id).username, user_path(User.find(comment.user_id)) %></li>
+        <li><%= comment.content %></li>
       <%end%>
-    </ul
+    </ul>
+   <label>Users</label>
+    <ul>
+
+      <%@users.uniq.each do |user| %>
+
+      <li><%= user%></li>
+
+
+    <%end%>
+  </ul>

@@ -1,1 +1,7 @@
-<%= render 'form', post: Post.new %>
+
+
+<%=form_for (@post) do |f| %>
+<%=f.label :title %>
+<%=f.text_field :title %>
+<%=f.submit %>
+<%end%>

@@ -3,10 +3,12 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
 
     @users = []
-   @post.comments.each do |comment|
-   @users << User.find(comment.user_id)
-
-   end
+    @post.comments.each do |comment|
+      @user = User.find(comment.user_id)
+      if @users.count(@user) == 0
+      @users << @user
+      end
+    end
   end
 
   def index

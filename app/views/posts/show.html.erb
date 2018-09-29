@@ -13,5 +13,6 @@
   <%=c.label :content %><br>
   <%=c.text_field :content %><br>
   <%=c.collection_select :user_id, User.all, :id, :username %>
+  <%=c.text_field :username %>
   <%=c.submit%>
   <%end%>

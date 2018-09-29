@@ -1,14 +1,14 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
-
-    @users = []
-    @post.comments.each do |comment|
-      @user = User.find(comment.user_id)
-      if @users.count(@user) == 0
-      @users << @user
-      end
-    end
+    @comment = Comment.new
+  #  @users = []
+  #  @post.comments.each do |comment|
+  #    @user = User.find(comment.user_id)
+  #    if @users.count(@user) == 0
+  #    @users << @user
+  #    end
+  #  end
   end
 
   def index
@@ -17,7 +17,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @post.comment.build
+
   end
 
   def create

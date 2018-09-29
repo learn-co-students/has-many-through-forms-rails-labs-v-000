@@ -3,8 +3,5 @@
 <%=form_for (@post) do |f| %>
 <%=f.label :title %><br>
 <%=f.text_field :title %><br>
-  <%=f.fields_for :comment do |c| %>
-  <%=c.label :comment_content %><br>
-  <%=c.text_field :comment_content %><br>
 <%=f.submit %>
 <%end%>

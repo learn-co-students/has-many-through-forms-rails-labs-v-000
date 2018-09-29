@@ -1,1 +1,47 @@
 
+<div class=post-content>
+  <h2>Title: <%= @post.title %> </h2>
+  <h3>Content: <%= @post.content %> </h3>
+  <h4>Categories: </h4>
+  <ul>
+  <% @post.categories.each do |category| %>
+    <li><%= category.name %></li>
+  <% end %>
+  </ul>
+  <h4>Comments: </h4>
+  <ul>
+  <% @post.comments.each do |comment| %>
+    <li><%= comment.user.username %> says: <%= comment.content %></li>
+  <% end %>
+  </ul>
+  <h4>Commentors: </h4>
+  <ul>
+  <% commentors = @post.users.uniq %>
+  <% commentors.each do |commentor| %>
+    <li><%= link_to commentor.username, user_path(commentor) %></li>
+  <% end %>
+  </ul>
+</div>
+
+<%= form_for @comment do |f| %>
+  <label><b>New Comment:</b></label><br>
+  <%= f.label "Content" %>
+  <%= f.text_area :content %> <br><br>
+  <%= hidden_field(:comment, :post_id, :value => @post.id) %>
+
+<!--
+    <%= f.fields_for :comments, @post.comments.build do |comments_attributes| %>
+    <%= comments_attributes.text_field :content %><br><br> -->
+  <b>Commentor: </b><br>
+  Choose a current user:
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'New' %>
+  <% end %><br>
+  -or- <br>
+  Create a new user: <br>
+  <%= f.fields_for :user, @comment.user do |user_attributes| %>
+    Username: <%= user_attributes.text_field :username %>
+    Email: <%= user_attributes.text_field :email %>
+    <!-- <%= hidden_field(:user, :comment_id, :value => @comment.id) %> -->
+  <% end %><br>
+  <%= f.submit %>
+<% end %>

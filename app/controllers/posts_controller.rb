@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
-    @comment = Comment.new
+  #  @comment = Comment.new
   #  @users = []
   #  @post.comments.each do |comment|
   #    @user = User.find(comment.user_id)
@@ -9,6 +9,7 @@ class PostsController < ApplicationController
   #    @users << @user
   #    end
   #  end
+  
   end
 
   def index

@@ -9,10 +9,13 @@
     </ul>
 
 
-  <%=form_for @comment do |c| %>
+  <%=form_for @post.comments.build do |c| %>
   <%=c.label :content %><br>
   <%=c.text_field :content %><br>
   <%=c.collection_select :user_id, User.all, :id, :username %>
-  <%=c.text_field :username %>
+
+  <%=c.fields_for :user, @post.comments.last.build_user do |u| %>
+  <%=u.text_field :username %>
+    <%end%>
   <%=c.submit%>
   <%end%>

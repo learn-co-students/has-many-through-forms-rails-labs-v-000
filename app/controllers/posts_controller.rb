@@ -9,7 +9,7 @@ class PostsController < ApplicationController
   #    @users << @user
   #    end
   #  end
-  
+
   end
 
   def index
@@ -29,6 +29,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
+    params.require(:post).permit(:title, :content, user_attributes: [:username], category_ids:[], categories_attributes: [:name])
   end
 end

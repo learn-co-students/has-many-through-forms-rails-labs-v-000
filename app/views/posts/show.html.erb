@@ -2,19 +2,16 @@
 <h1><%=@post.title%></h1>
 <h1><%=@post.content%></h1>
   <label> Post Comments </label>
-    <ul>
-      <%@post.comments.each do |comment|%>
-    
-        <li><%= comment.user.username %> says: <%= comment.content %></li>
-      <%end%>
-    </ul>
 
+      <%@post.comments.each do |comment|%>
+      <p> <% if comment.user %><%= comment.user.username %> says: <%= comment.content %><% end %></p>
+      <% end %>
 
   <%=form_for @post.comments.build do |c| %>
   <%=c.label :content %><br>
   <%=c.text_field :content %><br>
   <%=c.collection_select :user_id, User.all, :id, :username %>
-  <%= c.hidden_field :post_id %>
+  <%= c.hidden_field :post_id, value: @post.id %>
   <%=c.fields_for :user, @post.comments.build.build_user do |u| %>
   <%=u.text_field :username %>
   <%=u.text_field :email %>

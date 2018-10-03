@@ -1,7 +1,9 @@
 class PostsController < ApplicationController
   def show
+
     @post = Post.find(params[:id])
-  #  @comment = Comment.new
+    @comment = Comment.new
+    @comment.build_user
   #  @users = []
   #  @post.comments.each do |comment|
   #    @user = User.find(comment.user_id)
@@ -18,6 +20,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @post.categories.build
 
   end
 

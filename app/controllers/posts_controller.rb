@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+		@users = @post.users
+		@users = @users.uniq { |usr| usr.username}.sort { |x, y| x.username <=> y.username}
   end
 
   def index
@@ -12,6 +14,8 @@ class PostsController < ApplicationController
   end
 
   def create
+		#raise params.inspect
+		#binding.pry
 		post = Post.create(post_params)
     redirect_to posts_path
   end
@@ -40,6 +44,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, category_ids:[], comments_attributes: [:content, :user_id])
+    params.require(:post).permit(:title, :content, category_ids:[], comments_attributes: [:content, :user_id], categories_attributes: [:name])
   end
 end

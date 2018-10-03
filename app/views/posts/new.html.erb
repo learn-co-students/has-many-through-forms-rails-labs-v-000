@@ -6,7 +6,11 @@
   <br></br>
 	<h2>Select A Category</h2>
 	<%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
-
+	<br></br>
+	<%= f.fields_for :categories, @post.post_categories.new.build_category do |category_fields| %>
+    <%= category_fields.text_field :name %>
+  <% end %>
+	<br></br>
   <%= f.submit 'Create Post' %>
 <% end %>
 

@@ -1,0 +1,8 @@
+<h1>Post List</h1>
+<% @posts.each do |post| %>
+	<h2><%= "Post Title: #{post.title} - Post Content: #{post.content}" %></h2>
+	<h3>Post-Category List</h3>
+	<% post.categories.each do |category| %>
+		<p><%= "#{category.name}" %></p>
+	<% end %>
+<% end %>

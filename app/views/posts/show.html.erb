@@ -1,1 +1,33 @@
+<%= form_for @post do |f| %>
+	<h1><%= @post.title %></h1>
+	<h2><%= @post.content %></h2>
 
+  <%= f.label "Title" %>
+  <%= f.text_field :title %><br></br>
+  <%= f.label "Content" %>
+  <%= f.text_area :content %><br></br>
+	<br></br>
+	<p>Comments</p>
+	<% @post.comments.each do |comment| %>
+		<p><%= "#{comment.user.username} says: #{comment.content}" %></p>
+	<% end %>
+	<br></br>
+
+  <%= f.fields_for :comments, @post.comments.build do |comments_fields| %>
+    <%= comments_fields.text_field :content, id: 'comment_content' %>
+		<p>Username: <%= comments_fields.collection_select :user_id, User.all, :id, :username, {}, id: 'comment_user_id' %></p>
+	<% end %>
+		
+	<%= f.fields_for :users, @post.comments.last.build_user do |users_fields| %>
+		<p>New User: <%= users_fields.text_field :username, id: 'comment_user_attributes_username' %></p>
+	<% end %>
+	
+	<h2>Username List</h2>
+	<ul>
+		<% @users.each do |usr| %>
+			<li><%= link_to usr.username, user_path(usr) %></li>
+		<% end %>
+	</ul>
+
+  <%= f.submit 'Create Comment' %>
+<% end %>

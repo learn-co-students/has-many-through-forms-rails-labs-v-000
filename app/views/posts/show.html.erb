@@ -13,6 +13,11 @@
   <%= f.fields_for :comments, @post.comments.build do |comments_fields| %>
     <%= comments_fields.text_field :content, id: 'comment_content' %>
 		<p>Username: <%= comments_fields.collection_select :user_id, User.all, :id, :username, {}, id: 'comment_user_id' %></p>
-  <% end %>
+	<% end %>
+		
+	<%= f.fields_for :users, @post.comments.last.build_user do |users_fields| %>
+		<p>New User: <%= users_fields.text_field :username, id: 'comment_user_attributes_username' %></p>
+	<% end %>
+
   <%= f.submit 'Create Comment' %>
 <% end %>

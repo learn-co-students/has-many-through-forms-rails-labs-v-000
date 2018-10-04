@@ -20,18 +20,19 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @post.categories.build
+  @post.categories.build
 
   end
 
   def create
     post = Post.create(post_params)
+
     redirect_to post_path(post)
   end
 
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, user_attributes: [:username], category_ids:[], categories_attributes: [:name])
+    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
   end
 end

@@ -1,0 +1,8 @@
+<h1><%= @category.name %> Page</h1>
+<p>This page links to all of the posts associated with a given category.</p>
+
+<ul>
+    <% @category.posts.each do |post| %>
+        <li><%= link_to post.title, post %></li>
+    <% end %>
+</ul>

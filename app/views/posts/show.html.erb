@@ -1,1 +1,25 @@
+<h3>Post Title:</h3> <%= @post.title %> <br>
+<h3>Post Content:</h3> <%= @post.content %> <br>
+<% @post.categories.each do |category| %> 
+    <%= category.name %>
+<% end %>
+<ul>
 
+<% @post.comments.each do |comment| %>
+    <%= comment.user.username %> says: <br>
+    <%= comment.content %> <br>
+    <%= link_to comment.user.username, user_path(comment) %>
+<% end %>
+</ul>
+Comment as existing user:
+<% comment = @post.comments.build %>
+<%= form_for comment do |f| %>
+    <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
+    <%= f.fields_for :user, comment.build_user do |user_attributes|  %>
+        <%= user_attributes.text_field :username %>
+    <% end %>
+    <%= f.hidden_field :post_id %>
+    <%= f.text_area :content %>
+    
+    <%= f.submit %>
+<% end %>

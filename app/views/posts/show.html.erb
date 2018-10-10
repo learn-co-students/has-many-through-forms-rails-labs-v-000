@@ -12,16 +12,15 @@
 <p><%= @post.content %></p>
 
 <h4>Comments:</h4>
+
 <% @post.comments.each do |comment| %>
-  <%= link_to comment.user.username, user_path(comment.user) %> says: <%= comment.content %><br>
+  <%= comment.user.username %> says: <%= comment.content %><br>
 <% end %>
 
 <h4>Users who commented:</h4>
-<%-# if @post.comments.any? %>
-  <%-# @post.comment_users.each do |user| %>
-    <%-# link_to user.username, user_path(user) %>
-  <%-# end %>
-<%-# end %>
+  <% @post.users.uniq.each do |user| %>
+    <%= link_to user.username, user_path(user) %><br>
+  <% end %>
 
 <h4>Leave a comment:</h4>
 

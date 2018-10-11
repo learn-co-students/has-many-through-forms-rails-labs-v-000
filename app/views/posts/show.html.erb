@@ -10,6 +10,10 @@
   <%= comment.content %>
 <% end %>
 
+<% @post.comments.each do |comment| %>
+  <%= comment.user.username %> says: <%= comment.content %>
+<% end %>
+
 <% array_user = [] %>
 <% @post.comments.each do |comment| %>
 <% array_user << comment.user %>
@@ -19,6 +23,8 @@
   <%= user.username %>
   <%= link_to user.username, user_path(user) %>
 <% end %>
+
+
 
 <%= form_for @post.comments.build do |f| %>
 

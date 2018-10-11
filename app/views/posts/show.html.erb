@@ -2,25 +2,21 @@
 <h1><%= @post.title %></h1>
 <h2><%= @post.content %></h2>
 
+<p>
 <% @post.categories.each do |cat| %>
   <%= cat.name %>
 <% end %>
+</p>
 
+<ul>
 <% @post.comments.each do |comment| %>
-  <%= comment.content %>
+  <li><% if comment.user %><%= comment.user.username %> says: <%= comment.content %><% end %>
 <% end %>
+</ul>
 
-<% @post.comments.each do |comment| %>
-  <%= comment.user.username %> says: <%= comment.content %>
-<% end %>
 
-<% array_user = [] %>
-<% @post.comments.each do |comment| %>
-<% array_user << comment.user %>
-<% end %>
-
-<% array_user.uniq.each do |user| %>
-  <%= user.username %>
+<% @post.users.uniq.each do |user| %>
+  <% user.username %>
   <%= link_to user.username, user_path(user) %>
 <% end %>
 
@@ -32,7 +28,7 @@
   <%= f.label "Content" %>
   <%= f.text_area :content %>
   <%= f.collection_select :user_id, User.all, :id, :username, :include_blank => ' ' %>
-  <%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
+  <%= f.fields_for :user, @post.users.build do |user_fields| %>
     <%= user_fields.text_field :username %>
   <% end %>
 

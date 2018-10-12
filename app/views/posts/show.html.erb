@@ -10,11 +10,11 @@ Categories:<br>
 </ul>
 
 Comments:<br>
-<ol>
+<ul>
   <% @post.comments.each do |c| %>
-  <li><%= c.user.username %> says: <%= c.content %></li>
+    <li><%= c.user.username %> says: <%= c.content %></li>
   <% end %>
-</ol>
+</ul>
 
 Commenters:<br>
 <ul>

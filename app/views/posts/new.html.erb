@@ -1,1 +1,9 @@
-<%= render 'form', post: Post.new %>
+<%= form_for @post do |f| %>
+  <%= f.text_field :title %>
+  <%= f.text_field :content %>
+  <%= f.collection_select :category_ids, Category.all, :id, :name %>
+  <%= f.fields_for :categories_attributes do |f| %>
+    <%= f.text_field :name %>
+  <% end %>
+  <%= f.submit %>
+<% end %>

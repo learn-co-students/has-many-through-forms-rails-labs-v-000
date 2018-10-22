@@ -4,7 +4,7 @@ class Comment < ActiveRecord::Base
   accepts_nested_attributes_for :user, reject_if: :reject_user
 
   def reject_user(attributes)
-    attributes['user']['username'].blank?
+    attributes[:username].blank?
   end
 
 end

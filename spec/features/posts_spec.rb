@@ -25,6 +25,7 @@ describe 'Posts', type: 'feature' do
     it 'can create a post with a brand new category' do
       fill_in('post_categories_attributes_0_name', :with => 'Funny')
       click_button('Create Post')
+      
       expect(page).to have_content('Funny')
     end
 

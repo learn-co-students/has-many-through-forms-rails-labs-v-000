@@ -1,3 +1,26 @@
-<h1>Post: <% @post.title %></h1>
+<h1><%= @post.title %></h1>
+<em><%= @post.content %></em>
+
+<hr />
+
+<h2>Comments:</h2>
+<% @post.comments.each do |c| %>
+    <%= c.content %>
+    <br /><br />
+<% end %>
+
+<hr />
+
+<h2>Users:</h2>
+
+<!--
+<%= form_for comment do |f| %>
+    <%= f.label "Content" %>
+    <%= f.text_area :content %>
+<% end %>
+-->
+
+
+
 
 

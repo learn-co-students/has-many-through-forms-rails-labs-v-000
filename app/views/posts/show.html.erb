@@ -12,6 +12,7 @@
 
 <label>Comments:</label>
   <% @post.comments.each do |comment|  %>
+        <%= comment.user.username %> says:
         <%= comment.content %>
   <%end%>
 

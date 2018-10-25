@@ -1,29 +1,31 @@
 <h1>Title: <%= @post.title %></h1>
 <p>Content: <%= @post.content %></p>
 <p>Categories: <ul>
-	<%= @post.categories.each do |c| %>
+	<% @post.categories.each do |c| %>
 		<li><%= c.name %>
 	<% end %>
 	</ul>
-<ul>
-	<%= @post.comments.uniq.each do |com| %>
-		<li> <% link_to com.user.username, user_path(com.user) %></li>
-	<% end %>
-</ul>
+
+	<% @post.comments.each do |comment| %>
+		<li><%= comment.user.username %> says: <%= comment.content %>
+	 <% end %>
+	 
+	 <%= @post.users.uniq.each do |user|  %>
+	   <%= link_to user.username, user_path(user)%>
+	 <% end %>
 
 </ul>
-<h3>Add a Comment</h3>
-<%= form_for @post.comments.build do |f| %>
+<%= form_for @comment do |f| %>
+  <%= f.label :user %>
+  <%= f.collection_select :user_id, User.all.uniq, :id, :username, include_blank: true %><br>
 
- <%= f.label :content, "Comment:" %>
- <%= f.text_field :content %>
- <%= f.hidden_field :post_id %>
- <br>
- <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Who Are You?' %>
- or <%= f.label :user, "Add Yourself" %>
- <%= f.fields_for :user, @post.comments.last.build_user do |user| %>
-   <%= user.text_field :username %>
+  <% f.fields_for :user, User.new do |user_attributes| %>
+  	<%= user_attributes.label :username %>
+  	<%= user_attributes.text_field :username %>
   <% end %>
 
- <%= f.submit %>
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.submit %>
 <% end %>

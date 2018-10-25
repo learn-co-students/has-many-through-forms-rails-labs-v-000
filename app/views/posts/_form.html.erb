@@ -1,1 +1,14 @@
-
+<%= form_for @post do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %><br />
+  <%= f.label :content %>
+  <%= f.text_area :content %><br />
+  <%= f.label :category %>
+  <%= collection_check_boxes :post, :category_ids, Category.all, :id, :name %><br />
+  <%= f.label "New Category:" %>
+  <%= f.fields_for :categories, @post.categories do |category_fields| %>
+    <%= category_fields.label :name %>
+    <%= category_fields.text_field :name %>
+  <% end %>
+  <%= f.submit %>
+<% end %>

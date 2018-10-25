@@ -11,4 +11,22 @@ class Post < ActiveRecord::Base
       self.categories << category
     end
   end
+
+  def users_that_commented
+    user_ids = []
+    users = []
+
+    comments = Comment.where("post_id = ?", self.id)
+
+    comments.each do |c|
+      if !user_ids.include?(c.user_id)
+        user_ids << c.user_id
+      end
+    end
+
+    user_ids.each do |u|
+      users << User.find(u)
+    end
+    users
+  end
 end

@@ -12,13 +12,12 @@
 <hr />
 
 <h2>Users:</h2>
-
-<!--
-<%= form_for comment do |f| %>
-    <%= f.label "Content" %>
-    <%= f.text_area :content %>
+<% @post.users_that_commented.each do |u| %>
+    <p>
+        <%= link_to u.username, user_path(u) %>
+    </p>
 <% end %>
--->
+
 
 
 

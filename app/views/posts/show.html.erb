@@ -1,1 +1,33 @@
+<!-- # app/views/posts/show.html.erb -->
 
+<h1><%= @post.title %></h1>
+
+<p><%= @post.content %></p>
+
+<p>Category:</p>
+<ul>
+  <% @post.categories.each do |category| %>
+    <li>
+      <%= link_to category.name, category_path(category) %>
+    </li>
+  <% end %>
+</ul>
+
+<p>Users:</p>
+<ul>
+  <% @post.users.uniq.each do |user| %>
+    <li>
+      <%= link_to user.username, user_path(user) %>
+    </li>
+  <% end %>
+</ul>
+
+<p>Comments:</p>
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li>
+      <%= comment.user.username %>:
+      <%= comment.content %>
+    </li>
+  <% end %>
+</ul>

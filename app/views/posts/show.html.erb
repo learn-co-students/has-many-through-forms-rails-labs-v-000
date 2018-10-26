@@ -1,10 +1,9 @@
 <!-- # app/views/posts/show.html.erb -->
 
 <h1><%= @post.title %></h1>
-
 <p><%= @post.content %></p>
 
-<p>Category:</p>
+<h3>Category:</h3>
 <ul>
   <% @post.categories.each do |category| %>
     <li>
@@ -13,7 +12,7 @@
   <% end %>
 </ul>
 
-<p>Users:</p>
+<h3>Users who commented:</h3>
 <ul>
   <% @post.users.uniq.each do |user| %>
     <li>
@@ -22,12 +21,14 @@
   <% end %>
 </ul>
 
-<p>Comments:</p>
+<h3>Existing comments:</h3>
 <ul>
   <% @post.comments.each do |comment| %>
     <li>
-      <%= comment.user.username %>:
+      <%= comment.user.username %> says:
       <%= comment.content %>
     </li>
   <% end %>
 </ul>
+
+<%= render 'add_comment_form' %>

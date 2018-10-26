@@ -2,6 +2,8 @@ class CommentsController < ApplicationController
 
   def create
     comment = Comment.create(comment_params)
+     user = User.find_or_create_by(username: params[:username])
+    comment.user == user
     redirect_to comment.post
   end
 

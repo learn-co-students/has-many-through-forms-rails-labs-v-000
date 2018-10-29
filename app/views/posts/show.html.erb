@@ -1,1 +1,30 @@
 
+<div class=post-content>
+  <h1><%= @post.title %></h1>
+  <p><%= @post.content %></p>
+
+Categories<br>
+  <% @post.categories.each do |category| %>
+    <%= category.name %>
+  <% end %>
+
+  <% @post.users.each do |user|%>
+    <a href="users/<%=user.username%>"><%=user.username%></a>
+  <%end%>
+
+  <% @post.comments.each do |comment|%>
+    <%= comment.content %>
+
+    <%end%>
+    <a href="/users/1">RealBigFish</a>
+
+  <%= form_for(@post) do |f| %>
+    <%= f.fields_for :comments do |comment| %>
+    <li>
+      <%= comment.text_field :content %>
+    </li>
+    <% end %>
+    <%= link_to 'add comment', @post %>
+  <%end%>
+
+</div>

@@ -1,7 +1,11 @@
 class CommentsController < ApplicationController
 
+  def new
+    @comment. Comments.new
+  end
+
   def create
-    comment = Comment.create(comment_params)
+    comment = Comments.create(comment_params)
     redirect_to comment.post
   end
 

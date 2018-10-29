@@ -12,7 +12,11 @@ class Post < ActiveRecord::Base
     end
   end
 
-  def users_that_commented
+  def commentors #Better method of users_that_commented
+    self.comments.collect{|comment| comment.user}.uniq
+  end
+
+  def users_that_commented    
     user_ids = []
     users = []
 

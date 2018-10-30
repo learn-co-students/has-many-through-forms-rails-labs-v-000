@@ -1,4 +1,7 @@
 <h1><%= @post.title %></h1><br />
+<% @post.categories.each do |category| %>
+  <%= category.name %>
+<% end %>
 
 <p><%= @post.content %></p><br />
 
@@ -7,7 +10,18 @@
 <% end %>
 <br></br>
 
-<% @post.users.each do |user| %>
+<p>Post a Comment:</p>
+<%= form_for @comment do |f| %>
+ <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.text_area :content %><br />
+  <%= f.label "Username" %><br />
+  <%= f.collection_radio_buttons :user_id, User.all, :id, :username, prompt: true %><br />
+  <%= f.submit %>
+<% end %>
 
-  <%= link_to user.username, user_path(user) %>
+
+<% @post.users.uniq.each do |user| %>
+  <ul>
+    <li><%= link_to user.username, user_path(user) %></li>
+  </ul>
 <% end %>

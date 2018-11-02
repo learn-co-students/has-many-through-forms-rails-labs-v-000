@@ -6,18 +6,29 @@
 <p><%= @post.content %></p><br />
 
 <% @post.comments.each do |comment| %>
-  <%= comment.content %>
+  <% if comment.user %>
+  <%= comment.user.username %> says: <%= comment.content %>
+  <% end %>
 <% end %>
 <br></br>
 
 <p>Post a Comment:</p>
-<%= form_for @comment do |f| %>
+<%= form_for @post.comments.build do |f| %>
  <%= f.hidden_field :post_id, value: @post.id %>
+
   <%= f.text_area :content %><br />
+
   <%= f.label "Username" %><br />
-  <%= f.collection_radio_buttons :user_id, User.all, :id, :username, prompt: true %><br />
+  <%= f.collection_select :user_id, User.all, :id, :username %><br />
+
+  <%= f.fields_for :users, @post.users.build do |user_attributes| %>
+    <%= user_attributes.text_field :username %>
+  <% end %>
+
   <%= f.submit %>
 <% end %>
+
+
 
 
 <% @post.users.uniq.each do |user| %>

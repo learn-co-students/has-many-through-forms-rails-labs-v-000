@@ -1,0 +1,25 @@
+<!-- # app/views/Comments/_comment_form.html.erb -->
+<fieldset>
+  <legend>Add Comment:</legend>
+
+  <%= form_for @comment do |f| %>
+    <%= f.hidden_field :post_id, value: @post.id %>
+
+    <%= f.label :content %>:
+    <%= f.text_area :content %><br />
+
+    <%= f.label :user %>:
+    <%= f.collection_select(:user_id, User.all, :id, :username, prompt: true) %><br />
+
+    <%= f.label :new_user %>:
+    <%= f.fields_for :user, @comment.build_user do |user_builder| %>
+      <%= user_builder.label :username %>:
+      <%= user_builder.text_field :username%>
+
+      <%= user_builder.label :email %>:
+      <%= user_builder.text_field :email%>
+    <% end %><br />
+
+    <%= f.submit %>
+  <% end %>
+</fieldset>

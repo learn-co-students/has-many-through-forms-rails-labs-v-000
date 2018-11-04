@@ -6,6 +6,8 @@ We've looked at setting up the associations behind posts with comments, categori
 
 
 ## Objectives
+posts have many categories
+categories have many posts
 
 1. Construct a bi-directional has many through.
 2. Identify the join model in a has many through.

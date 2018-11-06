@@ -13,20 +13,19 @@
 <br></br>
 
 <p>Post a Comment:</p>
-<%= form_for @post.comments.build do |f| %>
- <%= f.hidden_field :post_id, value: @post.id %>
 
-  <%= f.text_area :content %><br />
-
-  <%= f.label "Username" %><br />
-  <%= f.collection_select :user_id, User.all, :id, :username %><br />
-
-
-
-  <%= f.submit %>
+<%= form_for @post.comments.build do |comments_fields| %>
+<%= comments_fields.label :user %><br>
+<%= comments_fields.collection_select :user_id, User.all, :id, :username, {:include_blank => true} %><br>
+<p>Create a New User:</p>
+<%= comments_fields.fields_for :user, @post.comments.last.build_user do |user_fields| %>
+<%= user_fields.text_field :username %><br>
 <% end %>
-
-
+<%= comments_fields.label :content %><br>
+<%= comments_fields.text_area :content %><br>
+<%= comments_fields.hidden_field :post_id %>
+<%= comments_fields.submit %>
+<% end %>
 
 
 <% @post.users.uniq.each do |user| %>

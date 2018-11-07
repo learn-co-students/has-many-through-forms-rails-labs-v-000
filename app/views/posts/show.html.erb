@@ -22,8 +22,13 @@
 <% end %>
 
 <h2>Create a Comment</h2>
-<%= @post.users.uniq.each do |user| %>
-  <ul>
-    <li><%= link_to(user.username, user) %></li>
-  </ul>
+<%= form_for @comment do |f| %>
+  <%= f.text_area :content %><br>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "Choose a User" %><br>
+  Create a User to Write As:
+    <%= f.fields_for :user do |user_fields| %><br>
+      Username: <%= user_fields.text_field :username %>
+      Email: <%= user_fields.text_field :email %>
+    <% end %>
+  <%= f.submit %>
 <% end %>

@@ -9,7 +9,9 @@
 
 <h2>Comments</h2>
 <%= @post.comments.each do |comment| %>
-  <li><%=  %></li>
+  <ul>
+    <li><%= comment.user.username %> says: <%= comment.content %></li>
+  </ul>
 <% end %>
 
 <%= @post.users.uniq.each do |user| %>

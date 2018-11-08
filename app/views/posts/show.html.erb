@@ -4,8 +4,8 @@
 
 <h3>Categories:</h3>
 <ul>
-  <% @post.categories.each do |c| %>
-    <li><%= c.name.capitalize %></li>
+  <% @post.categories.each do |category| %>
+    <li><%= link_to category.name.capitalize, category_path(category) %></li>
   <% end %>
 </ul>
 

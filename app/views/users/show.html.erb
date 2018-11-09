@@ -1,1 +1,6 @@
 
+<%=@user.username%> has commented on these posts:
+<br>
+<ul><% @user.posts. each do |post| %>
+  <li><%= link_to post.title, post_path(post) %></li>
+<% end %></ul>

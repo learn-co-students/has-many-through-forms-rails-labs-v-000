@@ -17,13 +17,21 @@ Comments:
 
 
 Add a Comment:
-<%= form_for @comment do |f| %>
+<%= form_for @post.comments.build do |f| %>
   <%= f.hidden_field :post_id, value: @post.id %>
-  <%= f.label "Comment" %>
+
+  Comment:
+  <%= f.label :content %>
   <%= f.text_area :content %>
+  <br>
   by:
-  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
-  or write in username:
-  <%= f.text_field :username %>
+  <%= f.fields_for :user, @post.users.build do |user_fields| %>
+
+    <%= f.label "new user" %>
+    <%= user_fields.text_field :username %><br>
+
+    <%= f.label "existing user" %>
+    <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
+  <%end%>
   <%= f.submit %>
 <% end %>

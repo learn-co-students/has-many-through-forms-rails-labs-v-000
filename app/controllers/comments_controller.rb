@@ -2,8 +2,16 @@
 class CommentsController < ApplicationController
 
   def create
-    comment = Comment.create(comment_params)
-    redirect_to comment.post
+    if !params[:comment][:user_id].empty?
+      @user = User.find(params[:comment][:user_id])
+      @comment = Comment.create(content: params[:comment][:content], user_id: @user.id, post_id: params[:comment][:post_id])
+    elsif
+      params[:comment][:user_id].empty?
+      @user = User.new(username: params[:comment][:user_attributes][:username])
+      @user.save
+      @comment = Comment.create(content: params[:comment][:content], user_id: @user.id, post_id: params[:comment][:post_id])
+    end
+    redirect_to post_path(params[:comment][:post_id])
   end
 
   private

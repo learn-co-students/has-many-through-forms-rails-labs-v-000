@@ -24,6 +24,6 @@ Add a Comment:
   by:
   <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
   or write in username:
-  <%= f.text_field :user %>
+  <%= f.text_field :username %>
   <%= f.submit %>
 <% end %>

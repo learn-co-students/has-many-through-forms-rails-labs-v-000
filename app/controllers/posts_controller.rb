@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    # @comment = Comment.new
   end
 
   def index
@@ -9,23 +10,21 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    3.times do
-      @post.categories.build
-    end
+    @post.categories.build
 
   end
 
   def create
-    post = Post.create(post_params)
-    redirect_to post
+    @post = Post.create(post_params)
+    redirect_to post_path(@post)
   end
 
   private
 
   def post_params
     params.require(:post).permit(
-      :title, 
-      :content, 
+      :title,
+      :content,
       :category_ids => [],
       :categories_attributes => [:name]
       )

@@ -7,3 +7,41 @@ Categories:<br>
         <li><%=c.name%></li>
     <%end%>
 </ul>
+
+All comments:<br>
+<ul>
+    <%@post.comments.each do |c| %>
+        <li><%=c.user.username%> says: <%=c.content%></li>
+    <%end%>
+</ul>
+
+
+Users commented:<br>
+<ul>
+    <%@post.users.uniq.each do |u| %>
+        <li><%=link_to u.username, user_path(u) %></li>
+    <%end%>
+</ul>
+
+<!-- COMMENT FORM -->
+
+<%=form_for(@post.comments.build) do |f|%>
+
+  <%= f.hidden_field :post_id, :value => @post.id %><br> 
+
+    <p>Comment: <%=f.text_field :content%></p>
+
+    <p>User: <%=f.collection_select(:user_id, User.all, :id, :username, {include_blank: true})%></p>
+
+    <!-- Is there another way to assign the user_id to the comment below?
+    <input type="hidden" name="comment[post_id]" value="<%#=@post.id%>">-->
+
+    <%# creates a comment and a new user %>
+    <%= f.fields_for :users, @post.users.build do |user_fields| %>
+      <%=user_fields.label "New user:"%>
+      <%=user_fields.text_field :username %>
+    <%end%>
+
+
+    <%= f.submit "Create Comment"%>
+<%end%>

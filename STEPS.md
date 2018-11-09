@@ -9,12 +9,24 @@ STEPS:
 
 
 
-post_spec
-categories_spec
+post_spec DONE
+categories_spec DONE
 comments_spec
 user_spec
 
 1. POST MODEL
 2. CATEGORY MODEL
 3. POST CONTROLLER
-4. POSTS/NEW
+4. POSTS/NEW\
+
+
+
+
+
+
+
+    <%# creates a comment and a new user %>
+    <%= f.fields_for :users do |user_fields| %>
+      <%=user_fields.label "New user:"%>
+      <%=user_fields.text_field :username %>
+    <%end%>

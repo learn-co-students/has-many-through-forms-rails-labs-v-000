@@ -11,10 +11,16 @@
   <% end %>
 </ul>
 <h3>New Comment:</h3>
-<%= form_for @comment do |f| %>
+<%= form_for Comment.new do |f| %>
   <%= f.hidden_field :post_id, value: @post.id %>
   <%= f.text_area :content %>
   <%= collection_select :comment, :user_id, User.all, :id, :username, include_blank: true %>
   <%= f.label "New User" %>
+  <%= f.fields_for :user do |usr| %>
+    <%= usr.label :username %>
+    <%= usr.text_field :username %><br>
+    <%= usr.label :email %>
+    <%= usr.text_field :email %><br>
+  <% end %>
   <%= f.submit %>
 <% end %>

@@ -1,6 +1,10 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new
+    # @comment.user.build(username: 'username')
+    @unique=[]
+    @post.comments.each{|c| @unique << c.user if !(@unique.include?(c.user))}
   end
 
   def index
@@ -9,6 +13,8 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @post.categories.build(name: 'category')
+
   end
 
   def create

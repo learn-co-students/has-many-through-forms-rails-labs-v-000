@@ -1,1 +1,16 @@
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>
+  <ul>
+    <% @post.comments.each do |c| %>
+      <li><%= c.content %></li>
+      
+    <% end %>
+  </ul>
 
+
+<%= form_for @post do |f| %>
+  <%= f.fields_for :comment, @post.comments.build do |comments_fields| %>
+    <%= comments_fields.text_field :content %>
+  <% end %>
+  <%= f.submit %>
+<% end %>

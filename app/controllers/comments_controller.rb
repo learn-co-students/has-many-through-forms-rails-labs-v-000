@@ -1,6 +1,8 @@
 class CommentsController < ApplicationController
 
   def create
+    # binding.pry
+    # raise params.inspect
     comment = Comment.create(comment_params)
     redirect_to comment.post
   end

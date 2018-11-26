@@ -26,6 +26,10 @@
 
   <div class="new_comment">
     <p>New Comment:</p>
-
-
+      <%= form_for @post.comments.build do |f| %>
+      <%= f.hidden_field :post_id, :value => @post.id %><br>
+        Comment: <%= f.text_area :content %><br><br>
+        User: <%= f.collection_check_boxes :user_id, User.all, :id, :username %>
+        <%= f.submit %>
+      <% end %>
   </div>

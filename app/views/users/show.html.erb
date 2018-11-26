@@ -1,1 +1,9 @@
+<h2>Posts that <%= @user.username %> has commented on: <h2>
 
+<ul>
+  <% @user.comments.each do |comment| %>
+    <li>
+      <%= link_to comment.post.title, post_path(comment) %>
+    </li>
+  <% end %>
+</ul>

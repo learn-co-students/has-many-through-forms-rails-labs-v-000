@@ -1,5 +1,12 @@
 <h1> <%= @post.title %> </h1>
-<p><%= @post.content %></p><br><br>
+  <p><%= @post.content %></p><br><br>
+  <div class="post_categories">
+    <ul>
+      <% @post.categories.each do |c| %>
+      <li><%= c.name %></li>
+      <% end %>
+    </ul>
+  </div>
 <div id="comment_section">
   <p>Comments:</p>
     <ul>
@@ -20,5 +27,5 @@
   <div class="new_comment">
     <p>New Comment:</p>
 
-    
+
   </div>

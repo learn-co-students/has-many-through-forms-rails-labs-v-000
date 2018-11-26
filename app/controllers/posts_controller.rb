@@ -1,6 +1,11 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    @comments = @post.comments.all
+    @users = []
+      @comments.each do |c|
+        @users << c.user unless @users.include?(c.user)
+      end
   end
 
   def index

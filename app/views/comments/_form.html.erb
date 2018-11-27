@@ -1,0 +1,15 @@
+<%= form_for([@post, @post.comments.build]) do |f| %>
+<p>
+  <%= f.label "Username" %>
+  <%= f.collection_check_boxes :user_ids, User.all, :id, :username %><br>
+  New user:
+  <%# <input type ="text" id ="comment_user" name="comment[user][username]" value="user_id"> %>
+  <%= f.text_field :username %>
+<p>
+  <%= f.label "Comment" %>
+  <%= f.text_area :content %>
+</p>
+<p>
+  <%= f.submit %>
+</p>
+<% end %>

@@ -1,1 +1,38 @@
+<h1>
+  <%= @post.title %>
+</h1>
+<h2>
+Category: <% @post.categories.each do |car| %>
+            <%= car.name %>
+          <% end %>
+</h2>
 
+<div class="content">
+  <%= @post.content %>
+</div>
+
+<p>
+  <%= @post.comments.count %> Comments
+</p>
+
+<%= render 'comments/comment' %>
+<h3>Add a comment</h3>
+
+<%= form_for(@post.comments.build) do |f| %>
+<p>
+  <%= f.label "Username" %>
+  <%= f.collection_select :user_id, User.order(:username), :id, :username %><br>
+  <%= f.fields_for :user, @post.comments.last.build_user do |users_fields| %>
+    Username: <%= users_fields.text_field :username %><br>
+    Email: <%= users_fields.text_field :email %>
+  <% end %>
+  <br>
+  <br>
+  <%= f.label "Comment" %><br>
+  <%= f.text_area :content %>
+</p>
+  <input type="hidden" name="comment[post_id]" value="<%= @post.id %>">
+<p>
+  <%= f.submit %>
+</p>
+<% end %>

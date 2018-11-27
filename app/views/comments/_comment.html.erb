@@ -1,0 +1,14 @@
+
+<% if !@post.comments.empty? %>
+
+  <% @post.users.uniq.each do |user| %>
+  <p>
+    <%= link_to user.username, user_path(user) %> says:
+    <% user.comments.each do |comment| %>
+        <br><%= comment.content %>
+        <%end%>
+  </p>
+
+
+<% end %>
+<% end %>

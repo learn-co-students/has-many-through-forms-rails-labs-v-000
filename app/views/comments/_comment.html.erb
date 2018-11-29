@@ -1,0 +1,8 @@
+<% if !@post.comments.empty? %>
+<% @post.users.uniq.each do |user| %>
+<%= link_to user.username, user_path(user) %> commented:
+<% user.comments.each do |comment| %>
+<%= comment.content %>
+<% end %>
+<% end %>
+<% end %>

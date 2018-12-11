@@ -7,4 +7,22 @@
   <% @post.categories.each do |category| %>
     <li><%= category.name %></li>
   <% end %>
+
+<label>Comments</label>
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li><%= comment.user.username %> says: <%= comment.content %></li>
+  <% end %>
 </ul>
+
+<label>List of Unique Commenters</label>
+<ul>
+  <% comment_array = @post.comments.collect do |comment| %>
+    <% comment %>
+  <% end %>
+
+  <% comment_array.uniq {|c| c.user_id}.each do |comment| %>
+    <li><%= link_to comment.user.username, user_path(comment.user) %></li>
+  <% end %>
+</ul>
+

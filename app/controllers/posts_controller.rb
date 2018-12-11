@@ -9,6 +9,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @post.categories.build(:name => "Enter your new Category here!")
   end
 
   def create

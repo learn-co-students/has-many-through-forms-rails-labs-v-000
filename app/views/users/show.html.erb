@@ -1,1 +1,9 @@
 
+
+<h1><%= @user.username %></h1>
+
+<h3> All Posts <%= @user.username %> has commented on</h3>
+
+<% @user.posts.uniq {|p| p.post_id}.each do |post| %>
+  <li><%= link_to post.title, post_path(post) %></li>
+<% end %>

@@ -1,1 +1,19 @@
-
+<%= form_for(@post) do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+  <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
+  
+  <%= f.fields_for :categories, @post.categories.build do |categories_fields| %>
+<<<<<<< HEAD
+  <label>Make your own cateogry</label><br>
+=======
+    <label>Make your own cateogry</label><br>
+>>>>>>> 50b1a409db77bbd6e3f29ace67d7d5f85c4d47eb
+  <%= categories_fields.text_field :name %>
+  <% end %>
+  
+  <%= f.submit %>
+  
+<% end %>

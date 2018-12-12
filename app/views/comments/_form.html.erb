@@ -1,37 +1,20 @@
-<h1>Title: <%= @post.title %></h1>
-
-<p><%= @post.content %></p><br>
-
-<h4>In Categories:</h4>
-<p><% @post.categories.each do |cat| %>
-    <%= cat.name %>
-<% end %></p>
-
-<h2>Comments:</h2>
-<% @post.comments.each do |comment| %>
-    <h4><%= comment.user.username if comment%> -</h4>
-    <p><%= comment.content if comment%></p><br>
-<% end %><br>
-
-
-<h2>All Commenters</h2>
-<% @post.unique_commenters.each do |user| %>
-    <%= link_to user.username, user_path(user) %>
-<% end %><br>
-
-<h2>Comment Below</h2>
-<%
-=begin%> 
 <%= form_for @comment do |f| %>
-
+   
     <h4><%= f.label "Content" %></h4>
     <%= f.text_field :content %><br>
 
+
     <h4>Select your username or create a new one:</h4>
     <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: true} %><br>
-
- 
-
+    
+    <%= f.fields_for :user, User.new do |user| %>
+        <%= user.label :username %>
+        <%= user.text_field :username %>
+    <% end %>
+   
+<%
+=begin%>
+    <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: true} %><br>
 
     <h4>Or create a new one:</h4>
     <%= f.fields_for :user, @comment.user.build do |user_fields| %>
@@ -44,11 +27,12 @@
         <% end %>
     </datalist>
 
-    <%= f.submit %>
+    <%= f.fields_for :user  do |user_fields| %>
+        <%= user_fields.text_field :username %>
     <% end %>
 <%
-=end%> 
+=end%>
+    <%= f.submit %>
+<% end %>
 
-
-<p><%= render 'comments/form', comment: Comment.new %></p>
-<%# binding.pry %>
+    

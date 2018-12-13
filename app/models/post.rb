@@ -25,27 +25,11 @@ class Post < ActiveRecord::Base
     attributes[:comments][:user_id].blank?
   end
 
-
-=begin
-  def username=(name)
-    self.user = User.find_or_create_by(username: name)
-  end
-
-  def username
-     self.user ? self.user.username : nil
-  end
-=end
-
-
-
   def unique_commenters
-    users = []
-
-    self.comments.map do |comment|
-      users<< comment.user
+    users = self.comments.map do |comment|
+      comment.user if comment.user != nil
     end
-
-    users.uniq
+    users.uniq.compact
   end
 
 

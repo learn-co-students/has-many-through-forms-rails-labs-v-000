@@ -1,18 +1,14 @@
 class CommentsController < ApplicationController
-
-  def new
-    @comment = Comment.new
-    @comment.user.build
-  end
-  
   def create
-    comment = Comment.create(comment_params)
-    user = User.find_or_create_by(username: params[:comment][:user_id])
-    comment.user = user
-    #binding.pry
-    comment.user.username = comment_params["user_attributes"]["username"]
-    user.comments << comment
-    redirect_to user_path(user)
+    @post_id = Post.find(comment_params[:post_id]).id
+    if comment_params[:user_attributes][:username] !=""
+      @user_id = User.find_or_create_by(username: comment_params[:user_attributes][:username]).id
+    else
+      @user_id = User.find_or_create_by(id: comment_params[:user_id]).id
+    end
+    @comment = Comment.create(content: comment_params[:content], user_id: @user_id, post_id: @post_id)
+    
+    redirect_to user_path(@comment.user)
   end
 
   def show
@@ -24,6 +20,6 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:content, user_attributes: [:username, :email])
+    params.require(:comment).permit(:post_id, :content, :user_username,:user_id, :user_attributes => :username)
   end
 end

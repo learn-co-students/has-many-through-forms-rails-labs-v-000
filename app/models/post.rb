@@ -4,5 +4,28 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :users, through: :comments
 
+  accepts_nested_attributes_for :users, reject_if: :existing_user_blank
+  accepts_nested_attributes_for :categories, :comments
+   def categories_attributes=(category_attributes)
+    category_attributes.values.each do |category_attribute|
+      category = Category.find_or_create_by(category_attribute)
+      self.categories << category
+    end
+  end
+   def comment_ids=(ids)
+    ids.each do |id|
+      comm = Comment.find(id)
+      self.comments << comm
+    end
+  end
+   def existing_user_blank(attributes)
+    attributes[:comments][:user_id].blank?
+  end
+   def unique_commenters
+    users = self.comments.map do |comment|
+      comment.user if comment.user != nil
+    end
+    users.uniq.compact
+  end
 
 end

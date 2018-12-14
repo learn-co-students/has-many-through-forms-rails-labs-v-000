@@ -1,1 +1,5 @@
-
+<% @user.comments.each do |comment| %>
+    <p><%= comment.user.username %> says: <%=comment.content %>
+    from Post: <%= link_to comment.post.title, post_path(comment.post) %></p>
+    <br>
+ <% end %>

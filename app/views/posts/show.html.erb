@@ -1,1 +1,18 @@
-
+<h1>Title: <%= @post.title %></h1>
+ <p><%= @post.content %></p><br>
+ <h4>In Categories:</h4>
+<p><% @post.categories.each do |cat| %>
+    <%= cat.name %>
+<% end %></p>
+<br>
+ <h2>Comments:</h2>
+<% @post.comments.each do |comment| %>
+    <h4><%= comment.user.username if comment.user%> -</h4>
+    <p><%= comment.content if comment.user %></p><br>
+<% end %><br>
+ <h2>All Commenters</h2>
+<% @post.unique_commenters.each do |user| %>
+    <%= link_to user.username, user_path(user) %>
+<% end %><br>
+ <h2>Comment Below</h2>
+<p><%= render 'comments/form'%></p>

@@ -1,1 +1,31 @@
+<h1><%= @post.title %></h1>
+<p><%= @post.content%></p>
 
+
+<ul>
+<% @post.comments.each do |comment| %>    
+    <li><%= comment.content %></li>
+<% end %>
+</ul>
+
+<ul>
+<% @post.users.uniq.each do |user| %>    
+    <li><%= link_to user.username, user_path(user) %></li>
+<% end %>
+</ul>
+
+<%= form_for Comment.new do |c| %>
+    <%= c.label "Comment" %><br>
+    <%= c.fields_for :comments do |comment| %>
+        <%= comment.label "User" %>        
+        <%= comment.text_field :user, list: "comment_content" %>
+        <datalist id="comment_content">
+            <% User.all.each do |user| %>
+            <option value="<%= user.username %>">
+            <% end %>
+        </datalist>
+        <%= comment.label :content %>
+        <%= comment.text_field :comment_content %>
+    <% end %>
+<%= c.submit %>
+<% end %>

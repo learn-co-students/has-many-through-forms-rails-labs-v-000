@@ -14,18 +14,16 @@
 <% end %>
 </ul>
 
-<%= form_for Comment.new do |c| %>
-    <%= c.label "Comment" %><br>
-    <%= c.fields_for :comments do |comment| %>
-        <%= comment.label "User" %>        
-        <%= comment.text_field :user, list: "comment_content" %>
-        <datalist id="comment_content">
-            <% User.all.each do |user| %>
-            <option value="<%= user.username %>">
-            <% end %>
-        </datalist>
-        <%= comment.label :content %>
-        <%= comment.text_field :comment_content %>
-    <% end %>
+<%= form_for @comment do |c| %>
+    <%= c.label "Comment" %><br>    
+
+        <%= c.label "User" %>        
+        <%= collection_select(:comment, :user_id, User.all, :id, :username, include_blank: true) %>
+
+
+        <%= c.label "content" %>
+        <%= c.text_field :content %>
+    
 <%= c.submit %>
+
 <% end %>

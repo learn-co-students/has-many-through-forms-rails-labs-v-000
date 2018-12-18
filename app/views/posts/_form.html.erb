@@ -8,9 +8,13 @@
 
     <%= f.label "Categories" %>
     <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
-        <%= f.fields_for :categories, post.categories.build do |categories_fields| %>
-            <%= categories_fields.text_field :name %>
-      <% end %><br>    
+
+    <%= f.fields_for :categories, post.categories.build do |categories_attribute| %>      
+      <%= categories_attribute.text_field :name %>
+    <% end %> 
+    
+    <br>
+   
 
     <%= f.submit %>
   <% end %>

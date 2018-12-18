@@ -1,10 +1,13 @@
 <h1><%= @post.title %></h1>
 <p><%= @post.content%></p>
+    <% @post.categories.each do |category| %>
+        <p><%= category.name %></p>
+    <% end %>
 
 
 <ul>
 <% @post.comments.each do |comment| %>    
-    <li><%= comment.content %></li>
+    <li><%= comment.user.username + " says: " + comment.content %></li>
 <% end %>
 </ul>
 
@@ -15,11 +18,23 @@
 </ul>
 
 <%= form_for @comment do |c| %>
-    <%= c.label "Comment" %><br>    
+    <%= c.label "Comment" %><br>  
+    
+        <%= hidden_field(:comment, :post_id) %>
 
         <%= c.label "User" %>        
         <%= collection_select(:comment, :user_id, User.all, :id, :username, include_blank: true) %>
 
+        <br>
+
+        <%= c.fields_for :user_attributes do |user_attribute| %>
+
+            <%= user_attribute.label "New User" %>            
+            <%= user_attribute.text_field :username %>
+
+            <% end %>
+
+        <br>
 
         <%= c.label "content" %>
         <%= c.text_field :content %>

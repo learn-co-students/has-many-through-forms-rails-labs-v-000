@@ -5,8 +5,6 @@ class Post < ActiveRecord::Base
   has_many :users, through: :comments
 
   accepts_nested_attributes_for :categories
-  # accepts_nested_attributes_for :users
-
 
   def categories_attributes=(category_attributes)
     category_attributes.values.each do |cat_attr|
@@ -16,14 +14,5 @@ class Post < ActiveRecord::Base
       end
     end
   end
-
-  # def user_username=(username)
-  #   self.user = User.find_or_create_by(username: username)
-  # end
-
-  # def user_username
-  #   self.user ? self.user.username : nil
-  # end
-
 
 end

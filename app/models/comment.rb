@@ -12,7 +12,4 @@ class Comment < ActiveRecord::Base
     end
   end
 
-  # def user_username
-  #   self.user ? self.user.username : nil
-  # end
 end

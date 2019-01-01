@@ -1,0 +1,12 @@
+
+[1mFrom:[0m /home/learn/code/labs/has-many-through-forms-rails-labs-v-000/app/views/posts/show.html.erb @ line 3 ActionView::CompiledTemplates#_app_views_posts_show_html_erb___848896725_90559790:
+
+    [1;34m1[0m: <h3><%=@post.title%></h3>
+    [1;34m2[0m: <h3><%=@post.content%></h3>
+ => [1;34m3[0m: <% binding.pry %>
+    [1;34m4[0m: 
+    [1;34m5[0m: <h3>Categories</h3>
+    [1;34m6[0m: <ul>
+    [1;34m7[0m: <%= @post.categorites.each do |category| %>
+    [1;34m8[0m:     <li>
+

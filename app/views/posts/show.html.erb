@@ -1,7 +1,23 @@
 Post Title:<%= @post.title %> <br>
 Post Content:<%= @post.content %> <br><br>
-<%= form_for @post.comments.build do |f| %>
-  Comment:<br><%= f.text_area :content %>
-  User:<%=f.collection_select :user_id, User.all, :id, :username%>
+<%= form_for @comment do |f| %>
+  <%= f.hidden_field :post_id, :value => @post.id %>
+  <%= f.label "Comment" %><br>
+  <%= f.text_field :content %><br><br>
+  <%= f.label "User Name" %><br>
+  <%= f.collection_select( :user_id, User.all, :id, :username ) %>
+    <%= f.fields_for :users do |new_user| %>
+      <%= new_user.label :username %>
+      <%= new_user.text_field :username, id:"comment_user_attributes_username" %>
+      <%= new_user.label :email %>
+      <%= new_user.text_field :email%>
+    <% end %>
   <%= f.submit "Create Comment"%>
+
 <% end %>
+
+<ul><% @post.comments.each do |comment| %>
+  <li> <%= link_to comment.user.username, user_path(comment.user) %> says: <%= comment.content %> </li><br>
+
+  <% end %>
+</ul><br>

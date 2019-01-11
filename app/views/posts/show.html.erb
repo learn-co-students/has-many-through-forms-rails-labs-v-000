@@ -1,6 +1,8 @@
 Post Title:<%= @post.title %> <br>
 Post Content:<%= @post.content %> <br><br>
-Post Categories:<%= @post.categories %><br><br>
+Post Categories:<%= @post.categories.each do |category| %>
+  <%= category.name %>
+<%end%><br><br>
 <%= form_for @post.comments.build do |f| %>
   <%= f.hidden_field :post_id, :value => @post.id %>
   <%= f.label "Comment" %><br>
@@ -18,6 +20,6 @@ Post Categories:<%= @post.categories %><br><br>
 <% end %>
 
 <ul><% @post.comments.each do |comment| %>
-<%= "#{comment.user.username if comment.user} says: #{comment.content}" %>
+<%= "#{link_to comment.user.username, post_path(comment.user) if comment.user} says: #{comment.content}" %>
   <% end %>
 </ul><br>

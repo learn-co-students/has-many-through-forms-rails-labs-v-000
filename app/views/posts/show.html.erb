@@ -1,5 +1,6 @@
 Post Title:<%= @post.title %> <br>
 Post Content:<%= @post.content %> <br><br>
+Post Categories:<%= @post.categories %><br><br>
 <%= form_for @post.comments.build do |f| %>
   <%= f.hidden_field :post_id, :value => @post.id %>
   <%= f.label "Comment" %><br>

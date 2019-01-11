@@ -20,6 +20,6 @@ Post Categories:<%= @post.categories.each do |category| %>
 <% end %>
 
 <ul><% @post.comments.each do |comment| %>
-<%= "#{link_to comment.user.username, post_path(comment.user) if comment.user} says: #{comment.content}" %>
+<%= link_to "#{comment.user.username, post_path(comment.user) if comment.user} says: #{comment.content}" %>
   <% end %>
 </ul><br>

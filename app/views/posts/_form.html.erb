@@ -1,1 +1,10 @@
-
+   <label> Post Title: </label> 
+   <%= text_field_tag 'post[title]' %> <br>
+   <label> Content: </label>  <%= text_field_tag 'post[content]' %> <br>
+   <% Category.all.each do |category| %>
+    <%= check_box_tag 'post[category_ids][]', category.id %> <%= label_tag 'post[category_ids][]', category.name %>
+   <% end %>
+   <br>
+   <label> New Category:</label>
+   <%= text_field_tag 'categories_attributes[name]','', :id => "post_categories_attributes_0_name" %>
+   <%= submit_tag 'Create Post' %>

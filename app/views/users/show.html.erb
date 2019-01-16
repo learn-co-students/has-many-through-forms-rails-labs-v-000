@@ -1,1 +1,9 @@
+<h1>User Show Page: </h1>
+
+<ul>
+  <% @user.posts.each do |post| %>
+    <li><%= post.title %></li>
+    <li><%= link_to post.title, post_path(@user) %></li>
+  <% end %>
+</ul>
 

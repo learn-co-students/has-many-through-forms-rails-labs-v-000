@@ -37,9 +37,11 @@ Users commented:<br>
     <input type="hidden" name="comment[post_id]" value="<%#=@post.id%>">-->
 
     <%# creates a comment and a new user %>
-    <%= f.fields_for :users, @post.users.build do |user_fields| %>
-      <%=user_fields.label "New user:"%>
-      <%=user_fields.text_field :username %>
+
+    <%= f.fields_for :user, @post.comments.last.build_user do |user| %>
+    <%#= f.fields_for :users, @post.users.build do |user_fields|   THIS WAS WRONG!!! %>
+      <%=user.label "New user:"%>
+      <%=user.text_field :username %>
     <%end%>
 
 

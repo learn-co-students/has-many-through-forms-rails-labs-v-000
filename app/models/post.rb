@@ -6,9 +6,11 @@ class Post < ActiveRecord::Base
 
   def categories_attributes=(categories_attributes)
     categories_attributes.each_value do |category_attributes|
-      if category_attributes[:name] != ""
+      if category_attributes[:name].present?
         category = Category.find_or_create_by(category_attributes)
-        self.post_categories.build(category_id: category.id)
+        if !self.categories.include?(category)
+          self.post_categories.build(category_id: category.id)
+        end 
       end
     end
   end

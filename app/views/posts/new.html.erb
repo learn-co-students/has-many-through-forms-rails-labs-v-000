@@ -1,1 +1,51 @@
 <%= render 'form', post: Post.new %>
+<h1>Create New Post!</h1>
+
+<%=form_for @post do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <br>
+  <fieldset>
+    <legend>Content</legend>
+    <%= f.text_area :content %>
+  </fieldset>
+  <%= f.collection_check_boxes :category_ids, @categories, :id, :name %><br>
+  <fieldset>
+    <legend>Assign New Category</legend>
+    <%= f.fields_for :categories, @post.categories do |categories_fields| %>
+      <%= categories_fields.label :name, "Name:" %>
+      <%= categories_fields.text_field :name %>
+    <% end %>
+  </fieldset>
+  <%= f.submit %>
+<% end %>
+<!--
+<form action="/posts" method="POST">
+  Title:<input type="text" name="post[title]">
+  <br>
+  <fieldset>
+    <legend>Content</legend>
+    <textarea name="post[content]"></textarea>
+  </fieldset>
+  <br>
+  <% @categories.each do |category| %>
+    <input type="checkbox" name="post[category_ids][]" value="<%=category.id%>"><%=category.name%>
+  <% end %>
+  <br>
+  <fieldset>
+    <legend>Assign New Category</legend>
+    <input type="text" name="post[categories_attributes][0][name]">
+  </fieldset>
+  <fieldset>
+    <legend>Assign New Category</legend>
+    <input type="text" name="post[categories_attributes][1][name]">
+  </fieldset>
+  <fieldset>
+    <legend>Assign New Category</legend>
+    <input type="text" name="post[categories_attributes][2][name]">
+  </fieldset>
+  <br>
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="submit" value="Create Post">
+</form>
+-->

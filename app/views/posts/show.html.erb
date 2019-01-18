@@ -1,1 +1,65 @@
+<h1><%= @post.title %></h1>
+<p>
+  <%= @post.content %>
+</p>
+<ul>
+  <% @post.categories.each do |category| %>
+    <li>
+      <%= category.name %>
+    </li>
+  <% end %>
+</ul>
 
+<h3><%= pluralize(@post.comments.count, 'Comment') %> for this post</h3>
+  <ul>
+    <% @post.comments.each do |comment| %>
+      <li>
+        <p><%= "#{comment.user.username} says: #{comment.content}" %>  </p>
+      </li>
+    <% end %>
+  </ul>
+
+<h3><%= pluralize(@post.users.map(&:username).uniq.count, 'User') %> Commented</h3>
+  <ul>
+    <% @post.users.map(&:username).uniq.each do |username| %>
+      <li>
+        <%= link_to username, user_path(User.find_by(username: username)) %>
+      </li>
+    <% end %>
+  </ul>
+
+<h3>Create a new Comment</h3>
+<%= form_for @comment do |f| %>
+
+  <%= collection_select(:comment, :user_id, @users, :id, :username, :prompt => "Select User") %>
+  <br>
+  <%= f.fields_for :user, @comment.build_user do |user_attributes| %>
+    <%= user_attributes.text_field :username, :placeholder => "Or create new User" %>
+  <% end %>
+  <br>
+  <fieldset>
+    <%= f.text_area :content, :placeholder => "Enter Comment" %><br>
+    <%= f.hidden_field :post_id, :value => @post.id %>
+    <%= f.submit %>
+  </fieldset>
+<% end %>
+<!--
+  <form action="/comments" method="POST">
+    <select name="comment[user_id]">
+      <option value="" selected disabled>You can select user here</option>
+      <% @users.all.each do |user| %>
+        <option value="<%=user.id%>"><%= user.username %></option>
+      <% end %>
+    </select>
+    <br>
+    <p>Create New User:</p>
+    username:<input type="text" name="comment[user_attributes][username]">
+    <br>
+    <p>Content</p>
+    <textarea name="comment[content]"></textarea>
+    <br>
+    <input type="hidden" name="comment[post_id]" value="<%=@post.id%>"><br>
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="submit" value="Create Comment">
+  </form>
+-->

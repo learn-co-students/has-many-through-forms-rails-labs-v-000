@@ -1,25 +1,28 @@
 Post Title:<%= @post.title %> <br>
 Post Content:<%= @post.content %> <br><br>
 Post Categories:<%= @post.categories.each do |category| %>
-  <%= category.name %>
-<%end%><br><br>
-<%= form_for @post.comments.build do |f| %>
+                  <%= category.name %>
+                <%end%><br><br>
+<%= form_for @comment do |f| %>
   <%= f.hidden_field :post_id, :value => @post.id %>
   <%= f.label "Comment" %><br>
   <%= f.text_field :content %><br><br>
   <%= f.label "User Name" %><br>
   <%= f.collection_select( :user_id, User.all, :id, :username ) %>
-    <%= f.fields_for :user, @post.comments.last.build_user do |new_user| %>
+    <%= f.fields_for :user, @comment.build_user do |new_user| %>
       <%= new_user.label :username %>
       <%= new_user.text_field :username %>
       <%= new_user.label :email %>
       <%= new_user.text_field :email%>
     <% end %>
   <%= f.submit "Create Comment"%>
-
 <% end %>
 
-<ul><% @post.comments.each do |comment| %>
-<%= link_to "#{comment.user.username, post_path(comment.user) if comment.user} says: #{comment.content}" %>
+<ul><% @post.users.uniq.each do |user| %>
+
+    <%= link_to user.username, user_path(user)  %> says:
+    <%= user.comments.each do |comment| %>
+    <%= comment.content %>
+      <% end %>
   <% end %>
 </ul><br>

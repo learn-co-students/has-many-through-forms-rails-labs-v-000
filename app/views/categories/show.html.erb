@@ -1,0 +1,5 @@
+Posts in category:
+
+<% @category.posts.each do |post| %>
+  <a href="<%= post_path(post) %>"> <%= post.title %></a>
+<% end %>

@@ -1,1 +1,6 @@
-
+User Comments:
+<ul>
+  <% @user.comments.each do |comment| %>
+    <li><a href="<%= post_path(comment.post) %>"><%= comment.post.title %></a></li>
+  <% end %>
+</ul>

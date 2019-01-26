@@ -1,4 +1,4 @@
-<%= form_for @post. do |f| %>
+<%= form_for @post do |f| %>
   <p>
     <%= f.label :title %>
     <%=f.text_field :title %>
@@ -9,17 +9,7 @@
     <%= f.text_area :content %>
   </P>
 
-  <p>
-    <%= f.label "New Comment" %>
-    <%= f.text_field "comment" %>
-  </p>
 
-  <p>
-   <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
-   <%= f.fields_for :categories, post, categories.build do |categories_field| %>
-   <%= categories_.text_field :name %>
-   <% end %>
-  </p>
 
-<%= f.submit "Create Post"%>
-<% end %>
+  <%= f.submit "Create Post"%>
+  <% end %>

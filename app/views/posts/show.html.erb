@@ -7,8 +7,9 @@
   <% f.collection_select :user_id, User.all, :id, :username %>
   <% f.text_field :content %>
   <% f.submit "Create Comment" %>
+
 <% end %>
 
-  <% @post.comments.all.each do |comment| %>
-    <%= "#{@username} says: #{comment.content}" %>
+  <% @post.comments.each do |comment| %>
+  <%= "#{@username} says: #{comment.content}" %>
   <% end %>

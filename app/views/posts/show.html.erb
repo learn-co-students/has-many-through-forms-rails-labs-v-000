@@ -1,15 +1,14 @@
 <%= @post.title %>
-<%=  @post.content %>
+<%= @post.content %>
 
 <%= form_for @comment do |f| %>
-  <%= f.label :title %>
+  <%= f.label :content%>
   <%= f.text_field :content %>
-  <%= f.label :content %>
-  <%= f.text_field :content %>
-
-
-
-
-
-  <%= f.submit %>
+  <% f.collection_select :user_id, User.all, :id, :username %>
+  <% f.text_field :content %>
+  <% f.submit "Create Comment" %>
 <% end %>
+
+  <% @post.comments.all.each do |comment| %>
+    <%= "#{@username} says: #{comment.content}" %>
+  <% end %>

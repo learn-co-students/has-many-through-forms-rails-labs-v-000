@@ -1,17 +1,21 @@
-<%= @post.title %>
-<%= @post.content %>
+<% require 'pry' %>
 
-<%= form_for @comment do |f| %>
-  <%= f.label :content%>
+<%= @post.title %><br>
+<%= @post.content %><br>
+
+<%= form_for @post.comments.build do |f| %>
+  <%= f.label :content %>
   <%= f.text_field :content %>
-  <% f.collection_select :user_id, User.all, :id, :username %>
-    <%= f.fields_for :content, @post.users.build do |categories_fields| %>
-    <input type="hidden" id="comment_user_id" name="[comment][user_id]">
-      <% f.submit "Create Comment" %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Choose Existing User' %>
+    <%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
+    <%= user_fields.text_field :username %>
   <% end %>
+  <%= f.submit "Create Comment" %>
 <% end %>
 
-
+<ul>
 <% @post.comments.each do |comment| %>
-<%= "#{@username} says: #{comment.content}" %>
+<li><%= comment.user.username %> says: <%= comment.content %> </li>
 <% end %>
+</ul>

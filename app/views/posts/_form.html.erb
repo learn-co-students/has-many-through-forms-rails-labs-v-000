@@ -9,9 +9,10 @@
     <%= f.text_field :content %>
   </P>
 
-  <% f.collection_check_boxes(:category_id, Post.all, :id, :name) %>
 
-  <input type="text" name="post[categories_attributes][0][name]" id="post_categories_attributes_0_name">
+  <% f.collection_check_boxes(:category_id, Category.all, :id, :name) %>
+  <%= f.fields_for :categories, post.categories.build do |categories_fields| %>
 
+  <% end %>
   <%= f.submit "Create Post"%>
   <% end %>

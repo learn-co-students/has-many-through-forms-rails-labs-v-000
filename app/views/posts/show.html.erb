@@ -12,22 +12,30 @@ Categories: <br />
   <%end%>
 </ul>
 
-Comments: <br />
-<ul>
-  <% @post.comments.each do |c| %>
-  <li>
-    <%= c.content %>
-  </li>
-  <%end%>
-</ul>
+<p>
+  <strong>Existing Comments:</strong><br>
+  <% @post.comments.each do |comment| %>
+    <%= comment.user.username %> says: <%= link_to comment.content, comment %><br>
+  <% end %>
+</p>
 
-<%= form_for @comment do |f| %>
-  <%= f.label :comment %>
-  <%= f.text_area :content %>
-  <%= f.hidden_field :post_id, value: "#{params[:id]}" %>
+<!-- <input type="text" name="post[comments][][content]" id="comment_content" /> -->
 
-  <%= f.fields_for :user_attributes, @post.users.build do |user| %>
-    <%= user.text_field :username %>
+<p>
+  <strong>Add a comment: </strong>
+  <%= form_for @post.comments.build do |f| %>
+    <%= f.label :content %><br>
+    <%= f.text_area :content %><br>
+
+  <%= f.fields_for :user, @post.users.build do |user_fields| %>
+    <%= f.label "new user" %><br>
+    <%= user_fields.text_field :username %><br>
+
+    <%= f.label "existing user" %><br>
+    <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true  %>
+  <br>
+    <%= f.hidden_field :post_id, :value => @post.id  %>
+
   <% end %>
 
   <%= f.submit %>

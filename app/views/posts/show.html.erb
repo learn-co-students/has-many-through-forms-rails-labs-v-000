@@ -12,15 +12,23 @@ Categories: <br />
   <%end%>
 </ul>
 
-<!-- <input type="text" name="post[comments][][content]" id="comment_content" /> -->
+Comments: <br />
+<ul>
+  <% @post.comments.each do |c| %>
+  <li>
+    <%= c.content %>
+  </li>
+  <%end%>
+</ul>
 
-<%= form_for :comments do |f| %>
-
+<%= form_for @comment do |f| %>
   <%= f.label :comment %>
-  <%= f.text_area :comment_content %>
-  <%= f.fields_for :comments do |comment_builder| %>
-    <%= comment_builder.text_field :content %>
-    <%= comment_builder.text_field :user_id %>
-  <%= f.submit %>
+  <%= f.text_area :content %>
+  <%= f.hidden_field :post_id, value: "#{params[:id]}" %>
 
+  <%= f.fields_for :user_attributes, @post.users.build do |user| %>
+    <%= user.text_field :username %>
+  <% end %>
+
+  <%= f.submit %>
 <% end %>

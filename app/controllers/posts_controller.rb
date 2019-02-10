@@ -6,30 +6,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    if params[:comment]
-      @comment = Comment.create(
-        user_id: params[:comment][:user_id],
-        content: params[:comment][:content],
-        post_id: params[:comment][:id]
-        )
-    end
-
-    @post = Post.find(params[:id])
-    if params[:comment] && params[:comment][:user_id]
-      @comment = Comment.create(
-        user_id: params[:comment][:user_id],
-        content: params[:comment][:content],
-        post_id: @post.id
-        )
-    end
-    if params[:comment] && params[:comment][:user_attributes_username]
-      @user = User.find_or_create_by(username: params[:comment][:user_attributes_username])
-      @comment = Comment.create(
-        user_id: @user.id,
-        content: params[:comment][:content],
-        post_id: @post.id
-        )
-    end
+    # @comment = @post.comments.build
   end
 
   def new

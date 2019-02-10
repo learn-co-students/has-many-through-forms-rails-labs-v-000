@@ -1,7 +1,7 @@
 
 <h1> <%= @post.title %></h1>
 
-<h1> <%= @post.content %></h1>
+<p> <%= @post.content %></p>
 
 Categories: <br />
 <ul>
@@ -13,18 +13,20 @@ Categories: <br />
 </ul>
 
 <p>
-  <strong>Existing Comments:</strong><br>
+
+<% if !@post.comments.empty? %>
+Existing Comments:<br>
   <% @post.comments.each do |comment| %>
-    <%= comment.user.username %> says: <%= link_to comment.content, comment %><br>
+  <% comment_user = User.find_by(id: comment.user_id) %>
+    <%= comment_user.username %> says: <%= link_to comment.content, comments_path(comment) %><br>
+    <%= link_to comment_user.username, user_path(comment_user) %><br>
   <% end %>
 </p>
-
-<!-- <input type="text" name="post[comments][][content]" id="comment_content" /> -->
+<% end %>
 
 <p>
   <strong>Add a comment: </strong>
   <%= form_for @post.comments.build do |f| %>
-    <%= f.label :content %><br>
     <%= f.text_area :content %><br>
 
   <%= f.fields_for :user, @post.users.build do |user_fields| %>

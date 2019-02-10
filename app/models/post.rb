@@ -3,7 +3,8 @@ class Post < ActiveRecord::Base
   has_many :categories, through: :post_categories #this adds our #category_ids method (among many others!)
   has_many :comments
   has_many :users, through: :comments
-
+  accepts_nested_attributes_for :categories
+  accepts_nested_attributes_for :comments
 
   def categories_attributes=(categories_hashes)
     categories_hashes.each do |i, category_attributes|

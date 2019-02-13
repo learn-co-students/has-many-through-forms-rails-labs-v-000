@@ -8,7 +8,9 @@
   <%= f.label :content %>
   <%= f.text_field :content %>
 </p>
-
+<p>
+  <%= f.label :category %>
+</p>
 <% Category.all.each do |c| %>
   <p>
     <label for "category_id_<%=c.id%>"><%= c.name %></label>

@@ -1,11 +1,18 @@
 <h1><%= @post.title %></h1>
 <p>Content: <%= @post.content %></p>
+<p>Category:
+  <ul>
+  <%@post.categories.each do |cat| %>
+    <li><%=cat.name%>
+  <% end %>
+  </ul>
+</p>
 
 Comments: <br>
   <ul>
     <% @post.comments.each do |comment| %>
     <li><%= comment.content %>
-      <%= link_to comment.user.username, user_path(comment.user) %>
+      <%# <%= link_to comment.user.username, user_path(comment.user) %> %>
     <% end %>
   </ul>
 

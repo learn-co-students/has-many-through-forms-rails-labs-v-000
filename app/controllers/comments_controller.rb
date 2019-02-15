@@ -1,8 +1,12 @@
 class CommentsController < ApplicationController
 
   def create
-    comment = Comment.create(comment_params)
-    redirect_to comment.post
+  	
+  	if !params[:comment][:user_id].empty?
+    	params[:comment].delete(:user_attributes)
+    end
+    @comment = Comment.create(comment_params)
+    redirect_to post_path(@comment.post)
   end
 
   private

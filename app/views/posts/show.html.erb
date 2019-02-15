@@ -17,8 +17,9 @@ Comments: <br>
   </ul>
 
 <input type=text_field id="comment_content" name="comment_content"/>
+Users:
 <%= collection_select(:post, :user_ids, User.all, :id, :username)%>
-Users: <br>
+ <br>
 <ul>
   <% @post.users.uniq.each do |user| %>
   <li><%= link_to user.username, user_path(user) %>

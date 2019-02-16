@@ -11,8 +11,7 @@
 Comments: <br>
   <ul>
     <% @post.comments.each do |comment| %>
-    <li><%= comment.content %>
-      <%# <%= link_to comment.user.username, user_path(comment.user) %> %>
+    <li><%=comment.user.username%> says: <%= comment.content %>
     <% end %>
   </ul>
 
@@ -24,6 +23,10 @@ Comments: <br>
 
 Users:
 <%= f.collection_select(:user_id, User.all, :id, :username)%>
+
+<%= f.fields_for :users do |user_builder| %>
+  <%= user_builder.text_field :username %>
+<% end %>
 
 <%= f.submit %>
 <% end %>

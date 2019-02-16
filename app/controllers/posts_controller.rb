@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    @comments = @post.comments.all
+    @users = @comments.each_with_object([]) {|c, array| array << c.user unless array.include?(c.user)}
   end
 
   def index
@@ -21,4 +23,5 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
   end
+
 end

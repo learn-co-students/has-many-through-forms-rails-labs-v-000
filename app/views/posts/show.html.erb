@@ -22,11 +22,15 @@ Comments: <br>
 
 
 Users:
-<%= f.collection_select(:user_id, User.all, :id, :username)%>
 
-<%= f.fields_for :users do |user_builder| %>
-  <%= user_builder.text_field :username %>
-<% end %>
+    <%= f.collection_select(:user_id, User.all, :id, :username)%>
+
+<%= f.fields_for :user, User.new do |user_fields| %>
+
+    <%= user_fields.label :username %>
+    <%= user_fields.text_field :username %>
+  <% end %>
+
 
 <%= f.submit %>
 <% end %>

@@ -1,26 +1,33 @@
 <%= @post.title %>, <%= @post.content %>
 
+Categories:
+<% @post.categories.each do |category| %>
+  <%= category.name %>
+<% end %>
+
+Comments:
 <%= @post.comments.each do |comment| %>
   <% if comment.content %>
-    <%= comment.content %>
+    <%comment.user.username%> says <%= comment.content %>
   <% end %>
 <% end %>
 
-<%= @post.comments.each do |comment| %>
-  <% if comment.user %>
-    <%= comment.user.username %>
-  <% end %>
+Commenters:
+<%= @post.users.uniq.each do |comment| %>
+  <%= comment.user.username %>
 <% end %>
 
 
 Add a new comment:
 
-<%= form_for @comment do |f| %>
+<%= form_for(@comment = Comment.new) do |f| %>
   <%= f.label "Content" %>
   <%= f.text_area :content %>
-  <%= f.collection_select :user, User.all, :id, :name %>
-  <%= f.fields_for :user, @comment.user.build do |user_fields| %>
-    <%= user.text_field :username %>
+  <%= f.label "Username:" %>
+  <%= f.collection_select :user, User.all, :id, :username, :include_blank => true %>
+  <%= f.label "New User:" %>
+  <%= f.fields_for :user, @comment.build_user do |user_attributes| %>
+    <%= user_attributes.text_field :username %>
   <% end %>
   <%= f.submit %>
 <% end %>

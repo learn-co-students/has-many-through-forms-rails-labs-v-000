@@ -1,20 +1,25 @@
 <%= @post.title %>, <%= @post.content %>
 
 <%= @post.comments.each do |comment| %>
-  <%= comment.content %>
+  <% if comment.content %>
+    <%= comment.content %>
+  <% end %>
 <% end %>
 
-<%= @post.comments.users.uniq.each do |user| %>
-  <%= user.username %>
+<%= @post.comments.each do |comment| %>
+  <% if comment.user %>
+    <%= comment.user.username %>
+  <% end %>
 <% end %>
+
 
 Add a new comment:
 
-<%= form_for comment do |f| %>
+<%= form_for @comment do |f| %>
   <%= f.label "Content" %>
   <%= f.text_area :content %>
   <%= f.collection_select :user, User.all, :id, :name %>
-  <%= f.fields_for :user, comment.user.build do |user_fields| %>
+  <%= f.fields_for :user, @comment.user.build do |user_fields| %>
     <%= user.text_field :username %>
   <% end %>
   <%= f.submit %>

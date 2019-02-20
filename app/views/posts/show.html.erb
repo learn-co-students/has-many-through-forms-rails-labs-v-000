@@ -7,14 +7,12 @@ Categories:
 
 Comments:
 <%= @post.comments.each do |comment| %>
-  <% if comment.content %>
-    <%comment.user.username%> says <%= comment.content %>
-  <% end %>
+    <%=comment.user.username%> says: <%= comment.content %>
 <% end %>
 
 Commenters:
-<%= @post.users.uniq.each do |comment| %>
-  <%= comment.user.username %>
+<%= @post.users.uniq.each do |user| %>
+  <%= link_to user.username, user_path(user) %>
 <% end %>
 
 
@@ -24,10 +22,11 @@ Add a new comment:
   <%= f.label "Content" %>
   <%= f.text_area :content %>
   <%= f.label "Username:" %>
-  <%= f.collection_select :user, User.all, :id, :username, :include_blank => true %>
+  <%= f.collection_select :user_id, User.all, :id, :username, :include_blank => true %>
   <%= f.label "New User:" %>
   <%= f.fields_for :user, @comment.build_user do |user_attributes| %>
     <%= user_attributes.text_field :username %>
   <% end %>
+  <input type="hidden" name="comment[post_id]" value="<%= @post.id %>">
   <%= f.submit %>
 <% end %>

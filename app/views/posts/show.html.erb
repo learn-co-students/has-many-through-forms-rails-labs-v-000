@@ -1,1 +1,36 @@
+<p><%=@post.title%></br>
+  <%=@post.content%></br>
+  <label>Category list:</label>
+  <%@post.categories.each do |cate|%>
+  <li><%=cate.name%></li>
+  <%end%>
+</p>
 
+<label>Comment list:</label>
+<%@post.comments.each do |com|%>
+<li><%=com.user.username%> says: <%=com.content%></li>
+<%end%>
+
+<label>Commenter list:</label>
+<%User.all.each do |usr|%>
+
+  <%re = true%>
+  <%@post.comments.each do |com|%>
+
+    <%if usr.username == com.user.username && re%>
+      <li><%=link_to usr.username, user_path(usr)%></li>
+      <%re = false%>
+    <%end%>
+  <%end%>
+<%end%>
+
+<%= form_for (@comment) do |f| %>
+  <%= f.label "content" %>
+  <%= f.text_field :content %>
+  <input type="hidden" name="comment[post_id]" value= <%=@comment.post.id%>>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true%>
+  <%= f.fields_for :user, @comment.user do |userf| %>
+    <%= userf.text_field :username %>
+  <% end %>
+  <%= f.submit %>
+<% end %>

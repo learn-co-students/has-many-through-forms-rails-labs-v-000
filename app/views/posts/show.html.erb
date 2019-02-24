@@ -1,1 +1,26 @@
+<h2>Post title: <%= @post.title %></h2>
+<br>
+<br>
+<h3>Content: <%= @post.content %></h3>
+<br>
+<br>
+<ul><h3>Category</h3><% @post.category_ids.map do |id| %>
+<% category = Category.find_by(id: id) %>
+<li><%= category.name %></li>
+<% end %></ul>
+<br>
+<br>
+<h3>Comments: </h3> <% @post.comments.map do |comment|%>
+  <%= link_to comment.user.username, user_path(comment.user) %> said
+  <%= comment.content %>
+<% end %>
 
+<h3>Add a comment</h3>
+
+<%= form_for @comment do |f| %>
+  <%= f.text_area :content %><br>
+  <%= f.collection_check_boxes :user_ids, User.all, :id, :username %><br><br>
+
+  <br>
+<%= f.submit value="Create Comment"%>
+<% end %>

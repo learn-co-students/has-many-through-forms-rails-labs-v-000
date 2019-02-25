@@ -24,9 +24,3 @@ class PostsController < ApplicationController
     params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
   end
 end
-
-# def 
-#   @post.category_ids.map do |id|
-#   category = Category.find_by(id: id)
-#   id.name 
-  

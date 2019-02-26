@@ -1,1 +1,5 @@
-
+<h2>Posts <%= @user.username %> commented on:</h2>
+<ul><% @user.comments.map do |comment| %>
+  <% post = Post.find_by(id: comment.post_id) %>
+      <li><%= link_to post.title, post_path(post) %></li>
+<% end %></ul>

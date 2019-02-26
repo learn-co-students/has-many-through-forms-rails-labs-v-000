@@ -1,0 +1,7 @@
+<div class=category> <br>
+  <%= @category.name %> <br>
+  <% @category.posts.each do |post| %>
+    <%= link_to post.title, post_path(post) %>
+    <%= post.content %>
+  <% end %>
+</div>

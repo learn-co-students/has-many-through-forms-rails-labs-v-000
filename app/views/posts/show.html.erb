@@ -6,13 +6,14 @@
 <%end%>
 <h3> Add a Comment </h3>
 <%= form_for @comment do |f| %>
-    <%= f.hidden_field :post_id, :value => params[:id] %>
-    <%= f.text_field :content %>
-    <%= f.collection_select :user_id, User.all, :id, :username %>
-    <%= f.fields_for :user, @comment.build_user do |user| %>
-      <%= user.text_field :username %>
-    <% end %>
-    <%= f.submit %>
+  <%= f.label "Comment" %>
+  <%= f.text_area :content %>
+  <%= f.fields_for :user, User.new do |user| %>
+    Choose username: <%= f.collection_select :user_id, User.all, :id, :username, :include_blank => true %><br>
+    Create username: <%= user.text_field :username %><br>
+  <% end %>
+  <%= f.hidden_field :post_id, :value => @post.id %>
+  <%= f.submit %>
 <% end %>
 
 <% @post.comments.each do |c| %>

@@ -1,1 +1,35 @@
 
+  <%= @post.title %>
+  <%= @post.content %>
+  <% @post.categories.each do |category| %>
+    <%= category.name %>
+  <% end %>
+  <h1>Comments:</h1>
+  <% @post.comments.each do |comment| %>
+  		
+    <br><p> &nbsp; <%= comment.user.username %> says: <%= comment.content %> &nbsp;</p><br>
+    	
+  <% end %>
+  
+  
+
+  <%= form_for @comment do |c| %>
+  
+    <%= c.text_field :content %>
+    <%= c.hidden_field :post_id %>
+    <%= c.text_field :user_id, list: 'users' %>
+  		<datalist id="users">
+    		<% User.all.each do |user| %>
+        	<option data-value="<%= user.id %>" value="<%= user.username %>">
+    		<% end %>
+  		</datalist>
+    <br>
+    <%= c.fields_for :user, User.new do |u| %>
+    Username: <%= u.text_field :username %>
+    <% end %>
+    <%= c.submit %>
+  <% end %>
+
+<% @post.users.uniq.each do |user| %>
+    <%= link_to user.username, user_path(user.id) %>
+  <% end %>

@@ -1,1 +1,36 @@
+<%# binding.pry %>
 
+Title: <%= @post.title %><br><br>
+Content: <%= @post.content %><br>
+
+<% @post.categories.each do |category| %>
+Category: <%= category.name %>
+<% end  %>
+<%# binding.pry %>
+
+<ul>
+<% @post.comments.each do |comment| %>
+<li>
+<%= comment %>
+</li>
+<% end %>
+</ul>
+
+Users:
+<%# @post.comments.user.each do |user| %>
+<%#= user.name %>
+<%# end %>
+
+<% binding.pry %>
+<!-- add title and content, and col sel for user  -->
+<%= form_for(@post.comments.build) do |f|  %>
+<% binding.pry %>
+  <%= f.label :content%>
+  <%= f.text_area :content %>
+  <%= f.collection_select(:user_id, User.all, :id, :username) %>
+
+  <%= f.submit "Create Comment" %>
+  <% binding.pry %>
+
+<% end %>
+<%# end %>

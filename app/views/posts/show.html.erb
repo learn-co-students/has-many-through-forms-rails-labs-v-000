@@ -1,8 +1,30 @@
-<div class = post-content>
-  <%= @post.title %>
-  <%= @post.content %>
+<%= @post.title %>
+<%= @post.content %>
 
-  <%= @post.categories.each do |category| %>
-    <%= category.name %>
+<%= @post.categories.each do |category| %>
+  <%= category.name %>
+<% end %>
+
+<p>Comments:</p>
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li><%= comment.user.username %> says: <%= comment.content %></li>
   <% end %>
-</div>
+</ul>
+
+<p>Users who commented on this post:</p>
+<ul>
+  <% @post.users.uniq.each do |user| %>
+    <li><%= link_to user.username, user %></li>
+  <% end %>
+</ul>
+
+<p>Add a new comment:</p>
+<%= form_for @post.comments.build do |f| %>
+  <%= f.label 'Content' %>
+  <%= f.text_field :content %>
+
+  <%= f.collection_select :user_id, User.all, :id, :username %>
+  <%= f.hidden_field :post_id %>
+  <%= f.submit %>
+<% end %>

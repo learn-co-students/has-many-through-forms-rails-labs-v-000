@@ -1,1 +1,8 @@
+<h3><%= @user.username %></h3>
+<p>This user commented on these posts:</p>
 
+<ul>
+  <% @user.posts.uniq.each do |post| %>
+    <li><%= link_to post.title, post %></li>
+  <% end %>
+</ul>

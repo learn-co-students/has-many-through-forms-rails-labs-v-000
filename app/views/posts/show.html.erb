@@ -21,16 +21,18 @@ Users:
 <%#= user.name %>
 <%# end %>
 
-<% binding.pry %>
+
+
+<%# binding.pry %>
 <!-- add title and content, and col sel for user  -->
 <%= form_for(@post.comments.build) do |f|  %>
-<% binding.pry %>
+<%# binding.pry %>
   <%= f.label :content%>
   <%= f.text_area :content %>
   <%= f.collection_select(:user_id, User.all, :id, :username) %>
-
+  <%= f.hidden_field :@post, :post_id %>
   <%= f.submit "Create Comment" %>
-  <% binding.pry %>
+  <%# binding.pry %>
 
 <% end %>
 <%# end %>

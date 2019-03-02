@@ -30,7 +30,9 @@ Users:
   <%= f.label :content%>
   <%= f.text_area :content %>
   <%= f.collection_select(:user_id, User.all, :id, :username) %>
-  <%= f.hidden_field @post.comments.build, options = {value: @post.id} %>
+  <%#= f.hidden_field @post.comments.build, options = {value: @post.id} %>
+  <%= f.hidden_field :post_id %>
+
   <%# binding.pry %>
 
   <%#= f.hidden_field :user_id, current_user.id  %>

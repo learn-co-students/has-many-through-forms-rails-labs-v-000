@@ -21,6 +21,10 @@ Users:
 <%#= user.name %>
 <%# end %>
 
+Comments:
+<% @post.comments.each do |comment| %>
+<%= "#{comment.user.username}" + " says: " + "#{comment.content}" %>
+<% end %>
 
 
 <%# binding.pry %>

@@ -1,1 +1,79 @@
+<%# binding.pry %>
 
+Title: <%= @post.title %><br><br>
+Content: <%= @post.content %><br>
+
+<% @post.categories.each do |category| %>
+Category: <%= category.name %>
+<% end  %>
+<%# binding.pry %>
+
+<ul>
+<% @post.comments.each do |comment| %>
+<li>
+<%= comment %>
+</li>
+<% end %>
+</ul>
+
+Users:
+<% @post.users.uniq.each do |user| %>
+<%# @post.map(&:user).uniq.each do |user| %>
+
+<%= link_to user.username, user_path(user) %>
+<% end %>
+
+
+
+<br>
+Comments:
+<br>
+<% @post.comments.each do |comment| %>
+<br>
+<%= "#{comment.user.username}" + " says: " + "#{comment.content}" %>
+<% end %>
+
+<br>
+<%# binding.pry %>
+<!-- add title and content, and col sel for user  -->
+<%= form_for(@post.comments.build) do |f|  %>
+<%# binding.pry %>
+  <%= f.label :content%><br>
+  <%= f.text_area :content %>
+  <br>
+  <%= f.collection_select(:user_id, User.all, :id, :username, {include_blank: "Please Create New User"}) %>
+  <br>
+  <%#= f.hidden_field @post.comments.build, options = {value: @post.id} %>
+  <%= f.hidden_field :post_id %>
+  <%= f.fields_for :user_attributes do |user_attribute| %>
+      <%#= user_attribute.text_field :email %>
+      <%= user_attribute.text_field :username %>
+      <%# binding.pry %>
+<% end %>
+
+
+<br>
+  <%= f.submit "Create Comment" %>
+
+
+<% end %>
+
+
+<%= form_for(@post.users.build) do |f|  %>
+<%# binding.pry %>
+  <%= f.label :email%><br>
+  <%= f.text_area :email %>
+  <br>
+  <%= f.label :username%><br>
+  <%= f.text_area :username %>
+  <%#= f.collection_select(:user_id, User.all, :id, :username, {include_blank: "Please Create New User"}) %>
+  <br>
+  <%# binding.pry %>
+
+  <%#= f.hidden_field :comment_id %>
+<%# binding.pry %>
+<br>
+  <%= f.submit "Create User" %>
+  <% end %>
+
+  <%# binding.pry %>

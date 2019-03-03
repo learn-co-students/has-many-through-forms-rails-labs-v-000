@@ -1,5 +1,5 @@
 <% @posts.each do |post| %>
-Title: <%= post.title %>
+Title: <%= link_to post.title, post_path(post) %>
 <br>
 Content: <%= post.content %>
 <br>

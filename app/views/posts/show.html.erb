@@ -1,1 +1,30 @@
+<div class=post-title>
+  <%= @post.title %>
+</div>
+<div class=post-content>
+  <%= @post.content %>
+</div>
+<div class=post-comment>
+  <% @post.comments.each do |c| %>
+    <p><%= c.content %></p>
+  <% end %>
+</div>
+<div class=post-user>
+  <p><strong>Commenters</strong></p>
+  <% @post.comments.each do |c| %>
+    <p><%= link_to c.user.username, user_path(c.user) %></p>
+  <% end %>
+</div>
 
+<%= form_for @post do |f| %>
+  <p><%= f.label "Select user" %>
+  <%= f.collection_select :users, User.all, :id, :username %></p>
+
+  <%= f.fields_for :comment do |comment_builder| %>
+    <%= f.hidden_field :post_id, value: @post.id %>
+    <%= comment_builder.label "Add a comment" %>
+    <%= comment_builder.text_field :comment_content %>
+  <% end %>
+
+  <p><%= f.submit %></p>
+<% end %>

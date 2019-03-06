@@ -2,5 +2,5 @@
 
 <p>Posts Commented On:</p>
 <% @user.comments.each do |c| %>
-  <% link_to c.post.title, post_path(c.post) %>
+  <%= link_to c.post.title, post_path(c.post) %>
 <% end %>

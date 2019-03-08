@@ -4,7 +4,7 @@
   <p><%= post_builder.label "Content" %></p>
   <p><%= post_builder.text_area :content %></p>
   <p><%= post_builder.label "Existing Categories" %></p>
-  <%= post_builder.collection_check_boxes :category_ids, Category.all, :id, :name %>
+  <%= post_builder.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
 
   <%= post_builder.fields_for :categories do |category_builder| %>
     <p><%= category_builder.label "Add a category" %></p>

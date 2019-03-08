@@ -4,6 +4,11 @@
 <div class=post-content>
   <%= @post.content %>
 </div>
+<div class=post-category>
+  <% @post.categories.each do |c| %>
+    <p><%= c.name %></p>
+  <% end %>
+</div>
 <div class=post-comment>
   <% @post.comments.each do |c| %>
     <p><%= c.user.username%> says: <%= c.content %></p>

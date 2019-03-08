@@ -2,6 +2,5 @@
 
 <p>Posts:</p>
 <% @category.posts.each do |p| %>
-<%# <% binding.pry %> %>
   <%= link_to p.title, post_path(p) %>
 <% end %>

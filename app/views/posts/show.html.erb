@@ -16,8 +16,8 @@
 </div>
 <div class=post-user>
   <p><strong>Commenters</strong></p>
-  <% @post.comments.each do |c| %>
-    <p><%= link_to c.user.username, user_path(c.user) %></p>
+  <% @post.users.uniq.each do |u| %>
+    <p><%= link_to u.username, user_path(u) %></p>
   <% end %>
 </div>
 

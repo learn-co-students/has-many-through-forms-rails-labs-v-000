@@ -1,7 +1,9 @@
-
+require 'pry'
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    unique_commentors = @post.comments.select("distinct user_id")
+
   end
 
   def index

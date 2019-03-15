@@ -1,3 +1,4 @@
+require 'pry'
 class Post < ActiveRecord::Base
   has_many :post_categories
   has_many :categories, through: :post_categories
@@ -10,5 +11,10 @@ class Post < ActiveRecord::Base
       category = Category.find_or_create_by(category_attribute)
       self.categories << category
     end
+  end
+
+  def unique_users
+
+    self.users.uniq
   end
 end

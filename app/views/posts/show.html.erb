@@ -13,9 +13,9 @@ Comments:<br></br>
   <%= comment.content %>
 <% end %>
 
-Commentors:<br></br>
+Commenters:<br></br>
 
-<% @post.unique_users.each do |user| %>
+<% @post.users.uniq.each do |user| %>
 
 <%= link_to user.username, user_path(user) %>
 <% end %>

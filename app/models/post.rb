@@ -14,7 +14,6 @@ class Post < ActiveRecord::Base
   end
 
   def unique_users
-
     self.users.uniq
   end
 end

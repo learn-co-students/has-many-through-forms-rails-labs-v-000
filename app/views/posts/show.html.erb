@@ -1,6 +1,7 @@
 <h2><%= @post.title %></h2>
 <%= @post.content %>
-<h3>Categories</h3>
-<% @post.categories.each do |category| %>
-  <%= link_to category.name, category %>
-<% end %>
+<p>
+  Categories:
+  <% Category.all.each do |category| %>
+  <%= category.name %>
+  <% end %>

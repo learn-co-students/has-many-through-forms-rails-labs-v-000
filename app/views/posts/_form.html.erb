@@ -1,6 +1,7 @@
 <% form_for @post do |f|%>
     Title: <%= f.text_field :title %>
     Content: <%= f.text_field :content %>
+    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
     Comments: <%= f.fields_for :comment, @post.comments.build do |comment_fields| %>
         <%= comment_fields.text_field :content %>
     <%end %>

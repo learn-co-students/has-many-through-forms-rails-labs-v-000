@@ -1,7 +1,21 @@
-<h1><% @post.title %></h1>
-<p><% @post.content %></p>
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>
 <h2>Comments</h2>
+
+<%= form_for @comment do |f|%>
+    User: <%= f.text_field :user['username'] %><br/>
+
+    <%= f.hidden_field :post_id, value: @comment.post.id %><br/>
+    Username: <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "Select a User" %><br/>
+    Comment: <%= f.text_field :content %><br/>
+    <%= f.submit "Create Comment" %>
+<% end %>
+
+
 <% @post.comments.each do |comment| %>
-    <%= comment.user %><br/>
     <%= comment.content %><br/>
+<% end %>
+
+<% @post.users.uniq.each do |user|%>
+    <%= link_to user.username, user_path(user) %><br/>
 <% end %>

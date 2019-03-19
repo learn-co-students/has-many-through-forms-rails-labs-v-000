@@ -1,23 +1,34 @@
 <h1><%= @post.title %></h1>
 <p><%= @post.content %></p>
+<% @post.categories.each do |cat| %>
+    <%= cat.name %> 
+<% end %>
 <h2>Comments</h2>
 
 <%= form_for @comment do |f|%>
-    <% fields_for :user do |usr|%>
-    User: <%= usr.text_field :username %><br/>
-    <% end %>
 
     <%= f.hidden_field :post_id, value: @comment.post.id %><br/>
-    Username: <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "Select a User" %><br/>
-    Comment: <%= f.text_field :content %><br/>
+    <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "Default" %>
+    <%= f.fields_for :user do |u| %>
+        Enter New Username <%= u.text_field :username %><br/>
+    <% end %>
+     
+
+
+   Comment: <%= f.text_field :content %><br/>
     <%= f.submit "Create Comment" %>
 <% end %>
 
 
 <% @post.comments.each do |comment| %>
-    <%= comment.content %><br/>
+    <% if !comment.id.nil? %>
+        <%= comment.user.username %> says: <%= comment.content %><br/>
+    <% end %>
 <% end %>
 
-<% @post.users.uniq.each do |user|%>
-    <%= link_to user.username, user_path(user) %><br/>
+<p>
+All Users that Have posted:</p>
+
+<% @post.users.uniq.each do |user| %>
+    <%= link_to user.username, user_path(user) %>
 <% end %>

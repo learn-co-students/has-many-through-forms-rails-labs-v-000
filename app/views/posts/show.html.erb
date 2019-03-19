@@ -9,7 +9,7 @@
 
     <%= f.hidden_field :post_id, value: @comment.post.id %><br/>
     <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "Default" %>
-    <%= f.fields_for :user do |u| %>
+    <%= f.fields_for :user, @comment.build_user do |u| %>
         Enter New Username <%= u.text_field :username %><br/>
     <% end %>
      
@@ -21,7 +21,7 @@
 
 
 <% @post.comments.each do |comment| %>
-    <% if !comment.id.nil? %>
+    <% if !comment.user.nil? %>
         <%= comment.user.username %> says: <%= comment.content %><br/>
     <% end %>
 <% end %>

@@ -1,1 +1,28 @@
+<%= form_for(@post) do |f| %>
 
+<div class=post-content>
+
+  Title: <%= @post.title %><br>
+  Content: <%= @post.content %><br>
+  Categories:<% @post.categories.each do |category| %>
+              <%= category.name %>
+            <% end %>
+  Comments: <% @post.comments.each do |comment| %>
+    <%= comment.content %>
+  <% end %><br>
+</div>
+
+
+  To add a comment pick a username from the list or add a new user.
+  <%= f.collection_check_boxes :user_ids, User.all, :id, :username %><br><br>
+
+    <%= f.fields_for :users, @post.users.build do |user_field| %>
+      <%= user_field.text_field :username %>
+    <% end %>
+    Your comment:
+    <%= f.fields_for :comments do |comment_field| %>
+    <%= comment_field.text_field :content %><br><br>
+    <%= comment_field.hidden_field :post_id, value: @post.id %>
+  <% end %>
+  <%= f.submit %>
+<% end %>

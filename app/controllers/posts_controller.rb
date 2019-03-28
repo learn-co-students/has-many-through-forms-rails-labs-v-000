@@ -23,7 +23,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.comments.build
     @post.users.build
-    binding.pry
+    #binding.pry
     if @post.update(post_params)
       redirect_to post_path(@post)
     end

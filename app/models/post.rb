@@ -13,10 +13,6 @@ class Post < ActiveRecord::Base
     end
   end
 
-  def user_attributes=(attributes)
-    if !attributes[:username].empty?
-      self.user.username = User.find_or_create_by(username: attributes[:username])
-    end
-  end
+
 
 end

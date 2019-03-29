@@ -4,15 +4,18 @@
 
   Title: <%= @post.title %><br>
   Content: <%= @post.content %><br>
-  Categories:<% @post.categories.each do |category| %>
-              <%= category.name %>
-            <% end %>
-            <ul>
-  Comments: <% @post.comments.each do |comment| %>
-
-  <li><%= comment.user_username %> says <%= comment.content %>
-  <% end %>
+  Categories:
+  <ul>
+    <% @post.categories.each do |category| %>
+     <li><%= category.name %>
+    <% end %>
   </ul>
+  Comments:
+  <ul>
+    <% @post.comments.each do |comment| %>
+    <li><%= comment.user_username %> says: <%= comment.content %>
+      <% end %>
+    </ul>
 </div>
 <%= form_for(@post.comments.build) do |f| %>
 <!-- form for a comment, not a post -->

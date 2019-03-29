@@ -1,1 +1,9 @@
+<h1>Posts</h1>
 
+<ul>
+  <% @user.comments.each do |comment| %>
+
+    <% post = Post.find(comment.post_id) %>
+    <%= link_to post.title, post_path(post) %>
+  <% end %>
+</ul>

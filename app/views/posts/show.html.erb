@@ -7,22 +7,27 @@
   Categories:<% @post.categories.each do |category| %>
               <%= category.name %>
             <% end %>
+            <ul>
   Comments: <% @post.comments.each do |comment| %>
-    <%= comment.content %>
-  <% end %><br>
+
+  <li><%= comment.user_username %> says <%= comment.content %>
+  <% end %>
+  </ul>
 </div>
 <%= form_for(@post.comments.build) do |f| %>
 <!-- form for a comment, not a post -->
-  To add a comment pick a username from the list or add a new user.
+  To add a comment pick a username from the list:
   <%= f.collection_select :user_id, User.all, :id, :username %><br><br>
-
+  Or add a new user.
     <%= f.fields_for :user, @post.users.build do |user_field| %>
       <%= user_field.text_field :username %>
     <% end %>
+    <br>
+    <br>
     Your comment:
 
     <%= f.text_field :content %><br><br>
     <%= f.hidden_field :post_id, value: @post.id %>
-  
+
   <%= f.submit %>
 <% end %>

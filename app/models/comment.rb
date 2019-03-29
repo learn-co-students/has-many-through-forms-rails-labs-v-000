@@ -8,4 +8,14 @@ class Comment < ActiveRecord::Base
     end
   end
 
+    def user_username=(username)
+      self.user = User.find_by(username: username)
+    end
+
+    def user_username
+      if self.user
+        self.user.username
+      end
+    end
+
 end

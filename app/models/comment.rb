@@ -6,8 +6,8 @@ class Comment < ActiveRecord::Base
   def user_attributes=(attributes)
     if !attributes[:username].empty?
       #binding.pry
-      self.user.username = User.find_or_create_by(username: attributes[:username])
-      binding.pry
+      self.user_id = User.find_or_create_by(username: attributes[:username]).id
+      #binding.pry
     end
   end
 
@@ -18,7 +18,7 @@ class Comment < ActiveRecord::Base
     end
 
     def user_username
-      if self.user
+      if self.user != nil
         self.user.username
       end
     end

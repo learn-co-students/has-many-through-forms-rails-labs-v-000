@@ -10,6 +10,12 @@
      <li><%= category.name %>
     <% end %>
   </ul>
+  Users who have commented on this post:
+  <ul>
+    <% @post.users.uniq.each do |user| %>
+      <li> <%= link_to user.username, user_path(user) %>
+    <% end %>
+  </ul>
   Comments:
   <ul>
     <% @post.comments.each do |comment| %>

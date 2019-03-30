@@ -11,11 +11,11 @@ class Comment < ActiveRecord::Base
     end
   end
 
-    def user_username=(username)
-      if username != nil
-        self.user = User.find_by(username: username)
-      end
-    end
+    #def user_username=(username)
+      #if username != nil
+        #self.user = User.find_by(username: username)
+      #end
+    #end
 
     def user_username
       if self.user != nil

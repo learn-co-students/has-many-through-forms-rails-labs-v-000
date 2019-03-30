@@ -1,1 +1,42 @@
 
+
+<div class=post-content>
+
+  Title: <%= @post.title %><br>
+  Content: <%= @post.content %><br>
+  Categories:
+  <ul>
+    <% @post.categories.each do |category| %>
+     <li><%= category.name %>
+    <% end %>
+  </ul>
+  Users who have commented on this post:
+  <ul>
+    <% @post.users.uniq.each do |user| %>
+      <li> <%= link_to user.username, user_path(user) %>
+    <% end %>
+  </ul>
+  Comments:
+  <ul>
+    <% @post.comments.each do |comment| %>
+    <li><%= comment.user_username %> says: <%= comment.content %>
+      <% end %>
+    </ul>
+</div>
+<%= form_for(@post.comments.build) do |f| %>
+<!-- form for a comment, not a post -->
+  To add a comment pick a username from the list:
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %><br><br>
+  Or add a new user.
+    <%= f.fields_for :user, @post.users.build do |user_field| %>
+      <%= user_field.text_field :username %>
+    <% end %>
+    <br>
+    <br>
+    Your comment:
+
+    <%= f.text_field :content %><br><br>
+    <%= f.hidden_field :post_id, value: @post.id %>
+
+  <%= f.submit %>
+<% end %>

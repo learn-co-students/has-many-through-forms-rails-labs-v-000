@@ -1,1 +1,19 @@
+<%= form_for @post do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %><br>
 
+  <%= f.label :content %>
+  <%= f.text_field :content %><br>
+
+  <%= f.label :category_ids %>
+  <%= f.collection_select :category_ids, Category.all, :id, :name, :include_blank => 'None' %><br>
+
+
+  <%= f.fields_for :categories do |cate| %>
+    <%= cate.label :name %>
+    <%= cate.text_field :name %><br>
+
+  <% end %>
+
+  <%= f.submit %>
+<% end %>

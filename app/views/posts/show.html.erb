@@ -1,13 +1,25 @@
 <%= @post.title %>
 <%= @post.content %>
-<% if @post.comments.count > 0 %>
+
 <%= @post.comments.each do |comment| %>
+<% if comment.content != nil %>
 <p><%= comment.user.username %> says: <%= comment.content %></p>
 <% end %>
 <% end %>
 
+<% @users = [] %>
+<% @post.comments.each do |comment| %>
+<% if comment.content != nil %>
+<% @users << comment.user %>
+<% end %>
+<% end %>
+<% @users = @users.uniq %>
 
-<%= form_for @post.comments.build do |f| %>
+<% @users.each do |user| %>
+<%= link_to user.username, user_path(user) %>
+<% end %>
+
+<%= form_for @comment do |f| %>
 
 <%= f.hidden_field :post_id %>
 

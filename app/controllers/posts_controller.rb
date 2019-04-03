@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     #binding.pry
-    
+    @comment = @post.comments.build
   end
 
   def index

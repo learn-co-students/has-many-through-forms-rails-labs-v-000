@@ -1,8 +1,10 @@
 class PostsController < ApplicationController
   def show
-    @post = Post.find(params[:id])
-    #binding.pry
+    @post = Post.find_by_id(params[:id])
+    @users = User.all
+  #  binding.pry
     @comment = @post.comments.build
+
     @user = User.new
   end
 

@@ -1,11 +1,17 @@
-<%= @post.title %>
+<%= @post.title %><br>
+<% @post.categories.each do |category| %><br>
+<%= category.name %><br>
+<% end %>
 <%= @post.content %>
 
-<%= @post.comments.each do |comment| %>
+<% if @post.comments.count > 0 %>
+<% @post.comments.each do |comment| %>
 <% if comment.content != nil %>
 <p><%= comment.user.username %> says: <%= comment.content %></p>
 <% end %>
 <% end %>
+<% end %>
+
 
 <% @users = [] %>
 <% @post.comments.each do |comment| %>
@@ -19,9 +25,9 @@
 <%= link_to user.username, user_path(user) %>
 <% end %>
 
-<%= form_for @comment do |f| %>
+<% form_for @comment do |f| %>
 
-<%= f.hidden_field :post_id %>
+<% f.hidden_field :post_id, value: @post.id %>
 
 <%= f.label :content %>
 <%= f.text_field :content %><br>
@@ -29,7 +35,7 @@
   <%= f.label :user_id %>
   <%= f.collection_select :user_id, User.all, :id, :username, :include_blank => 'None' %><br>
 
-  <%= f.fields_for :user do |user| %>
+  <% f.fields_for :user, @user do |user| %>
     <%= user.label :username %>
     <%= user.text_field :username %><br>
   <% end %>

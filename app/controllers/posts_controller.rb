@@ -3,6 +3,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     #binding.pry
     @comment = @post.comments.build
+    @user = User.new
   end
 
   def index
@@ -15,7 +16,7 @@ class PostsController < ApplicationController
 
   def create
     post = Post.create(post_params)
-    redirect_to post
+    redirect_to post_path(post)
   end
 
   private

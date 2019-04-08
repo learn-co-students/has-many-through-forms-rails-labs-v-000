@@ -11,7 +11,6 @@ Categories: <br>
 
 Comments: <br>
 
-
 <ul>
   <% @post.comments.each do |comment| %>
   <li> <%= comment.content %>
@@ -20,3 +19,16 @@ Comments: <br>
 
   <% end %>
 </ul>
+
+<%= form_for(@comment) do |f| %>
+
+  <%= f.label :content %>
+  <%= f.text_field :content %>
+
+  <%= f.label :user %>
+  <%= f.collect_select :user_id, User.all, :id, :username %>
+
+  <%= f.hidden_field :post_id, :value => @post.id %>
+
+  <%= f.submit %>
+<% end %>

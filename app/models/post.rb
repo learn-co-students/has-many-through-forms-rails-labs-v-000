@@ -16,4 +16,10 @@ class Post < ActiveRecord::Base
     end
 
   end
+
+  def unique_user
+    binding.pry #a bunch of users are available
+    self.users.uniq
+
+  end
 end

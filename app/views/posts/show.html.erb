@@ -6,5 +6,29 @@
     
 <h4>Comments: <%= @post.comments.each do |com| %>
                         <%= com.content %>
-                        by <%= link_to com.user.username, user_path(com.user) %>
+                       <!--- by <%= link_to com.user.username, user_path(com.user) %> -->
                 <% end %></h4>
+
+
+<h4>Users: <%= @post.users.uniq.each do |user| %>
+                    <%= link_to user.username, user_path(user) %>
+            <% end %></h4>
+
+<h4>Create A Comment: </h4>
+    <%= form_for @post.comments.build do |f| %>
+    <!-- this is a form for a comment already associated to a post -->
+
+        <%= f.hidden_field :post_id %>
+
+        <%= f.collection_select :user_id, User.all, :id, :username %>
+
+        <%= f.fields_for :user, @post.users.build do |user_field| %>
+            <%= user_field.text_field :username %>
+        <% end %>
+
+        <%= f.text_area :content %> 
+
+        <%= f.submit %>
+    <% end %>
+
+

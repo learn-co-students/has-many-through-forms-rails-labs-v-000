@@ -1,16 +1,16 @@
 <h1>Title: <%= @post.title %></h1><br>
 <h3>Content: <%= @post.content %></h3><br>
-<h4>Categories: <%= @post.categories.each do |cat| %>
+<h4>Categories: <% @post.categories.each do |cat| %>
                         <%= cat.name %>
                 <% end %> </h4>
     
-<h4>Comments: <%= @post.comments.each do |com| %>
-                        <%= com.content %>
+<h4>Comments: <% @post.comments.each do |com| %>
+                        <%= com.username %> says: <%= com.content %>
                        <!--- by <%= link_to com.user.username, user_path(com.user) %> -->
                 <% end %></h4>
 
 
-<h4>Users: <%= @post.users.uniq.each do |user| %>
+<h4>Users: <% @post.users.uniq.each do |user| %>
                     <%= link_to user.username, user_path(user) %>
             <% end %></h4>
 

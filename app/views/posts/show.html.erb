@@ -12,25 +12,31 @@ Categories: <br>
 Comments: <br>
 
 <ul>
-  <% @post.comments.each do |comment| %>
-  <li> <%= comment.content %>
-     <%= link_to comment.user.username, user_path(comment.user) %>
+  <% @post.unique_users.each do |user| %>
+  <li> <%= link_to user.username, user_path(user) %> says:
+    <% user.comments.each do |comment| %>
+    <%= comment.content %>
+    <% end %>
    </li>
-
   <% end %>
-
 </ul>
-<!-- add comment.unique_user -->
 
-<%= form_for(@comment) do |f| %>
+<!-- unique set of post's users for each of those display their username and then loop through the user's comments -->
+
+<%= form_for @post.comments.build do |f| %>
 
   <%= f.label :content %>
   <%= f.text_field :content %>
 
   <%= f.label :user %>
-  <%= f.collect_select :user_id, User.all, :id, :username %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
+
+  <%= f.fields_for :user, User.new do |user_field| %>
+  <%= user_field.text_field :username %>
+  <% end %>
 
   <%= f.hidden_field :post_id, :value => @post.id %>
 
   <%= f.submit %>
+
 <% end %>

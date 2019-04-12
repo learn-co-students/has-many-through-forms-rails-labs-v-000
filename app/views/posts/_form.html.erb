@@ -9,13 +9,13 @@
   </p>
   
   Add a category: 
-  <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
     
   <br>
   Or create a new one: 
-  <%= f.fields_for :categories do |cat| %>
+  <%= f.fields_for :categories, @post.categories.build do |cat| %>
     <%= cat.text_field :name %>
   <%end%>
   <br>
-  <%= f.submit %>
+  <%= f.submit "Create Post"%>
 <%end%>

@@ -1,16 +1,23 @@
 <h1><%=@post.title%></h1>
 <p><%=@post.content%></p>
 
-<h4>All comments:</h4>
-<ul>
-  <% @post.comments.each do |comment| %>
-    <%if comment.user %>
-       <li>
-        <%= comment.user.username%> says: <%= comment.content %>
-      </li>
+<h4>All categories:</h4>
+  <ul>
+    <% @post.categories.each do |category|%>
+      <li><%= category.name%></li>
     <%end%>
-  <%end%>
-</ul>
+  </ul>
+
+<h4>All comments:</h4>
+  <ul>
+    <% @post.comments.each do |comment| %>
+      <% if comment.user %>
+        <li>
+          <%= comment.user.username %> says: <%= comment.content %>
+        </li>
+      <%end%>
+    <% end %>
+  </ul>
 
 <h4>All commentors:</h4>
   <ul>
@@ -24,7 +31,7 @@
   User:
   <%= f.collection_select :user_id, User.all, :id, :username, include_blank: '' %>
 
-  <%= f.fields_for :user, User.new do |u| %>
+  <%= f.fields_for :user, @post.users.build do |u| %>
     <%= u.label :username %>
     <%= u.text_field :username %>
   <%end%>

@@ -1,1 +1,31 @@
 
+<h1><%= @post.title %> </h1>
+<% @categories.each do |category| %>
+    <%=category.name%>
+<%end%>
+<%=@post.content%> 
+
+##display the users who have commented on the post
+<h1>Commenters</h1>
+
+<% @commenters.each do |commenter| %>
+    <%= link_to commenter.username, user_path(commenter) %>
+<%end%>
+
+##display the comments
+
+<% @comments.each do |comment| %>
+    <%= comment.content %>
+    <%= comment.user.username %>
+<%end%>
+
+##create a form for a new comment 
+
+<%= form_for comment do |f| %>
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+    <%= f.collection_select :user_id, User.all, :id, :username %>
+    <%= f.fields_for :user, comment.user.build do |user_field| %>
+        <%= user_field.text_field :username %>
+    <%end%>
+<%end%>

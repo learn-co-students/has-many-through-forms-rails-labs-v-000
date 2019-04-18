@@ -1,4 +1,11 @@
 class CommentsController < ApplicationController
+  belongs_to :user 
+  belongs_to :post 
+  accepts_nested_attributes_for :user 
+
+  def new
+    @comment = Comment.new 
+  end 
 
   def create
     comment = Comment.create(comment_params)

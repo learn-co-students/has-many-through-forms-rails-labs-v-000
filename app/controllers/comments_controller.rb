@@ -1,15 +1,14 @@
 class CommentsController < ApplicationController
 
   def create
-    comment = Comment.new(comment_params)
-    if comment.save
+    comment = Comment.create(comment_params)
+    # if comment.save
       redirect_to comment.post
-    else
-      binding.pry
-      @post = Post.find(comment.post.id)
-      @comment = comment
-      render 'posts/show'
-    end
+    # else
+    #   @post = Post.find(comment.post.id)
+    #   @comment = comment
+    #   render 'posts/show'
+    # end
   end
 
   private

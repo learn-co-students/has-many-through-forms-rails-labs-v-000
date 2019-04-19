@@ -1,7 +1,8 @@
 class PostsController < ApplicationController
   def show
-    @comment = Comment.new 
+     
     @post = Post.find(params[:id])
+    @comment = @post.comments.build 
     @categories = @post.categories.all
     @comments = @post.comments.all if @post.comments.all
     @commenters = @post.users.all.distinct

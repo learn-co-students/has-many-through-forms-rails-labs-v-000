@@ -1,1 +1,13 @@
-
+<%= form_for @post do |post_builder| %>
+  <p><%= post_builder.label "Title" %>
+  <%= post_builder.text_field :title %></p>
+  <p><%= post_builder.label "Content" %></p>
+  <p><%= post_builder.text_area :content %></p>
+  <p><%= post_builder.label "Existing Categories" %></p>
+  <%= post_builder.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
+  <p><%= post_builder.label "Add a New Category" %></p>
+  <%= post_builder.fields_for :categories, @post.categories.build do |category_builder| %>
+    <%= category_builder.text_field :name %>
+  <% end %>
+  <p><%= post_builder.submit %></p>
+<% end %>

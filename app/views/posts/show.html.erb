@@ -16,11 +16,13 @@
 <% end %>
 
     <% @post.users.uniq.each do |user| %>
-        <%= link_to user.username, user_path(user.id) %>
+        <% if user.id != nil %>
          <%= "#{user.username}" %> says:
          <% user.comments.each do |comment| %>
            <%= "#{comment.content}" %>
          <% end %>
+         <%= link_to user.username, user_path(user.id) %>
+       <% end %>
        <% end %>
   
 

@@ -7,17 +7,21 @@
 <%= form_for @post.comments.build do |f| %>
     <%= f.label "Comment" %>
     <%= f.text_field :content %>
-    <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Any' %>
+    <%= f.collection_select :user_id, User.all, :id, :username %>
     <%= f.fields_for :user_attributes, @post.users.build do |user_fields| %>
         <%= user_fields.text_field :username %>
       <% end %>
     <%= f.hidden_field :post_id, value: @post.id %>
     <%= f.submit%>
-    <% end %>
+<% end %>
 
-    <% @post.comments.each do |comment| %>
-        <% if comment.user %>
-         <%= "#{comment.user.username} says: #{comment.content}" %>
+    <% @post.users.uniq.each do |user| %>
+        <%= link_to user.username, user_path(user.id) %>
+         <%= "#{user.username}" %> says:
+         <% user.comments.each do |comment| %>
+           <%= "#{comment.content}" %>
          <% end %>
-        <% end %>
+      
+       <% end %>
+  
 

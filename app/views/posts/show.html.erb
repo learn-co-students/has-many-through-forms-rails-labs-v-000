@@ -29,7 +29,7 @@
   <p><% if comment.user %><%= comment.user.username %> says: <%= comment.content %><% end %></p>
 <% end %>
 
-<h4>Thank You to Our Interactive User Community!</h4>
+<h4>Thank You to Our Interactive User Community!!!</h4>
 <% @post.users.uniq.each do |user| %>
   <p><%= link_to user.username, user_path(user) %></p>
 <% end %>

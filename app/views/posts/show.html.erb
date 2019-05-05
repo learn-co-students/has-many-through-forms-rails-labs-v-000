@@ -1,1 +1,35 @@
+<h3>Post</h3>
 
+<p><%= @post.title %></p>
+<p><%= @post.content %></p>
+
+<div id="comments">
+  <% @post.comments.each do |comment| %>
+    <% if comment.user %>
+      <p><%= comment.user.username %> says: <%= comment.content %></p>
+    <% end %>
+  <% end %>
+</div>
+
+<div id="users">
+  <ul>
+  <% @users_with_comments.each do |u| %>
+      <li><%= link_to u.username, user_path(u) %></li>
+  <% end %>
+  </ul>
+
+  <%= form_for @comment, :action => :comments_create do |f| %>
+    <%= f.number_field :post_id, value: @post.id, hidden: true %>
+
+    <%= f.label :content %>
+    <%= f.text_field :content %><br></br>
+
+    <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: 'Create New User'} %>
+
+    <%= f.fields_for :user_attributes, @comment.build_user do |user_f| %>
+      <%=  user_f.text_field :username %>
+    <% end %>
+
+    <%= f.submit %>
+  <% end %>
+</div>

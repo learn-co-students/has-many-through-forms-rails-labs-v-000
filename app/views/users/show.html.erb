@@ -1,1 +1,8 @@
+<h3>Users</h3>
 
+<h4><%= @user.username %>'s posts</h4>
+<ul>
+  <%= @user.posts.each do |p| %>
+    <li><%= link_to p.title, post_path(p) %></li>
+  <% end %>
+</ul>

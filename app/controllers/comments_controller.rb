@@ -4,6 +4,11 @@ class CommentsController < ApplicationController
     comment = Comment.create(comment_params)
     redirect_to comment.post
   end
+  
+  def new
+    
+    @comment = Comment.new
+  end
 
   private
 

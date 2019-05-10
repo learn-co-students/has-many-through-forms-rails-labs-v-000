@@ -1,0 +1,7 @@
+<div class=category-content>
+  <ul>
+  <% @category.posts.each do |category|%>
+<li>  <%= link_to category.title, category %> </li>
+  <% end %>
+  </ul>
+</div>

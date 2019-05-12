@@ -12,11 +12,29 @@
   <% end %>
 
 
-
 <h3>Contritubting Users:</h3>
   <% @post.users.uniq.each do |user| %>
     <%= link_to user.username, user_path(user) %>
   <% end %>
 
+<h3>Create a new comment:</h3>
+
+  <%= form_for @post.comments.build do |f| %>
+    Select your user:
+      <%= f.collection_select(:user_id, User.all, :id, :username, { include_blank: true }) %>
+
+    <br><br>
+    <%= f.label "Comment" %>
+    <%= f.text_area :content %>
+    <%= f.hidden_field :post_id %>
+    Don't see your user? No prob! Create a new user:
+    <br><br>
+      <%= f.fields_for :user, User.new do |user_attributes| %>
+        Username: <%= user_attributes.text_field :username %>
+        Email: <%= user_attributes.text_field :email %>
+      <% end %>
+
+      <%= f.submit %>
+      <% end %>
 
 </div>

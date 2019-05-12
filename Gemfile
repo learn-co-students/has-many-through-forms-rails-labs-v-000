@@ -45,3 +45,5 @@ group :development, :test do
   gem 'pry'
   gem 'database_cleaner'
 end
+
+gem 'rails-erd', require: false, group: :development

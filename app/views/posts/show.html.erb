@@ -17,7 +17,7 @@
   <%= f.label :commenting_user %>
   <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: 'Create New User'} %><br>
   
-  <%= f.fields_for :user_attributes, @comment.build_user do |user_fields| %>
+  <%= f.fields_for :user, @comment.build_user do |user_fields| %>
     <%= user_fields.text_field :username %>
   <% end %><br><br>
 

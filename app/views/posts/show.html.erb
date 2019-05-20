@@ -1,1 +1,35 @@
+<p>Post Show Page</p>
+<h2>Post Title: <%= @post.title %></h2>
+<h2>Post content: <%= @post.content %></h2>
 
+Comments:
+<% @post.comments.each do |c| %>
+  <%= c.user.username %> says: <%= c.content %>
+<% end %><br/>
+
+<% @post.categories.each do |category| %>
+  <%= category.name%>
+<% end %>
+
+Users who have commented:
+<% @post.users.uniq.each do |u| %>
+  <%= link_to u.username, user_path(u) %>
+<% end %><br/>
+
+Add a comment:
+<%= form_for @comment do |f| %>
+  <%= f.label :user %>
+  <%= f.collection_select :user_id, User.all, :id, :username, {:include_blank => true} %>
+
+  <%= f.fields_for :user, @user do |fields| %>
+  <%= f.label :username %>
+  <%= fields.text_field :username %>
+  <% end %>
+
+  <%= f.label :content %>
+  <%= f.text_area :content%>
+  <%= f.hidden_field :post_id, value: @post.id %>
+
+  <%= f.submit "Create Comment" %>
+
+<% end %>

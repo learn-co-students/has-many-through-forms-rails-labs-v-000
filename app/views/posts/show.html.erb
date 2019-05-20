@@ -1,1 +1,31 @@
+<%= @post.title %>
+<br>
+<%= @post.content %>
+<br>
+<% @post.categories.each do |category| %>
+    <%= category.name %>
+<% end %>
+<ul>
+    <% @post.comments.each do |p_comm| %>
+        <%= p_comm.user.username %> says: <%= p_comm.content %> <br>
+    <% end %>
 
+ </ul>
+<br>
+<ul>
+    <% @post.users.uniq.each do |p_us| %>
+        <%= p_us.username %> <br>
+        <%= link_to p_us.username, user_path(p_us) %>
+    <% end %>
+</ul>
+<br>
+<%= form_for @post.comments.build do |f| %>
+    <%= f.label "Content" %>
+    <%= f.text_area :content %>
+    <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Choose a User' %>
+    <%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
+        <%= user_fields.text_field :username %>
+    <% end %>
+    <%= f.hidden_field :post_id %>
+    <%= f.submit %>
+<% end %> 

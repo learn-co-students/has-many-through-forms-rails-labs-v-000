@@ -1,0 +1,4 @@
+<% @category.posts.each do |cat_post| %>
+  <%= cat_post.title %>
+  <%= link_to cat_post.title, post_path(cat_post.id) %>
+<% end %> 

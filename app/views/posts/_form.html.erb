@@ -1,1 +1,16 @@
-
+<%= form_for post do |p| %>
+  <%= p.label :title %>
+  <%= p.text_field :title %><br>
+  <%= p.label :content %>
+  <%= p.text_area :content %><br>
+  <%= p.label :categories, "existing category" %><br>
+  <% if Category.all == [] %>
+    NA
+  <% end %><br>
+  <%= p.collection_check_boxes :category_ids, Category.all, :id, :name %><br>
+  <%= p.label :categories, "create new category" %>
+  <%= p.fields_for :categories, post.categories.build do |cat| %>
+    <%= cat.text_field :name %><br>
+  <% end %>
+  <%= p.submit %>
+<% end %>

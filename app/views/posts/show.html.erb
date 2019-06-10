@@ -1,1 +1,15 @@
 
+<h1><%= @post.title %></h1>
+<h2><%= @post.content %></h2>
+<h3>Comments:</h3>
+<ul>
+  <% @post.comments.each do |comment| %>
+  <li><%= comment.user.username %> said: <%= comment.content %></li>
+  <% end %>
+</ul>
+<h3>Users Who Commented</h3>
+<ul>
+  <% @post.users.uniq.each do |user| %>
+  <li><%= link_to user.username, user_path(user) %></li>
+  <% end %>
+</ul>

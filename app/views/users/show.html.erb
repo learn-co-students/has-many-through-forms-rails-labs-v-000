@@ -1,7 +1,7 @@
 <h1>All Comments for <%= @user.username %></h1>
 
 <ul>
-  <% @user.comments.posts.each do |post| %>
+  <% @user.posts.each do |post| %>
   <li><%= link_to post.title, post_path(post) %></li>
   <% end %>
 </ul>

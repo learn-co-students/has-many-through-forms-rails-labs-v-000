@@ -1,1 +1,41 @@
+<h1><%= @post.title %></h1>
 
+<br>
+<p><%= @post.content %></p>
+<br>
+
+
+<%= form_for(@post) do |f| %>
+    <h3>New Comment:</h3> <%= f.text_field :content %><input name='post[comment][content]' id='comment_content'>
+    <br>
+    <h3>User: </h3> <datalist id='users_autocomplete'>
+        <% User.all.each do |i| %>
+            <option value='<%=i.username%>'>
+        <% end %>
+    </datalist>
+    <br>
+    <h3>New User: </h3><input name='post[user_attributes][username]' id='comment_user_attributes_username'>
+    <br>
+  <%= f.submit 'Create Comment' %>
+<% end %>
+
+<br>
+<h3>Category: <% @post.categories.each do |category| %></h3>
+    <ul>
+        <li><%= category.name %></li>
+    </ul>
+<% end %>
+<br>
+
+<h3>Previous Comments: <% @post.comments.each do |comment| %></h3>
+    <ul>
+        <li><%= comment.content %> -- <% if !comment.user.nil? %><% comment.user.username %><% end %></li>
+    </ul>
+<% end %>
+<br>
+
+<h3>Users: <% @post.users.uniq.each do |user| %></h3>
+    <ul>
+        <li><%= link_to user.username, user_path(user) %></li>
+    </ul>
+<% end %>

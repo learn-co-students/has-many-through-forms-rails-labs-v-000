@@ -5,3 +5,15 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Category.destroy_all
+Post.destroy_all
+Comment.destroy_all
+User.destroy_all
+
+
+@category = Category.create(name: "Cool")
+@post = Post.create(title: "So Awesome", content: "Man am I a great blogger OR WHAT!")
+@post.categories << @category
+@user = User.create(username: 'RealBigFish')
+@comment1 = Comment.create(content: "This was great!", user: @user, post: @post)
+@user2 = User.create(username: 'Karl')

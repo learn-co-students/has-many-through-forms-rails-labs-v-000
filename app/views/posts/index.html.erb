@@ -1,0 +1,6 @@
+<font color = "maroon"><h1> All the  cool posts </h1></font>
+
+
+  <% @posts.each do |post| %>
+    <h4><em><%= link_to post.title, post %></em></h4>
+  <% end %>

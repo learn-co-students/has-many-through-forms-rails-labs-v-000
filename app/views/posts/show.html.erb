@@ -1,1 +1,38 @@
+<center>
+  <h2><em><font color="maroon"><%= @post.title %></font></em></h2>
+</center>
 
+<p><%= @post.content %></p>
+
+<font color="grey">
+
+  Categories:
+    <% @post.categories.each do |category| %>
+      <%= category.name %>
+    <% end %>
+
+  <h4>Comments:</h4>
+
+    <%= form_for @comment do |f| %>
+      <p><%=f.text_area :content %></p>
+      <p>Username <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: ''} %></p>
+      <%= f.hidden_field :post_id %>
+
+      New user?
+      <%= f.fields_for :user, @comment.build_user do |users_fields| %>
+        <%= users_fields.text_field :username %>
+        <% end %>
+      <br>
+      <br>
+      <%= f.submit "Create Comment" %>
+      <% end %>
+      <br>
+</font>
+<% @users.each do |user| %>
+  <em><%= link_to user.username, user %></em> says:
+    <% user.comments.each do |comment| %>
+      <font color="gray"><%= comment.content %></font>
+      <br>
+      <br>
+    <% end %>
+<% end %>

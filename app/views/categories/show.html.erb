@@ -1,0 +1,10 @@
+#Create a categories#show page that links to all of the posts associated with a given category.
+
+
+
+<%= @category.name %>
+
+ <h2>Posts</h2>
+<% @category.posts.each do |post| %>
+  <li><%= link_to post.title, post %> </li>
+<% end %>

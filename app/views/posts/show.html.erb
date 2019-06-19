@@ -1,13 +1,31 @@
 
     <%= @post.title %>
     <%= @post.content %>
-   <% @post.comments.each do |comment| %>
-       <%= comment %>
-        <% end %>
+
+<ul>
     <% @post.categories.each do |category| %>
         <%= category.name %>
     <% end %>
+</ul>
 
+<ul>
+   <% @post.comments.each do |comment| %>
+       <%= comment.content %>
+        <% end %>
+</ul>
     
+<h2>Users who have commented:</h2>
+    <h4>
+  <ul>
+    <%= @post.users.uniq.each do |user| %>
+      <li><%= link_to(user.username, user) %></li>
+    <% end %>
+  </ul>
+</h4>
   
-      
+<%= form_for @comment do |f| %>
+    <%= f.label "Comment" %>
+    <%= f.text_area :content %>
+    <%= f.submit %>
+  <% end %>
+

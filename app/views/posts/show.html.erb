@@ -1,36 +1,23 @@
-
-    <h1><%= @post.title %></h1><br>
+    
+    <h1><%= @post.title %></h1>
     <p><%= @post.content %></p>
 
-    <p>Categories</p>
+    <p>Categories:</p>
 <ul>
     <% @post.categories.each do |category| %>
-        <%= category.name %>
-    <% end %>
+       <li> <%= category.name %> </li>
+     <% end %>
 </ul>
 
-<ul>
-   <% @post.comments.each do |comment| %>
-       <%= comment.content %>
-        <% end %>
-</ul>
-    
-<h2>Users who have commented:</h2>
-    <h4>
-  <ul>
-    <%= @post.users.uniq.each do |user| %>
-      <li><%= link_to(user.username, user) %></li>
-    <% end %>
-  </ul>
-</h4>
   
 <%= form_for @comment do |f| %>
+    <%= f.hidden_field :post_id %>
     <%= f.label "Comment" %>
-    <%= f.text_area :content %>
-
+    <%= f.text_area :content %><br>
+    <br>
     <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "Choose a User" %>
     <br>
-      Create A User to Write As:
+      <br>Create A User to Write As:
       <%= f.fields_for :user, @post.comments.last.build_user do |user_fields|%>
      <br>
         Username:
@@ -42,3 +29,19 @@
     <%= f.submit %>
   <% end %>
 
+
+  <h2>Users who have commented:</h2>
+  <h4>
+<ul>
+  <%= @post.users.uniq.each do |user| %>
+    <li><%= link_to(user.username, user) %></li>
+  <% end %>
+</ul>
+</h4>
+
+  <h2>Comments:</h2>
+  <ul>
+      <%= @post.comments.each do |comment| %>
+        <li><%= comment.user.username %> says: <%= comment.content %></li>
+      <% end %>
+    </ul>

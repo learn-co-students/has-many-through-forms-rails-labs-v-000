@@ -7,7 +7,7 @@
 <% end %>
 
 <h2>Create a new comment:</h2>
-<%= form_for :@comment do |comment_builder| %>
+<%= form_for @comment do |comment_builder| %>
     <%= comment_builder.number_field :post_id, value: @post.id, hidden: true %>
 
     <%= comment_builder.label :content %>

@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+
   def show
     @post = Post.find(params[:id])
   end
@@ -12,8 +13,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = Post.create(post_params)
-    redirect_to post
+    @post = Post.create(post_params)
+    redirect_to @post
   end
 
   private

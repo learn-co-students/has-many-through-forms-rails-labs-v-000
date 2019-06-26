@@ -3,31 +3,34 @@
 
 <h2>Categories this post belongs to:</h2>
   <ul>
-    <% @post_categories.each do |c| %>
-      <li><%= c.name %></li>
+    <% @post.categories.each do |category| %>
+      <li><%= category.name %></li>
     <% end %>
   </ul>
 
   <h2>Comments:</h2>
   <ul>
-    <% @post_comments.each do |comment| %>
-      <li><%= comment.content %></li>
-    <% end %>
-  </ul>
-
-  <h2>Users that have commented on this post:</h2>
-  <ul>
-    <% @unique_commentors.each do |u| %>
-      <li><%= link_to u.username, user_path(u) %></li>
+    <% @post.unique_users.each do |user| %>
+      <%= link_to user.username, user_path(user)%>
+      <% user.comments.each do |comment| %>
+      <%= user.username %> says: <%= comment.content %>
+      <% end %>
     <% end %>
   </ul>
 
   <h2>Comment on this post:</h2>
 
-  <%= form_for @post do |f|%>
-    <%= f.fields_for :comments, @post.comments.build do |comments_fields| %>
-      <%= comments_fields.text_area :content %>
-      <%= comments_fields.collection_select :user_id, User.all, :id, :username %>
+  <%= form_for @comment do |f|%>
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+
+    <%= f.label :user %>
+    <%= f.collection_select :user_id, User.all, :id, :username, include_blank:true %>
+    <%= f.hidden_field :post_id, :value => @post.id %>
+
+    <%= f.fields_for :user, @user do |user_fields| %>
+      <%= user_fields.text_field :username %>
     <% end %>
+
     <%= f.submit %>
   <% end %>

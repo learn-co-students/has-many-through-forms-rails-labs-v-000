@@ -5,3 +5,10 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+new_user = User.create(username: 'jimmy', email: "jimmy@yorke.com")
+new_post = Post.create(title: "Nested forms, let me understand you", content: "Sometimes its best to step away. Sleep.")
+not_cool = new_post.categories.build(name: "Ruby on Railsss")
+new_post.save
+
+new_comment = new_post.comments.build(content: "agreed!", user: new_user)
+new_comment.save

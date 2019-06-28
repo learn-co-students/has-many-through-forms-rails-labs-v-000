@@ -1,1 +1,26 @@
+<%= @post.title %>
+<%= @post.content %>
+<% @post.categories.each do |c| %>
+  <%= c.name %>
+<% end %>
 
+<% @post.comments.each do |c| %>
+  "<%= c.user.username %> says: <%= c.content %>"
+<% end %>
+
+<%= form_for @comment do |f| %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.label "Content" %>
+  <%= f.text_field :content %>
+  <%= f.label "Current Username: " %>
+  <%= f.collection_select(:user_id, User.all, :id, :username, {include_blank: true}) %>
+  <%= f.label "New Username" %>
+  <%= f.fields_for :user_attributes do |u| %>
+    <%= u.text_field :username %>
+  <% end %>
+  <%= f.submit %>
+<% end %>
+
+<% @post.usernames.map do |u| %>
+  <%= link_to u, user_path(User.find_by(username: u)) %>
+<% end %>

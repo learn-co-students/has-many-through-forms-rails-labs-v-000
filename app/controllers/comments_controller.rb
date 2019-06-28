@@ -1,8 +1,14 @@
 class CommentsController < ApplicationController
 
+  def new
+    @comment = Comment.new
+  end
+
   def create
     comment = Comment.create(comment_params)
-    redirect_to comment.post
+    comment.user = User.find_or_create_by(username: params["comment"]["user_attributes"]["username"])
+    comment.save
+    redirect_to post_path(comment.post)
   end
 
   private

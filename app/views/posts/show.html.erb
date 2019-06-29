@@ -2,21 +2,20 @@
 <p><%= @post.content %></p>
 Comments:
   <% @post.comments.each do |comment| %>
-    <%= comment.user.name %> says 
+    <%= comment.user.username %> says 
     <%= comment.content %>
   <% end %>
 
 Users:
-  <ul><% @post.users.each do |user| %>
-    <%= user.name %> 
+  <ul><% @post.users.uniq.each do |user| %>
+    <%= user.username %> 
   <% end %></ul>
 
-  <%= form_for @comment do |f| %>
+  <%= form_for @post.comments.build do |f| %>
     <%= f.label "Comment Content" %>
     <%= f.text_area :content %>
     <%= f.collection_select :user_id, User.all, :id, :username %>
-#    <%= f.fields_for :users, @comment.user.build do |user_fields| %>
-#      <%= user_fields.text_field :username %>
-    <% end %>
+    
+    <%= hidden_field :post_id, value: @post.id %>
     <%= f.submit %>
 <% end %>

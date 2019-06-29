@@ -1,1 +1,18 @@
+<h2><%= @post.title %></h2>
+<p><%= @post.content %></p>
+Comments:
+  <% @post.comments.each do |comment| %>
+    <%= comment.user.name %> says 
+    <%= comment.content %>
+  <% end %>
 
+Users:
+  <ul><% @post.users.each do |user| %>
+    <%= user.name %> 
+  <% end %></ul>
+
+  <%= form_for @comment do |f| %>
+    <%= f.label "Comment Content" %>
+    <%= f.text_area :comment_content %>
+    <%= f.submit %>
+<% end %>

@@ -1,1 +1,17 @@
+<h1><%= @post.title %> </h1>
+<h2><%= @post.content %> </h2>
 
+
+<% @users_list = [] %>
+<% @post.comments.each do |comment| %>
+<p>
+  <%= comment.content %>
+  <% @users_list << comment.user %>
+</p>
+<% end %>
+<ul>
+  <% @users_list.uniq.each do |user| %>
+  <li><%= user.name %></li>
+  <%end%>
+</ul>
+<%= form_for @post.comments do |f|

@@ -23,19 +23,16 @@
   <%= f.label :content %>
   <%= f.text_area :content %>
   <br>
-  <%= f.label :post_id %>
   <%= f.hidden_field :post_id, value: @post.id %>
   <br>
-  <%= f.label :user_id %>
-  <%= f.collection_select :user_id, User.all, :id, :username %>
-  <br>
 
-  <%= f.fields_for :user do |user_attributes| %>
-    <%= f.label :username %>
-    <%= user_attributes.text_field :username %>
-    <br>
-    <%= f.label :email %>
-    <%= user_attributes.text_field :email %>
+  <%= f.label :user_id %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
+
+
+  <%= f.fields_for :user, User.new do |user_fields| %>
+    <%= user_fields.label :username %>
+    <%= user_fields.text_field :username %>
 
   <% end %>
 

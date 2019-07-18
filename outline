@@ -1,0 +1,8 @@
+Post have many categories/ categories have many posts
+Post nested form with smart non duplicate categories
+
+
+A comment belong_to a user
+Posts have many comments
+on the post show page I need a comment form with a drop down for users and a text box for a user name
+create a users show page that links to all of the posts a user has commented on 

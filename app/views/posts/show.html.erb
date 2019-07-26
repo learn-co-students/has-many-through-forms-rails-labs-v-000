@@ -1,1 +1,51 @@
+<h1><%= @post.title %></h1>
 
+<p><%= @post.content %></p>
+
+<br>
+
+<% if @post.categories.count == 0 %>
+  <h3>No Categories Assigned</h3>
+<% elsif @post.categories.count == 1 %>
+  <h3>Category:</h3>
+<% else %>
+  <h3>Categories:</h3>
+<% end %>
+
+<ul>
+  <% @post.categories.each do |category| %>
+    <li><%= link_to category.name, category_path(category) %></li>
+  <% end %>
+</ul>
+
+<br>
+
+<h3>Add a Comment</h3>
+
+<%= form_for @post.comments.build do |f| %>
+  <%= f.hidden_field :post_id, value: @post.id %><br>
+  <%= f.label "Content:" %><br>
+  <%= f.text_area :content %><br>
+  <%= f.label "Select a current user:" %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "User" %><br>
+  <%= f.label "Or add a new user:" %>
+  <%= f.fields_for :user, @user do |user_fields| %>
+    <%= user_fields.text_field :username %><br><br>
+  <% end %>
+  <%= f.submit %>
+<% end %>
+
+<h4>Comments:</h4>
+
+<ul>
+  <% @post.post_users.each do |user| %>
+    <li><%= link_to user.username, user_path(user) %></li>
+      <ul>
+        <% user.comments.each do |comment| %>
+          <% if comment.post_id == @post.id %>
+            <li><%= user.username %> says: <%= comment.content %></li>
+          <% end %>
+        <% end %>
+      </ul>
+  <% end %>
+</ul>

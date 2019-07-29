@@ -11,7 +11,7 @@
 <p>Comments:</p>
 <ul>
     <% @post.comments.each do |comment| %>
-        <li><%= comment.content %></li>
+        <li><%= comment.user.username %> says: <%= comment.content %></li>
     <% end %>
 </ul>
 
@@ -29,7 +29,7 @@
 <%= form_for @comment do |f| %>
     <%= f.label "Content" %>
     <%= f.text_area :content %>
-    <%= f.collection_select :user_id, User.all, :id, :username %>
+    <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: ''} %>
     <%= f.fields_for :user, @post.users.build do |user_fields| %>
       <%= user_fields.text_field :username %>
     <% end %>

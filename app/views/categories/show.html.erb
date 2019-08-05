@@ -1,0 +1,6 @@
+Categorys:
+  <% @category.post_categories.each do |post_category| %>
+   Posts:
+    <%= link_to post_category.post.title, post_path(post_category.post) %>
+    <%= post_category.post.content %>
+  <% end %>

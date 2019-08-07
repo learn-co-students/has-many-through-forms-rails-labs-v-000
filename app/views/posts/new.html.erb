@@ -5,10 +5,9 @@
   <%= f.label :content %>
   <%= f.text_area :content %>
 
-    <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b| %>
-      <%= b.label %>
-      <%= b.check_box %>
-    <%end%>
+    <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name, include_blank: true)  %>
+
+
 
   <%= f.fields_for(:categories, @post.categories.build) do |category_builder| %>
     <%= category_builder.text_field :name %>

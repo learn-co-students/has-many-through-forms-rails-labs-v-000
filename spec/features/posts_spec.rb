@@ -10,7 +10,7 @@ describe 'Posts', type: 'feature' do
       fill_in('post_title', :with => 'Feeling Awesome')
       fill_in('post_content', :with => 'This is going to be an awesome post!')
     end
-
+#lines 16-17 might be problematic
     it 'can create a post without a new category' do
       click_button('Create Post')
       @category = Post.last.categories.first.name
@@ -78,4 +78,8 @@ describe 'Posts', type: 'feature' do
       expect(page).to have_link(@user.username, href: user_path(@user), count: 1)
     end
   end
+<<<<<<< HEAD
 end
+=======
+end
+>>>>>>> temp

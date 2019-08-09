@@ -1,7 +1,12 @@
 class UsersController < ApplicationController
 
-  def show
-    @user = User.find(params[:id])
-  end
+    def create
+        binding.pry
+        user = User.new(user_params)
+        redirect_to user
+    end
 
+    def show
+      @user = User.find(params[:id])
+    end
 end

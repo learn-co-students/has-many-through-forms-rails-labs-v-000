@@ -1,1 +1,46 @@
+<%= @post.title %> <br>
+<%= @post.content %> <br>
 
+
+<%# if @post.comments != [] %>
+  <% #binding.pry %>
+<ul>
+  <% #binding.pry %>
+    <% @post.comments.each do |comment| %>
+      <li><%= comment.user.username %>
+        <%#= link_to comment.user.username, user_path(comment.user) %> says: 
+      <%= comment.content %></li>
+    <% end %>
+</ul>
+<%# end %>
+
+<% if @post.users != [] %>
+<ul>
+    <% @post.users.uniq.each do |user| %>
+      <li><%= link_to user.username, user_path(user) %></li> 
+    <% end %>
+</ul>
+<% end %>
+
+<ul>
+<% @categories.each do |category| %>
+  <li><%= category.name %></li>
+<% end %>
+</ul>
+
+<%= form_for @comment do |f| %>
+    <% #binding.pry %>
+  <%= f.label :content %><br>
+  <%= f.text_field :content %><br>
+     
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
+  
+  <%= f.fields_for :user, @comment.build_user do |user_builder| %>
+    <%= user_builder.label :username %>
+    <%= user_builder.text_field :username %>
+  <% end %>
+  
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.submit %>
+
+<% end %>

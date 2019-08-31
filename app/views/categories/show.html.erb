@@ -1,0 +1,6 @@
+
+<h2> <%= @category.name%> </h2> <br> <br>
+
+<%@category.posts.each do |post|%>
+  <h4><%=link_to post.title, post_path(post)%></h4>
+<%end%>

@@ -1,1 +1,41 @@
+<%require 'pry'%>
 
+<h2> <%= @post.title%></h2> <br> <br>
+
+<p> <%= @post.content%></p> <br><br>
+
+<% Category.all.each do |cgory| %>
+  <p><%= cgory.name%> </p>
+<%end%>
+
+<h5> Post a Comment:</h5>
+
+<%=form_for @comment do |f|%>
+<input type="hidden" id="post_id" name="comment[post_id]" value="<%=@post.id%>" />
+<%= f.label :content, "Comment:"%>
+<%= f.text_field :content%>
+<%= f.label :user_id, "Select A User"%>
+<%= f.collection_select :user_id, User.all, :id, :username%>
+<%= f.fields_for :user do |t|%>
+  <%= t.text_field :username %><br>
+<%end%>
+<%= f.submit%>
+<%end%>
+
+
+<h5> Comments: </h5> <br>
+<% @user_array = []%>
+<%if @post.comments%>
+<% @post.comments.each do |comment|%>
+  <% if !@user_array.include?(comment.user)%>
+    <%@user_array << comment.user%>
+  <%end%>
+  <p> <%= comment.user.username%> says: <%=comment.content%></p>
+  <%end%>
+  <h5> Users: </h5> <br>
+  <% if !@user_array.empty?%>
+    <% @user_array.each do |user|%>
+      <%= link_to user.username, user_path(user)%> <br>
+    <%end%>
+  <%end%>
+<%end%>

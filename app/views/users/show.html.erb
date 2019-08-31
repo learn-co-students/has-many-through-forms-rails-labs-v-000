@@ -1,1 +1,7 @@
 
+<%require 'pry'%>
+<h2> <%= @user.username%> </h2>
+
+<% @user.posts.each do |post|%>
+<%=link_to post.title, post_path(post)%>
+<%end%>

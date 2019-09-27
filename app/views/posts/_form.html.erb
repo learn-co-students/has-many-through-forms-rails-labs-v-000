@@ -1,1 +1,33 @@
 
+<%= form_for post do |p|%>
+      <%= p.label "title"%>
+      <%= p.text_field :title%>
+<br></br>
+      <%= p.label "Content"%>
+      <%= p.text_field :content%>
+<br></br>
+      <%= p. collection_check_boxes :category_ids, Category.all, :id, :name%>
+<br></br>
+      <%= p.label "Create a new category"%>
+      <%= p.fields_for :categories, post.categories.build do |categories_fields|%>
+            <%= categories_fields.text_field :name%>
+      <%end%>
+<br></br>
+      <%= p.submit %>
+
+
+<%end%>
+
+
+
+<!--Create a form at posts#new to create a new post. The form should include check boxes for us to select categories as well as a text field to create a new category. You should do this with a nested form so that our controller stays thin. Also, typing in a Category name that already exists should not create a new category. Instead, if we type in a category that already exists, we should select it from the database and associate the post we've created with the existing category.
+
+
+create_table "posts", force: :cascade do |t|
+  t.string   "title"
+  t.string   "content"
+  t.datetime "created_at", null: false
+  t.datetime "updated_at", null: false
+end
+
+-->

@@ -1,1 +1,6 @@
+<h1> Welcome to <%=@user.username%> show page</h1>
 
+<p>This user has made the following posts:</p>
+<%@user.posts.each do |p|%>
+      <li> <%=link_to p.title, post_path(p)%></li>
+<%end%>

@@ -1,0 +1,12 @@
+
+
+  <% @post.users.each do |user| %> 
+    <% if user.comment == nil %>
+    <% else %>
+        <%= link_to user.username, user_path(user) %> says: <%= user.comment.content %>
+    <% end %>
+  <% end %>
+
+  <% @post.categories.each do |category| %> 
+    <%= category.name %>
+  <% end %>

@@ -1,1 +1,41 @@
+<h1>Create a New Post</h1>
 
+<%= form_for @post do |f| %>
+  <%= f.label :title %><br>
+  <%= f.text_field :title %><br>
+  <%= f.label :content %><br>
+  <%= f.text_area :content %><br>
+
+  <p><em>Select a category for your post from the list of existing categories below:</em></p>
+
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+    <p>
+      <%= b.label %>
+      <%= b.check_box %>
+    </p>
+  <% end %>
+
+  <br>
+
+  <p><em>And/Or create a new category in which to include your new post:</em></p>
+
+  <%= f.fields_for :categories, @post.categories.build do |categories_fields| %>
+    <%= categories_fields.label :name %>
+    <%= categories_fields.text_field :name %>
+  <% end %>
+
+  <br><br>
+
+  <%= f.submit %>
+<% end %>
+
+<!-- f.collection_check_boxes (see line 11) generates an HTML checkbox <input> for each category instance in the DB
+Each checkbox <input> looks like:
+<input type="checkbox" value="1" name="post[category_ids][]" id="post_category_ids_1">
+
+#fields_for helper takes 2 arguments:
+1). the associated model we're creating an instance of (we pass in :categories association)
+2). an object to wrap around - we build an empty category instance associated with the post instance
+
+f.fields_for (see line 17) generates an HTML <input> text field in which to enter the name of the new category:
+<input type="text" name="post[categories_attributes][0][name]" id="post_categories_attributes_0_name">

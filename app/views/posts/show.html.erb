@@ -1,1 +1,52 @@
+<h1><%= @post.title %></h1>
+<h3><%= @post.content %></h3>
 
+<p>Post Categories:</p>
+<ul>
+  <% @post.categories.each do |category| %>
+    <li><%= category.name %></li>
+  <% end %>
+</ul>
+
+<p><strong>Post Comments:</strong></p>
+
+<% @post.comments.each do |comment| %>
+  <p><%= comment.user.username %> says: <em><%= comment.content %></em></p>
+<% end %>
+
+<br>
+
+<p><strong>The following users commented on this post:</strong></p>
+
+<ul>
+  <% @post.comments.map {|comment| comment.user}.uniq {|user| user.username}.each do |user| %>
+    <li><%= link_to user.username, user_path(user) %></li>
+  <% end %>
+</ul>
+
+<br>
+
+<p><strong>Add a new comment by filling out the form below:</strong></p>
+
+<%= form_for @post.comments.build do |f| %>
+  <%= f.hidden_field :post_id %>
+
+  <p>
+    Select your username from the dropdown menu:
+    <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
+  </p>
+
+  <p>Or, create a new user to comment on this post:</p>
+
+  <%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
+    <%= user_fields.label :username %>
+    <%= user_fields.text_field :username %>
+  <% end %>
+
+  <br><br>
+
+  <%= f.label :content, "Comment Content:" %><br>
+  <%= f.text_area :content %><br>
+
+  <%= f.submit %>
+<% end %>

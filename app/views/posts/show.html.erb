@@ -1,1 +1,48 @@
+<h1><%= @post.title %></h1>
 
+<p>
+  <strong>Content:</strong><br> 
+  <%= @post.content %>
+</p>
+
+<p>
+  <strong>Categories:</strong><br>
+  <% @post.categories.each do |category| %>
+    <%= category.name %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Unique Commenters (users):</strong><br>
+  <% @post.unique_users.each do |user| %>
+    <%= link_to user.username, user_path(user) %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Existing Comments:</strong><br>
+  <% @post.comments.each do |comment| %>
+    <%= comment.user.username %> says: <%= link_to comment.content, comment %><br>
+  <% end %>
+</p>
+
+<p>
+  <strong>Add a comment: </strong>
+  <%= form_for @post.comments.build do |f| %>
+    <%= f.label :content %><br>
+    <%= f.text_area :content %><br>
+  
+  <%= f.fields_for :user, @post.users.build do |user_fields| %>
+    <%= f.label "new user" %><br>
+    <%= user_fields.text_field :username %><br>
+
+    <%= f.label "existing user" %><br>
+    <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true  %>
+  <br>
+    <%= f.hidden_field :post_id, :value => @post.id  %>
+  
+  <% end %>
+
+  <%= f.submit %>
+<% end %>
+</p>

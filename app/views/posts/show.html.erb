@@ -1,1 +1,47 @@
+<h3>Show Post</h3>
 
+<h1><%= @post.title %></h1>
+<p>CONTENT: <%= @post.content %></p>
+
+<h3>Categories</h3>
+<ul>
+  <%= @post.categories.each do |c| %>
+    <li><%= c.name %></li>
+  <% end %>
+</ul>
+  <!-- Following code REPLACED WITH CLEANER CODE BELOW  -->
+    <!-- <#% uniq_user_list = @post.comments.collect{|comm| comm.user}.uniq %>
+    <#%= uniq_user_list.each do |user| %>
+      <p>User: <#%= link_to user.username, user_path(user) %></p>
+      <p><#%=user.username%> says:
+        <#% user.comments.each do |comm| %>
+          <#%= comm.content if @post.comments.include?(comm) %>
+        <#% end %>
+      </p>
+    <#% end %> -->
+  <!-- this code block needed refactoring/Replaced with less logic for tests.  -->
+  <% @post.users.uniq.each do |user| %>
+    <%= link_to user.username, user_path(user) %>
+  <% end %>
+  <% @post.comments.each do |comment| %>
+    <%= comment.user.username %> says: <%= comment.content %>
+  <% end %>
+
+<!-- COMMENT SECTION -->
+<h3>Add New Commnet</h3>
+<%= form_for @post.comments.build do |f| %>
+  <!-- for the redirect -->
+  <%= f.hidden_field :post_id %>
+  <!-- select amongst users  -->
+  <%= f.collection_select :user_id, User.all, :id, :username %>
+  <!-- create/connect user to newly made comment  -->
+  <%= f.fields_for :user, @post.comments.last.build_user do |u| %>
+    <%= u.label :username %>
+    <%= u.text_field :username %>
+    <!-- |f| content vs |u| content -->
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+  <% end %>
+
+  <%= f.submit %>
+<% end %>

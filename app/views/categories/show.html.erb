@@ -1,0 +1,6 @@
+<h1>Posts associated with <%= @category.name %></h1><br>
+<ul>
+  <%= div_for @category.posts, class: "category-post" do |post| %>
+    <li><%= link_to post.title, post_path(post) %></li>
+  <% end %>
+</ul>

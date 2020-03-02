@@ -1,1 +1,21 @@
+Title: <%= @post.title %>
+Content: <%= @post.content %>
+<br><br>
+Categories:
+<ul>
+<% @post.categories.each do |c| %>
+<li><%= c.name %></li>
+<% end %>
+</ul>
 
+Comments:
+
+
+<% @post.comments.each do |c| %>
+<div><%= c.content %></div>
+<div><%= c.user.username %></div>
+<%end%>
+
+<% @post.comments.map {|c| c.user }.uniq.each do |user| %>
+	<div><%= link_to user.username, user_path(user) %></div>
+<%end%>

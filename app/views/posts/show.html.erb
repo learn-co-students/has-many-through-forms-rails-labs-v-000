@@ -1,1 +1,42 @@
+<!-- Post#show -->
 
+<!-- The title and content of the post. -->
+Title: <%= @post.title %><br>
+Content: <%= @post.content %><br><br>
+
+<!-- All of the comments associated with the post. -->
+Comments:<br>
+<% @post.comments.each do |comment| %>
+  <%= comment.user.username + " says: " + comment.content %><br>
+<% end %><br>
+
+<!-- A list of all the unique users who have commented on the post. A user's name should only show up once in this section, even if they've commented multiple times. -->
+Users who have commented:<br>
+<% @post.unique_users.each do |user| %>
+  <%= link_to user.username, user_path(user) %>
+<% end %><br>
+
+<br>Categories:<br>
+<% @post.categories.each do |category| %>
+  <%= category.name %>
+<% end %><br>
+
+<!-- A form to add a new comment. The form should have a drop-down menu to select a user -->
+New Comment:<br> 
+<%= form_for @post.comments.build do |f|%>
+  <%= f.hidden_field :post_id %>
+  <%= f.text_field :content %>
+  <%= f.collection_select :user_id, User.all, :id, :username, :include_blank => "New User" %>
+  - or - New User: 
+  <%= f.fields_for :user, @post.users.build do |i| %>
+    <%= i.text_field :username %>
+  <% end %>
+  <%= f.submit %>
+<% end %><br> 
+
+  <!-- (we'll change this in future lessons to automatically associate the comment with a logged-in user) -->
+  <!--  We should also be able to create a new user here and automatically associate it with the post. -->
+
+<!-- HINTS -->
+<!-- When creating new comments, we should only create a new user if they filled in that input. accepts_nested_attributes_for has a reject_if option that you can configure to only create new records if all the fields aren't blank. -->
+<!-- Also, the select box that we use for the users needs to have a blank option –– check out the include_blank option for collection_select. -->

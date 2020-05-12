@@ -1,1 +1,13 @@
-
+<h1>Create a Post</h1>
+<%= form_for @post do |p|%>
+<%= p.label :title %><br>
+<%= p.text_field :title %><br>
+<%= p.label :post %><br>
+<%= p.text_area :content %><br>
+<%= p.label :categories %><br>
+<%= p.collection_check_boxes :category_ids, Category.all, :id, :name %><br>
+<%= p.fields_for :categories, @post.categories.build do |f| %>
+  <%= f.text_field :name %><br>
+<% end %>
+<%= p.submit %>
+<% end %>

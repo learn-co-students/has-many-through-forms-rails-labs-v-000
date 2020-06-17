@@ -1,1 +1,31 @@
-<%= render 'form', post: Post.new %>
+<h3>Form to create a new post</h3>
+
+<%= form_for @post do |f| %>
+  <p>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  </p>
+
+  <p>
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+  </p>
+
+  <p>
+    <%= f.label "Select from existing categories" %>
+    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name%>
+  </p>
+  OR
+  <p>
+    <%= f.label "Create a new category"%>
+    <%= f.fields_for :categories, @post.categories.build do |categories_attributes| %>
+      <%= categories_attributes.text_field :name %>
+    <% end %>
+  </p>
+
+
+  <p>
+  <%= f.submit %>
+  </p>
+
+<% end %>

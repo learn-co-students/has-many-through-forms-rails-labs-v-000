@@ -1,1 +1,46 @@
+Title: <%= @post.title %>
+Content: <%= @post.content %>
+Categories:
+  <ul>
+  <% @post.categories.each do |category| %>
+    <li> <%= category.name %> </li>
+  <% end %>
+  </ul>
 
+<h2>Comments</h2>
+
+<% if @post.comments.empty? %>
+  <p>There are no comments yet</p>
+<% else %>
+  <% @post.comments.each do |comment| %>
+    <%= comment.user.username %> says: <%= comment.content %>
+  <% end %>
+<% end %>
+
+<h2>Write A Comment</h2>
+<%= form_for @comment do |f| %>
+  <%= f.hidden_field :post_id %>
+  <%= f.label "Write A Comment" %>
+  <%= f.text_field :content %>
+  <%= f.label "Select A User" %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Please Select' %>
+
+  <div class="new-user">
+    <%= f.fields_for :user, @user do |users_fields| %>
+      <%= f.label "Create New User" %>
+      <%= users_fields.text_field :username %>
+    <% end %>
+  </div>
+
+  <%= f.submit "Create Comment" %>
+<% end %>
+
+<h2> Users </h2>
+
+<% if @post.users.empty? %>
+  <p>There are no users yet</p>
+<% else %>
+  <% @post.users.uniq.each do |user| %>
+    <%= link_to user.username, user_path(user) %>
+  <% end %>
+<% end %>

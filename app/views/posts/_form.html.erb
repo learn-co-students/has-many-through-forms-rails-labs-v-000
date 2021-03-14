@@ -1,1 +1,31 @@
+<%= form_for @post do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <br></br>
+  <%= f.label :content %><br>
+  <%= f.text_area :content %>
+  <br></br>
+  Select Categories:
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+  <br></br>
+  Or Create New Category:
+  <br><br>
+  <%= f.fields_for :categories, post.categories.build do |categories_fields| %>
+    <%= categories_fields.label :name %>
+    <%= categories_fields.text_field :name %>
+  <% end %>
 
+  <%= f.submit %>
+
+<% end %>
+
+<h4>Create A New Comment:</h4>
+<%= form_for @post.comments.build do |f| %>
+  <%= f.text_area :content %>
+  <br>
+  Select username:
+  <%= f.collection_select :user_id, User.all, :id, :username, {:include_blank => "Select Username" }%>
+
+  <%= f.submit %>
+
+<% end %>

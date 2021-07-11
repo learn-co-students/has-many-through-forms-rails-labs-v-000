@@ -1,1 +1,42 @@
+<h1><%= @post.title %></h1>
 
+<p><%= @post.content %></p>
+
+Categories: <br>
+<ul>
+  <% @post.categories.each do |c| %>
+  <li><%= c.name %></li>
+  <% end %>
+</ul>
+
+Comments: <br>
+
+<ul>
+  <% @post.unique_users.each do |user| %>
+  <li> <%= link_to user.username, user_path(user) %> says:
+    <% user.comments.each do |comment| %>
+    <%= comment.content %>
+    <% end %>
+   </li>
+  <% end %>
+</ul>
+
+<!-- unique set of post's users for each of those display their username and then loop through the user's comments -->
+
+<%= form_for @post.comments.build do |f| %>
+
+  <%= f.label :content %>
+  <%= f.text_field :content %>
+
+  <%= f.label :user %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
+
+  <%= f.fields_for :user, User.new do |user_field| %>
+  <%= user_field.text_field :username %>
+  <% end %>
+
+  <%= f.hidden_field :post_id, :value => @post.id %>
+
+  <%= f.submit %>
+
+<% end %>
